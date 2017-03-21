@@ -14,5 +14,23 @@
 			</foreach> 
 		</where> 
 	</select>
+	
+	<insert id="orderInsertAll" parameterType="hashmap">
+		insert into orderInfo(onum, groupnum, id, pnum, category, pname, count, price, discount, orderdate,
+								image1, orderMessage, orderstate)
+		values(orderInfo_seq.nextval, orderInfo_groupseq.currval, #{id}, #{pnum}, #{category}, #{pname}, 
+				#{count}, #{price}, #{discount}, sysdate, #{image1}, '메세지', '입금대기중')
+	</insert>
+	
+	<insert id="orderInsertOne" parameterType="hashmap">
+		insert into orderInfo(onum, groupnum, id, pnum, category, pname, count, price, discount, orderdate,
+								image1, orderMessage, orderstate)
+		values(orderInfo_seq.nextval, orderInfo_groupseq.currval, #{id}, #{pnum}, #{category}, #{pname}, 
+					#{count}, #{price}, #{discount}, sysdate, #{image1}, #{orderMessage}, '입금대기중')
+	</insert>
+	
+	<select id="seqNextVal" resultType="int">
+		select orderInfo_groupseq.nextval from dual
+	</select>
 
 </mapper>

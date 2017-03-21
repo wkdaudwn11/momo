@@ -26,8 +26,9 @@
 </style>
 
 <script>
+
+	//체크를하면 회원정보의 값을 배송지정보에 넣음.
 	function same(){
-		
 		var sameCheck = document.getElementById("sameCheck");
 		var name = document.getElementById('name');
 		var tel = document.getElementById('tel');
@@ -51,8 +52,42 @@
 			addr1.value = "";
 			addr2.value = "";
 		}
+	}//same()
+	
+	function checkOrder(orderForm){
+		var inputCheck = true;
 		
-	}
+		var name = document.getElementById('name').value;
+		var tel = document.getElementById('tel').value;
+		var post1 = document.getElementById('post1').value;
+		
+		if(name == null || name == ""){
+			inputCheck = false;
+			alert('이름을 입력해주세요.');
+			name.focus();
+		}else if(tel == null || tel == ""){
+			inputCheck = false;
+			alert('연락처 입력해주세요.');
+			tel.focus();
+		}else if(post1 == null || post1 == ""){
+			inputCheck = false;
+			alert('주소를 입력해주세요.');
+			post1.focus();
+		}
+		
+		if(inputCheck == true){
+			orderForm.action="OrderSheetServlet";
+			orderForm.submit();
+		}
+	}//checkOrder(orderForm)
+	
+	//주문취소 버튼을 누르면 이전 페이지로 이동
+	function backPage(orderForm){
+		if(confirm('정말 주문을 취소하시겠습니까?') == true){
+			orderForm.action = "${sessionScope.prevPage}";
+			orderForm.submit();
+		}
+	}//backPage(orderForm)
 </script>
 
 </head>
@@ -79,37 +114,78 @@
 				    <th width="100">적립금</th> 
 				    <th width="100">가   격</th>
 				</tr>
-				<c:forEach var="cartDTO" items="${cartList}" varStatus="i">
+				<c:if test="${cartList != null}">
+					<c:forEach var="cartDTO" items="${cartList}" varStatus="i">
+						<tr height="30" style="border-bottom:1px dotted #ddd;">
+							<td  width="50" align="center" >
+								<b>${i.count + x}</b>
+							</td>
+						    <td  width="50" align="center">
+						    	<c:if test="${cartDTO.category == 'bedroom'}">				           
+							    	<img src="http://localhost:8090/momo/images/bedroom/${cartDTO.image1}.JPG" width="50" height="50">
+							    </c:if>
+						    </td>
+		 					<td width="200" align="center">
+		 						<c:if test="${cartDTO.category == 'bedroom'}">
+							    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${cartDTO.pnum}">
+							    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
+							    	</a> 
+							    </c:if>
+		 					</td>			    
+						    <td width="100" align="center">
+								${cartDTO.count}
+							</td>
+							<td width="100" align="center">
+						    	0
+							</td>
+						    <td width="100" align="center">
+								<b><font color="red"><del><fmt:formatNumber value="${cartDTO.price * cartDTO.count}" type="currency" /></del></font><br />
+								
+								<font color="#3f4993"><fmt:formatNumber value="${(cartDTO.price * (1.0 - (cartDTO.discount/100))) * cartDTO.count}" type="currency" /></font></b>
+								<c:set var="totalPrice" value="${totalPrice + ((cartDTO.price * (1.0 - (cartDTO.discount/100))) * cartDTO.count)}" />
+							</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+				<c:if test="${cartList == null}">
+					<input type="hidden" name="pnum" value="${pnum}">
+					<input type="hidden" name="category" value="${category}">
+					<input type="hidden" name="pname" value="${pname}">
+					<input type="hidden" name="count" value="${count}">
+					<input type="hidden" name="price" value="${price}">
+					<input type="hidden" name="discount" value="${discount}">
+					<input type="hidden" name="image1" value="${image1}">
+					
 					<tr height="30" style="border-bottom:1px dotted #ddd;">
 						<td  width="50" align="center" >
-							<b>${i.count + x}</b>
+							<b>1</b>
 						</td>
 					    <td  width="50" align="center">
-					    	<c:if test="${cartDTO.category == 'bedroom'}">				           
-						    	<img src="http://localhost:8090/momo/images/bedroom/${cartDTO.image1}.JPG" width="50" height="50">
+					    	<c:if test="${category == 'bedroom'}">				           
+						    	<img src="http://localhost:8090/momo/images/bedroom/${image1}.JPG" width="50" height="50">
 						    </c:if>
 					    </td>
 	 					<td width="200" align="center">
-	 						<c:if test="${cartDTO.category == 'bedroom'}">
-						    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${cartDTO.pnum}">
-						    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
+	 						<c:if test="${category == 'bedroom'}">
+						    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${pnum}">
+						    		<b>${pname}</b>&nbsp;&nbsp;
 						    	</a> 
 						    </c:if>
 	 					</td>			    
 					    <td width="100" align="center">
-							${cartDTO.count}
+							${count}
 						</td>
 						<td width="100" align="center">
 					    	0
 						</td>
 					    <td width="100" align="center">
-							<b><font color="red"><del><fmt:formatNumber value="${cartDTO.price * cartDTO.count}" type="currency" /></del></font><br />
+							<b><font color="red"><del><fmt:formatNumber value="${price * count}" type="currency" /></del></font><br />
 							
-							<font color="#3f4993"><fmt:formatNumber value="${(cartDTO.price * (1.0 - (cartDTO.discount/100))) * cartDTO.count}" type="currency" /></font></b>
-							<c:set var="totalPrice" value="${totalPrice + ((cartDTO.price * (1.0 - (cartDTO.discount/100))) * cartDTO.count)}" />
+							<font color="#3f4993"><fmt:formatNumber value="${(price * (1.0 - (discount/100))) * count}" type="currency" /></font></b>
+							<c:set var="totalPrice" value="${totalPrice + ((price * (1.0 - (discount/100))) * count)}" />
 						</td>
 					</tr>
-				</c:forEach>
+				</c:if>
 				<tr height="30" style="border-bottom:1px solid black;">
 					<td colspan="6" align="center">
 						<b><font size="2">결제금액:</font><font color="#3f4993"><fmt:formatNumber value="${totalPrice}" type="currency" /></font></b>
@@ -126,7 +202,7 @@
 					<td width="200">
 						<input type="text" name="buyername" id="buyername" value="${memberDTO.name}" style="height:30px;" readonly>
 					</td>
-					<td width="100" align="center">휴 대 전 화</td>
+					<td width="100" align="center">연 락 처</td>
 					<td width="200">
 						<input type="text" name="buyertel" id="buyertel" value="${memberDTO.tel}" style="height:30px;" readonly>
 					</td>
@@ -134,10 +210,10 @@
 				<tr height="30" style="border-bottom:1px solid black;">
 					<td width="100" align="center">주 소</td>
 					<td colspan="3">
-						<input type="text" readonly name="buyerpost1" id="buyerpost1" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post1}"> - 
-                        <input type="text" readonly name="buyerpost2" id="buyerpost2" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post2	}"><br>
-						<input name="addr1" type="text" id="buyeraddr1" placeholder="도로명주소" style="width: 350px; height:30px;" value="${memberDTO.addr1}" readonly><br>
-						<input name="addr2" type="text" id="buyeraddr2" placeholder="지번주소" style="width: 350px; height:30px;" value="${memberDTO.addr2}" readonly>
+						<input type="text" name="buyerpost1" id="buyerpost1" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post1}" readonly> - 
+                        <input type="text" name="buyerpost2" id="buyerpost2" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post2}" readonly><br>
+						<input type="text" name="buyeraddr1" id="buyeraddr1" placeholder="도로명주소" style="width: 350px; height:30px;" value="${memberDTO.addr1}" readonly><br>
+						<input type="text" name="buyeraddr2" id="buyeraddr2" placeholder="지번주소" style="width: 350px; height:30px;" value="${memberDTO.addr2}" readonly>
 					</td>
 				</tr>
 			</table>
@@ -153,11 +229,11 @@
 				<tr height="30" style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
 					<td width="100" align="center">성 명</td>
 					<td width="200">
-						<input type="text" name="name" id="name" value="" style="height:30px;" placeholder="성명" readonly>
+						<input type="text" name="name" id="name" value="" style="height:30px;" placeholder="성명">
 					</td>
-					<td width="100" align="center">휴 대 전 화</td>
+					<td width="100" align="center">연락처</td>
 					<td width="200">
-						<input type="text" name="tel" id="tel" value="" style="height:30px;" placeholder="휴대폰번호" readonly>
+						<input type="text" name="tel" id="tel" value="" style="height:30px;" placeholder="연락처">
 					</td>
 				</tr>
 				<tr height="30" style="border-bottom:1px dotted #ddd;">
@@ -174,7 +250,7 @@
 						</span>
 						<span style="line-height: 10%;"><br></span>
 						<input type="text" name="addr1" id="addr1" placeholder="도로명주소" style="width: 350px; height:30px;" value="" readonly><br>
-						<input type="text" name="addr2" id="addr2" placeholder="지번주소" style="width: 350px; height:30px;" value="">
+						<input type="text" name="addr2" id="addr2" placeholder="지번주소" style="width: 350px; height:30px;" value="" readonly>
 					</td>
 				</tr>
 				<tr height="30" style="border-bottom:1px solid black;">
@@ -186,8 +262,14 @@
 				<tr>
 					<td colspan="4" align="center">
 						<br>
-						<input type="image" src="http://localhost:8090/momo/images\cart/orderBtn.jpg" onclick="checkOrder(cartForm)">&nbsp;
-						<input type="image" src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg" onclick="checkOrder(cartForm)">
+						<!-- <input type="image" src="http://localhost:8090/momo/images\cart/orderBtn.jpg" onclick="checkOrder()">&nbsp; -->
+						<a href="javascript:checkOrder(orderForm)">
+							<img src="http://localhost:8090/momo/images\cart/orderBtn.jpg">
+						</a>
+						<a href="javascript:backPage(orderForm)">
+							<img src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg">
+						</a>
+						<!-- <input type="image" src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg" onclick="backPage(orderForm)"> -->
 					</td>
 				</tr>
 			</table>

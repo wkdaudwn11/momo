@@ -116,6 +116,8 @@ references member(id) on delete cascade;
 --주문조회 테이블
 create table orderInfo(
  onum          	number(4)     	constraint	order_onum_pk	primary key,  --주문번호
+ groupnum       number(4)     	not null,           --그룹번호
+ id            	varchar2(16)  	not null,           --회원아이디
  pnum          	number(4)     	not null,           --상품번호
  category      	varchar2(20)  	not null,           --해당 상품의 테이블명
  pname         	varchar2(50)  	not null,           --상품명
@@ -124,17 +126,11 @@ create table orderInfo(
  discount      	number(3)     	not null,           --할인율
  orderdate     	date          	default sysdate,    --주문 날짜
  image1        	varchar2(100) 	default null,       --상품사진1
- username      	varchar2(10)  	not null,           --회원명
- id            	varchar2(16)  	not null,           --회원아이디
- tel           	varchar2(12)  	not null,           --회원전화번호
- post1		   	varchar2(3)	  	not null,           --우편번호1
- post2		   	varchar2(3)		not null,           --우편번호2
- addr1		   	varchar2(500)	not null,           --상세주소1
- addr2		   	varchar2(500)	not null,           --상세주소2
- orderstate    	varchar2(20)	default '입금대기중',	--주문상태
- orderMessage	varchar2(200)                     	--주문메세지
+ orderMessage	varchar2(200),                     	--주문메세지
+ orderstate    	varchar2(20)	default '입금대기중'	--주문상태
 );
 create sequence orderInfo_seq minvalue 0;
+create sequence orderInfo_groupseq;
 
 alter table orderInfo add constraint orderInfo_id_fk foreign key(id)
 references member(id) on delete cascade;

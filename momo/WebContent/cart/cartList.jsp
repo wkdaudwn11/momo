@@ -96,7 +96,7 @@
 		}
 		
 		if(count >= 1){
-			cartForm.action="OrderSheetServlet";
+			cartForm.action="OrderSheetUIServlet";
 			cartForm.submit();
 		}else{
 			alert('최소 1개 이상 체크해주세요.');
