@@ -63,6 +63,10 @@
 	    }//end xxx
 		//Ajax 끝
 		
+		function result(){
+	    	
+	    }
+		
 	</script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
