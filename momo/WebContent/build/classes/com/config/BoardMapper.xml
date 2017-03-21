@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.BoardMapper">
+
+	<select id="boardSearchDescList" resultType="BoardDTO" parameterType="hashmap">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+  		  FROM board
+  		<if test="searchName == 'title'">
+			where title LIKE '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchName == 'author'">
+			where author LIKE '%'||#{searchValue}||'%'
+		</if>
+		 ORDER BY readcnt desc
+	</select>
+
+	<select id="boardDescList" resultType="BoardDTO">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+  		  FROM board
+		 ORDER BY readcnt desc
+	</select>
+	
+	<select id="boardSearchAscList" resultType="BoardDTO" parameterType="hashmap">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+  		  FROM board
+  		<if test="searchName == 'title'">
+			where title LIKE '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchName == 'author'">
+			where author LIKE '%'||#{searchValue}||'%'
+		</if>
+		 ORDER BY readcnt asc
+	</select>
+	
+	<select id="boardAscList" resultType="BoardDTO">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+  		  FROM board
+		 ORDER BY readcnt asc
+	</select>
+
+	<select id="boardList" resultType="BoardDTO">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+		  FROM board 
+		 ORDER BY num DESC
+	</select>
+	
+	<select id="boardSearchList" resultType="BoardDTO" parameterType="hashmap">
+		SELECT num, author, title, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+		  FROM board 
+		<if test="searchName == 'title'">
+			where title LIKE '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchName == 'author'">
+			where author LIKE '%'||#{searchValue}||'%'
+		</if>
+		 ORDER BY num DESC
+	</select>
+	
+	<select id="boardRetrieve" parameterType="int" resultType="BoardDTO">
+		SELECT num, author, title, content, to_char(writeday, 'YYYY/MM/dd') writeday, readcnt 
+		  FROM board 
+		 WHERE num=#{num}
+	</select>
+	
+	<update id="boardReadcnt" parameterType="int">
+		update board set readcnt = readcnt + 1
+		 where num=#{num}
+	</update>
+	
+	<insert id="boardWrite" parameterType="BoardDTO">
+		INSERT INTO board(num, author, title, content)
+		VALUES(board_seq.nextval, #{author}, #{title}, #{content})
+	</insert>
+	
+	<delete id="boardDelete" parameterType="int">
+		delete from board 
+		 where num=#{num}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="BoardDTO">
+		update board set author=#{author}, title=#{title}, content=#{content}
+		 where num=#{num}
+	</update>
+	
+	<select id="boardSearch" parameterType="hashmap" resultType="BoardDTO">
+		select num,author,title, to_char(writeday,'YYYY/MM/dd') writeday , readcnt
+		from board
+		<if test="searchName == 'title'">
+			where title LIKE '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchName == 'author'">
+			where author LIKE '%'||#{searchValue}||'%'
+		</if>
+		order by num desc
+	</select>
+
+	<select id="totalRecord" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
+	<select id="totalSearchRecord" parameterType="hashmap" resultType="int">
+		select count(*)
+		from board
+		<if test="searchName == 'title'">
+			where title LIKE '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchName == 'author'">
+			where author LIKE '%'||#{searchValue}||'%'
+		</if>
+	</select>
+
+</mapper>

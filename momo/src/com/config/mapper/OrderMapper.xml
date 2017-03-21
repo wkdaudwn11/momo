@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.momo.OrderMapper">
+
+	<!-- 장바구니에서 체크된 물품들의 정보를 가져오는 쿼리 -->
+	<select id="cartList" parameterType="arraylist" resultType="CartDTO"> 
+		select cnum, pnum, category, id, name, count, price, discount, to_char(cartdate, 'YYYY-MM-dd') cartdate, image1
+		  from cart 
+		<where> cnum IN 
+			<foreach item="xxx" index="i" collection="list" open="(" separator="," close=")"> 
+				#{xxx} 
+			</foreach> 
+		</where> 
+	</select>
+
+</mapper>

@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {margin: 0; padding: 0;}
+
+body,th {font-family: "굴림체"; font-size: 1.25em; line-height: 150%;}
+h1 {width:100%; text-align:center; float: left; margin-top:0.625em;}
+h6 {color: #7777ca;}
+
+#wrap {width: 100%;}
+
+#header {width:100%; height:11em; overflow: hidden; margin: 0 auto; background-color: #13132f;}
+
+.logo{height: 20%; text-align: center;}
+
+.logoEng {color:#efefff; text-decoration: none; font-size: 3em; text-align: center;}
+.logoKor {color:#7777ca; text-decoration: none; font-size: 1em; text-align: center;}
+
+.login {height: 30%;}
+.login ul {width: 30%; list-style:none; overflow: hidden; margin: 0 auto; margin-bottom: 1.25em; padding-left: 0;}
+.login ul li {width: 16.6%; text-align: center; float: left; margin-top: 0.625em; font-size: 0.7em;}
+.login_black{color: #efefff; text-decoration: none;}
+.login_color{color: #ff0000; text-decoration: none;}
+.login ul li a:hover{color: #EDA900; text-decoration: underline;}
+
+
+.menu {width: 70%; height: 50%; list-style: none; overflow: hidden; margin: 0 auto;}
+.menu li {float: left; width: 16.6%; text-align: center; font-weight: bold;}
+
+#visual {width: 100%; height: 14%; border-width: 0.063em;}
+
+#content_1 {width: 70%; height: 25%; overflow: hidden; margin: 0 auto;}
+.content1_left{float: left; width: 60%; background-color: red;}
+
+#content_2 {width: 70%; height: 25%; overflow: hidden; margin: 0 auto;}
+.contents_2_product_images {width: 100%; list-style: none; overflow: hidden; padding-left: 10px;}
+.contents_2_product_images li{width: 25%; heigth: 15.625em; float: left;}
+
+#content_3 {width: 70%; height: 25%; overflow: hidden; margin: 0 auto;}
+.contents_3_myhome_images {width: 100%; list-style: none; overflow: hidden; padding-left: 0.625em;}
+.contents_3_myhome_images li{width: 25%; heigth: 15.625em; float: left;}
+
+
+#footer {width: 100%; height: 4.5em; overflow: hidden; margin: 0 auto; text-align: center; background-color: #13132f;}
+
+
+
+
+
+/*슬라이드*/		
+ cycle-slideshow, .cycle-slideshow * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.cycle-slideshow { width: 100%; min-width: 100%; max-width: 100%; margin: 2px auto; padding: 2; position: relative;}
+
+.cycle-slideshow div.slide { width: 100%; height: 100% }
+.cycle-slideshow img { 
+    /* 
+    some of these styles will be set by the plugin (by default) but setting them here
+    helps avoid flash-of-unstyled-content
+    */
+    position: absolute; top: 0; left: 0;
+    width: 100%; padding: 0; display: block;
+}
+/* in case script does not load */
+.cycle-slideshow img:first-child {
+    position: static; z-index: 100;
+}
+
+.cycle-pager { 
+    text-align: center; width: 100%; z-index: 500; position: absolute; top: 10px; overflow: hidden;
+}
+.cycle-pager span { 
+    font-family: arial; font-size: 50px; width: 16px; height: 16px; 
+    display: center; inline-block; color: #ddd; cursor: pointer; 
+}
+.cycle-pager span.cycle-pager-active { color: #D69746; }
+.cycle-pager > * { cursor: pointer;}
+
+/* display paused text on top of paused slideshow */
+.cycle-paused:after {
+    content: 'Paused'; color: white; background: black; padding: 10px;
+    z-index: 500; position: absolute; top: 10px; right: 10px;
+    border-radius: 10px;
+    opacity: .5; filter: alpha(opacity=50);
+}
+
+.swiper-container-mainSponsor { position:relative; width:1400px; padding:0 10px; margin:0; overflow:hidden; }
+.swiper-slide { width:100%;font-size:15px;
+display: -webkit-box;display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: center;-ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit-align-items: center;align-items: center; }
+.swiper-button-prev, .swiper-button-next{
+	top:28%;
+	right:10px;
+}
+/*슬라이드*/

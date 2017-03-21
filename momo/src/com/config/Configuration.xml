@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+	<properties resource="com/config/jdbc.properties" />
+	
+	<typeAliases>
+		<typeAlias type="com.entity.member.MemberDTO" alias="MemberDTO"/>
+		
+		<typeAlias type="com.entity.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>
+		<typeAlias type="com.entity.freeboard.FreeBoardRepleDTO" alias="FreeBoardRepleDTO"/>
+		 
+		<typeAlias type="com.entity.bedroom.BedroomDTO" alias="BedroomDTO"/>
+		
+		<typeAlias type="com.entity.cart.CartDTO" alias="CartDTO"/>
+		
+		<typeAlias type="com.entity.order.OrderDTO" alias="OrderDTO"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.userid}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/config/mapper/MemberMapper.xml" />
+		<mapper resource="com/config/mapper/FreeBoardMapper.xml" />
+		<mapper resource="com/config/mapper/BedroomMapper.xml" />
+		<mapper resource="com/config/mapper/CartMapper.xml" />
+		<mapper resource="com/config/mapper/OrderMapper.xml" />
+	</mappers>
+	
+</configuration>

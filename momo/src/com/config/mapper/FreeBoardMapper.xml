@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.momo.BoardMapper">
+
+	<!-- 게시글 수정 -->
+	<update id="freeBoardUpdateByNum" parameterType="HashMap">
+		update freeBoard
+		set title=#{title},content=#{content}
+		where fnum=#{fnum}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="freeBoardDeleteByNum" parameterType="int">
+		delete from freeBoard where fnum=#{fnum}
+	</delete>
+	
+	<!-- 게시글 goodCnt 저장 -->
+	<update id="updateGoodCount" parameterType="int">
+		update freeBoard
+		set goodCnt = goodCnt+1
+		where fnum=#{fnum}
+	</update>
+	
+	<!-- 게시글 추천수 repleCnt 저장 -->
+	<update id="repleCountUpdate" parameterType="HashMap">
+		update freeBoard
+		set repleCnt = #{repleCount}
+		where fnum = #{fnum}
+	</update>
+
+	<!-- 조회수 증가 -->
+	<update id="freeBoardReadCnt" parameterType="int">
+		update freeBoard
+		set readCnt = readCnt +1
+		where fnum=#{fnum}
+	</update>
+
+	<!-- 게시글 상세보기  -->
+	<select id="freeBoardDetail" resultType="FreeBoardDTO" parameterType="int">
+		select fnum,author,title,content,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt,repleCnt
+		from freeBoard
+		where fnum=#{fnum}
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="freeBoardWrite" parameterType="FreeBoardDTO">
+		insert into freeBoard(fnum,author,title,content,writeday,readCnt,goodCnt,repleCnt)
+		values(freeboard_seq.nextval,#{author},#{title},#{content},sysdate,0,0,0)
+	</insert>
+	
+	<!-- 자유게시판 전체레코드 수 -->
+	<select id="freeBoardListCnt" resultType="int" parameterType="HashMap">
+		select count(*) from freeBoard
+		<if test="searchType =='title' ">
+			where title Like '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchType == 'author' ">
+			where author Like '%'||#{searchValue}||'%'
+		</if>
+	</select>
+	
+	 <!-- 검색 리스트-->
+	 <select id="freeBoardSearchList" resultType="FreeBoardDTO" parameterType="HashMap">
+		select fnum,author,title,content,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt,repleCnt
+		from freeBoard
+		<if test="searchType =='title' ">
+			where title Like '%'||#{searchValue}||'%'
+		</if>
+		<if test="searchType == 'author' ">
+			where author Like '%'||#{searchValue}||'%'
+		</if>
+		order by fnum desc
+	</select>
+	
+	<!-- 자유게시판 전체 리스트 -->
+	<select id="freeBoardList" resultType="FreeBoardDTO">
+		select fnum,author,title,content,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt,repleCnt
+		from freeBoard
+		order by fnum desc
+	</select>
+	
+	<!-- 해당 아이디가 게시글을 추천한 기록이 있는지 확인하는 쿼리 -->
+	<select id="selectRecommendRecord" resultType="int" parameterType="HashMap">
+		select count(*) from recommendRecord where fnum=#{fnum} and id=#{id}
+	</select>
+	
+	<!-- 추천기록 에 해당 아이디와 게시글을 추가하는 쿼리 -->
+	<insert id="insertRecommendRecord" parameterType="HashMap">
+		insert into recommendRecord(fnum,id)
+		values(#{fnum},#{id})
+	</insert>
+	
+	<!-- 해당 게시물의 댓글 갯수를 반환해주는 쿼리 -->
+	<select id="repleCount" parameterType="int" resultType="int">
+		select count(*) from freeBoardReple where fnum=#{fnum} and reLevel=0
+	</select>
+	
+	<!-- 해당 게시물의 댓글 리스트를 반환해주는 쿼리 -->
+	<select id="repleList" parameterType="int" resultType="FreeBoardRepleDTO">
+		select ref,step,reLevel,frnum, fnum, author, content, to_char(writeday, 'YYYY-MM-dd') writeday
+		  from freeBoardReple
+		 where fnum=#{fnum}
+		order by ref desc,step asc
+	</select>
+	
+	<!-- 부모글 정보 get -->
+	<select id="searchReple" parameterType="int" resultType="FreeBoardRepleDTO">
+		select ref,step,reLevel,frnum,fnum,author,content,to_char(writeday,'yyyy-MM-dd') as "writeday"
+		from freeBoardReple
+		where frnum=#{frnum}
+	</select>
+	
+	<!-- 댓글 테이블 step 업데이트 -->
+	<update id="updateStep" parameterType="HashMap">
+		update freeBoardReple
+		<set>
+			<if test="handle == 'insert'">
+				step = step+1
+			</if>
+		 	<if test="handle == 'delete'">
+		 		step = step-1 
+		 	</if>
+		 </set>
+		where step > #{step}
+	</update>
+	
+	<!-- 해당 게시물에 댓글을 삽입하는 쿼리 -->
+	<insert id="repleWrite" parameterType="FreeBoardRepleDTO">
+		insert into freeBoardReple(frnum,ref,pfrnum,fnum,step,reLevel,author, content)
+		<if test="frnum == null">
+			values (freeBoardReple_seq.nextval,freeBoardReple_seq.currval,freeBoardReple_seq.currval,#{fnum},#{step},#{reLevel},#{author},#{content})
+		</if>
+		<if test="frnum != null">
+			values(freeBoardReple_seq.nextval,#{ref},#{pfrnum},#{fnum},#{step}+1,#{reLevel}+1,#{author},#{content})
+		</if>
+	</insert>
+	
+	<!-- 댓글 삭제하는 쿼리 -->
+	<delete id="repleDelete" parameterType="int">
+		delete from freeBoardReple where frnum=#{frnum}
+	</delete>
+	
+</mapper>
