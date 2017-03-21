@@ -1,6 +1,7 @@
 package com.controller.order;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,47 +15,54 @@ import javax.servlet.http.HttpSession;
 
 import com.entity.cart.CartDTO;
 import com.entity.member.MemberDTO;
+import com.service.CartService;
 import com.service.OrderService;
 
-@WebServlet("/OrderSheetServlet")
-public class OrderSheetServlet extends HttpServlet {
+@WebServlet("/OrderSheetUIServlet")
+public class OrderSheetUIServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 		String target = "";
 		
-		List<CartDTO> list = (List<CartDTO>)session.getAttribute("cartList");
+		String[] checkCart = request.getParameterValues("checkCart");
 		
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
 		String pnum = request.getParameter("pnum");
 		String category = request.getParameter("category");
 		String pname = request.getParameter("pname");
-		String count = request.getParameter("count");
+		String count = request.getParameter("productCnt");
 		String price = request.getParameter("price");
 		String discount = request.getParameter("discount");
 		String image1 = request.getParameter("image1");
-		String orderMessage = request.getParameter("orderMessage");
+		
+		List<CartDTO> list = null;
+		
+		HttpSession session = request.getSession();
 		
 		try{
-			if(memberDTO != null){
+			if(session.getAttribute("login") != null){	// 로그인 했을 경우
+				MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
 				OrderService service = new OrderService();
-				if(list != null){ // 카트에서 주문을 한 경우 (여러 개) 
-					service.orderInsertAll(list);
-				}else{ // 즉시구매로 주문을 한 경우 (한 개)
-					HashMap map = new HashMap();
-					map.put("id", memberDTO.getId());
-					map.put("pnum", pnum);
-					map.put("category", category);
-					map.put("pname", pname);
-					map.put("count", count);
-					map.put("price", price);
-					map.put("discount", discount);
-					map.put("image1", image1);
-					map.put("orderMessage", orderMessage);
+				
+				if(pnum == null){	//장바구니에서 넘어온 경우
+					list = service.cartList(Arrays.asList(checkCart));
+					request.setAttribute("cartList", list);
+					session.setAttribute("cartList", list);
 					
-					service.orderInsertOne(map);
+				}else{	//즉시구매로 넘어 온 경우
+					request.setAttribute("pnum", pnum);
+					request.setAttribute("category", category);
+					request.setAttribute("pname", pname);
+					request.setAttribute("count", count);
+					request.setAttribute("price", price);
+					request.setAttribute("discount", discount);
+					request.setAttribute("image1", image1);
 				}
+				
+				request.setAttribute("memberDTO", memberDTO);
+				
+				target = "order/orderSheet.jsp";
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");
 				target = "LoginUIServlet";

@@ -33,7 +33,9 @@ public class CartAddServlet extends HttpServlet {
 		if(memberDTO != null){
 			CartService service = new CartService();
 			service.addCart(category, Integer.parseInt(pnum), Integer.parseInt(productCount), memberDTO.getId());
-			target = "BedRoomDetailServlet?bnum="+pnum;
+			if(category.equals("bedroom")){
+				target = "BedRoomDetailServlet?bnum="+pnum;
+			}
 			request.setAttribute("addCartSuccess", "장바구니에 담겼습니다! 장바구니로 이동하시겠습니까?");
 		}else{
 			session.setAttribute("prevPage", "BedRoomDetailServlet?bnum="+pnum);

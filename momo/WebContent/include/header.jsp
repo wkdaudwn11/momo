@@ -77,7 +77,7 @@
 	           	<li><a class="login_color" href="http://localhost:8090/momo/JoinUIServlet">회원가입</a></font></li>
 	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
 	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="">마이페이지</a></li>
+	            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
 				<li><a class="login_black" href="">상품문의</a></li>
 			</ul>
 		</div>	<!-- login_div -->
@@ -91,7 +91,7 @@
 	           	<li><a class="login_color" href="">정보수정</a></font></li>
 	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
 	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="">마이페이지</a></li>
+	            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
 				<li><a class="login_black" href="">상품문의</a></li>
 			</ul>
 		</div>	<!-- login_div -->
