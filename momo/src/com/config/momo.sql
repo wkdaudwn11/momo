@@ -83,6 +83,8 @@ create table bedroom(
   image2    varchar2(100)   default null  --상품사진2
 );
 
+create sequence bedroom_seq minvalue 0;
+
 -- LivingRoom  테이블 
 create table livingroom(
   lnum      number(4)       constraint livingroom_lnum_pk primary key,  --상품번호
@@ -96,7 +98,37 @@ create table livingroom(
   image2    varchar2(100)   default null  --상품사진2
 );
 
-create sequence bedroom_seq minvalue 0;
+create sequence livingroom_seq minvalue 0;
+
+-- Kitchen  테이블 
+create table Kitchen(
+  knum      number(4)       constraint kitchen_knum_pk primary key,  --상품번호
+  category  varchar2(2)     not null,     --상품분류
+  name      varchar2(50)    not null,     --상품명
+  content   varchar2(4000)  not null,     --상품상세내용
+  price     number(9)       not null,     --상품가격
+  discount  number(3)       not null,     --할인율
+  buycount  number(3)       default 0,    --판매횟수
+  image1    varchar2(100)   default null, --상품사진1
+  image2    varchar2(100)   default null  --상품사진2
+);
+
+create sequence kitchen_seq minvalue 0;
+
+-- ChildrenRoom  테이블 
+create table ChildrenRoom(
+  cnum      number(4)       constraint childrenRoom_cnum_pk primary key,  --상품번호
+  category  varchar2(2)     not null,     --상품분류
+  name      varchar2(50)    not null,     --상품명
+  content   varchar2(4000)  not null,     --상품상세내용
+  price     number(9)       not null,     --상품가격
+  discount  number(3)       not null,     --할인율
+  buycount  number(3)       default 0,    --판매횟수
+  image1    varchar2(100)   default null, --상품사진1
+  image2    varchar2(100)   default null  --상품사진2
+);
+
+create sequence childrenRoom_seq minvalue 0;
 
 --장바구니 테이블
 create table cart(
