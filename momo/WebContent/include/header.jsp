@@ -111,14 +111,14 @@
 				<img src="http://localhost:8090/momo/images/menu/LivingRoom.jpg" id="LivingRoom" />
 			</a>
 		</li>
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- Kitchen-->
+			<a href="http://localhost:8090/momo/KitchenListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('Kitchen','','http://localhost:8090/momo/images/menu/Kitchen_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/Kitchen.jpg" id="Kitchen" />
 			</a>
 		</li>
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- ChildrenRoom -->
+			<a href="http://localhost:8090/momo/ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('ChildrenRoom','','http://localhost:8090/momo/images/menu/ChildrenRoom_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/ChildrenRoom.jpg" id="ChildrenRoom" />
 			</a>
