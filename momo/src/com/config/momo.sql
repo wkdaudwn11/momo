@@ -36,21 +36,12 @@ create sequence freeBoard_seq minvalue 0;
 
 insert into freeboard values(freeBoard_seq.nextval, 'qwe', '장명주', '캬캬', sysdate, 10, 10);
 
---자유게시판 댓글 테이블 (기존꺼)
-Create table freeBoardReple(
- frnum 	  number(4)		    constraint freeBoard_frnum_pk primary key,--댓글번호
- fnum     number(4)       	not null,       --게시판번호 (fk)
- author 	varchar2(15)	not null,		--작성자
- title	  varchar2(50)	  	not null,		--제목
- content	varchar2(4000)	not null,	    --내용
- writeday	date            default sysdate --작성일
-);
 
 --자유게시판 댓글 테이블 (댓글의 댓글 추가)
 Create table freeBoardReple(  
- relevel	number(4) 		default 0,		-- 댓글의 깊이  현재 달고있는 댓글의 레벨 +1 
- ref 		number(4)		not null, 		-- 그룹  frnum 가져와서 세팅.
- step 		number(4) 		default 0,      -- 공백 갯수
+ relevel	number(4) 		default 0,		-- 댓글의 깊이 
+ ref 		number(4)		not null, 		-- 그룹  
+ step 		number(4) 		default 0,      -- 출력 순서
  pfrnum 	number(4)  		not null , 		-- 부모의 고유넘버
  frnum 	  	number(4)		constraint freeBoardReple_frnum_pk primary key,	--댓글번호, 댓글의 고유번호 ref
  fnum     	number(4)       not null,       --게시판번호 (fk)
@@ -82,6 +73,19 @@ create table recommendRecord(
 --침실가구 테이블
 create table bedroom(
   bnum      number(4)       constraint bedroom_bnum_pk primary key,  --상품번호
+  category  varchar2(2)     not null,     --상품분류
+  name      varchar2(50)    not null,     --상품명
+  content   varchar2(4000)  not null,     --상품상세내용
+  price     number(9)       not null,     --상품가격
+  discount  number(3)       not null,     --할인율
+  buycount  number(3)       default 0,    --판매횟수
+  image1    varchar2(100)   default null, --상품사진1
+  image2    varchar2(100)   default null  --상품사진2
+);
+
+-- LivingRoom  테이블 
+create table livingroom(
+  lnum      number(4)       constraint livingroom_lnum_pk primary key,  --상품번호
   category  varchar2(2)     not null,     --상품분류
   name      varchar2(50)    not null,     --상품명
   content   varchar2(4000)  not null,     --상품상세내용

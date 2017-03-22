@@ -105,8 +105,8 @@
 			</a>
 		</li>
 		
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- livingroom -->
+			<a href="http://localhost:8090/momo/LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('LivingRoom','','http://localhost:8090/momo/images/menu/LivingRoom_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/LivingRoom.jpg" id="LivingRoom" />
 			</a>
