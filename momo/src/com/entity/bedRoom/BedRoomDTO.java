@@ -1,6 +1,6 @@
-package com.entity.bedroom;
+package com.entity.bedRoom;
 
-public class BedroomDTO {
+public class BedRoomDTO {
 	private int bnum;
 	private String category;
 	private String name;
@@ -11,11 +11,11 @@ public class BedroomDTO {
 	private String image1;
 	private String image2;
 	
-	public BedroomDTO() {
+	public BedRoomDTO() {
 		super();
 	}
 
-	public BedroomDTO(int bnum, String category, String name, String content, int price, int discount, int buycount,
+	public BedRoomDTO(int bnum, String category, String name, String content, int price, int discount, int buycount,
 			String image1, String image2) {
 		super();
 		this.bnum = bnum;
@@ -31,7 +31,7 @@ public class BedroomDTO {
 
 	@Override
 	public String toString() {
-		return "BedroomDTO [bnum=" + bnum + ", category=" + category + ", name=" + name + ", content=" + content
+		return "BedRoomDTO [bnum=" + bnum + ", category=" + category + ", name=" + name + ", content=" + content
 				+ ", price=" + price + ", discount=" + discount + ", buycount=" + buycount + ", image1=" + image1
 				+ ", image2=" + image2 + "]";
 	}

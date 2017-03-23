@@ -1,4 +1,4 @@
-package com.controller.livingroom;
+package com.controller.livingRoom;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.entity.livingroom.LivingRoomDTO;
+import com.entity.livingRoom.LivingRoomDTO;
 import com.exception.CommonException;
 import com.service.LivingRoomService;
 
@@ -25,8 +25,8 @@ public class LivingRoomDetailServlet extends HttpServlet {
 		
 		LivingRoomService service = new LivingRoomService();
 		try {
-			LivingRoomDTO livingroomDTO = service.livingroomDetail(Integer.parseInt(lnum));
-			request.setAttribute("LivingRoomDTO", livingroomDTO);
+			LivingRoomDTO livingRoomDTO = service.livingRoomDetail(Integer.parseInt(lnum));
+			request.setAttribute("LivingRoomDTO", livingRoomDTO);
 			target="livingRoom/livingRoomDetail.jsp";
 			
 			HttpSession session = request.getSession();

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.entity.bedroom.BedroomPageDTO"%>
+<%@page import="com.entity.bedRoom.BedRoomPageDTO"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -53,15 +53,15 @@
 </head>
 <body>
 	
-	<c:set var="bedroomPageDTO" value="${bedroomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
-	<c:set var="bedroomList" value="${bedroomPageDTO.bedroomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestBedroomList" value="${bestBedroomPageDTO.bedroomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
+	<c:set var="bedRoomPageDTO" value="${bedRoomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
+	<c:set var="bedRoomList" value="${bedRoomPageDTO.bedRoomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
+	<c:set var="bestBedRoomList" value="${bestBedRoomPageDTO.bedRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
 	
-	<c:set var="curPage" value="${bedroomPageDTO.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
-	<c:set var="perPage" value="${bedroomPageDTO.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
-	<c:set var="page" value="${bedroomPageDTO.page}" scope="request"/> <!-- 표시할 페이지 수 -->
+	<c:set var="curPage" value="${bedRoomPageDTO.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
+	<c:set var="perPage" value="${bedRoomPageDTO.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
+	<c:set var="page" value="${bedRoomPageDTO.page}" scope="request"/> <!-- 표시할 페이지 수 -->
 	<c:set var="pageblock" value="${Math.ceil(curPage/page)}" scope="request"/> <!-- 표시할 페이지 블럭수 -->
-	<c:set var="totalRecord" value="${bedroomPageDTO.totalRecord}" scope="request"/> <!-- 전체 게시물 수 -->
+	<c:set var="totalRecord" value="${bedRoomPageDTO.totalRecord}" scope="request"/> <!-- 전체 게시물 수 -->
 	
 	<div id="wrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
@@ -84,16 +84,15 @@
 				<div id="content_22">
 					<div class="contents_22_product">
 						<ul class="contents_33_product_images">
-						
-							<c:forEach var="bestBedroomDTO" items="${bestBedroomList}" varStatus="status">
+							<c:forEach var="bestBedRoomDTO" items="${bestBedRoomList}" varStatus="status">
 								<li>
 					            	<div class="img">
-										<a href="BedRoomDetailServlet?bnum=${bestBedroomDTO.bnum}">
-						    				<img src="http://localhost:8090/momo/images/bedroom/${bestBedroomDTO.image1}.JPG" width="95%" height="275">
+										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
+						    				<img src="http://localhost:8090/momo/images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
-							  					${bestBedroomDTO.name}<br>
-							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedroomDTO.price}" type="currency" /></del></font><br>
-							  					<c:set var="bestDiscountPrice" value="${bestBedroomDTO.price * (1.0 - (bestBedroomDTO.discount/100))}" />
+							  					${bestBedRoomDTO.name}<br>
+							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
+							  					<c:set var="bestDiscountPrice" value="${bestBedRoomDTO.price * (1.0 - (bestBedRoomDTO.discount/100))}" />
 							  					<span class="discountPrice"><fmt:formatNumber value="${bestDiscountPrice}" type="currency" /></span>
 							  				</b></div>
 						  				</a>
@@ -129,15 +128,15 @@
 				<div class="contents_22_product">
 					<ul class="contents_22_product_images">
 					
-						<c:forEach var="bedroomDTO" items="${bedroomList}" varStatus="status">
+						<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
 									<a href="">
-					    				<img src="http://localhost:8090/momo/images/bedroom/${bedroomDTO.image1}.JPG">
+					    				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
-						  					${bedroomDTO.name}<br>
-						  					<font color="#7777ca"><del><fmt:formatNumber value="${bedroomDTO.price}" type="currency" /></del></font><br>
-						  					<c:set var="discountPrice" value="${bedroomDTO.price * (1.0 - (bedroomDTO.discount/100))}" />
+						  					${bedRoomDTO.name}<br>
+						  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
+						  					<c:set var="discountPrice" value="${bedRoomDTO.price * (1.0 - (bedRoomDTO.discount/100))}" />
 						  					<span class="discountPrice"><fmt:formatNumber value="${discountPrice}" type="currency" /></span>
 						  				</b></div>
 					  				</a>

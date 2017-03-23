@@ -1,9 +1,9 @@
-package com.entity.livingroom;
+package com.entity.livingRoom;
 
 import java.util.List;
 
 public class LivingRoomPageDTO {
-	private List<LivingRoomDTO> livingroomList;
+	private List<LivingRoomDTO> livingRoomList;
 	private int curPage;
 	private int perPage = 9; // 페이지당 보여줄 레코드 수
 	private int page = 10; // 표시할 페이지 수
@@ -11,20 +11,20 @@ public class LivingRoomPageDTO {
 	
 	public LivingRoomPageDTO(){}
 
-	public LivingRoomPageDTO(List<LivingRoomDTO> livingroomList, int curPage, int perPage, int page, int totalRecord) {
-		this.livingroomList = livingroomList;
+	public LivingRoomPageDTO(List<LivingRoomDTO> livingRoomList, int curPage, int perPage, int page, int totalRecord) {
+		this.livingRoomList = livingRoomList;
 		this.curPage = curPage;
 		this.perPage = perPage;
 		this.page = page;
 		this.totalRecord = totalRecord;
 	}
 
-	public List<LivingRoomDTO> getLivingroomList() {
-		return livingroomList;
+	public List<LivingRoomDTO> getLivingRoomList() {
+		return livingRoomList;
 	}
 
-	public void setLivingroomList(List<LivingRoomDTO> livingroomList) {
-		this.livingroomList = livingroomList;
+	public void setLivingRoomList(List<LivingRoomDTO> livingRoomList) {
+		this.livingRoomList = livingRoomList;
 	}
 
 	public int getCurPage() {
@@ -61,10 +61,10 @@ public class LivingRoomPageDTO {
 
 	@Override
 	public String toString() {
-		return "LivingRoomPageDTO [livingroomList=" + livingroomList + ", curPage=" + curPage + ", perPage=" + perPage
+		return "LivingRoomPageDTO [livingRoomList=" + livingRoomList + ", curPage=" + curPage + ", perPage=" + perPage
 				+ ", page=" + page + ", totalRecord=" + totalRecord + "]";
 	}
 
 	
 	
-}// end BedroomPage
+}// end BedRoomPage

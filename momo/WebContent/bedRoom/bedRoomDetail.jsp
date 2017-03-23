@@ -11,21 +11,21 @@
 <title>모모</title>
 
 <style>
-	#bedroomDetailWrap{width: 70%; height: 350em; margin: 0 auto;}
+	#bedRoomDetailWrap{width: 70%; height: 350em; margin: 0 auto;}
 	
 	
-	#bedroomDetailVisual{width: 100%; height: 20em;}
+	#bedRoomDetailVisual{width: 100%; height: 20em;}
 	
-	#bedroomDetailVisualleft{width: 50%; height: 100%; float: left;}
+	#bedRoomDetailVisualleft{width: 50%; height: 100%; float: left;}
 	
-	#bedroomDetailVisualRight{height: 100%;}
+	#bedRoomDetailVisualRight{height: 100%;}
 	.visualRightTable{margin: 0 auto; text-align: left;}
 	.visualRightTable .productName{color: gray; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice{color: #5b6bdf; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice2{color: red; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice3{color: #3f4993; font-size: 15px; font: bold;}
 	
-	#bedroomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
+	#bedRoomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
 </style>
 
 <script>
@@ -33,7 +33,7 @@
 		var productCount = detailForm.productCnt.value;
 		
 		if(productCount > 0 && productCount < 10){
-			detailForm.action="OrderSheetUIServlet?category=bedroom";
+			detailForm.action="OrderSheetUIServlet?category=bedRoom";
 			detailForm.submit();
 		}else{
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
@@ -45,7 +45,7 @@
 		var productCount = detailForm.productCnt.value;
 		
 		if(productCount > 0 && productCount < 10){
-			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=bedroom&productCount="+productCount;
+			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=bedRoom&productCount="+productCount;
 			detailForm.submit();
 		}else{
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
@@ -77,39 +77,39 @@
 
 <jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 
-<div id="bedroomDetailWrap">
-	<h3>${bedroomDTO.name}</h3>
+<div id="bedRoomDetailWrap">
+	<h3>${bedRoomDTO.name}</h3>
 	<hr>
 	
-	<div id="bedroomDetailVisual">
-		<div id="bedroomDetailVisualleft">
+	<div id="bedRoomDetailVisual">
+		<div id="bedRoomDetailVisualleft">
 			<center>
-				<img src="http://localhost:8090/momo/images/bedroom/${bedroomDTO.image1}.JPG" width="80%" height="400px">
+				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
 			</center>
 		</div>
-		<div id="bedroomDetailVisualRight">
+		<div id="bedRoomDetailVisualRight">
 			<form method="post" name="detailForm" id="detailForm">
-				<input type="hidden" name="pnum" value="${bedroomDTO.bnum}">
-				<input type="hidden" name="pname" value="${bedroomDTO.name}">
-				<input type="hidden" name="price" value="${bedroomDTO.price}">
-				<input type="hidden" name="discount" value="${bedroomDTO.discount}">
-				<input type="hidden" name="image1" value="${bedroomDTO.image1}">
+				<input type="hidden" name="pnum" value="${bedRoomDTO.bnum}">
+				<input type="hidden" name="pname" value="${bedRoomDTO.name}">
+				<input type="hidden" name="price" value="${bedRoomDTO.price}">
+				<input type="hidden" name="discount" value="${bedRoomDTO.discount}">
+				<input type="hidden" name="image1" value="${bedRoomDTO.image1}">
 				
 				<table class="visualRightTable" width="40%">
 					<tr>
 						<td class="productName" style="width: 30%">제품명</td>
-						<td class="productName"><h4>${bedroomDTO.name}</h4></td>
+						<td class="productName"><h4>${bedRoomDTO.name}</h4></td>
 					</tr>
 					<tr>
 						<td class="productPrice">소비자가격</td>
 						<td	class="productPrice2">
-							<del><fmt:formatNumber value="${bedroomDTO.price}" type="currency" /></del>
+							<del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del>
 						</td>
 					</tr>
 					<tr>
 						<td class="productPrice">판매가격</td>
 						<td class="productPrice3">
-							<fmt:formatNumber value="${bedroomDTO.price * (1.0 - (bedroomDTO.discount/100))}" type="currency" />
+							<fmt:formatNumber value="${bedRoomDTO.price * (1.0 - (bedRoomDTO.discount/100))}" type="currency" />
 						</td>
 					</tr>
 				</table>
@@ -143,21 +143,21 @@
 				<hr>
 				<center>
 					<input type="image" src="http://localhost:8090/momo/images\product/rightOrderBtn.jpg" onclick="rightOrder(detailForm)">&nbsp;&nbsp;
-					<input type="image" src="http://localhost:8090/momo/images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${bedroomDTO.name}')">
+					<input type="image" src="http://localhost:8090/momo/images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${bedRoomDTO.name}')">
 				</center>
 			</form>
-		</div> <!-- bedroomDetailVisualRight -->
-	</div> <!-- bedroomDetailVisual -->
+		</div> <!-- bedRoomDetailVisualRight -->
+	</div> <!-- bedRoomDetailVisual -->
 	
 	<hr>
 	
-	<div id="bedroomDetailContent">
-		<img src="http://localhost:8090/momo/images\bedroom/${bedroomDTO.image2}.jpg" width="100%" height="100%">
+	<div id="bedRoomDetailContent">
+		<img src="http://localhost:8090/momo/images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
 	</div>
 	
 	<hr>
 	
-</div><!-- bedroomDetailWrap -->
+</div><!-- bedRoomDetailWrap -->
 
 <jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.entity.livingroom.LivingRoomPageDTO"%>
+<%@page import="com.entity.livingRoom.LivingRoomPageDTO"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,10 +12,10 @@
 <title>거실</title>
 
 <style>
-	#livingroomContent {width:70%; margin:0 auto; overflow:hidden;}
-	#livingroomContent h3 {margin-left:0px;}
+	#livingRoomContent {width:70%; margin:0 auto; overflow:hidden;}
+	#livingRoomContent h3 {margin-left:0px;}
 	
-	#livingroomVisual {width: 100%; height: 500px; margin:0 auto;}
+	#livingRoomVisual {width: 100%; height: 500px; margin:0 auto;}
 	
 	.topSeller{width:100%; height:40px; border-bottom:1px solid; background-color: #555;
 				text-align: center; font: bold; color: white; padding-top:5px;}
@@ -53,8 +53,8 @@
 </head>
 <body>
 	<c:set var="LivingRoomPageDTO" value="${LivingRoomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
-	<c:set var="livingroomList" value="${LivingRoomPageDTO.livingroomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestLivingRoomList" value="${bestLivingRoomPageDTO.livingroomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
+	<c:set var="livingRoomList" value="${LivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
+	<c:set var="bestLivingRoomList" value="${bestLivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
 	
 	<c:set var="curPage" value="${LivingRoomPageDTO.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
 	<c:set var="perPage" value="${LivingRoomPageDTO.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
@@ -65,11 +65,11 @@
 	<div id="wrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
-		<div id="livingroomContent">
+		<div id="livingRoomContent">
 			<h3>거실</h3>
 			<hr>
 			
-			<div id="livingroomVisual">
+			<div id="livingRoomVisual">
 				<div class="topSeller">
 					TOP SELLER
 				</div>	<!-- topSeller -->
@@ -88,7 +88,7 @@
 								<li>
 					            	<div class="img">
 										<a href="LivingRoomDetailServlet?lnum=${bestLivingRoomDTO.lnum}">
-						    				<img src="http://localhost:8090/momo/images/livingroom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="http://localhost:8090/momo/images/livingRoom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestLivingRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestLivingRoomDTO.price}" type="currency" /></del></font><br>
@@ -104,7 +104,7 @@
 					</div> <!-- contents_2_product -->
 				</div>	<!-- contents_22 -->
 				
-			</div>	<!-- livingroomVisual -->
+			</div>	<!-- livingRoomVisual -->
 			<br><br><br>
 			<div class="categoryList">
 				<ul>
@@ -128,15 +128,15 @@
 				<div class="contents_22_product">
 					<ul class="contents_22_product_images">
 					
-						<c:forEach var="livingroomDTO" items="${livingroomList}" varStatus="status">
+						<c:forEach var="livingRoomDTO" items="${livingRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
 									<a href="">
-					    				<img src="http://localhost:8090/momo/images/livingroom/${livingroomDTO.image1}.JPG">
+					    				<img src="http://localhost:8090/momo/images/livingRoom/${livingRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
-						  					${livingroomDTO.name}<br>
-						  					<font color="#7777ca"><del><fmt:formatNumber value="${livingroomDTO.price}" type="currency" /></del></font><br>
-						  					<c:set var="discountPrice" value="${livingroomDTO.price * (1.0 - (livingroomDTO.discount/100))}" />
+						  					${livingRoomDTO.name}<br>
+						  					<font color="#7777ca"><del><fmt:formatNumber value="${livingRoomDTO.price}" type="currency" /></del></font><br>
+						  					<c:set var="discountPrice" value="${livingRoomDTO.price * (1.0 - (livingRoomDTO.discount/100))}" />
 						  					<span class="discountPrice"><fmt:formatNumber value="${discountPrice}" type="currency" /></span>
 						  				</b></div>
 					  				</a>

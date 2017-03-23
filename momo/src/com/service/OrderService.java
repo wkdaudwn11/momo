@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
-import com.entity.bedroom.BedroomDTO;
+import com.entity.bedRoom.BedRoomDTO;
 import com.entity.cart.CartDTO;
 import com.exception.CommonException;
 
