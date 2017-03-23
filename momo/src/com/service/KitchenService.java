@@ -25,8 +25,8 @@ public class KitchenService {
 		List<KitchenDTO> kitchenList = null;
 		
 		try{
-			if(sortValue.equals("bnum")){ // 최신순 
-				kitchenList = session.selectList(namespace+"kitchenListknumDesc", map, new RowBounds(skip,kitchenPageDTO.getPerPage()));
+			if(sortValue.equals("knum")){ // 최신순 
+				kitchenList = session.selectList(namespace+"kitchenListKnumDesc", map, new RowBounds(skip,kitchenPageDTO.getPerPage()));
   			}else if(sortValue.equals("priceAsc")){ // 가격 낮은순
   				kitchenList = session.selectList(namespace+"kitchenListPriceAsc", map, new RowBounds(skip,kitchenPageDTO.getPerPage()));
 			}else if(sortValue.equals("priceDesc")){ // 가격 높은순
@@ -44,7 +44,6 @@ public class KitchenService {
 		kitchenPageDTO.setKitchenList(kitchenList);
 		kitchenPageDTO.setCurPage(curPage);
 		kitchenPageDTO.setTotalRecord(totalRecord(map));
-		
 		
 		return kitchenPageDTO;
 	}//kitchenList(int curPage, HashMap<String, String> map, String sortValue)

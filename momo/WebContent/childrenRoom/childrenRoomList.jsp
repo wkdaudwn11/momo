@@ -87,7 +87,7 @@
 							<c:forEach var="bestChildrenRoomDTO" items="${bestChildrenRoomList}" varStatus="status">
 								<li>
 					            	<div class="img">
-										<a href="ChildrenRoomDetailServlet?bnum=${bestChildrenRoomDTO.cnum}">
+										<a href="ChildrenRoomDetailServlet?cnum=${bestChildrenRoomDTO.cnum}">
 						    				<img src="http://localhost:8090/momo/images/childrenRoom/${bestChildrenRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestChildrenRoomDTO.name}<br>
@@ -131,7 +131,7 @@
 						<c:forEach var="childrenRoomDTO" items="${childrenRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
+									<a href="ChildrenRoomDetailServlet?cnum=${childrenRoomDTO.cnum}">
 					    				<img src="http://localhost:8090/momo/images/childrenRoom/${childrenRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${childrenRoomDTO.name}<br>

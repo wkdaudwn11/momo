@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://localhost:8090/momo/css/animate.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-misc.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-style.css">
-   
+     
     
 <link href="http://localhost:8090/momo/css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
 <link href="http://localhost:8090/momo/css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
@@ -86,7 +86,7 @@
 		
 			<li><a class="login_black" href="">주문조회</a></li>
             <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-			<li><a class="login_black" href="http://localhost">상품문의</a></li>
+			<li><a class="login_black" href="http://localhost:8090/momo/QuestionServlet">상품문의</a></li>
 		</ul>
 	</div>
 	

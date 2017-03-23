@@ -43,7 +43,7 @@
 <body>
 	<jsp:include page="../include/header.jsp"  flush="true"></jsp:include>
 	
-	<div id="joinWrap">
+	<div id="joinWrap" >
 	<center>
     <div class="content-section">    
         <div class="container">
