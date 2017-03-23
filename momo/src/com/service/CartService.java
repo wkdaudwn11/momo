@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
-import com.entity.bedroom.BedroomDTO;
+import com.entity.bedRoom.BedRoomDTO;
 import com.entity.cart.CartDTO;
 import com.entity.cart.CartPageDTO;
 import com.exception.CommonException;
@@ -27,12 +27,12 @@ public class CartService {
 		map.put("count", productCount);
 		
 		try{
-			if(category.equals("bedroom")){
-				BedroomService service = new BedroomService();
-				BedroomDTO bedroomDTO = service.bedroomDetail(pnum);
-				map.put("pnum", bedroomDTO.getBnum());
-				map.put("dto", bedroomDTO);
-			}else if(category.equals("livingroom")){
+			if(category.equals("bedRoom")){
+				BedRoomService service = new BedRoomService();
+				BedRoomDTO bedRoomDTO = service.bedRoomDetail(pnum);
+				map.put("pnum", bedRoomDTO.getBnum());
+				map.put("dto", bedRoomDTO);
+			}else if(category.equals("livingRoom")){
 				
 			}
 			

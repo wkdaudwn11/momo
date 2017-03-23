@@ -1,4 +1,4 @@
-package com.controller.livingroom;
+package com.controller.livingRoom;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.entity.livingroom.LivingRoomPageDTO;
+import com.entity.livingRoom.LivingRoomPageDTO;
 import com.exception.CommonException;
 import com.service.LivingRoomService;
 
@@ -37,11 +37,11 @@ public class LivingRoomListServlet extends HttpServlet {
 		String target = "";
 		
 		try {
-			LivingRoomPageDTO livingroomPage = service.livingroomList(Integer.parseInt(curPage), map, sortValue);
-			LivingRoomPageDTO bestLivingroomPage = service.bestLivingRoomList();
+			LivingRoomPageDTO livingRoomPage = service.livingRoomList(Integer.parseInt(curPage), map, sortValue);
+			LivingRoomPageDTO bestLivingRoomPage = service.bestLivingRoomList();
 			
-			request.setAttribute("LivingRoomPageDTO", livingroomPage);	//상품 리스트
-			request.setAttribute("BestLivingRoomPageDTO", bestLivingroomPage);	// 인기상품 베스트3 리스트
+			request.setAttribute("LivingRoomPageDTO", livingRoomPage);	//상품 리스트
+			request.setAttribute("BestLivingRoomPageDTO", bestLivingRoomPage);	// 인기상품 베스트3 리스트
 			request.setAttribute("category", category);
 			request.setAttribute("sortValue", sortValue);
 			

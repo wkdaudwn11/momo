@@ -11,21 +11,21 @@
 <title>모모</title>
 
 <style>
-	#livingroomDetailWrap{width: 70%; height: 350em; margin: 0 auto;}
+	#livingRoomDetailWrap{width: 70%; height: 350em; margin: 0 auto;}
 	
 	
-	#livingroomDetailVisual{width: 100%; height: 20em;}
+	#livingRoomDetailVisual{width: 100%; height: 20em;}
 	
-	#livingroomDetailVisualleft{width: 50%; height: 100%; float: left;}
+	#livingRoomDetailVisualleft{width: 50%; height: 100%; float: left;}
 	
-	#livingroomDetailVisualRight{height: 100%;}
+	#livingRoomDetailVisualRight{height: 100%;}
 	.visualRightTable{margin: 0 auto; text-align: left;}
 	.visualRightTable .productName{color: gray; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice{color: #5b6bdf; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice2{color: red; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice3{color: #3f4993; font-size: 15px; font: bold;}
 	
-	#livingroomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
+	#livingRoomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
 </style>
 
 <script>
@@ -40,7 +40,7 @@
 		var productCount = detailForm.productCnt.value;
 		
 		if(productCount > 0 && productCount < 10){
-			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=livingroom&productCount="+productCount;
+			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=livingRoom&productCount="+productCount;
 			detailForm.submit();
 		}else{
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
@@ -72,17 +72,17 @@
 
 <jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 
-<div id="livingroomDetailWrap">
+<div id="livingRoomDetailWrap">
 	<h3>${LivingRoomDTO.name}</h3>
 	<hr>
 	
-	<div id="livingroomDetailVisual">
-		<div id="livingroomDetailVisualleft">
+	<div id="livingRoomDetailVisual">
+		<div id="livingRoomDetailVisualleft">
 			<center>
-				<img src="http://localhost:8090/momo/images/livingroom/${LivingRoomDTO.image1}.JPG" width="80%" height="400px">
+				<img src="http://localhost:8090/momo/images/livingRoom/${LivingRoomDTO.image1}.JPG" width="80%" height="400px">
 			</center>
 		</div>
-		<div id="livingroomDetailVisualRight">
+		<div id="livingRoomDetailVisualRight">
 			<form method="post" name="detailForm" id="detailForm">
 				<input type="hidden" name="pnum" value="${LivingRoomDTO.bnum}">
 				
@@ -137,18 +137,18 @@
 					<input type="image" src="http://localhost:8090/momo/images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${LivingRoomDTO.name}')">
 				</center>
 			</form>
-		</div> <!-- livingroomDetailVisualRight -->
-	</div> <!-- livingroomDetailVisual -->
+		</div> <!-- livingRoomDetailVisualRight -->
+	</div> <!-- livingRoomDetailVisual -->
 	
 	<hr>
 	
-	<div id="livingroomDetailContent">
-		<img src="http://localhost:8090/momo/images\livingroom/${LivingRoomDTO.image2}.jpg" width="100%" height="100%">
+	<div id="livingRoomDetailContent">
+		<img src="http://localhost:8090/momo/images\livingRoom/${LivingRoomDTO.image2}.jpg" width="100%" height="100%">
 	</div>
 	
 	<hr>
 	
-</div><!-- livingroomDetailWrap -->
+</div><!-- livingRoomDetailWrap -->
 
 <jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 

@@ -7,32 +7,32 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
-import com.entity.bedroom.BedroomDTO;
-import com.entity.bedroom.BedroomPageDTO;
+import com.entity.bedRoom.BedRoomDTO;
+import com.entity.bedRoom.BedRoomPageDTO;
 import com.exception.CommonException;
 
-public class BedroomService {
+public class BedRoomService {
 
-	String namespace = "com.momo.BedroomMapper.";
+	String namespace = "com.momo.BedRoomMapper.";
 	
 	/**각 분류의 상품을 보여주는 메소드*/
-	public BedroomPageDTO bedroomList(int curPage, HashMap<String, String> map, String sortValue) throws CommonException{
+	public BedRoomPageDTO bedRoomList(int curPage, HashMap<String, String> map, String sortValue) throws CommonException{
 		
 		SqlSession session = MySqlSessionFactory.openSession();
 		
-		BedroomPageDTO bedroomPageDTO = new BedroomPageDTO();
-		int skip = (curPage-1) * bedroomPageDTO.getPerPage();
-		List<BedroomDTO> bedroomList = null;
+		BedRoomPageDTO bedRoomPageDTO = new BedRoomPageDTO();
+		int skip = (curPage-1) * bedRoomPageDTO.getPerPage();
+		List<BedRoomDTO> bedRoomList = null;
 		
 		try{
 			if(sortValue.equals("bnum")){ // 최신순 
-				bedroomList = session.selectList(namespace+"bedroomListBnumDesc", map, new RowBounds(skip,bedroomPageDTO.getPerPage()));
+				bedRoomList = session.selectList(namespace+"bedRoomListBnumDesc", map, new RowBounds(skip,bedRoomPageDTO.getPerPage()));
   			}else if(sortValue.equals("priceAsc")){ // 가격 낮은순
-				bedroomList = session.selectList(namespace+"bedroomListPriceAsc", map, new RowBounds(skip,bedroomPageDTO.getPerPage()));
+				bedRoomList = session.selectList(namespace+"bedRoomListPriceAsc", map, new RowBounds(skip,bedRoomPageDTO.getPerPage()));
 			}else if(sortValue.equals("priceDesc")){ // 가격 높은순
-				bedroomList = session.selectList(namespace+"bedroomListPriceDesc", map, new RowBounds(skip,bedroomPageDTO.getPerPage()));
+				bedRoomList = session.selectList(namespace+"bedRoomListPriceDesc", map, new RowBounds(skip,bedRoomPageDTO.getPerPage()));
 			}else if(sortValue.equals("buyCountDesc")){ // 판매 인기순
-				bedroomList = session.selectList(namespace+"bedroomListBuyCountDesc", map, new RowBounds(skip,bedroomPageDTO.getPerPage()));
+				bedRoomList = session.selectList(namespace+"bedRoomListBuyCountDesc", map, new RowBounds(skip,bedRoomPageDTO.getPerPage()));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -41,24 +41,24 @@ public class BedroomService {
 			session.close();
 		}
 		
-		bedroomPageDTO.setBedroomList(bedroomList);
-		bedroomPageDTO.setCurPage(curPage);
-		bedroomPageDTO.setTotalRecord(totalRecord(map));
+		bedRoomPageDTO.setBedRoomList(bedRoomList);
+		bedRoomPageDTO.setCurPage(curPage);
+		bedRoomPageDTO.setTotalRecord(totalRecord(map));
 		
 		
-		return bedroomPageDTO;
-	}//bedroomList(int curPage, HashMap<String, String> map, String sortValue)
+		return bedRoomPageDTO;
+	}//bedRoomList(int curPage, HashMap<String, String> map, String sortValue)
 	
 	/** 인기상품 세 개를 반환해주는 메소드 */
-	public BedroomPageDTO bestBedroomList() throws CommonException {
+	public BedRoomPageDTO bestBedRoomList() throws CommonException {
 		
 		SqlSession session = MySqlSessionFactory.openSession();
 		
-		BedroomPageDTO bedroomPageDTO = new BedroomPageDTO();
-		List<BedroomDTO> bedroomList = null;
+		BedRoomPageDTO bedRoomPageDTO = new BedRoomPageDTO();
+		List<BedRoomDTO> bedRoomList = null;
 		
 		try{
-			bedroomList = session.selectList(namespace+"bestBedroomList");
+			bedRoomList = session.selectList(namespace+"bestBedRoomList");
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new CommonException("상품 불러오기 실패");
@@ -66,10 +66,10 @@ public class BedroomService {
 			session.close();
 		}
 		
-		bedroomPageDTO.setBedroomList(bedroomList);
+		bedRoomPageDTO.setBedRoomList(bedRoomList);
 		
-		return bedroomPageDTO;
-	}//bestBedroomList()
+		return bedRoomPageDTO;
+	}//bestBedRoomList()
 	
 	/** 각 분류의 전체 상품 갯수를 반환해주는 메소드. */
 	private int totalRecord(HashMap<String, String> map) {
@@ -105,13 +105,13 @@ public class BedroomService {
 	}//listAllCount()
 
 	/** 해당 상품(bnum)의 정보를 반환해주는 메소드 */
-	public BedroomDTO bedroomDetail(int bnum) throws CommonException {
+	public BedRoomDTO bedRoomDetail(int bnum) throws CommonException {
 		
 		SqlSession session = MySqlSessionFactory.openSession();
-		BedroomDTO dto = null;
+		BedRoomDTO dto = null;
 		
 		try{
-			dto = session.selectOne(namespace+"bedroomDetail", bnum);
+			dto = session.selectOne(namespace+"bedRoomDetail", bnum);
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new CommonException("상품 불러오기 실패");

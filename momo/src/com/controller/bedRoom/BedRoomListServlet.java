@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.entity.bedroom.BedroomPageDTO;
+import com.entity.bedRoom.BedRoomPageDTO;
 import com.exception.CommonException;
-import com.service.BedroomService;
+import com.service.BedRoomService;
 
 
 @WebServlet("/BedRoomListServlet")
@@ -33,15 +33,15 @@ public class BedRoomListServlet extends HttpServlet {
 		String curPage = request.getParameter("curPage");
 		if(curPage == null) curPage="1";
 
-		BedroomService service = new BedroomService();
+		BedRoomService service = new BedRoomService();
 		String target = "";
 		
 		try {
-			BedroomPageDTO bedroomPageDTO = service.bedroomList(Integer.parseInt(curPage), map, sortValue);
-			BedroomPageDTO bestBedroomPageDTO = service.bestBedroomList();
+			BedRoomPageDTO bedRoomPageDTO = service.bedRoomList(Integer.parseInt(curPage), map, sortValue);
+			BedRoomPageDTO bestBedRoomPageDTO = service.bestBedRoomList();
 			
-			request.setAttribute("bedroomPageDTO", bedroomPageDTO);	//상품 리스트
-			request.setAttribute("bestBedroomPageDTO", bestBedroomPageDTO);	// 인기상품 베스트3 리스트
+			request.setAttribute("bedRoomPageDTO", bedRoomPageDTO);	//상품 리스트
+			request.setAttribute("bestBedRoomPageDTO", bestBedRoomPageDTO);	// 인기상품 베스트3 리스트
 			request.setAttribute("category", category);
 			request.setAttribute("sortValue", sortValue);
 			

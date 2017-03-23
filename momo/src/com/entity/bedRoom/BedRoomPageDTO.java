@@ -1,29 +1,29 @@
-package com.entity.bedroom;
+package com.entity.bedRoom;
 
 import java.util.List;
 
-public class BedroomPageDTO {
-	private List<BedroomDTO> BedroomList;
+public class BedRoomPageDTO {
+	private List<BedRoomDTO> BedRoomList;
 	private int curPage;
 	private int perPage = 9; // 페이지당 보여줄 레코드 수
 	private int page = 10; // 표시할 페이지 수
 	private int totalRecord;
 	
-	public BedroomPageDTO(){}
+	public BedRoomPageDTO(){}
 
-	public BedroomPageDTO(List<BedroomDTO> BedroomList, int curPage, int perPage, int totalRecord) {
-		this.BedroomList = BedroomList;
+	public BedRoomPageDTO(List<BedRoomDTO> BedRoomList, int curPage, int perPage, int totalRecord) {
+		this.BedRoomList = BedRoomList;
 		this.curPage = curPage;
 		this.perPage = perPage;
 		this.totalRecord = totalRecord;
 	}
 
-	public List<BedroomDTO> getBedroomList() {
-		return BedroomList;
+	public List<BedRoomDTO> getBedRoomList() {
+		return BedRoomList;
 	}
 
-	public void setBedroomList(List<BedroomDTO> BedroomList) {
-		this.BedroomList = BedroomList;
+	public void setBedRoomList(List<BedRoomDTO> BedRoomList) {
+		this.BedRoomList = BedRoomList;
 	}
 
 	public int getCurPage() {
@@ -61,8 +61,8 @@ public class BedroomPageDTO {
 
 	@Override
 	public String toString() {
-		return "BedroomPage [BedroomList=" + BedroomList + ", curPage=" + curPage + ", perPage=" + perPage
+		return "BedRoomPage [BedRoomList=" + BedRoomList + ", curPage=" + curPage + ", perPage=" + perPage
 				+ ", totalRecord=" + totalRecord + "]";
 	}
 	
-}// end BedroomPage
+}// end BedRoomPage

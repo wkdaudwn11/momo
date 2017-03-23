@@ -1,4 +1,4 @@
-package com.entity.livingroom;
+package com.entity.livingRoom;
 
 public class LivingRoomDTO {
 	private int lnum;

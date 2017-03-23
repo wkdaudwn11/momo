@@ -14,8 +14,8 @@
 		<typeAlias type="com.entity.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>
 		<typeAlias type="com.entity.freeboard.FreeBoardRepleDTO" alias="FreeBoardRepleDTO"/>
 		 
-		<typeAlias type="com.entity.bedroom.BedroomDTO" alias="BedroomDTO"/>
-		<typeAlias type="com.entity.livingroom.LivingRoomDTO" alias="LivingRoomDTO"/>
+		<typeAlias type="com.entity.bedRoom.BedRoomDTO" alias="BedRoomDTO"/>
+		<typeAlias type="com.entity.livingRoom.LivingRoomDTO" alias="LivingRoomDTO"/>
 		<typeAlias type="com.entity.kitchen.KitchenDTO" alias="KitchenDTO"/>
 		<typeAlias type="com.entity.childrenRoom.ChildrenRoomDTO" alias="ChildrenRoomDTO"/>
 		
@@ -39,7 +39,7 @@
 	<mappers>
 		<mapper resource="com/config/mapper/MemberMapper.xml" />
 		<mapper resource="com/config/mapper/FreeBoardMapper.xml" />
-		<mapper resource="com/config/mapper/BedroomMapper.xml" />
+		<mapper resource="com/config/mapper/BedRoomMapper.xml" />
 		<mapper resource="com/config/mapper/LivingRoomMapper.xml" />
 		<mapper resource="com/config/mapper/KitchenMapper.xml" />
 		<mapper resource="com/config/mapper/ChildrenRoomMapper.xml" />
