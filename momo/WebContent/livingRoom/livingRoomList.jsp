@@ -54,7 +54,7 @@
 <body>
 	<c:set var="LivingRoomPageDTO" value="${LivingRoomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
 	<c:set var="livingRoomList" value="${LivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestLivingRoomList" value="${bestLivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
+	<c:set var="bestLivingRoomList" value="${BestLivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
 	
 	<c:set var="curPage" value="${LivingRoomPageDTO.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
 	<c:set var="perPage" value="${LivingRoomPageDTO.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
@@ -118,7 +118,7 @@
 			</div>
 			
 			<h5 class="sortValueClass">
-				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=bnum">[최신순]</a>  |  
+				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=lnum">[최신순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceAsc">[가격 낮은 순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceDesc">[가격 높은 순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
@@ -131,7 +131,7 @@
 						<c:forEach var="livingRoomDTO" items="${livingRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
+									<a href="LivingRoomDetailServlet?lnum=${livingRoomDTO.lnum}">
 					    				<img src="http://localhost:8090/momo/images/livingRoom/${livingRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${livingRoomDTO.name}<br>

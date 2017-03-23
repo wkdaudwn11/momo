@@ -131,7 +131,7 @@
 						<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
+									<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
 					    				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${bedRoomDTO.name}<br>

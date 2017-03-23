@@ -31,9 +31,14 @@
 <script>
 	function rightOrder(detailForm){
 		var productCount = detailForm.productCnt.value;
-		detailForm.action="";
-		detailForm.submit();
-	}
+		
+		if(productCount > 0 && productCount < 10){
+			detailForm.action="OrderSheetUIServlet?category=livingRoom";
+			detailForm.submit();
+		}else{
+			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
+		}
+	}//rightOrder(detailForm)
 	
 	function addCart(detailForm, name){
 		
@@ -46,10 +51,6 @@
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
 		}
 	}//addCart(detailForm)
-	
-	function submitCheck(){
-		
-	}
 </script>
 
 </head>
@@ -84,7 +85,11 @@
 		</div>
 		<div id="livingRoomDetailVisualRight">
 			<form method="post" name="detailForm" id="detailForm">
-				<input type="hidden" name="pnum" value="${LivingRoomDTO.bnum}">
+				<input type="hidden" name="pnum" value="${LivingRoomDTO.lnum}">
+				<input type="hidden" name="pname" value="${LivingRoomDTO.name}">
+				<input type="hidden" name="price" value="${LivingRoomDTO.price}">
+				<input type="hidden" name="discount" value="${LivingRoomDTO.discount}">
+				<input type="hidden" name="image1" value="${LivingRoomDTO.image1}">
 				
 				<table class="visualRightTable" width="40%">
 					<tr>

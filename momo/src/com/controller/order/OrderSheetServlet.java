@@ -1,6 +1,7 @@
 package com.controller.order;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.entity.cart.CartDTO;
 import com.entity.member.MemberDTO;
+import com.service.CartService;
 import com.service.OrderService;
 
 @WebServlet("/OrderSheetServlet")
@@ -41,6 +43,15 @@ public class OrderSheetServlet extends HttpServlet {
 				OrderService service = new OrderService();
 				if(list != null){ // 카트에서 주문을 한 경우 (여러 개) 
 					service.orderInsertAll(list);
+					
+					//주문을 하고 나면 카트에 있던 물품들을 삭제해준다.
+					CartService cartService = new CartService();
+					List<String> list2 = new ArrayList<>();
+					for(int i=0; i<list.size(); i++){
+						list2.add(""+list.get(i).getCnum());
+					}
+					cartService.deleteCheck(list2);
+					
 				}else{ // 즉시구매로 주문을 한 경우 (한 개)
 					HashMap map = new HashMap();
 					map.put("id", memberDTO.getId());
