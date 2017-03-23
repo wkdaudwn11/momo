@@ -69,33 +69,26 @@
 		</a>
 	</div>
 	
-	<!-- 로그인 안했을 경우 -->
-	<c:if test="${sessionScope.login == null }">
-		<div class="login">
-	       	<ul>
+	<div class="login">
+		<ul>
+		
+		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LoginUIServlet">로그인</a></font></li>
 	           	<li><a class="login_color" href="http://localhost:8090/momo/JoinUIServlet">회원가입</a></font></li>
 	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
-	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-				<li><a class="login_black" href="">상품문의</a></li>
-			</ul>
-		</div>	<!-- login_div -->
-	</c:if>	
-	
-	<!-- 로그인 했을 경우 -->
-	<c:if test="${sessionScope.login != null}">
-		<div class="login">
-	       	<ul>
+		</c:if>	
+		
+		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LogoutServlet">로그아웃</a></font></li>
 	           	<li><a class="login_color" href="">정보수정</a></font></li>
 	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
-	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-				<li><a class="login_black" href="">상품문의</a></li>
-			</ul>
-		</div>	<!-- login_div -->
-	</c:if>	 
+		</c:if>
+		
+			<li><a class="login_black" href="">주문조회</a></li>
+            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
+			<li><a class="login_black" href="http://localhost">상품문의</a></li>
+		</ul>
+	</div>
 	
 	<ul class="menu">
 		<li><!-- bedroom -->
