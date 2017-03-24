@@ -83,7 +83,6 @@
 	
 	function goodPlus(){
 		if('${login.id}' != ""){
-			alert('로그인됨');
 			$.ajax({
 				type:"get",
 				url:"freeBoard/freeBoardGoodCount.jsp",

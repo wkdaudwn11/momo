@@ -7,13 +7,16 @@
 <configuration>
 
 	<properties resource="com/config/jdbc.properties" />
-	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<typeAliases>
 		<typeAlias type="com.entity.member.MemberDTO" alias="MemberDTO"/>
 		
 		<typeAlias type="com.entity.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>
 		<typeAlias type="com.entity.freeboard.FreeBoardRepleDTO" alias="FreeBoardRepleDTO"/>
-		 
+		<typeAlias type="com.entity.question.QuestionDTO" alias="QuestionDTO"/>
+		
 		<typeAlias type="com.entity.bedRoom.BedRoomDTO" alias="BedRoomDTO"/>
 		<typeAlias type="com.entity.livingRoom.LivingRoomDTO" alias="LivingRoomDTO"/>
 		<typeAlias type="com.entity.kitchen.KitchenDTO" alias="KitchenDTO"/>
@@ -39,6 +42,7 @@
 	<mappers>
 		<mapper resource="com/config/mapper/MemberMapper.xml" />
 		<mapper resource="com/config/mapper/FreeBoardMapper.xml" />
+		<mapper resource="com/config/mapper/QuestionMapper.xml" />
 		<mapper resource="com/config/mapper/BedRoomMapper.xml" />
 		<mapper resource="com/config/mapper/LivingRoomMapper.xml" />
 		<mapper resource="com/config/mapper/KitchenMapper.xml" />

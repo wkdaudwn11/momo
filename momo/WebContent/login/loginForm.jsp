@@ -23,9 +23,18 @@
 		.login2 {width: 80%; height: 10em; background-color: #FFF; font-size: 20px; text-align: center; font-family: "맑은 고딕", "바탕";
 					padding: 0.313em; color: #555;}
 	</style>
-
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			if(${loginFail != null}){
+				alert('${loginFail}');
+			}
+			if(${message != null }){
+				alert('${message}');
+			}
+		});// end $(document).ready()
+	
 		function loginFormSubmit(){
 			
 			var result = false;
@@ -124,20 +133,6 @@
 
 </head>
 <body>
-
-	<c:if test="${loginFail != null}">
-	  <script type="text/javascript">
-	  	var x= '${loginFail}';
-	    alert(x);
-	  </script>
-	</c:if>
-	
-	<c:if test="${message != null }">
-	  <script type="text/javascript">
-	  	var x= '${message}';
-	    alert(x);
-	  </script>
-	</c:if>
 	
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		<center><br>

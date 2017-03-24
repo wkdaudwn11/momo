@@ -40,7 +40,7 @@ public class CartListServlet extends HttpServlet {
 				session.setAttribute("prevPage", "CartListServlet");
 			}else{
 				target = "LoginUIServlet";
-				throw new LoginFailException("로그인 후에 이용해주세요!");
+				throw new LoginFailException();
 			}
 		}catch(Exception e){
 			request.setAttribute("loginFail", e.getMessage());
