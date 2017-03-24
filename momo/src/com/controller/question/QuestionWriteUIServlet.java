@@ -1,4 +1,4 @@
-package com.controller.freeBoard;
+package com.controller.question;
 
 import java.io.IOException;
 
@@ -13,26 +13,13 @@ import javax.servlet.http.HttpSession;
 import com.entity.member.MemberDTO;
 import com.exception.LoginFailException;
 
-@WebServlet("/FreeBoardWriteUIServlet")
-public class FreeBoardWriteUIServlet extends HttpServlet {
+@WebServlet("/QuestionWriteUIServlet")
+public class QuestionWriteUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO)session.getAttribute("login");
-		String target ="";
-		try{
-			if(member == null){
-				target = "LoginUIServlet";
-				throw new LoginFailException();
-			}else{
-				target ="freeBoard/freeBoardWrite.jsp";
-			}
-		}catch(Exception e){
-			request.setAttribute("loginFail",e.getMessage());	
-		}
-		RequestDispatcher dis = request.getRequestDispatcher(target);
-		dis.forward(request,response);
-	}// end Get
+
+		response.sendRedirect("http://localhost:8090/momo/question/questionWrite.jsp");
+	}// end doGet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

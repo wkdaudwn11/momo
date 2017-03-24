@@ -27,7 +27,7 @@ public class FreeBoardWriteServlet extends HttpServlet {
 		try{
 			if(member == null){
 				target="http://localhost:8090/momo/LoginUIServlet";
-				throw new LoginFailException("로그인 후에 이용해주세요!");
+				throw new LoginFailException();
 			}else{
 				String title =request.getParameter("title");
 				String content = request.getParameter("content");

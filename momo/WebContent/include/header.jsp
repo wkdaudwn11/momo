@@ -86,7 +86,8 @@
 		
 			<li><a class="login_black" href="">주문조회</a></li>
             <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-			<li><a class="login_black" href="http://localhost:8090/momo/QuestionServlet">상품문의</a></li>
+			<li><a class="login_black" href="http://localhost:8090/momo/QuestionListServlet">고객문의</a></li>
+
 		</ul>
 	</div>
 	
