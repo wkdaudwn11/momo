@@ -45,7 +45,6 @@ public class ChildrenRoomService {
 		childrenRoomPageDTO.setCurPage(curPage);
 		childrenRoomPageDTO.setTotalRecord(totalRecord(map));
 		
-		
 		return childrenRoomPageDTO;
 	}//childrenRoomList(int curPage, HashMap<String, String> map, String sortValue)
 	

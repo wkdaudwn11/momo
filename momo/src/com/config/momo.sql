@@ -1,19 +1,20 @@
 --회원 테이블
 create table member(
-	mnum		  number(5)		constraint	member_mnum_pk	primary key,		--회원번호
-	name		  varchar2(10)	not null,		--이름
-	id			  varchar2(12)	constraint	member_mid_uk	unique	not null,	--아이디
-	pwd			  varchar2(12)	not null,		--비밀번호
-	pwd2		  varchar2(12)	not null,		--비밀번호확인
-	gender	  varchar2(4)		not null,		--성별
-	tel			  varchar2(12)	not null,		--전화번호
-	question  varchar2(50)		not null,		--질문
+	mnum		number(5)		constraint	member_mnum_pk	primary key,		--회원번호
+	name		varchar2(10)	not null,		--이름
+	id			varchar2(12)	constraint	member_mid_uk	unique	not null,	--아이디
+	pwd			varchar2(12)	not null,		--비밀번호
+	pwd2		varchar2(12)	not null,		--비밀번호확인
+	gender		varchar2(4)		not null,		--성별
+	tel			varchar2(12)	not null,		--전화번호
+	question	varchar2(50)	not null,		--질문
 	answer		varchar2(50)	not null,		--질문
-	post1		  varchar2(3)	not null,		--우편번호1
-	post2		  varchar2(3)	not null,		--우편번호2
-	addr1		  varchar2(500)	not null,		--주소1
-	addr2		  varchar2(500)	not null,		--주소2
-  	joindate	date			default sysdate	--가입날짜
+	post1		varchar2(3)		not null,		--우편번호1
+	post2		varchar2(3)		not null,		--우편번호2
+	addr1		varchar2(500)	not null,		--주소1
+	addr2		varchar2(500)	not null,		--주소2
+  	joindate	date			default sysdate,--가입날짜
+  	logindate	date			default sysdate	--로그인날짜
 );
 create sequence member_seq minvalue 0;
 
@@ -47,7 +48,6 @@ Create table freeBoard(
 create sequence freeBoard_seq minvalue 0;
 
 insert into freeboard values(freeBoard_seq.nextval, 'qwe', '장명주', '캬캬', sysdate, 10, 10);
-
 
 --자유게시판 댓글 테이블 (댓글의 댓글 추가)
 Create table freeBoardReple(  
@@ -155,6 +155,7 @@ create table cart(
   cartdate  date            default sysdate,--카트에 넣은 날짜
   image1    varchar2(100)   default null    --상품사진1
 );
+
 create sequence cart_seq minvalue 0;
 
 --회원이 삭제(탈퇴)되면 장바구니 목록도 같이 삭제
@@ -177,6 +178,7 @@ create table orderInfo(
  orderMessage	varchar2(200),                     	--주문메세지
  orderstate    	varchar2(20)	default '입금대기중'	--주문상태
 );
+
 create sequence orderInfo_seq minvalue 0;
 create sequence orderInfo_groupseq;
 

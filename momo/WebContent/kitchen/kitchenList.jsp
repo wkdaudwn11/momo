@@ -87,7 +87,7 @@
 							<c:forEach var="bestKitchenDTO" items="${bestKitchenList}" varStatus="status">
 								<li>
 					            	<div class="img">
-										<a href="KitchenDetailServlet?bnum=${bestKitchenDTO.knum}">
+										<a href="KitchenDetailServlet?knum=${bestKitchenDTO.knum}">
 						    				<img src="http://localhost:8090/momo/images/kitchen/${bestKitchenDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestKitchenDTO.name}<br>
@@ -131,7 +131,7 @@
 						<c:forEach var="kitchenDTO" items="${kitchenList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
+									<a href="KitchenDetailServlet?knum=${kitchenDTO.knum}">
 					    				<img src="http://localhost:8090/momo/images/kitchen/${kitchenDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${kitchenDTO.name}<br>
