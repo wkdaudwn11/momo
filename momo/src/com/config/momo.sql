@@ -21,6 +21,18 @@ insert into member values(member_seq.nextval, 'admin', 'admin', 'admin', 'admin'
                             '남자', 'admin', 'admin', 'admin',
                             'admin?', 'admin', '123', '123', '123', '123', sysdate);
 
+-- 문의 게시판
+create table question
+(qnum number(4) constraint question_qunm_pk primary key,
+ reple char(1) ,
+ password varchar2(15),
+ category varchar2(10) not null,
+ title varchar2(50) not null,
+ content varchar2(4000) not null,
+ author varchar2(20) not null,
+ writeday date default sysdate,
+ readCnt number(5) default 0);
+                            
 --자유게시판 테이블
 Create table freeBoard(
  fnum 	  number(4)		    constraint freeBoard_fnum_pk primary key,--게시판번호

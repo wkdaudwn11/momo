@@ -22,7 +22,7 @@
 	window.onload = function onload(){
 	 if('${sessionScope.login}'==''){
    	  	alert("로그인 이용 할 수 있습니다.");
-   	  	location.href="http://localhost:8090/momo/LoginUIServlet";
+   	  	location.replace("http://localhost:8090/momo/LoginUIServlet");
    	  }
 	}
 	
