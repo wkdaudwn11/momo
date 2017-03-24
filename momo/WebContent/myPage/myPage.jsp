@@ -82,32 +82,37 @@
 	<div id="myPageContent">
 		<table style="width: 60%;">
 			<tr>
-				<td>
+				<td> <!-- 주문내역 -->
 					<a href="#">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList1.jpg" class="a1">
 					</a>
 				</td>
-				<td>
+				
+				<td> <!-- 오늘 본 상품	 -->
 					<a href="#">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList2.jpg" class="a2">
 					</a>
 				</td>
-				<td>
+				
+				<td> <!-- 고객문의 게시판 -->
 					<a href="#">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList3.jpg" class="a3">
 					</a>
 				</td>
-				<td>
+				
+				<td> <!-- 내 게시글 보기 -->
 					<a href="#">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList4.jpg" class="a4">
 					</a>
 				</td>
-				<td>
-					<a href="#">
+				
+				<td> <!-- 회원 정보 변경 -->
+					<a href="PwdCheckUIServlet">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList5.jpg" class="a5">
 					</a>
 				</td>
-				<td>
+				
+				<td> <!-- 탈퇴신청 -->
 					<a href="#">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList6.jpg" class="a6">
 					</a>
