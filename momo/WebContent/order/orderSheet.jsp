@@ -76,8 +76,15 @@
 		}
 		
 		if(inputCheck == true){
-			orderForm.action="OrderSheetServlet";
-			orderForm.submit();
+			if(${sessionScope.login.facebook == 'yes'}){
+				var confirmOK = confirm('입력하신 배송정보를 회원정보로 등록하시겠습니까?');
+				if(confirmOK == true){
+					orderForm.action="OrderSheetServlet?confirmOK=true";
+				}else{
+					orderForm.action="OrderSheetServlet?confirmOK=false";
+				}
+				orderForm.submit();
+			}
 		}
 	}//checkOrder(orderForm)
 	
@@ -220,35 +227,37 @@
 			</table> <!-- cartList -->
 			
 			<br><br>
-			
-			<span><img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;주문자 정보</span>
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
-				<tr height="30" style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
-					<td width="100" align="center">성 명</td>
-					<td width="200">
-						<input type="text" name="buyername" id="buyername" value="${memberDTO.name}" style="height:30px;" readonly>
-					</td>
-					<td width="100" align="center">연 락 처</td>
-					<td width="200">
-						<input type="text" name="buyertel" id="buyertel" value="${memberDTO.tel}" style="height:30px;" readonly>
-					</td>
-				</tr>
-				<tr height="30" style="border-bottom:1px solid black;">
-					<td width="100" align="center">주 소</td>
-					<td colspan="3">
-						<input type="text" name="buyerpost1" id="buyerpost1" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post1}" readonly> - 
-                        <input type="text" name="buyerpost2" id="buyerpost2" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post2}" readonly><br>
-						<input type="text" name="buyeraddr1" id="buyeraddr1" placeholder="도로명주소" style="width: 350px; height:30px;" value="${memberDTO.addr1}" readonly><br>
-						<input type="text" name="buyeraddr2" id="buyeraddr2" placeholder="지번주소" style="width: 350px; height:30px;" value="${memberDTO.addr2}" readonly>
-					</td>
-				</tr>
-			</table>
-			
+			<c:if test="${sessionScope.login.addr1 != facebook}">
+				<span><img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;주문자 정보</span>
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
+					<tr height="30" style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
+						<td width="100" align="center">성 명</td>
+						<td width="200">
+							<input type="text" name="buyername" id="buyername" value="${memberDTO.name}" style="height:30px;" readonly>
+						</td>
+						<td width="100" align="center">연 락 처</td>
+						<td width="200">
+							<input type="text" name="buyertel" id="buyertel" value="${memberDTO.tel}" style="height:30px;" readonly>
+						</td>
+					</tr>
+					<tr height="30" style="border-bottom:1px solid black;">
+						<td width="100" align="center">주 소</td>
+						<td colspan="3">
+							<input type="text" name="buyerpost1" id="buyerpost1" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post1}" readonly> - 
+	                        <input type="text" name="buyerpost2" id="buyerpost2" class="postcodify_postcode5" style="width:100px; height:30px;" value="${memberDTO.post2}" readonly><br>
+							<input type="text" name="buyeraddr1" id="buyeraddr1" placeholder="도로명주소" style="width: 350px; height:30px;" value="${memberDTO.addr1}" readonly><br>
+							<input type="text" name="buyeraddr2" id="buyeraddr2" placeholder="지번주소" style="width: 350px; height:30px;" value="${memberDTO.addr2}" readonly>
+						</td>
+					</tr>
+				</table>
+			</c:if>
 			<br><br>
 			
 			<span>
 				<img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;배송지 정보
+				<c:if test="${sessionScope.login.addr1 != facebook}">
 				　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<input type="checkbox" id="sameCheck" onclick="same()"> <font size="2">회원정보와 동일</font>
+				</c:if>
 			</span><br>
 			
 			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
@@ -288,14 +297,12 @@
 				<tr>
 					<td colspan="4" align="center">
 						<br>
-						<!-- <input type="image" src="http://localhost:8090/momo/images\cart/orderBtn.jpg" onclick="checkOrder()">&nbsp; -->
 						<a href="javascript:checkOrder(orderForm)">
 							<img src="http://localhost:8090/momo/images\cart/orderBtn.jpg">
 						</a>
 						<a href="javascript:backPage(orderForm)">
 							<img src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg">
 						</a>
-						<!-- <input type="image" src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg" onclick="backPage(orderForm)"> -->
 					</td>
 				</tr>
 			</table>

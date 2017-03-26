@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<html class="no-js" ng-app>
+<!DOCTYPE html> 
+<html class="no-js" ng-app> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>회원가입</title>
+	<title>회원정보수정</title>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
@@ -32,68 +35,16 @@
     	.content-section {width:40%; float: left; padding-right: 40px;}
     </style>
     
-    <script type="text/javascript"> <!-- Ajax -->
-		var xmlHttp;
-		
-		function getXMLHttpRequest(){
-			xmlHttp = new XMLHttpRequest();
-		}//getXMLHttpRequest()
-		
-		function send(){
-    		var userid = document.getElementById("id").value;
-    		//alert(userid);
-    	 	getXMLHttpRequest();
-    	 	
-    	 	xmlHttp.onreadystatechange=xxx; //이벤트 등록(서버가 응답하는 이벤트)
-    	 	
-    	 	xmlHttp.open("get", "check.jsp?userid="+userid, true);//타겟
-    	 	xmlHttp.send(null);
-		}//end send
-	
-	    function xxx(){
-	    	if(xmlHttp.readyState==4 && xmlHttp.status==200){
-	    		var str = xmlHttp.responseText;
-	    		document.getElementById("result").innerText=str.trim();
-	    	}//end 
-	    }//end xxx
-	</script>
-
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>	<!-- Angular -->
-	
-	<!-- 입력값 체크 -->	
-	<script>
-		function resultForm(){
+    <script type="text/javascript">
+		 function resultForm(){
 	    	var result = true;
-	    	
-	    	var name = document.getElementById('name');
-	    	var id = document.getElementById('id');
 	    	var pwd = document.getElementById('pwd');
 	    	var pwd2 = document.getElementById('pwd2');
 	    	var tel = document.getElementById('tel');
 	    	var answer = document.getElementById('answer');
 	    	var addr = document.getElementById('addr');
 	    	
-	    	if(name.value.length < 1 || name.value.length > 6){
-				alert("이름은 2~6자리만 입력해주세요.");
-				name.value="";
-				name.focus();
-				result = false;
-			}else if(!name.value.match(/([가-힣])/)){
-	    		alert("이름은 한글로 제대로 입력해주세요.");
-	    		name.value="";
-	    		name.focus();
-	    		result = false;
-	    	}else if(id.value.length < 10 || id.value.length > 17){
-				alert("아이디는 10~16자리로 입력해주세요.");
-				id.value="";
-				id.focus();
-				result = false;
-			}else if(!id.value.match(/[a-zA-Z0-9]/)){
-				alert("아이디는 문자, 숫자의 조합으로 입력해주세요.");
-				id.value="";
-				id.focus();
-				result = false;
-			}else if(pwd.value.length < 8 || pwd.value.length > 12){
+	    	if(pwd.value.length < 8 || pwd.value.length > 12){
 				alert("비밀번호는 8~12자리로 입력해주세요.");
 				pwd.value="";
 				pwd.focus();
@@ -141,11 +92,13 @@
 	    	
 	    	return result;
 	    }//resultForm(joinform)
+	    
 	</script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 
 </head>
 <body>
-    
     <jsp:include page="../include/header.jsp"  flush="true"></jsp:include>       
     
 	<div id="joinWrap">
@@ -153,36 +106,32 @@
 	        <div class="container">
 				<div class="row">
 	                <div class="col-md-12 section-title">
-	                    <center><h2>회원가입</h2></center>
-	                </div>
+	                    <center><h2>회원정보수정</h2></center>
+	                </div> <!-- /.section -->
+	                
 	                <div align="left">
 	                    <div>	<!-- class="contact-form" -->
-	                        <form name="contactform" id="contactform" action="JoinAddMember" method="get" onsubmit="return resultForm()">
+	                        <form method="post" action="UpdateMemberServlet" name="contactform" id="contactform" onsubmit="return resultForm()">
 	                            <p>
-	                                <input type="text" id="name" name="name" placeholder="성명 (한글 2~6)" style="height:40px;">                                                    
+	                                <input name="name" type="text" id="name" value="${myPage.name }" style="height:40px; border-color:#d2d2d2; background-color:#e5e5e5;" onfocus="javascript:blur();	">                                                    
 	                            </p>                          
 	                            <p>
-	                               	<input style="width:65%; height:40px; float:left;" name="id" type="text" id="id" placeholder="아이디(영문,숫자10~16)" 
-	                               			ng-model="id" onkeyup="send()">
-	                               	<div style="text-align: center; font-size: medium; line-height: 150%;">
-	                               		{{ id }}　<br>
-	                               		<span id="result">　</span>
-	                               	</div>
+	                               	<input style="height:40px; border-color:#d2d2d2; background-color:#e5e5e5;" name="id" type="text" id="id" value="${myPage.id }"  onfocus="javascript:blur();" >
 	                            </p>
 	                            <p>
-	                               	<input name="pwd" type="password" id="pwd" placeholder="비밀번호 (영문,숫자,특수문자로 8~12)" style="height:40px;">
+	                               	<input name="pwd" type="password" id="pwd"  style="height:40px;" value="${myPage.pwd }">
 	                            </p>
 	                            <p>
-	                               	<input name="pwd2" type="password" id="pwd2" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;">
+	                               	<input name="pwd2" type="password" id="pwd2" value="${myPage.pwd2 }" style="height:40px;" >
 	                            </p>
 	                            <p>
-	                                <select name="gender" id="gender">
+	                                <select name="gender" id="gender" value ="${myPage.gender}" disabled="disabled" style="border-color:#d2d2d2; background-color:#e5e5e5;">
 	                                	<option value="남자" default>남성</option>
 	                                	<option value="여자">여성</option>
 	                                </select> 
 	                            </p>                                                                                        
 	                            <p>
-	                               	<input name="tel" type="text" id="tel" placeholder="연락처" style="height:40px;">
+	                               	<input name="tel" type="text" id="tel" value="${myPage.tel}" style="height:40px;">
 	                            </p>                                                                                                                                                                         
 	                            <p>
 	                                <select name="question" id="question">                                	
@@ -192,11 +141,11 @@
 	                                </select> 
 	                            </p>
 	                            <p>
-	                                <input name="answer" type="text" id="answer" placeholder="비밀번호 찾기 답" style="height:40px;"> 
+	                                <input name="answer" type="text" id="answer" value="${myPage.answer }" style="height:40px;"> 
 	                            </p>                            
 	                            <p>
-	                                <input type="text" readonly name="post1" id="post1" class="postcodify_postcode5" style="width:35%; height:40px;" > - 
-	                                <input type="text" readonly name="post2" id="post2" class="postcodify_postcode5" style="width:35%; height:40px;">
+	                                <input type="text" readonly name="post1" id="post1"  value="${myPage.post1}"  class="postcodify_postcode5" style="width:35%; height:40px;" > - 
+	                                <input type="text" readonly name="post2" id="post2"  value="${myPage.post2}" class="postcodify_postcode5" style="width:35%; height:40px;">
 	                                <input type="button" class="mainBtn" value="검색" style="width:19%; height:40px;" onclick="openDaumPostcode()">
 									<span id="callbacknestsgroomtistorycom739114"
 										style="width: 1px; height: 1px; float: right;"><embed width="1"
@@ -209,22 +158,22 @@
 									<span style="line-height: 10%;"><br></span>
 	                            </p>
 	                            <p>
-	                                <input readonly name="addr1" type="text" id="addr1" placeholder="도로명주소" style="height:40px;"> 
+	                                <input readonly name="addr1" type="text" id="addr1" value="${myPage.addr1}" placeholder="도로명주소" style="height:40px;"> 
 	                            </p>
 	                            <p>
-	                                <input name="addr2" type="text" id="addr2" placeholder="지번주소" style="height:40px;"> 
+	                                <input name="addr2" type="text" id="addr2" value="${myPage.addr2}"  placeholder="지번주소" style="height:40px;"> 
 	                            </p>                                                        
 	                    
-	                            <input type="submit" class="mainBtn" id="submit" value="회원가입" style="height:40px;">
+	                            <input type="submit" class="mainBtn" id="submit" value="정보수정" style="height:40px;">
 	                                                    
 	                        </form>
-	                    </div>
+	                    </div> <!-- /.contact-form -->
 	                </div> 
 	            </div>                  
-	        </div>
-	    </div>
+	        </div> <!-- /.container -->
+	    </div> <!-- /.content-section -->
 	    <br><br><br><br><br>
-	    <img src="http://localhost:8090/momo/images/join/joinus.png" width="60%" height="60%">
+	    <img src="http://localhost:8090/momo/images/myPage/update.png" width="60%" height="60%">
 	    
     </div> <!-- #joinWrap -->	
    

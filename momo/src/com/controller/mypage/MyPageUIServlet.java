@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.entity.member.MemberDTO;
 
-@WebServlet("/MypageUIServlet")
-public class MypageUIServlet extends HttpServlet {
+@WebServlet("/MyPageUIServlet")
+public class MyPageUIServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -25,6 +25,7 @@ public class MypageUIServlet extends HttpServlet {
 		
 		if(memberDTO != null){
 			target = "myPage/myPage.jsp";
+			request.setAttribute("prevPage", "MyPageUIServlet");
 		}else{
 			target = "LoginUIServlet";
 			request.setAttribute("message", "로그인 후에 이용해주세요!");

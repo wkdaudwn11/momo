@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.entity.cart.CartDTO;
 import com.entity.member.MemberDTO;
 import com.service.CartService;
+import com.service.MemberService;
 import com.service.OrderService;
 
 @WebServlet("/OrderSheetServlet")
@@ -38,8 +39,21 @@ public class OrderSheetServlet extends HttpServlet {
 		String image1 = request.getParameter("image1");
 		String orderMessage = request.getParameter("orderMessage");
 		
+		String confirmOK = request.getParameter("confirmOK");
+		String tel = request.getParameter("tel");
+		String post1 = request.getParameter("post1");
+		String post2 = request.getParameter("post2");
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
+		
 		try{
 			if(memberDTO != null){
+				
+				if(confirmOK.equals("true")){
+					MemberService memberService = new MemberService();
+					memberService.updateFacebookMemberAddr(memberDTO.getId(), tel, post1, post2, addr1, addr2);
+				}
+				
 				OrderService service = new OrderService();
 				if(list != null){ // 카트에서 주문을 한 경우 (여러 개) 
 					service.orderInsertAll(list);
