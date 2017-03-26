@@ -19,6 +19,7 @@ public class FreeBoardRepleWrite extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		String fnum = request.getParameter("fnum");
+		String id = request.getParameter("id");
 		String author = request.getParameter("author");
 		String content = request.getParameter("content");
 		String curPage = request.getParameter("curPage"); // 이전 페이지로 돌아가기 위한 변수
@@ -27,6 +28,7 @@ public class FreeBoardRepleWrite extends HttpServlet {
 		FreeBoardRepleDTO repleDTO = new FreeBoardRepleDTO();
 		if(frnum != null ) repleDTO.setFrnum(Integer.parseInt(frnum));
 		repleDTO.setFnum(Integer.parseInt(fnum)); // 어느게시판에 속해있는 댓글인지 알기위해 사용됨.
+		repleDTO.setId(id);
 		repleDTO.setAuthor(author);
 		repleDTO.setContent(content);
 		

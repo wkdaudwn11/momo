@@ -30,6 +30,10 @@
 		myForm.action="FreeBoardWriteServlet";
 		myForm.submit();
 	}
+	
+	function contentEmpty(){
+		document.getElementById('content').value = "";
+	}
 </script>
 
 </head>
@@ -47,7 +51,7 @@
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;
-				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.id}" readonly>
+				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.name}" readonly>
 					</p>
 				</div>
 				<div>
@@ -58,7 +62,7 @@
 				</div>
 				<div>
 				    	&nbsp;<span style="width:24%"><b>내용</b></span>
-				    	&nbsp;<textarea name="content" id="content" rows="10" cols="125">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
+				    	&nbsp;<textarea name="content" id="content" rows="10" cols="106" onfocus="contentEmpty()">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
 
 * 포토후기를 작성해주신 모든 분들께 신세계 백화점 상품권(3만원권)을 드립니다.
 

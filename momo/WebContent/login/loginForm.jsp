@@ -36,7 +36,6 @@
 		});// end $(document).ready()
 	
 		function loginFormSubmit(){
-			
 			var result = false;
 			var id = document.loginForm.id.value;
 			var pwd = document.loginForm.pwd.value;
@@ -121,11 +120,13 @@
 	성공한. 이 호출이 발생하면 statusChangeCallback ()을 참조하십시오. */
   	function login() {
     	FB.api('/me', function(user) {
-      		var userName = user.name;
-      		var userId = user.id;
-      		console.log('사용자 이름: ' + userName);
-      		console.log('사용자 아이디: ' + userId);
-      		console.log('사용자 아이디: ' + user.email);
+    		var id = user.id;
+      		var name = user.name;
+      		var tel = user.tel;
+      		
+      		var loginForm = document.getElementById('loginForm');
+      		loginForm.action="FacebookLoginServlet?id="+id+"&name="+name+"&tel="+tel;
+      		loginForm.submit();
     	});
   	}//login()
    
@@ -150,7 +151,6 @@
 		                        <input type="text" style="width:18.750em; height:1.875em;" id="id" name="id">
 		                    </td>
 		                    <td rowspan="2" style="width:6.250em;">
-		                    	<!-- <img src="http://localhost:8090/momo/images/login/loginBtn.jpg" width="100" height="50" onclick="loginFormSubmit()"> -->
 		                    	<input type="image" src="http://localhost:8090/momo/images/login/loginBtn.jpg" style=" width:6.25em; height:2.5em;">
 		                    </td>
 		                </tr>
@@ -159,6 +159,15 @@
 		                    <td>
 		                        <input type="password" style="width:18.750em; height:1.875em;" id="pwd" name="pwd">
 		                    </td>
+		                </tr>
+		                <tr>
+		                	<td colspan="3" style="width:7em;">
+		                		<center>
+								<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+									facebook으로 로그인하기
+								</fb:login-button>
+								</center>
+							</td>
 		                </tr>
 		            </table>
 	            </form>
@@ -175,14 +184,6 @@
 	               			</a>
 	               		</td>
 					</tr>
-					<tr style="border-bottom: 1px dotted gray; height:5em;">
-						<td style="width:30em;">페이스북으로 가입하시겠어요?<br></td>
-						<td>
-							<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-								facebook으로 가입하기
-							</fb:login-button>
-						</td>
-					</tr>
 					<tr style="height:5em;">
 						<td style="width:30em;">
 							아이디나 비밀번호를 잊어버리셨나요?<br>찾기 버튼을 누르시고 해당 정보를 입력해주시길 바랍니다.
@@ -198,7 +199,6 @@
            		</table>
       			</font>
 	       	</div>	<!-- login2 -->
-	       	<br>
 	       	
 	    </div> <!-- login_wrap -->
 	    </center><br>

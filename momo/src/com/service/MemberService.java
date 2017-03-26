@@ -12,12 +12,29 @@ public class MemberService {
 
 	String namespace = "com.momo.MemberMapper.";
 	
+	
+	/** 해당 유저의 로그인 날짜를 방금 로그인 한 날짜로 업데이트 하는 메소드 */
+	private void updateLoginDate(String id) throws CommonException {
+		SqlSession session = MySqlSessionFactory.openSession();
+		
+		try{
+			int n = session.update(namespace + "updateLoginDate", id);
+			session.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("로그인 날짜 수정 실패!");
+		}finally{
+			session.close();
+		}
+	}//updateLoginDate(HashMap map)
+	
 	/** 로그인 메소드 */
 	public MemberDTO loginCheck(HashMap<String, String> map) throws CommonException {
 		
 		MemberDTO dto = null;
     	SqlSession session = MySqlSessionFactory.openSession();
 		try{
+			updateLoginDate(map.get("id"));
 			dto = session.selectOne(namespace+"loginCheck", map);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -28,6 +45,63 @@ public class MemberService {
 		return dto;
 		
 	}// loginCheck(HashMap<String, String> map)
+	
+	/** 페이스북 아이디(고유번호)가 이미 member테이블에 존재하는지 체크하는 메소드 */
+	private int facebookMemberCheck(String id){
+		SqlSession session = MySqlSessionFactory.openSession();
+		int num = 0;
+		
+		try{
+			num = session.selectOne(namespace + "facebookMemberCheck", id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		
+		return num;
+	}//MemberDTO facebookMemberCheck(MemberDTO memberDTO)
+		
+	/** 페이스북 정보를 member테이블에 저장 */
+	private void addFacebookLMember(HashMap map) {
+		SqlSession session = MySqlSessionFactory.openSession();
+		
+		try{
+			int n = session.insert(namespace + "addFacebookLMember", map);
+			session.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}//addFacebookMember(MemberDTO memberDTO)
+	
+	/** 페이스북 로그인 메소드 */
+	public MemberDTO facebookLogin(String id, String name, String tel) throws CommonException {
+		
+		SqlSession session = MySqlSessionFactory.openSession();
+		MemberDTO memberDTO = null; 
+		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("name", name);
+		map.put("tel", tel);
+		
+		try{
+			if(facebookMemberCheck(id) == 0){
+				addFacebookLMember(map);
+			}
+			updateLoginDate(id);
+			memberDTO = session.selectOne(namespace + "facebookLogin", id);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("페이스북 로그인 실패!");
+		}finally{
+			session.close();
+		}
+		
+		return memberDTO;
+	}//addFacebookMember(MemberDTO memberDTO)
 	
 	/** 회원 등록 메소드 */
 	public void addMember(MemberDTO dto) throws CommonException{
@@ -65,4 +139,28 @@ public class MemberService {
 		}
 		return dto;
 	}//findMember(HashMap<String, String> map)
+
+	/** 페이스북 유저가 주문을 할 때, 입력한 배송지 정보를 회원 정보에 등록할 때 update해주는 메소드 */
+	public void updateFacebookMemberAddr(String id, String tel, String post1, String post2, String addr1, String addr2) {
+		
+		SqlSession session = MySqlSessionFactory.openSession();
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("tel", tel);
+		map.put("post1", post1);
+		map.put("post2", post2);
+		map.put("addr1", addr1);
+		map.put("addr2", addr2);
+		
+		try{
+			int n = session.update(namespace + "updateFacebookMemberAddr", map);
+			session.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		
+	}
+
 }

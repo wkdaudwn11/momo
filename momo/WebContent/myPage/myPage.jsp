@@ -18,7 +18,16 @@
 	
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <script>
+
+	$(document).ready(function(){
+		if(${message != null }){
+			alert('${message}');
+		}
+	});// end $(document).ready()
+
 	$(document).ready(function(){
 		$(".a1").hover(
 			function(){
@@ -107,7 +116,7 @@
 				</td>
 				
 				<td> <!-- 회원 정보 변경 -->
-					<a href="PwdCheckUIServlet">
+					<a href="PwdCheckUIServlet?prevPage=${prevPage}">
 						<img src="http://localhost:8090/momo/images/myPage/myPageList5.jpg" class="a5">
 					</a>
 				</td>
@@ -127,12 +136,17 @@
 		
 		<table style="width: 60%;">
 			<tr style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
-				<td width="250"><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;회원 가입일</td>
-				<td>2017-01-13</td>
+				<c:if test="${sessionScope.login.facebook == 'no'}">
+					<td width="250"><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;회원 가입일</td>
+				</c:if>
+				<c:if test="${sessionScope.login.facebook == 'yes'}">
+					<td width="250"><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;최초 로그인</td>
+				</c:if>
+				<td>${sessionScope.login.joindate}</td>
 			</tr>
 			<tr style="border-bottom:1px dotted #ddd;">
-				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;최근 로그인</td>
-				<td>2017-03-23</td>
+				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;로그인 한 시간</td>
+				<td>${sessionScope.login.logindate}</td>
 			</tr>
 			<tr style="border-bottom:1px dotted #ddd;">
 				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;총 주문금액</td>

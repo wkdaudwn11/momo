@@ -78,7 +78,7 @@ public class FreeBoardService {
 	public void boardWrite(FreeBoardDTO boardDTO){
 		SqlSession session = MySqlSessionFactory.openSession();
 		try{
-			session.insert(namespace+"freeBoardWrite",boardDTO);
+			session.insert(namespace+"boardWrite",boardDTO);
 			session.commit();
 		}catch(Exception e){
 			e.printStackTrace();

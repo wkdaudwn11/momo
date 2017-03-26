@@ -24,7 +24,16 @@ public class PwdCheckUIServlet extends HttpServlet {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
 		
 		if(memberDTO != null){
-			target = "myPage/pwdCheck.jsp";
+			if(memberDTO.getFacebook().equals("no")){
+				target = "myPage/pwdCheck.jsp";
+			}else{
+				request.setAttribute("message", "페이스북으로 로그인하셨으면 정보수정은 할 수 없습니다.");
+				if(request.getParameter("prevPage") != null){
+					target = (String)request.getParameter("prevPage");
+				}else{
+					target = "index.jsp";
+				}
+			}
 		}else{
 			target = "LoginUIServlet";
 			request.setAttribute("message", "로그인 후에 이용해주세요!");
