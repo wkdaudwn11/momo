@@ -34,15 +34,13 @@ public class CartListServlet extends HttpServlet {
 		try{
 			if(session.getAttribute("login") != null){
 				MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
-				target = "cart/cartList.jsp";
 				CartPageDTO cartPageDTO = service.cartList(Integer.parseInt(curPage), memberDTO.getId());
 				request.setAttribute("cartPageDTO", cartPageDTO);	//상품 리스트
-				
-				//session.setAttribute("prevPage", "CartListServlet");
-				
+				target = "cart/cartList.jsp";
+				session.setAttribute("prevPage", "CartListServlet");
 			}else{
 				target = "LoginUIServlet";
-				throw new LoginFailException("로그인 후에 이용해주세요!");
+				throw new LoginFailException();
 			}
 		}catch(Exception e){
 			request.setAttribute("loginFail", e.getMessage());

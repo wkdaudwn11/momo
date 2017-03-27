@@ -83,7 +83,6 @@
 	
 	function goodPlus(){
 		if('${login.id}' != ""){
-			alert('로그인됨');
 			$.ajax({
 				type:"get",
 				url:"freeBoard/freeBoardGoodCount.jsp",
@@ -160,13 +159,14 @@
 		<!-- 댓글 작성 폼 -->
 		<form method="post" action="FreeBoardRepleWrite" name="noticeRepleWriteForm">
 			<input type="hidden" name="fnum" value="${freeBoardDTO.fnum}">
-			<input type="hidden" name="author" value="${login.id}">
+			<input type="hidden" name="id" value="${login.id}">
+			<input type="hidden" name="author" value="${login.name}">
 			<input type="hidden" name="curPage" value="${curPage}">
 			<table border="1">	
 				<tr>
 					<td rowspan="2" style="width:7.5em; text-align: center;">
 						<c:if test="${login.id == null}">로그인<br>해주세요.</c:if>	<!-- 로그인 안했을 경우 -->
-						<c:if test="${login.id != null}">${login.id}</c:if>	<!-- 로그인 했을 경우 -->
+						<c:if test="${login.id != null}">${login.name}</c:if>	<!-- 로그인 했을 경우 -->
 					</td>
 					<td rowspan="2" style="width:56em; padding-left:0.313em;">
 						<textarea name="content" rows="2" cols="110" style="border: none" ></textarea>
@@ -208,10 +208,10 @@
 									${freeBoardRepleDTO.content}
 								</td>
 								<td style="width: 7.250em; text-align: center;">
-									<c:if test="${login.id != freeBoardRepleDTO.author && login.id != 'admin'}">
+									<c:if test="${login.id != freeBoardRepleDTO.id && login.id != 'admin'}">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</c:if>
-									<c:if test="${login.id == freeBoardRepleDTO.author || login.id == 'admin'}">
+									<c:if test="${login.id == freeBoardRepleDTO.id || login.id == 'admin'}">
 										<a href="javascript:repleDelete('${freeBoardRepleDTO.frnum}', '${freeBoardDTO.fnum}', '${curPage}');" style="text-decoration: none">
 											[삭제]
 										</a>
@@ -236,12 +236,13 @@
 							<form action="FreeBoardRepleWrite" method="post" class="repleWriteForm" name="repleWriteForm">
 								<input type="hidden" name="frnum" value="${freeBoardRepleDTO.frnum}">
 								<input type="hidden" name="fnum" value="${freeBoardDTO.fnum}">
-								<input type="hidden" name="author" value="${login.id}">
+								<input type="hidden" name="id" value="${login.id}">
+								<input type="hidden" name="author" value="${login.name}">
 								<input type="hidden" name="curPage" value="${curPage}">
 								<table align="right" border="1" >
 									<tr>
 										<td rowspan="2" style="width:7.5em; text-align: center;">
-											${login.id}
+											${login.name}
 										</td>
 										<td style="width:60em; padding-left:0.313em;" >
 											<textarea name="content" rows="2" cols="115" style="border: none" ></textarea>
@@ -263,7 +264,7 @@
 		<br>
 		<div class="boardBtn">
 			<div class="boardBtnleft">
-				<c:if test="${login.id == freeBoardDTO.author || login.id == 'admin'}">  
+				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">  
 					<a href="javascript:update(detailForm);"> 
 						<img src="http://localhost:8090/momo/images\freeBoard/updateBtn.jpg">
 					</a>&nbsp;<!-- 수정 -->

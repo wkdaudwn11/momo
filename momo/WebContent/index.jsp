@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>모모123</title>
+	<title>모모</title>
 	
 	<!-- menu 슬라이드 (새로고침)-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -43,6 +43,14 @@
 	    	alert(x);
 	 	</script>
 	</c:if>
+	
+	<!-- 메세지 -->
+	<c:if test="${message != null}">
+		<script type="text/javascript">
+	  		var x= '${message}';
+	    	alert(x);
+	 	</script>
+	</c:if>
 
 	<div id="wrap">
 	
@@ -52,11 +60,11 @@
  			<script src="js/jquery.cycle2.js"></script>	 
 			<div class="cycle-slideshow" id="buk" cycle-slideshow data-cycle-loader="wait" data-cycle-timeout=5000 data-cycle-fx=scrollHorz>	
 				<div class="cycle-pager"></div> 
-			    <img src="images\visual/visual_1.jpg" width="100%" height="100%">
+			    <img src="images\visual/visual_5.jpg" width="100%" height="100%">
 			    <img src="images\visual/visual_2.jpg" width="100%" height="100%">
 			    <img src="images\visual/visual_3.jpg" width="100%" height="100%">
 			    <img src="images\visual/visual_4.jpg" width="100%" height="100%">
-			    <img src="images\visual/visual_5.jpg" width="100%" height="100%">
+			    <img src="images\visual/visual_1.jpg" width="100%" height="100%">
 			    <img src="images\visual/visual_6.jpg" width="100%" height="100%">
 		    </div>
 			<!-- <div class="hero-carousel" data-flickity="" data-js="hero-carousel">

@@ -1,7 +1,8 @@
 package com.controller.order;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,28 +15,75 @@ import javax.servlet.http.HttpSession;
 
 import com.entity.cart.CartDTO;
 import com.entity.member.MemberDTO;
+import com.service.CartService;
+import com.service.MemberService;
 import com.service.OrderService;
 
 @WebServlet("/OrderSheetServlet")
 public class OrderSheetServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
-		String target = "";
-		String[] checkCart = request.getParameterValues("checkCart");
-		
 		HttpSession session = request.getSession();
+		String target = "";
+		
+		List<CartDTO> list = (List<CartDTO>)session.getAttribute("cartList");
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		String pnum = request.getParameter("pnum");
+		String category = request.getParameter("category");
+		String pname = request.getParameter("pname");
+		String count = request.getParameter("count");
+		String price = request.getParameter("price");
+		String discount = request.getParameter("discount");
+		String image1 = request.getParameter("image1");
+		String orderMessage = request.getParameter("orderMessage");
+		
+		String confirmOK = request.getParameter("confirmOK");
+		String tel = request.getParameter("tel");
+		String post1 = request.getParameter("post1");
+		String post2 = request.getParameter("post2");
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
 		
 		try{
-			if(session.getAttribute("login") != null){
-				MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
-				OrderService service = new OrderService();
-				List<CartDTO> list = service.cartList(Arrays.asList(checkCart));
+			if(memberDTO != null){
 				
-				request.setAttribute("memberDTO", memberDTO);
-				request.setAttribute("cartList", list);
-				target = "order/orderSheet.jsp";
+				if(confirmOK.equals("true")){
+					MemberService memberService = new MemberService();
+					memberService.updateFacebookMemberAddr(memberDTO.getId(), tel, post1, post2, addr1, addr2);
+				}
+				
+				OrderService service = new OrderService();
+				if(list != null){ // 카트에서 주문을 한 경우 (여러 개) 
+					service.orderInsertAll(list);
+					
+					//주문을 하고 나면 카트에 있던 물품들을 삭제해준다.
+					CartService cartService = new CartService();
+					List<String> list2 = new ArrayList<>();
+					for(int i=0; i<list.size(); i++){
+						list2.add(""+list.get(i).getCnum());
+					}
+					cartService.deleteCheck(list2);
+					
+				}else{ // 즉시구매로 주문을 한 경우 (한 개)
+					HashMap map = new HashMap();
+					map.put("id", memberDTO.getId());
+					map.put("pnum", pnum);
+					map.put("category", category);
+					map.put("pname", pname);
+					map.put("count", count);
+					map.put("price", price);
+					map.put("discount", discount);
+					map.put("image1", image1);
+					map.put("orderMessage", orderMessage);
+					
+					service.orderInsertOne(map);
+				}
+				
+				MemberService memberService = new MemberService();
+				//MemberDTO memberDTO2 = memberService.
+				
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");
 				target = "LoginUIServlet";

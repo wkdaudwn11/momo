@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.entity.bedroom.BedroomDTO;
+import com.entity.bedRoom.BedRoomDTO;
 import com.exception.CommonException;
-import com.service.BedroomService;
+import com.service.BedRoomService;
 
 @WebServlet("/BedRoomDetailServlet")
 public class BedRoomDetailServlet extends HttpServlet {
@@ -23,10 +23,10 @@ public class BedRoomDetailServlet extends HttpServlet {
 		String target = "";
 		String bnum = request.getParameter("bnum");
 		
-		BedroomService service = new BedroomService();
+		BedRoomService service = new BedRoomService();
 		try {
-			BedroomDTO bedroomDTO = service.bedroomDetail(Integer.parseInt(bnum));
-			request.setAttribute("bedroomDTO", bedroomDTO);
+			BedRoomDTO bedRoomDTO = service.bedRoomDetail(Integer.parseInt(bnum));
+			request.setAttribute("bedRoomDTO", bedRoomDTO);
 			target="bedRoom/bedRoomDetail.jsp";
 			
 			HttpSession session = request.getSession();

@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> 
-<html class="no-js" ng-app> <!--<![endif]-->
+<html class="no-js" ng-app>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>회원가입</title>
@@ -36,8 +32,7 @@
     	.content-section {width:40%; float: left; padding-right: 40px;}
     </style>
     
-    <script type="text/javascript">
-    	//Ajax 시작
+    <script type="text/javascript"> <!-- Ajax -->
 		var xmlHttp;
 		
 		function getXMLHttpRequest(){
@@ -61,39 +56,114 @@
 	    		document.getElementById("result").innerText=str.trim();
 	    	}//end 
 	    }//end xxx
-		//Ajax 끝
-		
-		function result(){
-	    	
-	    }
-		
+
 	</script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>	<!-- Angular -->
+	
+	<!-- 입력값 체크 -->	
+	<script>
+		function resultForm(){
+	    	var result = true;
+	    	
+	    	var name = document.getElementById('name');
+	    	var id = document.getElementById('id');
+	    	var pwd = document.getElementById('pwd');
+	    	var pwd2 = document.getElementById('pwd2');
+	    	var tel = document.getElementById('tel');
+	    	var answer = document.getElementById('answer');
+	    	var addr = document.getElementById('addr');
+	    	
+	    	if(name.value.length < 1 || name.value.length > 6){
+				alert("이름은 2~6자리만 입력해주세요.");
+				name.value="";
+				name.focus();
+				result = false;
+			}else if(!name.value.match(/([가-힣])/)){
+	    		alert("이름은 한글로 제대로 입력해주세요.");
+	    		name.value="";
+	    		name.focus();
+	    		result = false;
+	    	}else if(id.value.length < 10 || id.value.length > 17){
+				alert("아이디는 10~16자리로 입력해주세요.");
+				id.value="";
+				id.focus();
+				result = false;
+			}else if(!id.value.match(/[a-zA-Z0-9]/)){
+				alert("아이디는 문자, 숫자의 조합으로 입력해주세요.");
+				id.value="";
+				id.focus();
+				result = false;
+			}else if(pwd.value.length < 8 || pwd.value.length > 12){
+				alert("비밀번호는 8~12자리로 입력해주세요.");
+				pwd.value="";
+				pwd.focus();
+				result = false;
+			}else if(!pwd.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)){
+				alert("비밀번호는 문자, 숫자, 특수문자의 조합으로 입력해주세요.");
+				pwd.value="";
+				pwd.focus();
+				result = false;
+			}else if(pwd2.value.length<1){
+				alert("비밀번호 확인을 입력해 주세요.");
+				pwd2.value="";
+				pwd2.focus();
+				result = false;
+			}else if(pwd.value != pwd2.value){
+				alert("입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다");
+				pwd2.value="";
+				pwd2.focus();
+				result = false;
+	    	}else if(tel.value.length < 1){
+		        alert("연락처를 입력해주세요.");
+		        tel.value="";
+				tel.focus();
+		        result = false;
+		    }else if(tel.value.length < 9 || tel.value.length > 11){
+		    	alert("연락처는 9~11자리만 입력가능합니다.");
+		        tel.value="";
+				tel.focus();
+		        result = false;
+		    }else if(!tel.value.match(/[0-9]/)){
+				alert("연락처는 숫자만 입력가능합니다.");
+				tel.value="";
+				tel.focus();
+				result = false;
+			}else if(answer.value.length<1){
+		        alert("답변을 입력해 주세요.");
+		        result = false;
+		    }else if(answer.value.length>20){
+		        alert("입력하신 답변이 너무 깁니다.");
+		        result = false;
+		    }else if(addr.value.length<1){
+		        alert("주소을 입력해 주세요.");
+		        result = false;
+			}
+	    	
+	    	return result;
+	    }//resultForm(joinform)
+	</script>
 
 </head>
 <body>
-    <!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
     
     <jsp:include page="../include/header.jsp"  flush="true"></jsp:include>       
     
 	<div id="joinWrap">
-		<div class="content-section">    <!-- class="content-section" -->
-	        <div class="container">	<!-- class="container" -->
-				<div class="row">	<!-- class="row" -->
+		<div class="content-section">
+	        <div class="container">
+				<div class="row">
 	                <div class="col-md-12 section-title">
 	                    <center><h2>회원가입</h2></center>
-	                </div> <!-- /.section -->
-	                <div align="left"> <!-- class="col-md-5 col-sm-6" -->
+	                </div>
+	                <div align="left">
 	                    <div>	<!-- class="contact-form" -->
-	                        <form name="contactform" id="contactform" action="JoinAddMember" method="get">
+	                        <form name="contactform" id="contactform" action="JoinAddMember" method="get" onsubmit="return resultForm()">
 	                            <p>
-	                                <input name="name" type="text" id="name" placeholder="성명" style="height:40px;">                                                    
+	                                <input type="text" id="name" name="name" placeholder="성명 (한글 2~6)" style="height:40px;">                                                    
 	                            </p>                          
 	                            <p>
-	                               	<input style="width:65%; height:40px; float:left;" name="id" type="text" id="id" placeholder="아이디" 
+	                               	<input style="width:65%; height:40px; float:left;" name="id" type="text" id="id" placeholder="아이디(영문,숫자10~16)" 
 	                               			ng-model="id" onkeyup="send()">
 	                               	<div style="text-align: center; font-size: medium; line-height: 150%;">
 	                               		{{ id }}　<br>
@@ -101,10 +171,10 @@
 	                               	</div>
 	                            </p>
 	                            <p>
-	                               	<input name="pwd" type="password" id="pwd" placeholder="비밀번호" style="height:40px;">
+	                               	<input name="pwd" type="password" id="pwd" placeholder="비밀번호 (영문,숫자,특수문자로 8~12)" style="height:40px;">
 	                            </p>
 	                            <p>
-	                               	<input name="pwd2" type="password" id="pwd2" placeholder="비밀번호확인" style="height:40px;">
+	                               	<input name="pwd2" type="password" id="pwd2" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;">
 	                            </p>
 	                            <p>
 	                                <select name="gender" id="gender">
@@ -149,11 +219,11 @@
 	                            <input type="submit" class="mainBtn" id="submit" value="회원가입" style="height:40px;">
 	                                                    
 	                        </form>
-	                    </div> <!-- /.contact-form -->
+	                    </div>
 	                </div> 
 	            </div>                  
-	        </div> <!-- /.container -->
-	    </div> <!-- /.content-section -->
+	        </div>
+	    </div>
 	    <br><br><br><br><br>
 	    <img src="http://localhost:8090/momo/images/join/joinus.png" width="60%" height="60%">
 	    

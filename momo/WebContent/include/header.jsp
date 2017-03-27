@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://localhost:8090/momo/css/animate.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-misc.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-style.css">
-   
+     
     
 <link href="http://localhost:8090/momo/css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
 <link href="http://localhost:8090/momo/css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
@@ -69,33 +69,25 @@
 		</a>
 	</div>
 	
-	<!-- 로그인 안했을 경우 -->
-	<c:if test="${sessionScope.login == null }">
-		<div class="login">
-	       	<ul>
+	<div class="login">
+		<ul>
+		
+		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LoginUIServlet">로그인</a></font></li>
 	           	<li><a class="login_color" href="http://localhost:8090/momo/JoinUIServlet">회원가입</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
-	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="">마이페이지</a></li>
-				<li><a class="login_black" href="">상품문의</a></li>
-			</ul>
-		</div>	<!-- login_div -->
-	</c:if>	
-	
-	<!-- 로그인 했을 경우 -->
-	<c:if test="${sessionScope.login != null}">
-		<div class="login">
-	       	<ul>
+		</c:if>	
+		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LogoutServlet">로그아웃</a></font></li>
-	           	<li><a class="login_color" href="">정보수정</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
-	            <li><a class="login_black" href="">주문조회</a></li>
-	            <li><a class="login_black" href="">마이페이지</a></li>
-				<li><a class="login_black" href="">상품문의</a></li>
-			</ul>
-		</div>	<!-- login_div -->
-	</c:if>	 
+	           	<li><a class="login_color" href="http://localhost:8090/momo/PwdCheckUIServlet">정보수정</a></font></li>
+		</c:if>
+		
+			<li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
+			<li><a class="login_black" href="">주문내역</a></li>
+            <li><a class="login_black" href="http://localhost:8090/momo/MyPageUIServlet">마이페이지</a></li>
+			<li><a class="login_black" href="http://localhost:8090/momo/QuestionListServlet">고객문의</a></li>
+
+		</ul>
+	</div>
 	
 	<ul class="menu">
 		<li><!-- bedroom -->
@@ -105,20 +97,20 @@
 			</a>
 		</li>
 		
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- livingroom -->
+			<a href="http://localhost:8090/momo/LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('LivingRoom','','http://localhost:8090/momo/images/menu/LivingRoom_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/LivingRoom.jpg" id="LivingRoom" />
 			</a>
 		</li>
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- Kitchen-->
+			<a href="http://localhost:8090/momo/KitchenListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('Kitchen','','http://localhost:8090/momo/images/menu/Kitchen_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/Kitchen.jpg" id="Kitchen" />
 			</a>
 		</li>
-		<li>
-			<a href="" onmouseout="MM_swapImgRestore()" 
+		<li><!-- ChildrenRoom -->
+			<a href="http://localhost:8090/momo/ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('ChildrenRoom','','http://localhost:8090/momo/images/menu/ChildrenRoom_over.jpg',1)">
 				<img src="http://localhost:8090/momo/images/menu/ChildrenRoom.jpg" id="ChildrenRoom" />
 			</a>

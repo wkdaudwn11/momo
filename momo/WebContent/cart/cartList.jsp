@@ -96,7 +96,7 @@
 		}
 		
 		if(count >= 1){
-			cartForm.action="OrderSheetServlet";
+			cartForm.action="OrderSheetUIServlet";
 			cartForm.submit();
 		}else{
 			alert('최소 1개 이상 체크해주세요.');
@@ -155,13 +155,26 @@
 										<b>${(totalRecord - (i.count + x)) + 1}</b>
 									</td>
 								    <td  width="50" align="center">
-								    	<c:if test="${cartDTO.category == 'bedroom'}">				           
-									    	<img src="http://localhost:8090/momo/images/bedroom/${cartDTO.image1}.JPG" width="50" height="50">
-									    </c:if>
+								    	<img src="http://localhost:8090/momo/images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
 								    </td>
 				 					<td width="200" align="center">
-				 						<c:if test="${cartDTO.category == 'bedroom'}">
+				 						<c:if test="${cartDTO.category == 'bedRoom'}">
 									    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${cartDTO.pnum}">
+									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
+									    	</a> 
+									    </c:if>
+									    <c:if test="${cartDTO.category == 'livingRoom'}">
+									    	<a href="http://localhost:8090/momo/LivingRoomDetailServlet?lnum=${cartDTO.pnum}">
+									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
+									    	</a> 
+									    </c:if>
+									    <c:if test="${cartDTO.category == 'kitchen'}">
+									    	<a href="http://localhost:8090/momo/KitchenDetailServlet?knum=${cartDTO.pnum}">
+									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
+									    	</a> 
+									    </c:if>
+									    <c:if test="${cartDTO.category == 'childrenRoom'}">
+									    	<a href="http://localhost:8090/momo/ChildrenRoomDetailServlet?cnum=${cartDTO.pnum}">
 									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 									    	</a> 
 									    </c:if>

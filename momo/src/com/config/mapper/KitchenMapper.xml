@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.momo.KitchenMapper">
+
+	<!-- 상품별로 상품을 가져오는 쿼리 (최신순)-->
+	<select id="kitchenListKnumDesc" resultType="KitchenDTO" parameterType="hashmap">
+   		select knum, category, name, content, price, discount, buycount, image1
+   		  from kitchen
+   		<if test="category != 0">
+   		 where category=#{category}
+		</if>
+   		 order by knum desc
+	</select>
+	
+	<!-- 상품별로 상품을 가져오는 쿼리 (가격 낮은순)-->
+	<select id="kitchenListPriceAsc" resultType="KitchenDTO" parameterType="hashmap">
+   		select knum, category, name, content, price, discount, buycount, image1
+   		  from kitchen
+   		<if test="category != 0">
+   		 where category=#{category}
+		</if>
+   		 order by price asc
+	</select>
+	
+	<!-- 상품별로 상품을 가져오는 쿼리 (가격 높은순)-->
+	<select id="kitchenListPriceDesc" resultType="KitchenDTO" parameterType="hashmap">
+   		select knum, category, name, content, price, discount, buycount, image1
+   		  from kitchen
+   		<if test="category != 0">
+   		 where category=#{category}
+		</if>
+   		 order by price desc
+	</select>
+	
+	<!-- 상품별로 상품을 가져오는 쿼리 (판매 인기순)-->
+	<select id="kitchenListBuyCountDesc" resultType="KitchenDTO" parameterType="hashmap">
+   		select knum, category, name, content, price, discount, buycount, image1
+   		  from kitchen
+   		<if test="category != 0">
+   		 where category=#{category}
+		</if>
+   		 order by buycount desc
+	</select>
+   
+	<!-- 분류별로 상품 갯수를 반환해주는 쿼리-->
+	<select id="totalRecord" resultType="int" parameterType="hashmap">
+		select count(*) from kitchen
+		 where category=#{category}
+	</select>
+	
+    <!-- 전체 상품 갯수를 반환해주는 쿼리-->
+	<select id="totalRecordAll" resultType="int">
+		select count(*) from kitchen
+	</select>
+	
+	<!-- 인기상품 세 개를 반환해주는 쿼리 -->
+	<select id="bestKitchenList" resultType="KitchenDTO">
+		select rownum, knum, category, name, content, price, discount, buycount, image1
+  		  from (select * from kitchen order by buycount desc)
+ 		 where rownum between 1 and 3
+	</select>
+   
+   <!-- 모든 상품의 갯수를 가져오는 쿼리 (안쓰임)-->
+	<select id="listAllCount" resultType="int">
+   		select count(*)
+   		  from kitchen
+	</select>
+   
+	<!-- 해당 상품(knum)의 정보를 반환해주는 쿼리 -->
+	<select id="kitchenDetail" resultType="KitchenDTO" parameterType="int">
+   		select * from kitchen where knum=#{knum}
+	</select>
+</mapper>

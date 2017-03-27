@@ -27,14 +27,15 @@ public class FreeBoardWriteServlet extends HttpServlet {
 		try{
 			if(member == null){
 				target="http://localhost:8090/momo/LoginUIServlet";
-				throw new LoginFailException("로그인 후에 이용해주세요!");
+				throw new LoginFailException();
 			}else{
 				String title =request.getParameter("title");
 				String content = request.getParameter("content");
-				String author = member.getId();
+				String author = request.getParameter("author");
 				dto.setTitle(title);
 				dto.setContent(content);
 				dto.setAuthor(author);
+				dto.setId(member.getId());
 				
 				service.boardWrite(dto);
 				target ="http://localhost:8090/momo/FreeBoardListServlet";

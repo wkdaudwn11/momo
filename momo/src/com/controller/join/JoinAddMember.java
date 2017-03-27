@@ -32,7 +32,7 @@ public class JoinAddMember extends HttpServlet {
 		String addr1 =request.getParameter("addr1");
 		String addr2 =request.getParameter("addr2");
 		
-		MemberDTO dto = new MemberDTO(0,name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, "ㅋ");
+		MemberDTO dto = new MemberDTO(0,name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, "가입날짜", "로그인날짜", 0, "no");
 		MemberService service = new MemberService();
 		String target ="";
 		try {

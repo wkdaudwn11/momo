@@ -2,7 +2,6 @@ package com.controller.freeBoard;
 
 import java.io.IOException;
 
-import javax.security.auth.login.LoginException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.entity.member.MemberDTO;
+import com.exception.LoginFailException;
 
 @WebServlet("/FreeBoardWriteUIServlet")
 public class FreeBoardWriteUIServlet extends HttpServlet {
@@ -23,12 +23,12 @@ public class FreeBoardWriteUIServlet extends HttpServlet {
 		try{
 			if(member == null){
 				target = "LoginUIServlet";
-				throw new LoginException();
+				throw new LoginFailException();
 			}else{
 				target ="freeBoard/freeBoardWrite.jsp";
 			}
 		}catch(Exception e){
-			request.setAttribute("loginFail",e.getMessage());		
+			request.setAttribute("loginFail",e.getMessage());	
 		}
 		RequestDispatcher dis = request.getRequestDispatcher(target);
 		dis.forward(request,response);

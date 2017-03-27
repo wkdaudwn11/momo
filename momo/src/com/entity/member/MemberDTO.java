@@ -16,13 +16,17 @@ public class MemberDTO {
 	private String addr1;
 	private String addr2;
 	private String joindate;
+	private String logindate;
+	private int orderPrice;
+	private String facebook;
 	
 	public MemberDTO() {
 		super();
 	}
 
 	public MemberDTO(int mnum, String name, String id, String pwd, String pwd2, String gender, String tel,
-			String question, String answer, String post1, String post2, String addr1, String addr2, String joindate) {
+			String question, String answer, String post1, String post2, String addr1, String addr2, String joindate,
+			String logindate, int orderPrice, String facebook) {
 		super();
 		this.mnum = mnum;
 		this.name = name;
@@ -38,13 +42,17 @@ public class MemberDTO {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 		this.joindate = joindate;
+		this.logindate = logindate;
+		this.orderPrice = orderPrice;
+		this.facebook = facebook;
 	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [mnum=" + mnum + ", name=" + name + ", id=" + id + ", pwd=" + pwd + ", pwd2=" + pwd2
 				+ ", gender=" + gender + ", tel=" + tel + ", question=" + question + ", answer=" + answer + ", post1="
-				+ post1 + ", post2=" + post2 + ", addr1=" + addr1 + ", addr2=" + addr2 + ", joindate=" + joindate + "]";
+				+ post1 + ", post2=" + post2 + ", addr1=" + addr1 + ", addr2=" + addr2 + ", joindate=" + joindate
+				+ ", logindate=" + logindate + ", orderPrice=" + orderPrice + ", facebook=" + facebook + "]";
 	}
 
 	public int getMnum() {
@@ -158,5 +166,29 @@ public class MemberDTO {
 	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
-	
+
+	public String getLogindate() {
+		return logindate;
+	}
+
+	public void setLogindate(String logindate) {
+		this.logindate = logindate;
+	}
+
+	public int getOrderPrice() {
+		return orderPrice;
+	}
+
+	public void setOrderPrice(int orderPrice) {
+		this.orderPrice = orderPrice;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
 }
