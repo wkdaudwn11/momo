@@ -31,10 +31,11 @@ public class FreeBoardWriteServlet extends HttpServlet {
 			}else{
 				String title =request.getParameter("title");
 				String content = request.getParameter("content");
-				String author = member.getId();
+				String author = request.getParameter("author");
 				dto.setTitle(title);
 				dto.setContent(content);
 				dto.setAuthor(author);
+				dto.setId(member.getId());
 				
 				service.boardWrite(dto);
 				target ="http://localhost:8090/momo/FreeBoardListServlet";

@@ -87,7 +87,7 @@
 							<c:forEach var="bestKitchenDTO" items="${bestKitchenList}" varStatus="status">
 								<li>
 					            	<div class="img">
-										<a href="KitchenDetailServlet?bnum=${bestKitchenDTO.knum}">
+										<a href="KitchenDetailServlet?knum=${bestKitchenDTO.knum}">
 						    				<img src="http://localhost:8090/momo/images/kitchen/${bestKitchenDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestKitchenDTO.name}<br>
@@ -109,11 +109,10 @@
 			<div class="categoryList">
 				<ul>
 					<li><a href="KitchenListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="KitchenListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="KitchenListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="KitchenListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="KitchenListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="KitchenListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					<li><a href="KitchenListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">식탁세트</a></li>
+					<li><a href="KitchenListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">식탁</a></li>
+					<li><a href="KitchenListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">식탁의자</a></li>
+					<li><a href="KitchenListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">주방수납</a></li>
 				</ul>
 			</div>
 			
@@ -131,7 +130,7 @@
 						<c:forEach var="kitchenDTO" items="${kitchenList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
+									<a href="KitchenDetailServlet?knum=${kitchenDTO.knum}">
 					    				<img src="http://localhost:8090/momo/images/kitchen/${kitchenDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${kitchenDTO.name}<br>

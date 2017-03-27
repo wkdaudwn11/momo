@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="http://localhost:8090/momo/css/animate.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-misc.css">
 <link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-style.css">
-   
+     
     
 <link href="http://localhost:8090/momo/css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
 <link href="http://localhost:8090/momo/css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
@@ -75,18 +75,17 @@
 		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LoginUIServlet">로그인</a></font></li>
 	           	<li><a class="login_color" href="http://localhost:8090/momo/JoinUIServlet">회원가입</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
 		</c:if>	
-		
 		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
 	           	<li><a class="login_color" href="http://localhost:8090/momo/LogoutServlet">로그아웃</a></font></li>
-	           	<li><a class="login_color" href="">정보수정</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
+	           	<li><a class="login_color" href="http://localhost:8090/momo/PwdCheckUIServlet">정보수정</a></font></li>
 		</c:if>
 		
-			<li><a class="login_black" href="">주문조회</a></li>
-            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-			<li><a class="login_black" href="http://localhost:8090/momo/QuestionListServlet">상품문의</a></li>
+			<li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
+			<li><a class="login_black" href="">주문내역</a></li>
+            <li><a class="login_black" href="http://localhost:8090/momo/MyPageUIServlet">마이페이지</a></li>
+			<li><a class="login_black" href="http://localhost:8090/momo/QuestionListServlet">고객문의</a></li>
+
 		</ul>
 	</div>
 	

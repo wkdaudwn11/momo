@@ -51,10 +51,6 @@
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
 		}
 	}//addCart(detailForm)
-	
-	function submitCheck(){
-		
-	}
 </script>
 
 </head>

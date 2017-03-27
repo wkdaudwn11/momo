@@ -40,7 +40,7 @@ public class LoginCheckServlet extends HttpServlet {
 				// 아이디와 비번이 모두 맞다.
 				HttpSession session = request.getSession();
 				session.setAttribute("login", memberDTO);
-				request.setAttribute("loginMessage", memberDTO.getId()+"님 환영합니다!");
+				request.setAttribute("loginMessage", memberDTO.getName()+"님 환영합니다!");
 				
 				if(session.getAttribute("prevPage") == null){ // 이전 페이지가 존재하지 않으면 메인페이지로 이동.
 					target = "IndexServlet";

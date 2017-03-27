@@ -5,7 +5,7 @@
 <mapper namespace="com.momo.KitchenMapper">
 
 	<!-- 상품별로 상품을 가져오는 쿼리 (최신순)-->
-	<select id="kitchenListknumDesc" resultType="KitchenDTO" parameterType="hashmap">
+	<select id="kitchenListKnumDesc" resultType="KitchenDTO" parameterType="hashmap">
    		select knum, category, name, content, price, discount, buycount, image1
    		  from kitchen
    		<if test="category != 0">

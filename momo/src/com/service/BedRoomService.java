@@ -50,7 +50,7 @@ public class BedRoomService {
 	}//bedRoomList(int curPage, HashMap<String, String> map, String sortValue)
 	
 	/** 인기상품 세 개를 반환해주는 메소드 */
-	public BedRoomPageDTO bestBedRoomList() throws CommonException {
+	public BedRoomPageDTO bestBedRoomList(HashMap map) throws CommonException {
 		
 		SqlSession session = MySqlSessionFactory.openSession();
 		
@@ -58,7 +58,11 @@ public class BedRoomService {
 		List<BedRoomDTO> bedRoomList = null;
 		
 		try{
-			bedRoomList = session.selectList(namespace+"bestBedRoomList");
+			if(map.get("category").equals("0")){
+				bedRoomList = session.selectList(namespace+"bestBedRoomList");
+			}else{
+				bedRoomList = session.selectList(namespace+"bestBedRoomListCategory", map);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new CommonException("상품 불러오기 실패");
@@ -67,6 +71,10 @@ public class BedRoomService {
 		}
 		
 		bedRoomPageDTO.setBedRoomList(bedRoomList);
+		
+		/*for(int i=0; i<bedRoomPageDTO.getBedRoomList().size(); i++){
+			System.out.println(bedRoomPageDTO.getBedRoomList().get(i).getName());
+		}*/
 		
 		return bedRoomPageDTO;
 	}//bestBedRoomList()

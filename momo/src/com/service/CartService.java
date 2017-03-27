@@ -10,6 +10,9 @@ import com.dao.MySqlSessionFactory;
 import com.entity.bedRoom.BedRoomDTO;
 import com.entity.cart.CartDTO;
 import com.entity.cart.CartPageDTO;
+import com.entity.childrenRoom.ChildrenRoomDTO;
+import com.entity.kitchen.KitchenDTO;
+import com.entity.livingRoom.LivingRoomDTO;
 import com.exception.CommonException;
 
 public class CartService {
@@ -33,7 +36,20 @@ public class CartService {
 				map.put("pnum", bedRoomDTO.getBnum());
 				map.put("dto", bedRoomDTO);
 			}else if(category.equals("livingRoom")){
-				
+				LivingRoomService service = new LivingRoomService();
+				LivingRoomDTO livingRoomDTO = service.livingRoomDetail(pnum);
+				map.put("pnum", livingRoomDTO.getlnum());
+				map.put("dto", livingRoomDTO);
+			}else if(category.equals("kitchen")){
+				KitchenService service = new KitchenService();
+				KitchenDTO kitchenDTO = service.kitchenDetail(pnum);
+				map.put("pnum", kitchenDTO.getKnum());
+				map.put("dto", kitchenDTO);
+			}else if(category.equals("childrenRoom")){
+				ChildrenRoomService service = new ChildrenRoomService();
+				ChildrenRoomDTO childrenRoomDTO = service.childrenRoomDetail(pnum);
+				map.put("pnum", childrenRoomDTO.getCnum());
+				map.put("dto", childrenRoomDTO);
 			}
 			
 			session.insert(namespace+"addCart", map);
@@ -101,6 +117,7 @@ public class CartService {
 		}
 	}//deleteOne(int cnum)
 	
+	/** 체크 된 카트번호의 상품들을 삭제하는 메소드*/
 	public void deleteCheck(List<String> list) throws CommonException {
 		SqlSession session = MySqlSessionFactory.openSession();
 		try {
