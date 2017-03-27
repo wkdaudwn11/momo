@@ -109,11 +109,11 @@
 			<div class="categoryList">
 				<ul>
 					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">가죽소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">패브릭소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">리클라이너소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">거실장</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">거실테이블</a></li>
 				</ul>
 			</div>
 			

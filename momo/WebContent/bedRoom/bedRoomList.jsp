@@ -20,9 +20,7 @@
 	.topSeller{width:100%; height:40px; border-bottom:1px solid; background-color: #555;
 				text-align: center; font: bold; color: white; padding-top:5px;}
 				
-	.rankFont{width:100%; font: bold; font-size:18px; text-align: center; margin-top:10px;}
-	.rankFont ul{overflow: hidden; margin: 0 auto;}
-	.rankFont ul li{width: 33.3%; text-align: center; float: left; font-size: 2em; list-style: none;}
+	.rankFont{width:100%; font: bold; font-size: 2em; text-align: center; margin-top:10px; margin: 0 auto;}
 	
 	#content_22 {width:100%; overflow:hidden; margin:0 auto;}
 	.contents_22_product_images {width:100%; overflow:hidden; padding-left: 20px; margin-left:0px;}
@@ -74,13 +72,7 @@
 				<div class="topSeller">
 					TOP SELLER
 				</div>	<!-- topSeller -->
-				<div class="rankFont">
-					<ul>
-						<li>Best1</li>
-						<li>Best2</li>
-						<li>Best3</li>
-					</ul>
-				</div>
+				<br>
 				<div id="content_22">
 					<div class="contents_22_product">
 						<ul class="contents_33_product_images">
@@ -88,6 +80,7 @@
 								<li>
 					            	<div class="img">
 										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
+											<center><p class="rankFont">BEST ${status.count}</p></center><br>
 						    				<img src="http://localhost:8090/momo/images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestBedRoomDTO.name}<br>

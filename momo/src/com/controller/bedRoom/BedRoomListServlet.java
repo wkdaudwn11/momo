@@ -38,7 +38,7 @@ public class BedRoomListServlet extends HttpServlet {
 		
 		try {
 			BedRoomPageDTO bedRoomPageDTO = service.bedRoomList(Integer.parseInt(curPage), map, sortValue);
-			BedRoomPageDTO bestBedRoomPageDTO = service.bestBedRoomList();
+			BedRoomPageDTO bestBedRoomPageDTO = service.bestBedRoomList(map);
 			
 			request.setAttribute("bedRoomPageDTO", bedRoomPageDTO);	//상품 리스트
 			request.setAttribute("bestBedRoomPageDTO", bestBedRoomPageDTO);	// 인기상품 베스트3 리스트
