@@ -18,8 +18,8 @@
 	
 	<!-- 게시글 정보 등록 -->
 	<insert id="insertQuestion" parameterType="QuestionDTO">
-		insert into question(qnum,reple,category,password,title,content,author)
-		values(#{qnum}+1,#{reple},#{category},#{password},#{title},#{content},#{author})
+		insert into question(qnum,id,reple,category,password,title,content,author)
+		values(#{qnum}+1,#{id},#{reple},#{category},#{password},#{title},#{content},#{author})
 	</insert>
 	
 	<!-- 상세보기 -->
@@ -52,7 +52,7 @@
 	
 	<!-- 리스트 가져오는 쿼리 -->
 	<select id="questionList" resultType="QuestionDTO" parameterType="HashMap">
-		select qnum,reple,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
+		select qnum,id,reple,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
 		from question
 		order by qnum desc
 	</select>

@@ -18,7 +18,19 @@ public class QuestionWriteUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.sendRedirect("http://localhost:8090/momo/question/questionWrite.jsp");
+		String reple = request.getParameter("reple");
+		String qnum = request.getParameter("qnum");
+		if(reple == null){
+			response.sendRedirect("http://localhost:8090/momo/question/questionWrite.jsp");
+		}else{
+			request.setAttribute("reple", reple);
+			request.setAttribute("qnum", qnum);
+			
+			RequestDispatcher dis = request.getRequestDispatcher("question/questionWrite.jsp");
+			dis.forward(request,response);
+		}
+		
+		
 	}// end doGet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

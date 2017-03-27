@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>문의 게시판</title>
+<title>고객문의 게시판</title>
 
 <style>
 	#questionContent {width:70%; margin:0 auto; overflow:hidden;}
@@ -27,7 +27,7 @@
 <script type="text/javascript">
 	var successPassword = new Array(); // 비밀번호 입력 성공된 경우 index 저장 
 	var currindex; // 현재 요청한 인덱스
-
+	
 	$(document).ready(function(){
 		if('${AccessWrong}'!=''){
 			alert("게시물 수정 실패!");
@@ -98,17 +98,28 @@
 	} // end readCntPlus(selectQnum)
 	
 	/* 내용 상세보기 */
-	function questionDetail(qnum,index,content,password){
+	function questionDetail(id,qnum,index,content,password){
 		var target = $(".tr").eq(index);
 		currindex = index;
 		$(".tr").not(target).hide();
-		if(password == null || successPassword.indexOf(currindex) != -1){
-			if($(".tr").eq(currindex).attr("style") =="display: none;"){ readCntPlus(qnum); }
-			target.html("<td colspan='6'>"+content+"</td>");
-		}else{
-			target.html("<td colspan='6' id='show'><b>비밀번호</b><input type='password' style='width:15em;'><button id='input'>입력</button></td>");
-		}
-		$(".tr").eq(index).toggle();
+		$(".tr").next().not(target.next()).hide();
+		if($(".tr").eq(currindex).attr("style") =="display: none;"){
+			if(password == null || successPassword.indexOf(currindex) != -1){
+				 readCntPlus(qnum);
+			}else{
+				target.children("td").eq(0).attr("id","show");
+				content ="<b>비밀번호</b><input type='password' style='width:15em;'><button id='input'>입력</button>";
+			}
+			target.children("td").eq(0).html(content);
+		}// end if($(".tr").eq(currindex).attr("style") =="display: none;")
+		if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id){
+			target.children("td").eq(0).attr("rowspan","2");
+			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionWriteUIServlet?reple='Y'&qnum="+qnum+">[답변]</a>"); }
+			else{ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionUpdateServlet'>[수정]</a>"); }
+			target.next("tr").children("td").html("<a href='http://localhost:8090/momo/QuestionDeleteServlet'>[삭제]</a>");
+			target.next().toggle();
+		}// end if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id)
+		target.toggle();
 	}// end questionDetail(qnum){$.ajax()}
 	
 </script>
@@ -131,7 +142,7 @@
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
 		<div id="questionContent">
-			<h3>문의 게시판</h3>
+			<h3>고객문의 게시판</h3>
 			<hr>
 			
 			<!-- 게시판 리스트 -->
@@ -160,12 +171,12 @@
 							<input class="index" type="hidden" value="${status.index}">
 							<tr  height="30">
 								<td  width="50" align="center" >
-									<%-- <c:if test="'${questionDTO.reple}' =='y' "><img src="http://localhost:8090/momo/question/arrow.png"></c:if>
-									<c:if test="'${questionDTO.reple}' !='y' ">${questionDTO.qnum}</c:if> --%>
+									<c:if test="${questionDTO.reple =='Y'}"><img src="http://localhost:8090/momo/images/question/arrow.png"></c:if>
+									<c:if test="${questionDTO.reple =='N'}">${questionDTO.qnum}</c:if>
 									</td>
 								<td width="50" align="center">[&nbsp;${questionDTO.category}&nbsp;]</td>
 							    <td  width="200" align="left">				
-								    <a href="javascript:questionDetail(${questionDTO.qnum},${status.index},'${questionDTO.content}'<c:if test="${questionDTO.password != null}">,${questionDTO.password}</c:if>);">
+								    <a href="javascript:questionDetail('${questionDTO.id}',${questionDTO.qnum},${status.index},'${questionDTO.content}'<c:if test="${questionDTO.password != null}">,${questionDTO.password}</c:if>);">
 								    	<c:if test="${questionDTO.password != null}">
 								    		<img src="http://localhost:8090/momo/images/question/lock.gif"> &nbsp;
 								    	</c:if>
@@ -178,7 +189,14 @@
 							    <td width="150" align="center">${questionDTO.writeday}</td>
 							    <td class="readCnt" width="50" align="center">${questionDTO.readCnt}</td>
 							</tr>
-							<tr class="tr" style="display: none;"></tr>
+							<tr class="tr" style="display: none;">
+								<td colspan="5"></td>
+								<td align="center"></td>
+							</tr>
+							<tr style="display: none;">
+								<td align="center">	
+								</td>
+							</tr>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -232,28 +250,29 @@
 			</div>	<!-- questionPaging -->
 			
 			<!-- 글 검색 -->
-			<form id="search" action="QuestionListServlet" method="get">
-				<select	id="searchType" name="searchType">
-					<option value="title"
-						<c:if test="${search.searchType}=='title'">
-							selected
-						</c:if> >제목 </option>
-					<option value="content"
-						<c:if test="${search.searchType}=='content'">
-							selected
-						</c:if> >내용</option>
-					<option value="author"
-						<c:if test="${search.searchType}=='author'">
-							selected
-						</c:if> >작성자 </option>
-					<option value="category"
-						<c:if test="${search.searchType}=='category'">
-							selected
-						</c:if> >분류 </option>
-				</select>
-				<span id="searchValue"><input type="text" name="searchValue" value="${search.searchValue}"><input type="submit" value="검색"></span>
-			</form>
-			
+			<center>
+				<form id="search" action="QuestionListServlet" method="get">
+					<select	id="searchType" name="searchType">
+						<option value="title"
+							<c:if test="${search.searchType}=='title'">
+								selected
+							</c:if> >제목 </option>
+						<option value="content"
+							<c:if test="${search.searchType}=='content'">
+								selected
+							</c:if> >내용</option>
+						<option value="author"
+							<c:if test="${search.searchType}=='author'">
+								selected
+							</c:if> >작성자 </option>
+						<option value="category"
+							<c:if test="${search.searchType}=='category'">
+								selected
+							</c:if> >분류 </option>
+					</select>
+					<span id="searchValue"><input type="text" name="searchValue" value="${search.searchValue}"><input type="submit" value="검색"></span>
+				</form>
+			</center>
 			<div class="questionWriteBtn">
 				<a href="http://localhost:8090/momo/QuestionWriteUIServlet">
 					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" height="30px">

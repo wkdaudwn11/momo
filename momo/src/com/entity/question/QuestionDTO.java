@@ -3,6 +3,7 @@ package com.entity.question;
 public class QuestionDTO {
 	
 	private int qnum;
+	private String id;
 	private String reple;
 	private String password;
 	private String category;
@@ -14,9 +15,10 @@ public class QuestionDTO {
 	
 	public QuestionDTO(){}
 
-	public QuestionDTO(int qnum, String reple, String password, String category, String title, String content,
-			String author, String writeday, int readCnt) {
+	public QuestionDTO(int qnum, String id, String reple, String password, String category, String title,
+			String content, String author, String writeday, int readCnt) {
 		this.qnum = qnum;
+		this.id = id;
 		this.reple = reple;
 		this.password = password;
 		this.category = category;
@@ -33,6 +35,14 @@ public class QuestionDTO {
 
 	public void setQnum(int qnum) {
 		this.qnum = qnum;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getReple() {
@@ -101,12 +111,11 @@ public class QuestionDTO {
 
 	@Override
 	public String toString() {
-		return "QuestionDTO [qnum=" + qnum + ", reple=" + reple + ", password=" + password + ", category=" + category
-				+ ", title=" + title + ", content=" + content + ", author=" + author + ", writeday=" + writeday
-				+ ", readCnt=" + readCnt + "]";
+		return "QuestionDTO [qnum=" + qnum + ", id=" + id + ", reple=" + reple + ", password=" + password
+				+ ", category=" + category + ", title=" + title + ", content=" + content + ", author=" + author
+				+ ", writeday=" + writeday + ", readCnt=" + readCnt + "]";
 	}
-
 	
-
+	
 	
 }// end QuestionDTO

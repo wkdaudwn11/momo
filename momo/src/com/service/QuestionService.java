@@ -18,10 +18,7 @@ public class QuestionService {
 	public void insertQuestion(QuestionDTO question){
 		SqlSession session = MySqlSessionFactory.openSession();
 		try{
-			System.out.println(question);
 			question.setQnum(totalRecord(null));
-			System.out.println(question.getCategory());///////////////////////
-			System.out.println(question.getPassword()); //////////////////////////
 			session.insert(name+"insertQuestion",question);
 			session.commit();
 		}finally{
