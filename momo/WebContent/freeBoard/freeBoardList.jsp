@@ -35,6 +35,10 @@
 			alert('${DeleteSuccess}');
 		}
 	}
+	
+	function searchForm(searchForm){
+		searchForm.submit();
+	}
 </script>
 
 </head>
@@ -151,19 +155,25 @@
 			</div>	<!-- boardPaging -->
 			
 			<!-- 글 검색 -->
-			<form id="search" action="FreeBoardListServlet" method="get">
-				<select	name="searchType">
-					<option value="title"
-						<c:if test="${search.searchType}=='title'">
-							selected
-						</c:if> >제목 </option>
-					<option value="author"
-						<c:if test="${search.searchType}=='author'">
-							selected
-						</c:if> >작성자 </option>
-				</select>
-				<input type="text" name="searchValue" value="${search.searchValue}"><input type="submit" value="검색">
-			</form>
+			<center>
+				<form name="searchForm" id="searchForm" action="FreeBoardListServlet" method="get">
+					<select	name="searchType">
+						<option value="title"
+							<c:if test="${search.searchType}=='title'">
+								selected
+							</c:if> >제목 </option>
+						<option value="author"
+							<c:if test="${search.searchType}=='author'">
+								selected
+							</c:if> >작성자 </option>
+					</select>
+					<input type="text" name="searchValue" value="${search.searchValue}" style="width:10em; height:1.5em;">
+					
+					<a href="javascript:searchForm(searchForm)">
+						<img src="http://localhost:8090/momo/images/freeBoard/searchBtn.jpg">
+					</a>
+				</form>
+			</center>
 			
 			<div class="boardWriteBtn">
 				<a href="http://localhost:8090/momo/FreeBoardWriteUIServlet">

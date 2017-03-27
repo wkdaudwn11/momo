@@ -109,11 +109,11 @@
 			<div class="categoryList">
 				<ul>
 					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">싱글침대</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">싱글매트</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">서랍/옷장</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">책상</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">학생의자</a></li>
 				</ul>
 			</div>
 			
