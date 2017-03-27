@@ -22,7 +22,22 @@ create sequence member_seq minvalue 0;
 
 insert into member values(member_seq.nextval, 'admin', 'admin', 'admin', 'admin',
                             'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 
-                            'admin', 'admin', sysdate, sysdate);
+                            'admin', 'admin', sysdate, sysdate,0,'no');
+
+-- 문의 게시판
+create table question
+( ref number(4) constraint question_ref_fk foreign key(ref) references question(qnum);
+ qnum number(4) constraint question_qunm_pk primary key,
+ reple char(1) ,
+ id		varchar2(15) not null,
+ password varchar2(15),
+ category varchar2(10) not null,
+ title varchar2(50) not null,
+ content varchar2(4000) not null,
+ author varchar2(20) not null,
+ writeday date default sysdate,
+ readCnt number(5) default 0); 
+                            
 
 --자유게시판 테이블
 Create table freeBoard(

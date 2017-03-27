@@ -18,18 +18,20 @@ public class QuestionWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		String qnum = request.getParameter("qnum");
+		String id = request.getParameter("id");
 		String reple = request.getParameter("reple");
 		String category = request.getParameter("category");
 		String password = request.getParameter("password");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String author = request.getParameter("author");
-		if(reple == null){
-			reple ="N";
-		}
-		System.out.println("wirteServlet category = "+category);///////////////////////////
 		
 		QuestionDTO question = new QuestionDTO();
+		if(reple == null || reple.equals("")){
+			reple ="N";
+		}
+		question.setId(id);
 		question.setReple(reple);
 		question.setCategory(category);
 		question.setTitle(title);

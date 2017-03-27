@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>문의 게시판</title>
+<title>고객문의 게시판</title>
 
 <style>
 	#questionContent {width:70%; margin:0 auto; overflow:hidden;}
@@ -44,7 +44,6 @@
 	}); //end $.ready()
 	
 	function questionWrite(writeForm){
-		console.log(writeForm);
 		writeForm.submit();
 	}
 </script>
@@ -58,12 +57,15 @@
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
 		<form id="writeForm" action="../QuestionWriteServlet" name="writeForm" method="post">
+			<input type="hidden" name="id" value="${sessionScope.login.id}">
+			<input type="hidden" name="reple" value="${requestScope.reple}">
+			<input type="hidden" name="qnum" value="${requestScope.qnum}">
 			<div id="questionContent">
-				<h3>문의 게시판</h3>
+				<h3>고객문의 게시판</h3>
 				<hr>
 				<div>
 				    	<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;
-				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.id}" readonly>
+				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.name}" readonly>
 				</div>
 				<div>
 						<select id="category" name="category">
@@ -78,13 +80,13 @@
 				</div>
 				<div>
 				    	&nbsp;<b><span style="width:30%;">내용</span><span style="margin-left: 15%;"/>
-				    	<img src="http://localhost:8090/momo/images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:10em; height:1em;">
-				    	<input type="checkbox" name="check" > 체크하시면 비밀번호가 보입니다. 
+				    	<img src="http://localhost:8090/momo/images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:25em; height:1em;" placeholder="비밀글을 원하면 입력해주세요(공백제외)">
+				    	<input type="checkbox" name="check" > 비밀번호 보이게 
 				    	<textarea name="content" id="content" rows="10" cols="125" placeholder="*카테고리를 반드시 설정해주세요*"></textarea>
 				</div>
 				<br>
 				<div class="questionWriteBtn">
-					aa<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" style="cursor:pointer;" onclick="questionWrite(writeForm)">
+					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" style="cursor:pointer;" onclick="questionWrite(writeForm)">
 				</div> <!-- questionWriteBtn -->
 				
 			</div> <!-- questionContent -->
