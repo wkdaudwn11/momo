@@ -2,7 +2,6 @@ package com.entity.freeboard;
 
 public class FreeBoardDTO {
 
-	private String id;
 	private int fnum;
 	private String id;
 	private String author;

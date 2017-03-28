@@ -101,7 +101,7 @@ public class QuestionService {
 		int skip = (curPage -1)*questionPage.getPerPage();
 		List<QuestionDTO> questionList = null;
 		try{
-			questionList = session.selectList(name+"questionList",null,new RowBounds(skip,questionPage.getPerPage()));
+			questionList = session.selectList(name+"questionList",search,new RowBounds(skip,questionPage.getPerPage()));
 		}finally{
 			session.close();
 		}
