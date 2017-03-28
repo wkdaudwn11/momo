@@ -23,6 +23,8 @@ public class QuestionListServlet extends HttpServlet {
 		if(curPage == null){
 			curPage = "1";
 		}
+		System.out.println("ListServlet :"+searchType);////////////////////////////////////////
+		System.out.println("ListServlet :"+searchValue);////////////////////////////////////////
 		HashMap<String,String> search = new HashMap<>();
 		search.put("searchType", searchType);
 		search.put("searchValue", searchValue);

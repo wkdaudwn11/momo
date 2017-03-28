@@ -76,6 +76,21 @@
 			});
 		});// end $(".td").on("click","#input")
 	
+		$("#searchType").on("change",function(){
+			var html;
+			if($("#searchType").val() == "category"){
+				html = "<select name='searchValue'>"+
+						  "<option value='A/S문의'>A/S문의</option>"+
+						  "<option value='제품문의'>제품문의</option>"+
+						  "<option value='배송문의'>배송문의</option>"+
+						  "<option value='기타'>기타</option>"+
+					   "</select>";
+			}else{
+				html = "<input type='text' name='searchValue' value='${search.searchValue}'>";
+			}
+			$("#searchValue").html(html);
+		});// $("#searchType").on("change")
+		
 	});// end $(document).ready();  ------------------------------------
 	
 	
@@ -284,7 +299,7 @@
 								selected
 							</c:if> >분류 </option>
 					</select>
-					<span id="searchValue"><input type="text" name="searchValue" value="${search.searchValue}"><input type="submit" value="검색"></span>
+					<span id="searchValue"><input type="text" name="searchValue" value="${search.searchValue}"></span><input type="submit" value="검색">
 				</form>
 			</center>
 			<div class="questionWriteBtn">

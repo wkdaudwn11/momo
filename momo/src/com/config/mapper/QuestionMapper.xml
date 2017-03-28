@@ -78,6 +78,12 @@
 	<select id="questionList" resultType="QuestionDTO" parameterType="HashMap">
 		select ref,qnum,id,qlevel,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
 		from question
+		<where>
+			<if test="searchType == 'title'">title like '%'||#{searchValue}||'%'</if>
+			<if test="searchType == 'content'">content like '%'||#{searchValue}||'%'</if>
+			<if test="searchType == 'author'">author like '%'||#{searchValue}||'%'</if>
+			<if test="searchType == 'category'">category = #{searchValue}</if>
+		</where>
 		order by ref desc,qlevel asc
 	</select>
 </mapper>

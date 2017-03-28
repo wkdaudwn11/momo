@@ -26,8 +26,8 @@ insert into member values(member_seq.nextval, 'admin', 'admin', 'admin', 'admin'
 
 -- 문의 게시판
 create table question( 
- ref number(4) ,
- qlevel number(1),
+ ref number(4) ,   -- 그룹 지을때 쓰는 컬럼
+ qlevel number(1),  -- 댓글 이랑 본문 구별위해 쓰는 컬럼
  qnum number(4) constraint question_qunm_pk primary key,
  id		varchar2(15) not null,
  password varchar2(15),
