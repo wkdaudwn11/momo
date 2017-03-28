@@ -2,6 +2,7 @@ package com.entity.freeboard;
 
 public class FreeBoardDTO {
 
+	private String id;
 	private int fnum;
 	private String author;
 	private String title;
@@ -13,8 +14,9 @@ public class FreeBoardDTO {
 	
 	public FreeBoardDTO(){}
 
-	public FreeBoardDTO(int fnum, String author, String title, String content, String writeday, int readCnt,
+	public FreeBoardDTO(String id, int fnum, String author, String title, String content, String writeday, int readCnt,
 			int goodCnt, int repleCnt) {
+		this.id = id;
 		this.fnum = fnum;
 		this.author = author;
 		this.title = title;
@@ -23,6 +25,14 @@ public class FreeBoardDTO {
 		this.readCnt = readCnt;
 		this.goodCnt = goodCnt;
 		this.repleCnt = repleCnt;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getFnum() {
@@ -80,7 +90,7 @@ public class FreeBoardDTO {
 	public void setGoodCnt(int goodCnt) {
 		this.goodCnt = goodCnt;
 	}
-	
+
 	public int getRepleCnt() {
 		return repleCnt;
 	}
@@ -91,9 +101,11 @@ public class FreeBoardDTO {
 
 	@Override
 	public String toString() {
-		return "freeBoardDTO [fnum=" + fnum + ", author=" + author + ", title=" + title + ", content=" + content
-				+ ", writeday=" + writeday + ", readCnt=" + readCnt + ", goodCnt=" + goodCnt + ", repleCnt="+ repleCnt +"]";
+		return "FreeBoardDTO [id=" + id + ", fnum=" + fnum + ", author=" + author + ", title=" + title + ", content="
+				+ content + ", writeday=" + writeday + ", readCnt=" + readCnt + ", goodCnt=" + goodCnt + ", repleCnt="
+				+ repleCnt + "]";
 	}
+
 	
 	
 }// end freeBoardDTO

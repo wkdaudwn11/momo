@@ -17,20 +17,18 @@ import com.exception.LoginFailException;
 public class QuestionWriteUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String reple = request.getParameter("reple");
+		
+		String curPage = request.getParameter("curPage");
 		String qnum = request.getParameter("qnum");
-		if(reple == null){
-			response.sendRedirect("http://localhost:8090/momo/question/questionWrite.jsp");
-		}else{
-			request.setAttribute("reple", reple);
-			request.setAttribute("qnum", qnum);
-			
-			RequestDispatcher dis = request.getRequestDispatcher("question/questionWrite.jsp");
-			dis.forward(request,response);
-		}
+		String password = request.getParameter("password");
+		String category = request.getParameter("category");
+		request.setAttribute("qnum", qnum);
+		request.setAttribute("password", password);
+		request.setAttribute("category", category);
+		request.setAttribute("curPage", curPage);
 		
-		
+		RequestDispatcher dis = request.getRequestDispatcher("question/questionWrite.jsp");
+		dis.forward(request, response);
 	}// end doGet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

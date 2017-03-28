@@ -262,7 +262,7 @@
 		<br>
 		<div class="boardBtn">
 			<div class="boardBtnleft">
-				<c:if test="${login.id == freeBoardDTO.author || login.id == 'admin'}">  
+				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">
 					<a href="javascript:update(detailForm);"> 
 						<img src="http://localhost:8090/momo/images\freeBoard/updateBtn.jpg">
 					</a>&nbsp;<!-- 수정 -->

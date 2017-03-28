@@ -29,9 +29,6 @@
 			alert("로그인 후 가능합니다.");
 			location.replace("LoginUIServlet");
 		}
-		if(${password != null}){
-			$("#password").val(${password});
-		}
 		
 		$("#content").on("focus",function(){
 			var category = $("#category").val();
@@ -47,7 +44,7 @@
 			}else{
 				$("#password").attr("type","password");
 			}
-		});// end $("input").attr("passwordByText").on("click");
+		});// end $(":checkbox").on("click");
 	}); //end $.ready()
 	
 	function questionWrite(writeForm){
@@ -58,38 +55,38 @@
 </head>
 <body>
 	
-	<c:set var="login" value="${sessionScope.login}" scope="request"/>
+	<c:set var="question" value="${QuestionDTO}" scope="request"/>
 	
 	<div id="questionWrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
-		<form id="writeForm" action="QuestionWriteServlet" name="writeForm" method="post">
+		<form id="writeForm" action="QuestionUpdateServlet" name="writeForm" method="post">
 			<input type="hidden" name="curPage" value="${curPage}">
-			<input type="hidden" name="id" value="${sessionScope.login.id}">
-			<input type="hidden" name="qnum" value="${requestScope.qnum}">
+			<input type="hidden" name="id" value="${question.id}">
+			<input type="hidden" name="qnum" value="${question.qnum}">
 			<div id="questionContent">
 				<h3>고객문의 게시판</h3>
 				<hr>
 				<div>
 				    	<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;
-				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.name}" readonly>
+				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${question.author}" disabled="disabled">
 				</div>
 				<div>
 						<select id="category" name="category" >
 							<option/>
-							<option value="A/S문의" <c:if test="${requestScope.category == 'A/S문의'}">selected</c:if>>A/S문의</option>
-							<option value="제품문의" <c:if test="${requestScope.category == '제품문의'}">selected</c:if>>제품문의</option>
-							<option value="배송문의" <c:if test="${requestScope.category == '배송문의'}">selected</c:if>>배송문의</option>
-							<option value="기타" <c:if test="${requestScope.category == '기타'}">selected</c:if>>기타</option>
+							<option value="A/S문의" <c:if test="${question.category == 'A/S문의'}">selected</c:if>>A/S문의</option>
+							<option value="제품문의" <c:if test="${question.category == '제품문의'}">selected</c:if>>제품문의</option>
+							<option value="배송문의" <c:if test="${question.category == '배송문의'}">selected</c:if>>배송문의</option>
+							<option value="기타" <c:if test="${question.category == '기타'}">selected</c:if>>기타</option>
 						</select>
 				    	&nbsp;<span style="width:24%"><b>제목</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				    	<input type="text" name="title"  id="title" style="width:80%; height:2em;">
+				    	<input type="text" name="title"  id="title" style="width:80%; height:2em;" value="${question.title}">
 				</div>
 				<div>
 				    	&nbsp;<b><span style="width:30%;">내용</span><span style="margin-left: 15%;"/>
-				    	<img src="./images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:25em; height:1em;" placeholder="비밀글을 원하면 입력해주세요(공백제외)">
+				    	<img src="./images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:25em; height:1em;" value="${question.password}" placeholder="비밀글을 원하면 입력해주세요(공백제외)">
 				    	<input type="checkbox" name="check" > 비밀번호 보이게 
-				    	<textarea name="content" id="content" rows="10" cols="125" placeholder="*카테고리를 반드시 설정해주세요*"></textarea>
+				    	<textarea name="content" id="content" rows="10" cols="125" placeholder="*카테고리를 반드시 설정해주세요*">${question.content}</textarea>
 				</div>
 				<br>
 				<div class="questionWriteBtn">

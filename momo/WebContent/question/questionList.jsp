@@ -27,15 +27,15 @@
 <script type="text/javascript">
 	var successPassword = new Array(); // 비밀번호 입력 성공된 경우 index 저장 
 	var currindex; // 현재 요청한 인덱스
-	
 	$(document).ready(function(){
-		if('${AccessWrong}'!=''){
-			alert("게시물 수정 실패!");
+
+		if(${AccessWrong != null }){
+			alert('${AccessWrong}');
 		}
-		if('${WriteSuccess}'!=''){
-			alert("${WriteSuccess}");
+		if(${WriteSuccess != null}){
+			alert('${WriteSuccess}');
 		}
-		if('${DeleteSuccess}'!=''){
+		if(${DeleteSuccess != null}){
 			alert('${DeleteSuccess}');
 		}
 		
@@ -97,8 +97,16 @@
 		}); // end $.ajax()  -- readCnt 증가
 	} // end readCntPlus(selectQnum)
 	
+	/* 확인 작업*/
+	function questionDelete(qnum){
+		var confirmation = confirm("정말 게시물을 삭제하시겠습니까?");
+		if(confirmation){
+			location.href="QuestionDeleteServlet?qnum="+qnum+"&curPage="+${QuestionPage.curPage};
+		}
+	}
+	
 	/* 내용 상세보기 */
-	function questionDetail(id,qnum,index,content,password){
+	function questionDetail(category,id,qnum,index,content,password){
 		var target = $(".tr").eq(index);
 		currindex = index;
 		$(".tr").not(target).hide();
@@ -107,6 +115,7 @@
 			if(password == null || successPassword.indexOf(currindex) != -1){
 				 readCntPlus(qnum);
 			}else{
+				$(".tr").children("td").removeAttr("id","show");
 				target.children("td").eq(0).attr("id","show");
 				content ="<b>비밀번호</b><input type='password' style='width:15em;'><button id='input'>입력</button>";
 			}
@@ -114,12 +123,15 @@
 		}// end if($(".tr").eq(currindex).attr("style") =="display: none;")
 		if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id){
 			target.children("td").eq(0).attr("rowspan","2");
-			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionWriteUIServlet?reple='Y'&qnum="+qnum+">[답변]</a>"); }
-			else{ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionUpdateServlet'>[수정]</a>"); }
-			target.next("tr").children("td").html("<a href='http://localhost:8090/momo/QuestionDeleteServlet'>[삭제]</a>");
+			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='QuestionWriteUIServlet?&qnum="+qnum+"&category="+category+"&password="+password+"&curPage="+${QuestionPage.curPage}+"'>[답변]</a>"); }
+			else{
+				target.children("td").eq(1).html("<a href='QuestionUpdateUIServlet?qnum="+qnum+"&curPage="+${QuestionPage.curPage}+"'>[수정]</a>");
+			}
+			target.next("tr").children("td").html("<a href='javascript:questionDelete("+qnum+");'>[삭제]</a>");
 			target.next().toggle();
 		}// end if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id)
 		target.toggle();
+		$("#show").find(":password").trigger("focus");
 	}// end questionDetail(qnum){$.ajax()}
 	
 </script>
@@ -171,14 +183,14 @@
 							<input class="index" type="hidden" value="${status.index}">
 							<tr  height="30">
 								<td  width="50" align="center" >
-									<c:if test="${questionDTO.reple =='Y'}"><img src="http://localhost:8090/momo/images/question/arrow.png"></c:if>
-									<c:if test="${questionDTO.reple =='N'}">${questionDTO.qnum}</c:if>
+									<c:if test="${questionDTO.qlevel != 0}"><img src="images/question/arrow.png"></c:if>
+									<c:if test="${questionDTO.qlevel == 0}">${questionDTO.qnum}</c:if>
 									</td>
 								<td width="50" align="center">[&nbsp;${questionDTO.category}&nbsp;]</td>
 							    <td  width="200" align="left">				
-								    <a href="javascript:questionDetail('${questionDTO.id}',${questionDTO.qnum},${status.index},'${questionDTO.content}'<c:if test="${questionDTO.password != null}">,${questionDTO.password}</c:if>);">
+								    <a href="javascript:questionDetail('${questionDTO.category}','${questionDTO.id}',${questionDTO.qnum},${status.index},'${questionDTO.content}'<c:if test="${questionDTO.password != null}">,${questionDTO.password}</c:if>);">
 								    	<c:if test="${questionDTO.password != null}">
-								    		<img src="http://localhost:8090/momo/images/question/lock.gif"> &nbsp;
+								    		<img src="images/question/lock.gif"> &nbsp;
 								    	</c:if>
 								    	${questionDTO.title}
 								    </a>
@@ -216,7 +228,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -227,7 +239,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							<a href="QuestionListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -235,13 +247,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[끝]
 					</a></p>
 				</c:if>
@@ -274,8 +286,8 @@
 				</form>
 			</center>
 			<div class="questionWriteBtn">
-				<a href="http://localhost:8090/momo/QuestionWriteUIServlet">
-					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" height="30px">
+				<a href="QuestionWriteUIServlet?curPage=${curPage}">
+					<img src="images\freeBoard/writeBtn.jpg" height="30px">
 				</a>
 			</div> <!-- questionWriteBtn -->
 			
