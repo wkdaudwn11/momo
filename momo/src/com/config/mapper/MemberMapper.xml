@@ -14,21 +14,23 @@
 		select * from member where id = #{id} and pwd = #{pwd}
    	</select>
    	
-   	<!-- facebook 아이디(고유번호)가 이미 member테이블에 존재하는지 체크하는 쿼리 -->
-   	<select id="facebookMemberCheck" parameterType="string" resultType="int">
+   	<!-- sns 아이디(고유번호)가 이미 member테이블에 존재하는지 체크하는 쿼리 -->
+   	<select id="SNSMemberCheck" parameterType="string" resultType="int">
    		select count(*) from member where id = #{id}
    	</select>
    	
-   	<!-- facebook 정보를 member 테이블에 저장 -->
-   	<insert id="addFacebookLMember" parameterType="hashmap">
-   		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, joindate, logindate, orderprice, facebook)
-   		values(member_seq.nextval, #{name}, #{id}, 'facebook', 'facebook', 'facebook', #{tel}, 'facebook', 'facebook',
-   				' ', ' ', 'facebook', 'facebook', sysdate, sysdate, 0, 'yes')
+   	<!-- sns 정보를 member 테이블에 저장 -->
+   	<insert id="addSNSMember" parameterType="hashmap">
+   		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, joindate, logindate, orderprice, sns)
+   		values(member_seq.nextval, #{name}, #{id}, 'sns', 'sns', 'sns', 01012341234, 'sns', 'sns',
+   				'123', '123', 'sns', 'sns', sysdate, sysdate, 0, #{sns})
    	</insert>
    	
-   	<!-- facebook으로 로그인 했을 때, 테이블에 저장되어 있던 정보를 반환하는 쿼리 -->
-   	<select id="facebookLogin" parameterType="string" resultType="MemberDTO">
-		select * from member where id = #{value}
+   	<!-- sns로 로그인 했을 때, 테이블에 저장되어 있던 정보를 반환하는 쿼리 -->
+   	<select id="SNSLogin" parameterType="string" resultType="MemberDTO">
+		select * 
+		  from member 
+		 where id = #{value}
    	</select>
    	
    	<!-- 회원가입할 때 아이디 중복검사를 하기 위한 쿼리 -->
@@ -52,8 +54,8 @@
 		select * from member where id=#{userid} and question=#{question} and answer=#{answer} 
    	</select>
    	
-   	<!-- 페이스북 유저가 주문을 할 때, 입력한 배송지 정보를 회원 정보에 등록할 때 update해주는 쿼리 -->
-   	<update id="updateFacebookMemberAddr" parameterType="hashmap">
+   	<!-- sns 유저가 주문을 할 때, 입력한 배송지 정보를 회원 정보에 등록할 때 update해주는 쿼리 -->
+   	<update id="updateSNSMemberAddr" parameterType="hashmap">
    		update member 
    		   set tel=#{tel}, post1=#{post1}, post2=#{post2}, addr1=#{addr1}, addr2=#{addr2}
    		 where id=#{id}
