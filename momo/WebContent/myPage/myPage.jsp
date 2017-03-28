@@ -31,49 +31,49 @@
 	$(document).ready(function(){
 		$(".a1").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList1_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList1_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList1.jpg");
+				$(this).attr("src", "images/myPage/myPageList1.jpg");
 			}
 		);
 		
 		$(".a2").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList2_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList2_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList2.jpg");
+				$(this).attr("src", "images/myPage/myPageList2.jpg");
 			}
 		);
 		
 		$(".a3").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList3_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList3_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList3.jpg");
+				$(this).attr("src", "images/myPage/myPageList3.jpg");
 			}
 		);
 		
 		$(".a4").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList4_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList4_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList4.jpg");
+				$(this).attr("src", "images/myPage/myPageList4.jpg");
 			}
 		);
 		
 		$(".a5").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList5_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList5_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList5.jpg");
+				$(this).attr("src", "images/myPage/myPageList5.jpg");
 			}
 		);
 		
 		$(".a6").hover(
 			function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList6_over.jpg");
+				$(this).attr("src", "images/myPage/myPageList6_over.jpg");
 			}, function(){
-				$(this).attr("src", "http://localhost:8090/momo/images/myPage/myPageList6.jpg");
+				$(this).attr("src", "images/myPage/myPageList6.jpg");
 			}
 		);
 	});
@@ -85,7 +85,7 @@
 	<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 	
 	<div id="myPageVisual">
-		<img src="http://localhost:8090/momo/images/myPage/myPageVisual.jpg"><br><br>
+		<img src="images/myPage/myPageVisual.jpg"><br><br>
 	</div>
 	
 	<div id="myPageContent">
@@ -93,67 +93,67 @@
 			<tr>
 				<td> <!-- 주문내역 -->
 					<a href="#">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList1.jpg" class="a1">
+						<img src="images/myPage/myPageList1.jpg" class="a1">
 					</a>
 				</td>
 				
 				<td> <!-- 오늘 본 상품	 -->
 					<a href="#">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList2.jpg" class="a2">
+						<img src="images/myPage/myPageList2.jpg" class="a2">
 					</a>
 				</td>
 				
 				<td> <!-- 고객문의 게시판 -->
 					<a href="#">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList3.jpg" class="a3">
+						<img src="images/myPage/myPageList3.jpg" class="a3">
 					</a>
 				</td>
 				
 				<td> <!-- 내 게시글 보기 -->
 					<a href="#">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList4.jpg" class="a4">
+						<img src="images/myPage/myPageList4.jpg" class="a4">
 					</a>
 				</td>
 				
 				<td> <!-- 회원 정보 변경 -->
 					<a href="PwdCheckUIServlet?prevPage=${prevPage}">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList5.jpg" class="a5">
+						<img src="images/myPage/myPageList5.jpg" class="a5">
 					</a>
 				</td>
 				
 				<td> <!-- 탈퇴신청 -->
 					<a href="#">
-						<img src="http://localhost:8090/momo/images/myPage/myPageList6.jpg" class="a6">
+						<img src="images/myPage/myPageList6.jpg" class="a6">
 					</a>
 				</td>
 			</tr>
 		</table><br>
 		
 		<p>
-			<img src="http://localhost:8090/momo/images/order/zzz.jpg">
+			<img src="images/order/zzz.jpg">
 			<font color="#7777ca"><b>[장명주]</b></font> 님의 Mypage 간단 정보입니다.
 		</p>
 		
 		<table style="width: 60%;">
 			<tr style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
 				<c:if test="${sessionScope.login.facebook == 'no'}">
-					<td width="250"><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;회원 가입일</td>
+					<td width="250"><img src="images/myPage/yyy.jpg">&nbsp;회원 가입일</td>
 				</c:if>
 				<c:if test="${sessionScope.login.facebook == 'yes'}">
-					<td width="250"><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;최초 로그인</td>
+					<td width="250"><img src="images/myPage/yyy.jpg">&nbsp;최초 로그인</td>
 				</c:if>
 				<td>${sessionScope.login.joindate}</td>
 			</tr>
 			<tr style="border-bottom:1px dotted #ddd;">
-				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;로그인 한 시간</td>
+				<td><img src="images/myPage/yyy.jpg">&nbsp;로그인 한 시간</td>
 				<td>${sessionScope.login.logindate}</td>
 			</tr>
 			<tr style="border-bottom:1px dotted #ddd;">
-				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;총 주문금액</td>
+				<td><img src="images/myPage/yyy.jpg">&nbsp;총 주문금액</td>
 				<td>0</td>
 			</tr>
 			<tr style="border-bottom:1px solid black;">
-				<td><img src="http://localhost:8090/momo/images/myPage/yyy.jpg">&nbsp;진행중 주문</td>
+				<td><img src="images/myPage/yyy.jpg">&nbsp;진행중 주문</td>
 				<td>0개</td>
 			</tr>
 		</table>

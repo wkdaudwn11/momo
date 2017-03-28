@@ -22,7 +22,7 @@
 	window.onload = function onload(){
 	 if('${sessionScope.login}'==''){
    	  	alert("로그인 이용 할 수 있습니다.");
-   	  	location.replace("http://localhost:8090/momo/LoginUIServlet");
+   	  	location.replace("LoginUIServlet");
    	  }
 	}
 	
@@ -80,9 +80,9 @@ wkdaudwn11@naver.com으로 남겨주세요 *
 				</div>
 				<br>
 				<div class="boardWriteBtn">
- 					<!-- <input type="image" src="http://localhost:8090/momo/images/freeBoard/writeBtn.jpg" height="30px"> -->
+ 					<!-- <input type="image" src="images/freeBoard/writeBtn.jpg" height="30px"> -->
  					<a href="javascript:boardWrite(writeForm);"> 
-							<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg">
+							<img src="images\freeBoard/writeBtn.jpg" height="30">
 					</a>&nbsp;<!-- 수정 -->
 				</div> <!-- boardWriteBtn -->
 				

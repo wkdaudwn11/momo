@@ -173,7 +173,7 @@
 	        </div> <!-- /.container -->
 	    </div> <!-- /.content-section -->
 	    <br><br><br><br><br>
-	    <img src="http://localhost:8090/momo/images/myPage/update.png" width="60%" height="60%">
+	    <img src="images/myPage/update.png" width="60%" height="60%">
 	    
     </div> <!-- #joinWrap -->	
    

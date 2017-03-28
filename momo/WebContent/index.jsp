@@ -24,10 +24,6 @@
 		.panel {display: none;}
 	</style>
 	
-	<!-- 다른 슬라이드 -->
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-	
 </head>
 <body>
 
@@ -54,7 +50,7 @@
 
 	<div id="wrap">
 	
-		<jsp:include page="include/header.jsp" flush="true"></jsp:include>
+		<jsp:include page="include/header.jsp"></jsp:include>
 		
 		<div id="visual">
  			<script src="js/jquery.cycle2.js"></script>	 
@@ -67,18 +63,6 @@
 			    <img src="images\visual/visual_1.jpg" width="100%" height="100%">
 			    <img src="images\visual/visual_6.jpg" width="100%" height="100%">
 		    </div>
-			<!-- <div class="hero-carousel" data-flickity="" data-js="hero-carousel">
-	    		<div class="hero-carousel__cell hero-carousel__cell--1">
-	      			<div class="hero-carousel__cell__content">
-	        			<img src="images\visual/visual_1.jpg" width="100%" height="600px">
-	      			</div>
-	    		</div>
-	    		<div class="hero-carousel__cell hero-carousel__cell--2">
-	      			<div class="hero-carousel__cell__content">
-	        			<img src="images\visual/visual_2.jpg" width="100%" height="600px">
-	      			</div>
-	    		</div>
-			</div> -->
 		</div>	<!-- visual -->
 		
 		<div id="content_1">

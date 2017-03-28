@@ -6,19 +6,18 @@
 <!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-	<link href="../../css/jquery.modal.css" type="text/css" rel="stylesheet" />
-	<link href="../../css/jquery.modal.theme-xenon.css" type="text/css" rel="stylesheet" />
-	<link href="../../css/jquery.modal.theme-atlant.css" type="text/css" rel="stylesheet" />
+	<link href="css/jquery.modal.css" type="text/css" rel="stylesheet" />
+	<link href="css/jquery.modal.theme-xenon.css" type="text/css" rel="stylesheet" />
+	<link href="css/jquery.modal.theme-atlant.css" type="text/css" rel="stylesheet" />
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="../../js/vendor/jquery.modal.js"></script>
+	<script type="text/javascript" src="js/vendor/jquery.modal.js"></script>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 	
 	<script>
 		function agreement(){
-			//location.replace('JoinUIServlet2');
 			var result = false;
 			
 			if(document.agreementForm.agree.checked == true){
@@ -31,7 +30,6 @@
 		}
 		
 		function changeRadio(agree){
-			//alert(agree.value);
 			if(agree.value == 'agree'){
 				document.agreementForm.notAgree.checked=false;
 			}else{
@@ -383,10 +381,10 @@
 	
 	②"몰"과 이용자간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
 					</textarea><br/><br />
-					<form method="post" action="http://localhost:8090/momo/JoinUIServlet2" name="agreementForm" onsubmit="return agreement()">
+					<form method="post" action="JoinUIServlet2" name="agreementForm" onsubmit="return agreement()">
 						약관에 동의 합니다.&nbsp;<input type="radio" name="agree" value="agree" onclick="changeRadio(agree)">&nbsp;&nbsp;
                			동의하지 않습니다.&nbsp;<input type="radio"  name="notAgree" value="notAgree" onclick="changeRadio(notAgree)"><br/><br />
-						<input type="image" src="http://localhost:8090/momo/images/join/agreementBtn.jpg">
+						<input type="image" src="images/join/agreementBtn.jpg">
 					</form>
                 </div>                      
             </div> <!-- /.row -->
