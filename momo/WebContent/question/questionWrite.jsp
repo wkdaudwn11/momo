@@ -23,7 +23,7 @@
 	$(document).ready(function(){
 		if(${empty login}){
 			alert("로그인 후 가능합니다.");
-			location.replace("http://localhost:8090/momo/LoginUIServlet");
+			location.replace("LoginUIServlet");
 		}
 		
 		$("#content").on("focus",function(){
@@ -56,7 +56,7 @@
 	<div id="questionWrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
-		<form id="writeForm" action="../QuestionWriteServlet" name="writeForm" method="post">
+		<form id="writeForm" action="QuestionWriteServlet" name="writeForm" method="post">
 			<input type="hidden" name="id" value="${sessionScope.login.id}">
 			<input type="hidden" name="reple" value="${requestScope.reple}">
 			<input type="hidden" name="qnum" value="${requestScope.qnum}">
@@ -80,13 +80,13 @@
 				</div>
 				<div>
 				    	&nbsp;<b><span style="width:30%;">내용</span><span style="margin-left: 15%;"/>
-				    	<img src="http://localhost:8090/momo/images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:25em; height:1em;" placeholder="비밀글을 원하면 입력해주세요(공백제외)">
+				    	<img src="images/question/lock.gif">비밀번호</b><input id="password" type="password" name="password" style="width:25em; height:1em;" placeholder="비밀글을 원하면 입력해주세요(공백제외)">
 				    	<input type="checkbox" name="check" > 비밀번호 보이게 
 				    	<textarea name="content" id="content" rows="10" cols="125" placeholder="*카테고리를 반드시 설정해주세요*"></textarea>
 				</div>
 				<br>
 				<div class="questionWriteBtn">
-					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" style="cursor:pointer;" onclick="questionWrite(writeForm)">
+					<img src="images\freeBoard/writeBtn.jpg" style="cursor:pointer;" onclick="questionWrite(writeForm)">
 				</div> <!-- questionWriteBtn -->
 				
 			</div> <!-- questionContent -->

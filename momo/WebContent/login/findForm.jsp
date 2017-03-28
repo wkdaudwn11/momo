@@ -98,10 +98,10 @@
 			    			<input type="text" name="answer" id="answer" style="width:45%; height:30px;">
 						</p>
 					</div>
-		            <input type="image" src="http://localhost:8090/momo/images/login/findIdBtn.jpg" 
+		            <input type="image" src="images/login/findIdBtn.jpg" 
 		            	style="width:100px; height:30px;"> <!-- 서브밋 버튼 -->
-		            <a href="http://localhost:8090/momo/JoinUIServlet">
-               			<img src="http://localhost:8090/momo/images/login/joinBtn.jpg" width="100" height="30">
+		            <a href="JoinUIServlet">
+               			<img src="images/login/joinBtn.jpg" width="100" height="30">
                		</a>
 	            </form>
 	            <br />
@@ -139,10 +139,10 @@
 			    			<input type="text" name="answer"  id="answer" style="width:45%; height:30px;">
 						</p>
 					</div>
-		            <input type="image" src="http://localhost:8090/momo/images/login/findPwdBtn.jpg" 
+		            <input type="image" src="images/login/findPwdBtn.jpg" 
 		            	style="width:100px; height:30px;">
-		            <a href="http://localhost:8090/momo/JoinUIServlet">
-	               		<img src="http://localhost:8090/momo/images/login/joinBtn.jpg" width="100" height="30">
+		            <a href="JoinUIServlet">
+	               		<img src="images/login/joinBtn.jpg" width="100" height="30">
 	               	</a>
 	            </form>
 	            <br />

@@ -88,7 +88,7 @@
 								<li>
 					            	<div class="img">
 										<a href="LivingRoomDetailServlet?lnum=${bestLivingRoomDTO.lnum}">
-						    				<img src="http://localhost:8090/momo/images/livingRoom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="images/livingRoom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestLivingRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestLivingRoomDTO.price}" type="currency" /></del></font><br>
@@ -132,7 +132,7 @@
 							<li>
 				            	<div class="img">
 									<a href="LivingRoomDetailServlet?lnum=${livingRoomDTO.lnum}">
-					    				<img src="http://localhost:8090/momo/images/livingRoom/${livingRoomDTO.image1}.JPG">
+					    				<img src="images/livingRoom/${livingRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${livingRoomDTO.name}<br>
 						  					<font color="#7777ca"><del><fmt:formatNumber value="${livingRoomDTO.price}" type="currency" /></del></font><br>
@@ -170,7 +170,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -185,7 +185,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+							<a href="LivingRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -193,13 +193,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
 						[끝]
 					</a></p>
 				</c:if>

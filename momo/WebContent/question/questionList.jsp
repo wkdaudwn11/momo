@@ -114,9 +114,9 @@
 		}// end if($(".tr").eq(currindex).attr("style") =="display: none;")
 		if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id){
 			target.children("td").eq(0).attr("rowspan","2");
-			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionWriteUIServlet?reple='Y'&qnum="+qnum+">[답변]</a>"); }
-			else{ target.children("td").eq(1).html("<a href='http://localhost:8090/momo/QuestionUpdateServlet'>[수정]</a>"); }
-			target.next("tr").children("td").html("<a href='http://localhost:8090/momo/QuestionDeleteServlet'>[삭제]</a>");
+			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='QuestionWriteUIServlet?reple='Y'&qnum="+qnum+">[답변]</a>"); }
+			else{ target.children("td").eq(1).html("<a href='QuestionUpdateServlet'>[수정]</a>"); }
+			target.next("tr").children("td").html("<a href='QuestionDeleteServlet'>[삭제]</a>");
 			target.next().toggle();
 		}// end if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id)
 		target.toggle();
@@ -171,19 +171,17 @@
 							<input class="index" type="hidden" value="${status.index}">
 							<tr  height="30">
 								<td  width="50" align="center" >
-									<c:if test="${questionDTO.reple =='Y'}"><img src="http://localhost:8090/momo/images/question/arrow.png"></c:if>
+									<c:if test="${questionDTO.reple =='Y'}"><img src="images/question/arrow.png"></c:if>
 									<c:if test="${questionDTO.reple =='N'}">${questionDTO.qnum}</c:if>
 									</td>
 								<td width="50" align="center">[&nbsp;${questionDTO.category}&nbsp;]</td>
 							    <td  width="200" align="left">				
 								    <a href="javascript:questionDetail('${questionDTO.id}',${questionDTO.qnum},${status.index},'${questionDTO.content}'<c:if test="${questionDTO.password != null}">,${questionDTO.password}</c:if>);">
 								    	<c:if test="${questionDTO.password != null}">
-								    		<img src="http://localhost:8090/momo/images/question/lock.gif"> &nbsp;
+								    		<img src="images/question/lock.gif"> &nbsp;
 								    	</c:if>
 								    	${questionDTO.title}
 								    </a>
-								<%-- <% if(article.getReadcount()>=20){%>
-								         <!-- 핫  <img src="../../images/hot.gif" border="0"  height="16">--><%}%> --%> 
 							    </td>
 			 					<td width="50" align="center">${questionDTO.author}</td>			    
 							    <td width="150" align="center">${questionDTO.writeday}</td>
@@ -216,7 +214,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -227,7 +225,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							<a href="QuestionListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -235,13 +233,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/QuestionListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="QuestionListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[끝]
 					</a></p>
 				</c:if>
@@ -274,8 +272,8 @@
 				</form>
 			</center>
 			<div class="questionWriteBtn">
-				<a href="http://localhost:8090/momo/QuestionWriteUIServlet">
-					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" height="30px">
+				<a href="QuestionWriteUIServlet">
+					<img src="images\freeBoard/writeBtn.jpg" height="30px">
 				</a>
 			</div> <!-- questionWriteBtn -->
 			

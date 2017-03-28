@@ -141,7 +141,7 @@
 	        <div class="login1">
 	        <h2>LOGIN</h2>
 	        <font size="2" color="#999999"><b>회원아이디와 비밀번호를 입력해주세요.</b></font>
-	        	<form method="post" action="http://localhost:8090/momo/LoginCheckServlet" id="loginForm" name="loginForm" onsubmit="return loginFormSubmit()">
+	        	<form method="post" action="LoginCheckServlet" id="loginForm" name="loginForm" onsubmit="return loginFormSubmit()">
 		            <table style="width: 25em;">
 		                <tr>
 		                    <td align="center" style="width:6.250em;">
@@ -151,7 +151,7 @@
 		                        <input type="text" style="width:18.750em; height:1.875em;" id="id" name="id">
 		                    </td>
 		                    <td rowspan="2" style="width:6.250em;">
-		                    	<input type="image" src="http://localhost:8090/momo/images/login/loginBtn.jpg" style=" width:6.25em; height:2.5em;">
+		                    	<input type="image" src="images/login/loginBtn.jpg" style=" width:6.25em; height:2.5em;">
 		                    </td>
 		                </tr>
 		                <tr>
@@ -179,8 +179,8 @@
 	        		<tr style="border-bottom: 1px dotted gray; height:5em;">
 						<td style="width:30em;">저희 사이트에 방문하신게 처음이신가요?<br></td>
 						<td>
-							<a href="http://localhost:8090/momo/JoinUIServlet">
-	               				<img src="http://localhost:8090/momo/images/login/joinBtn.jpg">
+							<a href="JoinUIServlet">
+	               				<img src="images/login/joinBtn.jpg">
 	               			</a>
 	               		</td>
 					</tr>
@@ -189,10 +189,10 @@
 							아이디나 비밀번호를 잊어버리셨나요?<br>찾기 버튼을 누르시고 해당 정보를 입력해주시길 바랍니다.
 						</td>
 						<td>
-							<form method="get" action="http://localhost:8090/momo/FindUIServlet">
-           						<!-- <img src="http://localhost:8090/momo/images/login/findBtn.jpg" width="100" height="20" 
+							<form method="get" action="FindUIServlet">
+           						<!-- <img src="images/login/findBtn.jpg" width="100" height="20" 
            							onClick="findUIServlet()"><br /> -->
-           						<input type="image" src="http://localhost:8090/momo/images/login/findBtn.jpg">
+           						<input type="image" src="images/login/findBtn.jpg">
            					</form>
 						</td>
 					</tr>

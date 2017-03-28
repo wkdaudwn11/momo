@@ -224,7 +224,7 @@
 	        </div>
 	    </div>
 	    <br><br><br><br><br>
-	    <img src="http://localhost:8090/momo/images/join/joinus.png" width="60%" height="60%">
+	    <img src="images/join/joinus.png" width="60%" height="60%">
 	    
     </div> <!-- #joinWrap -->	
    

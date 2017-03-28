@@ -53,7 +53,7 @@
 	<jsp:include page="../include/header.jsp" flush="true"></jsp:include><br>
 	
 	<div id="pwdCheckContent">
-		<center><img src="http://localhost:8090/momo/images/myPage/pwdCheck.jpg"></center>
+		<center><img src="images/myPage/pwdCheck.jpg"></center>
 		
 		<form method="post" name="pwdCheckForm" id="pwdCheckForm">		
 			<div id="inputPwdTable">
@@ -73,8 +73,8 @@
 			<br><br>
 			
 			<div id="inputPwdBtn">
-				<input type="image" src="http://localhost:8090/momo/images/myPage/pwdCheckSubmitBtn.jpg" onclick="pwdCheking('submit')">&nbsp;&nbsp;
-				<input type="image" src="http://localhost:8090/momo/images/myPage/pwdCheckCancelBtn.jpg" onclick="pwdCheking('cancel')">
+				<input type="image" src="images/myPage/pwdCheckSubmitBtn.jpg" onclick="pwdCheking('submit')">&nbsp;&nbsp;
+				<input type="image" src="images/myPage/pwdCheckCancelBtn.jpg" onclick="pwdCheking('cancel')">
 			</div>
 		</form>
 	</div><!-- pwdCheckContent -->

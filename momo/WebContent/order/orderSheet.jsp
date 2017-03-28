@@ -108,7 +108,7 @@
 	<div id="orderContent">
 		<h3>주문서 작성</h3>
 		<hr>
-		<span><img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;주문 상세내역</span>
+		<span><img src="images/order/zzz.jpg" width="10" height="10">&nbsp;주문 상세내역</span>
 		
 		<!-- 주문 리스트 -->
 		<form method="post" name="orderForm" id="orderForm">
@@ -128,26 +128,26 @@
 								<b>${i.count + x}</b>
 							</td>
 						    <td  width="50" align="center">
-						    	<img src="http://localhost:8090/momo/images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
+						    	<img src="images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
 						    </td>
 		 					<td width="200" align="center">
 		 						<c:if test="${cartDTO.category == 'bedRoom'}">
-							    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${cartDTO.pnum}">
+							    	<a href="BedRoomDetailServlet?bnum=${cartDTO.pnum}">
 							    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 							    	</a> 
 							    </c:if>
 		 						<c:if test="${cartDTO.category == 'livingRoom'}">
-							    	<a href="http://localhost:8090/momo/LivingRoomDetailServlet?lnum=${cartDTO.pnum}">
+							    	<a href="LivingRoomDetailServlet?lnum=${cartDTO.pnum}">
 							    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 							    	</a> 
 							    </c:if>
 							    <c:if test="${cartDTO.category == 'kitchen'}">
-							    	<a href="http://localhost:8090/momo/KitchenDetailServlet?knum=${cartDTO.pnum}">
+							    	<a href="KitchenDetailServlet?knum=${cartDTO.pnum}">
 							    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 							    	</a> 
 							    </c:if>
 							    <c:if test="${cartDTO.category == 'childrenRoom'}">
-							    	<a href="http://localhost:8090/momo/ChildrenRoomDetailServlet?cnum=${cartDTO.pnum}">
+							    	<a href="ChildrenRoomDetailServlet?cnum=${cartDTO.pnum}">
 							    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 							    	</a> 
 							    </c:if>
@@ -181,26 +181,26 @@
 							<b>1</b>
 						</td>
 					    <td  width="50" align="center">
-						    <img src="http://localhost:8090/momo/images/${category}/${image1}.JPG" width="50" height="50">
+						    <img src="images/${category}/${image1}.JPG" width="50" height="50">
 					    </td>
 	 					<td width="200" align="center">
 	 						<c:if test="${category == 'bedRoom'}">
-						    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${pnum}">
+						    	<a href="BedRoomDetailServlet?bnum=${pnum}">
 						    		<b>${pname}</b>&nbsp;&nbsp;
 						    	</a> 
 						    </c:if>
 	 						<c:if test="${category == 'livingRoom'}">
-						    	<a href="http://localhost:8090/momo/LivingRoomDetailServlet?lnum=${pnum}">
+						    	<a href="LivingRoomDetailServlet?lnum=${pnum}">
 						    		<b>${pname}</b>&nbsp;&nbsp;
 						    	</a> 
 						    </c:if>
 						    <c:if test="${category == 'kitchen'}">
-						    	<a href="http://localhost:8090/momo/KitchenDetailServlet?knum=${pnum}">
+						    	<a href="KitchenDetailServlet?knum=${pnum}">
 						    		<b>${pname}</b>&nbsp;&nbsp;
 						    	</a> 
 						    </c:if>
 						    <c:if test="${category == 'childrenRoom'}">
-						    	<a href="http://localhost:8090/momo/ChildrenRoomDetailServlet?cnum=${pnum}">
+						    	<a href="ChildrenRoomDetailServlet?cnum=${pnum}">
 						    		<b>${pname}</b>&nbsp;&nbsp;
 						    	</a> 
 						    </c:if>
@@ -228,7 +228,7 @@
 			
 			<br><br>
 			<c:if test="${sessionScope.login.addr1 != 'facebook'}">
-				<span><img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;주문자 정보</span>
+				<span><img src="images/order/zzz.jpg" width="10" height="10">&nbsp;주문자 정보</span>
 				<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
 					<tr height="30" style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
 						<td width="100" align="center">성 명</td>
@@ -254,7 +254,7 @@
 			<br><br>
 			
 			<span>
-				<img src="http://localhost:8090/momo/images/order/zzz.jpg" width="10" height="10">&nbsp;배송지 정보
+				<img src="images/order/zzz.jpg" width="10" height="10">&nbsp;배송지 정보
 				<c:if test="${sessionScope.login.addr1 != 'facebook'}">
 				　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<input type="checkbox" id="sameCheck" onclick="same()"> <font size="2">회원정보와 동일</font>
 				</c:if>
@@ -277,7 +277,7 @@
 						<input type="text" readonly name="post1" id="post1" class="postcodify_postcode5" style="width:100px; height:30px;" value=""> - 
                         <input type="text" readonly name="post2" id="post2" class="postcodify_postcode5" style="width:100px; height:30px;" value="">
                         <!-- <input type="button" class="mainBtn" value="검색" style="width:19%; height:25px;" onclick="openDaumPostcode()"> -->
-                        <a href="#"><img src="http://localhost:8090/momo/images/order/zipcodeSearchBtn.jpg" class="mainBtn" onclick="openDaumPostcode()"></a>
+                        <a href="#"><img src="images/order/zipcodeSearchBtn.jpg" class="mainBtn" onclick="openDaumPostcode()"></a>
 						<span id="callbacknestsgroomtistorycom739114" style="width: 1px; height: 1px; float: right;">
 							<embed width="1" height="1" id="bootstrappersgroomtistorycom739114" src="http://sgroom.tistory.com/plugin/CallBack_bootstrapperSrc?nil_profile=tistory&nil_type=copied_post"
 									type="application/x-shockwave-flash" swliveconnect="true" flashvars="&callbackId=sgroomtistorycom739114&host=http://sgroom.tistory.com&embedCodeSrc=http%3A%2F%2Fsgroom.tistory.com%2Fplugin%2FCallBack_bootstrapper%3F%26src%3D%2F%2Fs1.daumcdn.net%2Fcfs.tistory%2Fresource%2F3771%2Fblog%2Fplugins%2FCallBack%2Fcallback%26id%3D73%26callbackId%3Dsgroomtistorycom739114%26destDocId%3Dcallbacknestsgroomtistorycom739114%26host%3Dhttp%3A%2F%2Fsgroom.tistory.com%26float%3Dleft"
@@ -298,16 +298,16 @@
 					<td colspan="4" align="center">
 						<br>
 						<a href="javascript:checkOrder(orderForm)">
-							<img src="http://localhost:8090/momo/images\cart/orderBtn.jpg">
+							<img src="images\cart/orderBtn.jpg">
 						</a>
 						<a href="javascript:backPage(orderForm)">
-							<img src="http://localhost:8090/momo/images\order/orderCancelBtn.jpg">
+							<img src="images\order/orderCancelBtn.jpg">
 						</a>
 					</td>
 				</tr>
 			</table>
 		</form>
-		<!-- <input type="image" src="http://localhost:8090/momo/images\cart/orderBtn.jpg"> -->
+		<!-- <input type="image" src="images\cart/orderBtn.jpg"> -->
 		
 	</div> <!-- cartContent -->
 	<br>

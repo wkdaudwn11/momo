@@ -52,7 +52,7 @@
 	function deleteOne(cnum, name){
 		var result = confirm(name+'을(를) 장바구니에서 삭제하시겠습니까?');
 		if(result == true){
-			location.replace('http://localhost:8090/momo/CartDeleteServlet?cnum='+cnum);
+			location.replace('CartDeleteServlet?cnum='+cnum);
 		}
 	}//deleteOne(cnum, name)
 	
@@ -60,7 +60,7 @@
 	function updateCount(cnum, num){
 		var arrayCount = document.getElementsByName("count");
 		var count = arrayCount[num-1].value;
-		location.replace('http://localhost:8090/momo/CartUpdateCountServlet?cnum='+cnum+'&count='+count);
+		location.replace('CartUpdateCountServlet?cnum='+cnum+'&count='+count);
 	}//updateCount(cnum, num)
 	
 	//체크된 것들을 삭제하는 함수
@@ -155,44 +155,40 @@
 										<b>${(totalRecord - (i.count + x)) + 1}</b>
 									</td>
 								    <td  width="50" align="center">
-								    	<img src="http://localhost:8090/momo/images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
+								    	<img src="images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
 								    </td>
 				 					<td width="200" align="center">
 				 						<c:if test="${cartDTO.category == 'bedRoom'}">
-									    	<a href="http://localhost:8090/momo/BedRoomDetailServlet?bnum=${cartDTO.pnum}">
+									    	<a href="BedRoomDetailServlet?bnum=${cartDTO.pnum}">
 									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 									    	</a> 
 									    </c:if>
 									    <c:if test="${cartDTO.category == 'livingRoom'}">
-									    	<a href="http://localhost:8090/momo/LivingRoomDetailServlet?lnum=${cartDTO.pnum}">
+									    	<a href="LivingRoomDetailServlet?lnum=${cartDTO.pnum}">
 									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 									    	</a> 
 									    </c:if>
 									    <c:if test="${cartDTO.category == 'kitchen'}">
-									    	<a href="http://localhost:8090/momo/KitchenDetailServlet?knum=${cartDTO.pnum}">
+									    	<a href="KitchenDetailServlet?knum=${cartDTO.pnum}">
 									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 									    	</a> 
 									    </c:if>
 									    <c:if test="${cartDTO.category == 'childrenRoom'}">
-									    	<a href="http://localhost:8090/momo/ChildrenRoomDetailServlet?cnum=${cartDTO.pnum}">
+									    	<a href="ChildrenRoomDetailServlet?cnum=${cartDTO.pnum}">
 									    		<b>${cartDTO.name}</b>&nbsp;&nbsp;
 									    	</a> 
 									    </c:if>
 				 					</td>			    
 								    <td width="100" align="center">
 										<input type="number" name="count" id="count" min="1" max="9" value="${cartDTO.count}" style="width:35px; align:center;">
-										&nbsp;<a href="#"><img src="http://localhost:8090/momo/images\cart/updateCountBtn.jpg" width="40" height="20" onclick="updateCount('${cartDTO.cnum}', '${i.count + x}')"></a>
-										<%-- <input type="image" src="http://localhost:8090/momo/images\cart/updateCountBtn.jpg" width="40" height="25" onclick="updateCount('${cartDTO.cnum}', '${i.count + x}')"
-											style="padding-top:5px;"> --%>
+										&nbsp;<a href="#"><img src="images\cart/updateCountBtn.jpg" width="40" height="20" onclick="updateCount('${cartDTO.cnum}', '${i.count + x}')"></a>
 									</td>
 								    <td width="100" align="center">
 										<b><font color="red"><del><fmt:formatNumber value="${cartDTO.price * cartDTO.count}" type="currency" /></del></font><br />
 										<font color="#3f4993"><fmt:formatNumber value="${(cartDTO.price * (1.0 - (cartDTO.discount/100))) * cartDTO.count}" type="currency" /></font></b>
 									</td>
 								    <td width="100" align="center">
-								    	<a href="#"><img src="http://localhost:8090/momo/images\cart/deleteBtn.jpg" onclick="deleteOne('${cartDTO.cnum}', '${cartDTO.name}')"></a>
-										<%-- <input type="image" src="http://localhost:8090/momo/images\cart/deleteBtn.jpg" name="deleteOne" id="deleteOne" 
-											onclick="deleteOne('${cartDTO.cnum}', '${cartDTO.name}')"> --%>
+								    	<a href="#"><img src="images\cart/deleteBtn.jpg" onclick="deleteOne('${cartDTO.cnum}', '${cartDTO.name}')"></a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -215,7 +211,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/CartListServlet?curPage=${Math.round((pageblock*page)-19)}">
+					<a href="CartListServlet?curPage=${Math.round((pageblock*page)-19)}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -226,7 +222,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/CartListServlet?curPage=${i}">
+							<a href="CartListServlet?curPage=${i}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -234,13 +230,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/CartListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="CartListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage) && totalRecord != 0}">
-					<a href="http://localhost:8090/momo/CartListServlet?curPage=${Math.round((totalRecord/perPage )+1)}">
+					<a href="CartListServlet?curPage=${Math.round((totalRecord/perPage )+1)}">
 						[끝]
 					</a></p>
 				</c:if>
@@ -249,9 +245,9 @@
 			</div>	<!-- paging -->
 			<br>
 			
-			<input type="image" src="http://localhost:8090/momo/images\cart/orderBtn.jpg" onclick="checkOrder(cartForm)">
-			<input type="image" src="http://localhost:8090/momo/images\cart/checkDeleteBtn.jpg" id="checkDelete" onclick="checkCart(cartForm)">
-			<input type="image" src="http://localhost:8090/momo/images\cart/goShoppingBtn.jpg" id="goShopping">
+			<input type="image" src="images\cart/orderBtn.jpg" onclick="checkOrder(cartForm)">
+			<input type="image" src="images\cart/checkDeleteBtn.jpg" id="checkDelete" onclick="checkCart(cartForm)">
+			<input type="image" src="images\cart/goShoppingBtn.jpg" id="goShopping">
 			
 		</div> <!-- cartContent -->
 		<br><br><br><br>

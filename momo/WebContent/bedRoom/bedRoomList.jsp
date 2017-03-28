@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,10 +79,10 @@
 						<ul class="contents_33_product_images">
 							<c:forEach var="bestBedRoomDTO" items="${bestBedRoomList}" varStatus="status">
 								<li>
+									<center><p class="rankFont">BEST ${status.count}</p></center><br>
 					            	<div class="img">
 										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
-											<center><p class="rankFont">BEST ${status.count}</p></center><br>
-						    				<img src="http://localhost:8090/momo/images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestBedRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -125,7 +126,7 @@
 							<li>
 				            	<div class="img">
 									<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
-					    				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG">
+					    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${bedRoomDTO.name}<br>
 						  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
@@ -163,7 +164,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -178,7 +179,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+							<a href="BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -186,13 +187,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+					<a href="BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
 						[끝]
 					</a></p>
 				</c:if>

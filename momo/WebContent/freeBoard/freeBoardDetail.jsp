@@ -60,7 +60,7 @@
 	
 	//댓글 삭제 관련 함수
 	function repleDelete(frnum, fnum, curPage){
-		location.replace('http://localhost:8090/momo/FreeBoardRepleDelete?frnum='+frnum+'&fnum='+fnum+'&curPage='+curPage);
+		location.replace('FreeBoardRepleDelete?frnum='+frnum+'&fnum='+fnum+'&curPage='+curPage);
 	}//repleDelete(frnum, fnum, curPage)
 	
 	//삭제가 완료되면 삭제되었다고 alert을 띄어주는 함수
@@ -132,7 +132,7 @@
 				    	&nbsp;<span style="width:24%"><b>작성날짜</b></span>&nbsp;&nbsp;
 						|　　${freeBoardDTO.writeday}　　　　　　　　　　　　　　　　　　　　　　　　　　　　조회: ${freeBoardDTO.readCnt}　　　추천: <span id="goodCnt">${freeBoardDTO.goodCnt}</span>　
 						<a href="javascript:goodPlus();"> 
-							<img src="http://localhost:8090/momo/images\freeBoard/recommend.png" width="30px" height="30px">				
+							<img src="images\freeBoard/recommend.png" width="30px" height="30px">				
 						</a> <!-- 추천 -->
 					</p>
 				</div>
@@ -266,18 +266,18 @@
 			<div class="boardBtnleft">
 				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">  
 					<a href="javascript:update(detailForm);"> 
-						<img src="http://localhost:8090/momo/images\freeBoard/updateBtn.jpg">
+						<img src="images\freeBoard/updateBtn.jpg">
 					</a>&nbsp;<!-- 수정 -->
 									
-					<a href="http://localhost:8090/momo/FreeBoardDeleteServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}&author=${freeBoardDTO.author}"> 
-						<img src="http://localhost:8090/momo/images\freeBoard/deleteBtn.jpg">
+					<a href="FreeBoardDeleteServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}&author=${freeBoardDTO.author}"> 
+						<img src="images\freeBoard/deleteBtn.jpg">
 					</a>&nbsp;<!-- 삭제 -->
 				</c:if>
 			</div> <!-- .boardBtnleft -->
 									
 			<div class="boardBtnRight">
-				<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${curPage}">
-					<img src="http://localhost:8090/momo/images\freeBoard/listBtn.jpg">
+				<a href="FreeBoardListServlet?curPage=${curPage}">
+					<img src="images\freeBoard/listBtn.jpg">
 				</a><!-- 목록보기 -->
 			</div> <!-- .boardWriteBtn -->
 		</div> <!-- .boardBtn -->

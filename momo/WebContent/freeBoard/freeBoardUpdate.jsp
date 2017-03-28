@@ -26,7 +26,7 @@
 <script type="text/javascript">
 	function loginCheck(curPage){
    	  	alert("Access Wrong !!");
-   	  	location.href="http://localhost:8090/momo/FreeBoardListServlet";
+   	  	location.href="FreeBoardListServlet";
 	}
 </script>
 
@@ -39,16 +39,11 @@
 		<script>loginCheck('${curPage}');</script>
 	</c:if>
 	
-	<%-- <c:if test="${login.id != freeBoardDTO.author}">
-		<script>loginCheck('${curPage}');</script>
-	</c:if>
-	 --%>
-	
 	<div id="boardWrap">
 	
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
-		<form name="modifyForm" action="http://localhost:8090/momo/FreeBoardUpdateServlet" method="post">
+		<form name="modifyForm" action="FreeBoardUpdateServlet" method="post">
 			<input type="hidden" name="fnum" value="${freeBoardDTO.fnum}">
 			<div id="boardContent">
 				<h3>자유게시판</h3>
@@ -74,10 +69,9 @@
 				<br>
 				<div class="boardWriteBtn">
  					<input type="image" 
- 					src="http://localhost:8090/momo/images\freeBoard/updateBtn.jpg" 
+ 					src="images\freeBoard/updateBtn.jpg" 
  						height="30px" >
-<!--  					<img src="http://localhost:8090/momo/images/freeBoard/writeBtn.jpg" height="30px"></button>
- -->				</div> <!-- boardWriteBtn -->
+ 				</div> <!-- boardWriteBtn -->
 				
 			</div> <!-- boardContent -->
 			<br>
