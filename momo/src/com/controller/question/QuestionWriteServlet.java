@@ -18,26 +18,24 @@ public class QuestionWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+		String curPage = request.getParameter("curPage");
 		String qnum = request.getParameter("qnum");
 		String id = request.getParameter("id");
-		String reple = request.getParameter("reple");
 		String category = request.getParameter("category");
 		String password = request.getParameter("password");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String author = request.getParameter("author");
-		
 		QuestionDTO question = new QuestionDTO();
-		if(reple == null || reple.equals("")){
-			reple ="N";
+		if(qnum != null && qnum.equals("") == false){
+			question.setQnum(Integer.parseInt(qnum));
 		}
 		question.setId(id);
-		question.setReple(reple);
 		question.setCategory(category);
 		question.setTitle(title);
 		question.setContent(content);
 		question.setAuthor(author);
-		if(password != null && password.trim() != ""){
+		if(password != null && password.trim().equals("") == false){
 			question.setPassword(password);
 		}
 		
@@ -47,7 +45,7 @@ public class QuestionWriteServlet extends HttpServlet {
 		
 		request.setAttribute("WriteSuccess","문의가 접수 되었습니다.");
 		
-		RequestDispatcher dis = request.getRequestDispatcher("QuestionListServlet");
+		RequestDispatcher dis = request.getRequestDispatcher("QuestionListServlet?curPage="+curPage);
 		dis.forward(request, response);
 
 	}

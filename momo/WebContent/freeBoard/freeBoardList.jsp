@@ -26,7 +26,7 @@
 <script>
 	window.onload = function onload(){
 		if('${AccessWrong}'!=''){
-			alert("게시물 수정 실패!");
+			alert('${AccessWrong}');
 		}
 		if('${WriteSuccess}'!=''){
 			alert("${WriteSuccess}");

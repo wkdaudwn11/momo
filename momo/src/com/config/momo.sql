@@ -26,9 +26,9 @@ insert into member values(member_seq.nextval, 'admin', 'admin', 'admin', 'admin'
 
 -- 문의 게시판
 create table question
-( ref number(4) constraint question_ref_fk foreign key(ref) references question(qnum);
+( ref number(4) ,
+ qlevel number(1),
  qnum number(4) constraint question_qunm_pk primary key,
- reple char(1) ,
  id		varchar2(15) not null,
  password varchar2(15),
  category varchar2(10) not null,
@@ -36,7 +36,10 @@ create table question
  content varchar2(4000) not null,
  author varchar2(20) not null,
  writeday date default sysdate,
- readCnt number(5) default 0); 
+ readCnt number(5) default 0,
+ constraint question_ref_fk foreign key(ref) references question(qnum) on delete cascade);
+ 
+ create sequence question_seq minvalue 1;
                             
 
 --자유게시판 테이블
@@ -51,7 +54,11 @@ Create table freeBoard(
  	goodcnt		number(4)		default 0,			--추천수
  	replecnt	number(4)       default 0       	--댓글수
 );
-create sequence freeBoard_seq minvalue 0;
+
+
+create sequence freeBoard_seq minvalue 1;
+
+
 
 --자유게시판 댓글 테이블 (기존 꺼)
 Create table freeBoardReple(

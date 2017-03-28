@@ -2,9 +2,10 @@ package com.entity.question;
 
 public class QuestionDTO {
 	
+	private int ref;
+	private int qlevel;
 	private int qnum;
 	private String id;
-	private String reple;
 	private String password;
 	private String category;
 	private String title;
@@ -15,11 +16,12 @@ public class QuestionDTO {
 	
 	public QuestionDTO(){}
 
-	public QuestionDTO(int qnum, String id, String reple, String password, String category, String title,
+	public QuestionDTO(int ref, int qlevel, int qnum, String id, String password, String category, String title,
 			String content, String author, String writeday, int readCnt) {
+		this.ref = ref;
+		this.qlevel = qlevel;
 		this.qnum = qnum;
 		this.id = id;
-		this.reple = reple;
 		this.password = password;
 		this.category = category;
 		this.title = title;
@@ -27,6 +29,22 @@ public class QuestionDTO {
 		this.author = author;
 		this.writeday = writeday;
 		this.readCnt = readCnt;
+	}
+
+	public int getRef() {
+		return ref;
+	}
+
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+
+	public int getQlevel() {
+		return qlevel;
+	}
+
+	public void setQlevel(int qlevel) {
+		this.qlevel = qlevel;
 	}
 
 	public int getQnum() {
@@ -43,14 +61,6 @@ public class QuestionDTO {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getReple() {
-		return reple;
-	}
-
-	public void setReple(String reple) {
-		this.reple = reple;
 	}
 
 	public String getPassword() {
@@ -111,11 +121,11 @@ public class QuestionDTO {
 
 	@Override
 	public String toString() {
-		return "QuestionDTO [qnum=" + qnum + ", id=" + id + ", reple=" + reple + ", password=" + password
-				+ ", category=" + category + ", title=" + title + ", content=" + content + ", author=" + author
-				+ ", writeday=" + writeday + ", readCnt=" + readCnt + "]";
+		return "QuestionDTO [ref=" + ref + ", qlevel=" + qlevel + ", qnum=" + qnum + ", id=" + id + ", password="
+				+ password + ", category=" + category + ", title=" + title + ", content=" + content + ", author="
+				+ author + ", writeday=" + writeday + ", readCnt=" + readCnt + "]";
 	}
-	
+
 	
 	
 }// end QuestionDTO
