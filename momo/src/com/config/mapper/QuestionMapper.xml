@@ -4,6 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.momo.QuestionMapper">
 	
+	<!-- 게시글 답변 카테고리,비밀번호 수정 -->
+	<update id="repleUpdate" parameterType="QuestionDTO">
+		update question
+		set category=#{category},password=#{password}
+		where ref=#{qnum} and qlevel= 1
+	</update>
+	
+	<!-- 게시글 수정 -->
+	<update id="questionUpdate" parameterType="QuestionDTO">
+		update question
+		set title = #{title},content=#{content},password=#{password},category=#{category}
+		where qnum = #{qnum}
+	</update>
+	
+	<!--게시글 삭제  -->
+	<delete id="deleteQuestion" parameterType="int">
+		delete from question where qnum=#{qnum}
+	</delete>
+	
 	<!-- 조회수 얻기 -->
 	<select id="getReadCnt" resultType="int" parameterType="int">
 		select readCnt from question
@@ -18,13 +37,18 @@
 	
 	<!-- 게시글 정보 등록 -->
 	<insert id="insertQuestion" parameterType="QuestionDTO">
-		insert into question(qnum,id,reple,category,password,title,content,author)
-		values(#{qnum}+1,#{id},#{reple},#{category},#{password},#{title},#{content},#{author})
+		insert into question(qnum,ref,qlevel,id,category,password,title,content,author)
+		<if test="qnum == 0">
+			values(question_seq.nextval,question_seq.currval,0,#{id},#{category},#{password},#{title},#{content},#{author})
+		</if>
+		<if test="qnum != 0">
+			values(question_seq.nextval,#{qnum},1,#{id},#{category},#{password},#{title},#{content},#{author})
+		</if>
 	</insert>
 	
 	<!-- 상세보기 -->
 	<select id="questionDetail" resultType="QuestionDTO" parameterType="int">
-		select qnum,reple,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
+		select ref,qnum,qlevel,id,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
 		from question
 		where qnum =#{qnum}
 	</select>
@@ -52,8 +76,8 @@
 	
 	<!-- 리스트 가져오는 쿼리 -->
 	<select id="questionList" resultType="QuestionDTO" parameterType="HashMap">
-		select qnum,id,reple,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
+		select ref,qnum,id,qlevel,password,category,title,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt
 		from question
-		order by qnum desc
+		order by ref desc,qlevel asc
 	</select>
 </mapper>

@@ -2,6 +2,7 @@ package com.entity.freeboard;
 
 public class FreeBoardDTO {
 
+	private String id;
 	private int fnum;
 	private String id;
 	private String author;
@@ -14,9 +15,9 @@ public class FreeBoardDTO {
 	
 	public FreeBoardDTO(){}
 
+
 	public FreeBoardDTO(int fnum, String id, String author, String title, String content, String writeday, int readCnt,
 			int goodCnt, int repleCnt) {
-		super();
 		this.fnum = fnum;
 		this.id = id;
 		this.author = author;
@@ -27,6 +28,7 @@ public class FreeBoardDTO {
 		this.goodCnt = goodCnt;
 		this.repleCnt = repleCnt;
 	}
+
 
 	@Override
 	public String toString() {

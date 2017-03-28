@@ -264,6 +264,7 @@
 		<br>
 		<div class="boardBtn">
 			<div class="boardBtnleft">
+
 				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">  
 					<a href="javascript:update(detailForm);"> 
 						<img src="images\freeBoard/updateBtn.jpg">
