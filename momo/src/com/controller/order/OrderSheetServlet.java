@@ -51,7 +51,7 @@ public class OrderSheetServlet extends HttpServlet {
 				
 				if(confirmOK.equals("true")){
 					MemberService memberService = new MemberService();
-					memberService.updateFacebookMemberAddr(memberDTO.getId(), tel, post1, post2, addr1, addr2);
+					memberService.updateSNSMemberAddr(memberDTO.getId(), tel, post1, post2, addr1, addr2);
 				}
 				
 				OrderService service = new OrderService();

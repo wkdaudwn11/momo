@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.entity.member.MemberDTO;
 import com.service.MemberService;
 
-@WebServlet("/FacebookLoginServlet")
-public class FacebookLoginServlet extends HttpServlet {
+@WebServlet("/SNSLoginServlet")
+public class SNSLoginServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -24,15 +24,16 @@ public class FacebookLoginServlet extends HttpServlet {
 		
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
-		String tel = request.getParameter("tel");
-		if(tel == null) tel = "facebook";
+		String sns = request.getParameter("sns");
 		
 		MemberService service = new MemberService();
 		
 		try{
-			MemberDTO memberDTO = service.facebookLogin(id, name, tel);
+			MemberDTO memberDTO = service.SNSLogin(id, name, sns);
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("login", memberDTO);
+			
 			request.setAttribute("loginMessage", memberDTO.getName()+"님 환영합니다!");
 			
 			if(session.getAttribute("prevPage") == null){
@@ -41,9 +42,8 @@ public class FacebookLoginServlet extends HttpServlet {
 				target = (String)session.getAttribute("prevPage");
 			}
 		}catch(Exception e){
-			System.out.println("페이스북 로그인 실패");
 			target="LoginUIServlet";
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("message", "sns 로그인 실패");
 		}
 		
 		RequestDispatcher dis = request.getRequestDispatcher(target);

@@ -76,7 +76,7 @@
 		}
 		
 		if(inputCheck == true){
-			if(${sessionScope.login.facebook == 'yes'}){
+			if(${sessionScope.login.sns != null}){
 				var confirmOK = confirm('입력하신 배송정보를 회원정보로 등록하시겠습니까?');
 				if(confirmOK == true){
 					orderForm.action="OrderSheetServlet?confirmOK=true";
@@ -227,7 +227,7 @@
 			</table> <!-- cartList -->
 			
 			<br><br>
-			<c:if test="${sessionScope.login.addr1 != 'facebook'}">
+			<c:if test="${sessionScope.login.addr1 != 'sns'}">
 				<span><img src="images/order/zzz.jpg" width="10" height="10">&nbsp;주문자 정보</span>
 				<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
 					<tr height="30" style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
@@ -255,7 +255,7 @@
 			
 			<span>
 				<img src="images/order/zzz.jpg" width="10" height="10">&nbsp;배송지 정보
-				<c:if test="${sessionScope.login.addr1 != 'facebook'}">
+				<c:if test="${sessionScope.login.addr1 != 'sns'}">
 				　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<input type="checkbox" id="sameCheck" onclick="same()"> <font size="2">회원정보와 동일</font>
 				</c:if>
 			</span><br>
