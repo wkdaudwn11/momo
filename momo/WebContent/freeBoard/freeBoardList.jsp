@@ -35,6 +35,10 @@
 			alert('${DeleteSuccess}');
 		}
 	}
+	
+	function searchForm(searchForm){
+		searchForm.submit();
+	}
 </script>
 
 </head>
@@ -84,7 +88,7 @@
 							<tr height="30">
 								<td  width="50" align="center" >${freeBoardDTO.fnum}</td>
 							    <td  width="200" align="left">				           
-								    <a href="http://localhost:8090/momo/FreeBoardDetailServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}">
+								    <a href="FreeBoardDetailServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}">
 								    	${freeBoardDTO.title}&nbsp;&nbsp;
 								    	<c:if test="${freeBoardDTO.repleCnt > 0}"> <!-- 댓글 갯수가 0보다 크면 댓글 갯수를 보여줌 -->
 								    		(${freeBoardDTO.repleCnt})
@@ -117,7 +121,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -128,7 +132,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							<a href="FreeBoardListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -136,13 +140,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+					<a href="FreeBoardListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
 						[끝]
 					</a></p>
 				</c:if>
@@ -151,23 +155,29 @@
 			</div>	<!-- boardPaging -->
 			
 			<!-- 글 검색 -->
-			<form id="search" action="FreeBoardListServlet" method="get">
-				<select	name="searchType">
-					<option value="title"
-						<c:if test="${search.searchType}=='title'">
-							selected
-						</c:if> >제목 </option>
-					<option value="author"
-						<c:if test="${search.searchType}=='author'">
-							selected
-						</c:if> >작성자 </option>
-				</select>
-				<input type="text" name="searchValue" value="${search.searchValue}"><input type="submit" value="검색">
-			</form>
+			<center>
+				<form name="searchForm" id="searchForm" action="FreeBoardListServlet" method="get">
+					<select	name="searchType">
+						<option value="title"
+							<c:if test="${search.searchType}=='title'">
+								selected
+							</c:if> >제목 </option>
+						<option value="author"
+							<c:if test="${search.searchType}=='author'">
+								selected
+							</c:if> >작성자 </option>
+					</select>
+					<input type="text" name="searchValue" value="${search.searchValue}" style="width:10em; height:1.5em;">
+					
+					<a href="javascript:searchForm(searchForm)">
+						<img src="images/freeBoard/searchBtn.jpg" width="80">
+					</a>
+				</form>
+			</center>
 			
 			<div class="boardWriteBtn">
-				<a href="http://localhost:8090/momo/FreeBoardWriteUIServlet">
-					<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg" height="30px">
+				<a href="FreeBoardWriteUIServlet">
+					<img src="images\freeBoard/writeBtn.jpg" height="30">
 				</a>
 			</div> <!-- boardWriteBtn -->
 			

@@ -6,15 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
-<link rel="stylesheet" href="http://localhost:8090/momo/css/normalize.min.css">
-<link rel="stylesheet" href="http://localhost:8090/momo/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://localhost:8090/momo/css/animate.css">
-<link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-misc.css">
-<link rel="stylesheet" href="http://localhost:8090/momo/css/templatemo-style.css">
-   
+
+<link rel="stylesheet" href="css/normalize.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/templatemo-misc.css">
+<link rel="stylesheet" href="css/templatemo-style.css">
+     
     
-<link href="http://localhost:8090/momo/css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
-<link href="http://localhost:8090/momo/css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
+<link href="css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
+<link href="css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
 
 <script type="text/javascript">	
 	
@@ -63,7 +64,7 @@
 <div id="header">
 	<br><br>
 	<div class="logo">
-		<a href="http://localhost:8090/momo/IndexServlet">
+		<a href="IndexServlet">
 			<font class="logoEng"><b>MOMO</b></font>
 			<font class="logoKor"><b>가구</b></font>
 		</a>
@@ -73,59 +74,58 @@
 		<ul>
 		
 		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
-	           	<li><a class="login_color" href="http://localhost:8090/momo/LoginUIServlet">로그인</a></font></li>
-	           	<li><a class="login_color" href="http://localhost:8090/momo/JoinUIServlet">회원가입</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
+	           	<li><a class="login_color" href="LoginUIServlet">로그인</a></font></li>
+	           	<li><a class="login_color" href="JoinUIServlet">회원가입</a></font></li>
 		</c:if>	
-		
 		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
-	           	<li><a class="login_color" href="http://localhost:8090/momo/LogoutServlet">로그아웃</a></font></li>
-	           	<li><a class="login_color" href="">정보수정</a></font></li>
-	            <li><a class="login_black" href="http://localhost:8090/momo/CartListServlet">장바구니</a></li>
+	           	<li><a class="login_color" href="LogoutServlet">로그아웃</a></font></li>
+	           	<li><a class="login_color" href="PwdCheckUIServlet">정보수정</a></font></li>
 		</c:if>
 		
-			<li><a class="login_black" href="">주문조회</a></li>
-            <li><a class="login_black" href="http://localhost:8090/momo/MypageUIServlet">마이페이지</a></li>
-			<li><a class="login_black" href="http://localhost:8090/momo/QuestionListServlet">상품문의</a></li>
+			<li><a class="login_black" href="CartListServlet">장바구니</a></li>
+			<li><a class="login_black" href="">주문내역</a></li>
+            <li><a class="login_black" href="MyPageUIServlet">마이페이지</a></li>
+			<li><a class="login_black" href="QuestionListServlet">고객문의</a></li>
+
 		</ul>
 	</div>
 	
 	<ul class="menu">
-		<li><!-- bedroom -->
-			<a href="http://localhost:8090/momo/BedRoomListServlet" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('BedRoom','','http://localhost:8090/momo/images/menu/BedRoom_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/BedRoom.jpg" id="BedRoom" />
+		<li><!-- BedRoom -->
+			<a href="BedRoomListServlet" onmouseout="MM_swapImgRestore()" 
+				onmouseover="MM_swapImage('BedRoom','','images/menu/BedRoom_over.jpg',1)">
+				<img src="images/menu/BedRoom.jpg" id="BedRoom" />
 			</a>
 		</li>
 		
-		<li><!-- livingroom -->
-			<a href="http://localhost:8090/momo/LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('LivingRoom','','http://localhost:8090/momo/images/menu/LivingRoom_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/LivingRoom.jpg" id="LivingRoom" />
+		<li><!-- LivingRoom -->
+			<a href="LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
+				onmouseover="MM_swapImage('LivingRoom','','images/menu/LivingRoom_over.jpg',1)">
+				<img src="images/menu/LivingRoom.jpg" id="LivingRoom" />
 			</a>
 		</li>
 		<li><!-- Kitchen-->
-			<a href="http://localhost:8090/momo/KitchenListServlet" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('Kitchen','','http://localhost:8090/momo/images/menu/Kitchen_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/Kitchen.jpg" id="Kitchen" />
+			<a href="KitchenListServlet" onmouseout="MM_swapImgRestore()" 
+				onmouseover="MM_swapImage('Kitchen','','images/menu/Kitchen_over.jpg',1)">
+				<img src="images/menu/Kitchen.jpg" id="Kitchen" />
 			</a>
 		</li>
 		<li><!-- ChildrenRoom -->
-			<a href="http://localhost:8090/momo/ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('ChildrenRoom','','http://localhost:8090/momo/images/menu/ChildrenRoom_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/ChildrenRoom.jpg" id="ChildrenRoom" />
+			<a href="ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
+				onmouseover="MM_swapImage('ChildrenRoom','','images/menu/ChildrenRoom_over.jpg',1)">
+				<img src="images/menu/ChildrenRoom.jpg" id="ChildrenRoom" />
 			</a>
 		</li>
-		<li>
+		<li><!-- MyHome -->
 			<a href="" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('MyHome','','http://localhost:8090/momo/images/menu/MyHome_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/MyHome.jpg" id="MyHome" />
+				onmouseover="MM_swapImage('MyHome','','images/menu/MyHome_over.jpg',1)">
+				<img src="images/menu/MyHome.jpg" id="MyHome" />
 			</a>
 		</li>
-		<li> <!-- 자유게시판 -->
-			<a href="http://localhost:8090/momo/FreeBoardListServlet" onmouseout="MM_swapImgRestore()" 
-				onmouseover="MM_swapImage('FreeBoard','','http://localhost:8090/momo/images/menu/FreeBoard_over.jpg',1)">
-				<img src="http://localhost:8090/momo/images/menu/FreeBoard.jpg" id="FreeBoard" />
+		<li> <!-- FreeBoard -->
+			<a href="FreeBoardListServlet" onmouseout="MM_swapImgRestore()" 
+				onmouseover="MM_swapImage('FreeBoard','','images/menu/FreeBoard_over.jpg',1)">
+				<img src="images/menu/FreeBoard.jpg" id="FreeBoard" />
 			</a>
 		</li> 
 	</ul> <!--  -->

@@ -123,11 +123,13 @@
 		}// end if($(".tr").eq(currindex).attr("style") =="display: none;")
 		if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id){
 			target.children("td").eq(0).attr("rowspan","2");
+
 			if(${sessionScope.login.id == 'admin'}){ target.children("td").eq(1).html("<a href='QuestionWriteUIServlet?&qnum="+qnum+"&category="+category+"&password="+password+"&curPage="+${QuestionPage.curPage}+"'>[답변]</a>"); }
 			else{
 				target.children("td").eq(1).html("<a href='QuestionUpdateUIServlet?qnum="+qnum+"&curPage="+${QuestionPage.curPage}+"'>[수정]</a>");
 			}
 			target.next("tr").children("td").html("<a href='javascript:questionDelete("+qnum+");'>[삭제]</a>");
+
 			target.next().toggle();
 		}// end if(${sessionScope.login.id =='admin'}||'${sessionScope.login.id}' == id)
 		target.toggle();
@@ -183,8 +185,10 @@
 							<input class="index" type="hidden" value="${status.index}">
 							<tr  height="30">
 								<td  width="50" align="center" >
+
 									<c:if test="${questionDTO.qlevel != 0}"><img src="images/question/arrow.png"></c:if>
 									<c:if test="${questionDTO.qlevel == 0}">${questionDTO.qnum}</c:if>
+
 									</td>
 								<td width="50" align="center">[&nbsp;${questionDTO.category}&nbsp;]</td>
 							    <td  width="200" align="left">				
@@ -194,8 +198,6 @@
 								    	</c:if>
 								    	${questionDTO.title}
 								    </a>
-								<%-- <% if(article.getReadcount()>=20){%>
-								         <!-- 핫  <img src="../../images/hot.gif" border="0"  height="16">--><%}%> --%> 
 							    </td>
 			 					<td width="50" align="center">${questionDTO.author}</td>			    
 							    <td width="150" align="center">${questionDTO.writeday}</td>
@@ -286,7 +288,9 @@
 				</form>
 			</center>
 			<div class="questionWriteBtn">
+
 				<a href="QuestionWriteUIServlet?curPage=${curPage}">
+
 					<img src="images\freeBoard/writeBtn.jpg" height="30px">
 				</a>
 			</div> <!-- questionWriteBtn -->

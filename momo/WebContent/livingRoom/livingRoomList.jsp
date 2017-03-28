@@ -54,7 +54,7 @@
 <body>
 	<c:set var="LivingRoomPageDTO" value="${LivingRoomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
 	<c:set var="livingRoomList" value="${LivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestLivingRoomList" value="${bestLivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
+	<c:set var="bestLivingRoomList" value="${BestLivingRoomPageDTO.livingRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
 	
 	<c:set var="curPage" value="${LivingRoomPageDTO.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
 	<c:set var="perPage" value="${LivingRoomPageDTO.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
@@ -88,7 +88,7 @@
 								<li>
 					            	<div class="img">
 										<a href="LivingRoomDetailServlet?lnum=${bestLivingRoomDTO.lnum}">
-						    				<img src="http://localhost:8090/momo/images/livingRoom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="images/livingRoom/${bestLivingRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestLivingRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestLivingRoomDTO.price}" type="currency" /></del></font><br>
@@ -109,16 +109,16 @@
 			<div class="categoryList">
 				<ul>
 					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">가죽소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">패브릭소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">리클라이너소파</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">거실장</a></li>
+					<li><a href="LivingRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">거실테이블</a></li>
 				</ul>
 			</div>
 			
 			<h5 class="sortValueClass">
-				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=bnum">[최신순]</a>  |  
+				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=lnum">[최신순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceAsc">[가격 낮은 순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceDesc">[가격 높은 순]</a>  |  
 				<a href="LivingRoomListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
@@ -131,8 +131,8 @@
 						<c:forEach var="livingRoomDTO" items="${livingRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
-					    				<img src="http://localhost:8090/momo/images/livingRoom/${livingRoomDTO.image1}.JPG">
+									<a href="LivingRoomDetailServlet?lnum=${livingRoomDTO.lnum}">
+					    				<img src="images/livingRoom/${livingRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${livingRoomDTO.name}<br>
 						  					<font color="#7777ca"><del><fmt:formatNumber value="${livingRoomDTO.price}" type="currency" /></del></font><br>
@@ -170,7 +170,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -185,7 +185,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+							<a href="LivingRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -193,13 +193,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/LivingRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+					<a href="LivingRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
 						[끝]
 					</a></p>
 				</c:if>

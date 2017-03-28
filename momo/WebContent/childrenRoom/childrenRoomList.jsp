@@ -87,8 +87,8 @@
 							<c:forEach var="bestChildrenRoomDTO" items="${bestChildrenRoomList}" varStatus="status">
 								<li>
 					            	<div class="img">
-										<a href="ChildrenRoomDetailServlet?bnum=${bestChildrenRoomDTO.cnum}">
-						    				<img src="http://localhost:8090/momo/images/childrenRoom/${bestChildrenRoomDTO.image1}.JPG" width="95%" height="275">
+										<a href="ChildrenRoomDetailServlet?cnum=${bestChildrenRoomDTO.cnum}">
+						    				<img src="images/childrenRoom/${bestChildrenRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestChildrenRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestChildrenRoomDTO.price}" type="currency" /></del></font><br>
@@ -109,11 +109,11 @@
 			<div class="categoryList">
 				<ul>
 					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">싱글침대</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">싱글매트</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">서랍/옷장</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">책상</a></li>
+					<li><a href="ChildrenRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">학생의자</a></li>
 				</ul>
 			</div>
 			
@@ -131,8 +131,8 @@
 						<c:forEach var="childrenRoomDTO" items="${childrenRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
-					    				<img src="http://localhost:8090/momo/images/childrenRoom/${childrenRoomDTO.image1}.JPG">
+									<a href="ChildrenRoomDetailServlet?cnum=${childrenRoomDTO.cnum}">
+					    				<img src="images/childrenRoom/${childrenRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${childrenRoomDTO.name}<br>
 						  					<font color="#7777ca"><del><fmt:formatNumber value="${childrenRoomDTO.price}" type="currency" /></del></font><br>
@@ -170,7 +170,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/ChildrenRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+					<a href="ChildrenRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -185,7 +185,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/ChildrenRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+							<a href="ChildrenRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -193,13 +193,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/ChildrenRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="ChildrenRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/ChildrenRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+					<a href="ChildrenRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
 						[끝]
 					</a></p>
 				</c:if>

@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,9 +21,7 @@
 	.topSeller{width:100%; height:40px; border-bottom:1px solid; background-color: #555;
 				text-align: center; font: bold; color: white; padding-top:5px;}
 				
-	.rankFont{width:100%; font: bold; font-size:18px; text-align: center; margin-top:10px;}
-	.rankFont ul{overflow: hidden; margin: 0 auto;}
-	.rankFont ul li{width: 33.3%; text-align: center; float: left; font-size: 2em; list-style: none;}
+	.rankFont{width:100%; font: bold; font-size: 2em; text-align: center; margin-top:10px; margin: 0 auto;}
 	
 	#content_22 {width:100%; overflow:hidden; margin:0 auto;}
 	.contents_22_product_images {width:100%; overflow:hidden; padding-left: 20px; margin-left:0px;}
@@ -74,21 +73,16 @@
 				<div class="topSeller">
 					TOP SELLER
 				</div>	<!-- topSeller -->
-				<div class="rankFont">
-					<ul>
-						<li>Best1</li>
-						<li>Best2</li>
-						<li>Best3</li>
-					</ul>
-				</div>
+				<br>
 				<div id="content_22">
 					<div class="contents_22_product">
 						<ul class="contents_33_product_images">
 							<c:forEach var="bestBedRoomDTO" items="${bestBedRoomList}" varStatus="status">
 								<li>
+									<center><p class="rankFont">BEST ${status.count}</p></center><br>
 					            	<div class="img">
 										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
-						    				<img src="http://localhost:8090/momo/images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestBedRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -131,8 +125,8 @@
 						<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 							<li>
 				            	<div class="img">
-									<a href="">
-					    				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG">
+									<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
+					    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
 						  				<div class="desc"><b>
 						  					${bedRoomDTO.name}<br>
 						  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
@@ -170,7 +164,7 @@
 				</c:if>
 				
 				<c:if test="${pageblock > 1}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
 						[이전]
 					</a>
 				</c:if> &nbsp;
@@ -185,7 +179,7 @@
 							${i}
 						</c:when>
 						<c:otherwise>
-							<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+							<a href="BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
 								${i}
 							</a>
 						</c:otherwise>
@@ -193,13 +187,13 @@
 				</c:forEach> &nbsp;
 				
 				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
 						[다음]
 					</a>
 				</c:if>
 				
 				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="http://localhost:8090/momo/BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+					<a href="BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
 						[끝]
 					</a></p>
 				</c:if>

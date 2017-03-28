@@ -41,6 +41,12 @@ public class KitchenListServlet extends HttpServlet {
 			KitchenPageDTO bestKitchenPageDTO = service.bestKitchenList();
 			
 			request.setAttribute("KitchenPageDTO", kitchenPageDTO);	//상품 리스트
+			
+			/*for(int i=0; i<kitchenPageDTO.getKitchenList().size(); i++){
+				System.out.print("KitchenListServlet: ");
+				System.out.println(kitchenPageDTO.getKitchenList().get(i).getName());
+			}*/
+			
 			request.setAttribute("bestKitchenPageDTO", bestKitchenPageDTO);	// 인기상품 베스트3 리스트
 			request.setAttribute("category", category);
 			request.setAttribute("sortValue", sortValue);

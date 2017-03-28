@@ -4,6 +4,7 @@ public class FreeBoardDTO {
 
 	private String id;
 	private int fnum;
+	private String id;
 	private String author;
 	private String title;
 	private String content;
@@ -14,10 +15,11 @@ public class FreeBoardDTO {
 	
 	public FreeBoardDTO(){}
 
-	public FreeBoardDTO(String id, int fnum, String author, String title, String content, String writeday, int readCnt,
+
+	public FreeBoardDTO(int fnum, String id, String author, String title, String content, String writeday, int readCnt,
 			int goodCnt, int repleCnt) {
-		this.id = id;
 		this.fnum = fnum;
+		this.id = id;
 		this.author = author;
 		this.title = title;
 		this.content = content;
@@ -27,12 +29,12 @@ public class FreeBoardDTO {
 		this.repleCnt = repleCnt;
 	}
 
-	public String getId() {
-		return id;
-	}
 
-	public void setId(String id) {
-		this.id = id;
+	@Override
+	public String toString() {
+		return "FreeBoardDTO [fnum=" + fnum + ", id=" + id + ", author=" + author + ", title=" + title + ", content="
+				+ content + ", writeday=" + writeday + ", readCnt=" + readCnt + ", goodCnt=" + goodCnt + ", repleCnt="
+				+ repleCnt + "]";
 	}
 
 	public int getFnum() {
@@ -41,6 +43,14 @@ public class FreeBoardDTO {
 
 	public void setFnum(int fnum) {
 		this.fnum = fnum;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getAuthor() {
@@ -98,14 +108,5 @@ public class FreeBoardDTO {
 	public void setRepleCnt(int repleCnt) {
 		this.repleCnt = repleCnt;
 	}
-
-	@Override
-	public String toString() {
-		return "FreeBoardDTO [id=" + id + ", fnum=" + fnum + ", author=" + author + ", title=" + title + ", content="
-				+ content + ", writeday=" + writeday + ", readCnt=" + readCnt + ", goodCnt=" + goodCnt + ", repleCnt="
-				+ repleCnt + "]";
-	}
-
-	
 	
 }// end freeBoardDTO

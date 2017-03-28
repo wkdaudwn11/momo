@@ -31,16 +31,21 @@
 <script>
 	function rightOrder(detailForm){
 		var productCount = detailForm.productCnt.value;
-		detailForm.action="";
-		detailForm.submit();
-	}
+		
+		if(productCount > 0 && productCount < 10){
+			detailForm.action="OrderSheetUIServlet?category=kitchen";
+			detailForm.submit();
+		}else{
+			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
+		}
+	}//rightOrder(detailForm)
 	
 	function addCart(detailForm, name){
 		
 		var productCount = detailForm.productCnt.value;
 		
 		if(productCount > 0 && productCount < 10){
-			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=kitchen&productCount="+productCount;
+			detailForm.action="CartAddServlet?category=kitchen&productCount="+productCount;
 			detailForm.submit();
 		}else{
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
@@ -79,12 +84,16 @@
 	<div id="kitchenDetailVisual">
 		<div id="kitchenDetailVisualleft">
 			<center>
-				<img src="http://localhost:8090/momo/images/kitchen/${KitchenDTO.image1}.JPG" width="80%" height="400px">
+				<img src="images/kitchen/${KitchenDTO.image1}.JPG" width="80%" height="400px">
 			</center>
 		</div>
 		<div id="kitchenDetailVisualRight">
 			<form method="post" name="detailForm" id="detailForm">
-				<input type="hidden" name="pnum" value="${KitchenDTO.bnum}">
+				<input type="hidden" name="pnum" value="${KitchenDTO.knum}">
+				<input type="hidden" name="pname" value="${KitchenDTO.name}">
+				<input type="hidden" name="price" value="${KitchenDTO.price}">
+				<input type="hidden" name="discount" value="${KitchenDTO.discount}">
+				<input type="hidden" name="image1" value="${KitchenDTO.image1}">
 				
 				<table class="visualRightTable" width="40%">
 					<tr>
@@ -133,8 +142,8 @@
 				</table>
 				<hr>
 				<center>
-					<input type="image" src="http://localhost:8090/momo/images\product/rightOrderBtn.jpg" onclick="rightOrder(detailForm)">&nbsp;&nbsp;
-					<input type="image" src="http://localhost:8090/momo/images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${KitchenDTO.name}')">
+					<input type="image" src="images\product/rightOrderBtn.jpg" onclick="rightOrder(detailForm)">&nbsp;&nbsp;
+					<input type="image" src="images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${KitchenDTO.name}')">
 				</center>
 			</form>
 		</div> <!-- kitchenDetailVisualRight -->
@@ -143,7 +152,7 @@
 	<hr>
 	
 	<div id="kitchenDetailContent">
-		<img src="http://localhost:8090/momo/images\kitchen/${KitchenDTO.image2}.jpg" width="100%" height="100%">
+		<img src="images\kitchen/${KitchenDTO.image2}.jpg" width="100%" height="100%">
 	</div>
 	
 	<hr>

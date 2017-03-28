@@ -55,11 +55,19 @@
 		select count(*) from bedRoom
 	</select>
 	
-	<!-- 인기상품 세 개를 반환해주는 쿼리 -->
+	<!-- 인기상품 세 개를 반환해주는 쿼리 (전체) -->
 	<select id="bestBedRoomList" resultType="BedRoomDTO">
 		select rownum, bnum, category, name, content, price, discount, buycount, image1
   		  from (select * from bedRoom order by buycount desc)
  		 where rownum between 1 and 3
+	</select>
+	
+	<!-- 인기상품 세 개를 반환해주는 쿼리 (카테고리별로 구분) -->
+	<select id="bestBedRoomListCategory" parameterType="hashmap" resultType="BedRoomDTO">
+		select rownum, bnum, category, name, content, price, discount, buycount, image1
+  		  from (select * from bedRoom order by buycount desc)
+ 		 where rownum between 1 and 3
+ 		   and category = #{category}
 	</select>
    
    <!-- 모든 상품의 갯수를 가져오는 쿼리 (안쓰임)-->

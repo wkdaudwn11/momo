@@ -22,13 +22,17 @@
 	window.onload = function onload(){
 	 if('${sessionScope.login}'==''){
    	  	alert("로그인 이용 할 수 있습니다.");
-   	  	location.replace("http://localhost:8090/momo/LoginUIServlet");
+   	  	location.replace("LoginUIServlet");
    	  }
 	}
 	
 	function boardWrite(myForm){
 		myForm.action="FreeBoardWriteServlet";
 		myForm.submit();
+	}
+	
+	function contentEmpty(){
+		document.getElementById('content').value = "";
 	}
 </script>
 
@@ -47,7 +51,7 @@
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;
-				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.id}" readonly>
+				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.name}" readonly>
 					</p>
 				</div>
 				<div>
@@ -58,7 +62,7 @@
 				</div>
 				<div>
 				    	&nbsp;<span style="width:24%"><b>내용</b></span>
-				    	&nbsp;<textarea name="content" id="content" rows="10" cols="125">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
+				    	&nbsp;<textarea name="content" id="content" rows="10" cols="106" onfocus="contentEmpty()">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
 
 * 포토후기를 작성해주신 모든 분들께 신세계 백화점 상품권(3만원권)을 드립니다.
 
@@ -76,9 +80,9 @@ wkdaudwn11@naver.com으로 남겨주세요 *
 				</div>
 				<br>
 				<div class="boardWriteBtn">
- 					<!-- <input type="image" src="http://localhost:8090/momo/images/freeBoard/writeBtn.jpg" height="30px"> -->
+ 					<!-- <input type="image" src="images/freeBoard/writeBtn.jpg" height="30px"> -->
  					<a href="javascript:boardWrite(writeForm);"> 
-							<img src="http://localhost:8090/momo/images\freeBoard/writeBtn.jpg">
+							<img src="images\freeBoard/writeBtn.jpg" height="30">
 					</a>&nbsp;<!-- 수정 -->
 				</div> <!-- boardWriteBtn -->
 				

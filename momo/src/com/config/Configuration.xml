@@ -7,9 +7,11 @@
 <configuration>
 
 	<properties resource="com/config/jdbc.properties" />
+	
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
 	<typeAliases>
 		<typeAlias type="com.entity.member.MemberDTO" alias="MemberDTO"/>
 		
@@ -49,6 +51,7 @@
 		<mapper resource="com/config/mapper/ChildrenRoomMapper.xml" />
 		<mapper resource="com/config/mapper/CartMapper.xml" />
 		<mapper resource="com/config/mapper/OrderMapper.xml" />
+		<mapper resource="com/config/mapper/MyPageMapper.xml" />
 	</mappers>
 	
 </configuration>

@@ -45,16 +45,12 @@
 		var productCount = detailForm.productCnt.value;
 		
 		if(productCount > 0 && productCount < 10){
-			detailForm.action="http://localhost:8090/momo/CartAddServlet?category=bedRoom&productCount="+productCount;
+			detailForm.action="CartAddServlet?category=bedRoom&productCount="+productCount;
 			detailForm.submit();
 		}else{
 			alert("수량이 잘못되었습니다. 다시 확인해주세요.");
 		}
 	}//addCart(detailForm)
-	
-	function submitCheck(){
-		
-	}
 </script>
 
 </head>
@@ -84,7 +80,7 @@
 	<div id="bedRoomDetailVisual">
 		<div id="bedRoomDetailVisualleft">
 			<center>
-				<img src="http://localhost:8090/momo/images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
+				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
 			</center>
 		</div>
 		<div id="bedRoomDetailVisualRight">
@@ -142,8 +138,8 @@
 				</table>
 				<hr>
 				<center>
-					<input type="image" src="http://localhost:8090/momo/images\product/rightOrderBtn.jpg" onclick="rightOrder(detailForm)">&nbsp;&nbsp;
-					<input type="image" src="http://localhost:8090/momo/images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${bedRoomDTO.name}')">
+					<input type="image" src="images\product/rightOrderBtn.jpg" onclick="rightOrder(detailForm)">&nbsp;&nbsp;
+					<input type="image" src="images\product/addCartBtn.jpg" onclick="addCart(detailForm, '${bedRoomDTO.name}')">
 				</center>
 			</form>
 		</div> <!-- bedRoomDetailVisualRight -->
@@ -152,7 +148,7 @@
 	<hr>
 	
 	<div id="bedRoomDetailContent">
-		<img src="http://localhost:8090/momo/images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
+		<img src="images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
 	</div>
 	
 	<hr>

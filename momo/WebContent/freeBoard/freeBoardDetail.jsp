@@ -60,7 +60,7 @@
 	
 	//댓글 삭제 관련 함수
 	function repleDelete(frnum, fnum, curPage){
-		location.replace('http://localhost:8090/momo/FreeBoardRepleDelete?frnum='+frnum+'&fnum='+fnum+'&curPage='+curPage);
+		location.replace('FreeBoardRepleDelete?frnum='+frnum+'&fnum='+fnum+'&curPage='+curPage);
 	}//repleDelete(frnum, fnum, curPage)
 	
 	//삭제가 완료되면 삭제되었다고 alert을 띄어주는 함수
@@ -132,7 +132,7 @@
 				    	&nbsp;<span style="width:24%"><b>작성날짜</b></span>&nbsp;&nbsp;
 						|　　${freeBoardDTO.writeday}　　　　　　　　　　　　　　　　　　　　　　　　　　　　조회: ${freeBoardDTO.readCnt}　　　추천: <span id="goodCnt">${freeBoardDTO.goodCnt}</span>　
 						<a href="javascript:goodPlus();"> 
-							<img src="http://localhost:8090/momo/images\freeBoard/recommend.png" width="30px" height="30px">				
+							<img src="images\freeBoard/recommend.png" width="30px" height="30px">				
 						</a> <!-- 추천 -->
 					</p>
 				</div>
@@ -159,13 +159,14 @@
 		<!-- 댓글 작성 폼 -->
 		<form method="post" action="FreeBoardRepleWrite" name="noticeRepleWriteForm">
 			<input type="hidden" name="fnum" value="${freeBoardDTO.fnum}">
-			<input type="hidden" name="author" value="${login.id}">
+			<input type="hidden" name="id" value="${login.id}">
+			<input type="hidden" name="author" value="${login.name}">
 			<input type="hidden" name="curPage" value="${curPage}">
 			<table border="1">	
 				<tr>
 					<td rowspan="2" style="width:7.5em; text-align: center;">
 						<c:if test="${login.id == null}">로그인<br>해주세요.</c:if>	<!-- 로그인 안했을 경우 -->
-						<c:if test="${login.id != null}">${login.id}</c:if>	<!-- 로그인 했을 경우 -->
+						<c:if test="${login.id != null}">${login.name}</c:if>	<!-- 로그인 했을 경우 -->
 					</td>
 					<td rowspan="2" style="width:56em; padding-left:0.313em;">
 						<textarea name="content" rows="2" cols="110" style="border: none" ></textarea>
@@ -207,10 +208,10 @@
 									${freeBoardRepleDTO.content}
 								</td>
 								<td style="width: 7.250em; text-align: center;">
-									<c:if test="${login.id != freeBoardRepleDTO.author && login.id != 'admin'}">
+									<c:if test="${login.id != freeBoardRepleDTO.id && login.id != 'admin'}">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</c:if>
-									<c:if test="${login.id == freeBoardRepleDTO.author || login.id == 'admin'}">
+									<c:if test="${login.id == freeBoardRepleDTO.id || login.id == 'admin'}">
 										<a href="javascript:repleDelete('${freeBoardRepleDTO.frnum}', '${freeBoardDTO.fnum}', '${curPage}');" style="text-decoration: none">
 											[삭제]
 										</a>
@@ -235,12 +236,13 @@
 							<form action="FreeBoardRepleWrite" method="post" class="repleWriteForm" name="repleWriteForm">
 								<input type="hidden" name="frnum" value="${freeBoardRepleDTO.frnum}">
 								<input type="hidden" name="fnum" value="${freeBoardDTO.fnum}">
-								<input type="hidden" name="author" value="${login.id}">
+								<input type="hidden" name="id" value="${login.id}">
+								<input type="hidden" name="author" value="${login.name}">
 								<input type="hidden" name="curPage" value="${curPage}">
 								<table align="right" border="1" >
 									<tr>
 										<td rowspan="2" style="width:7.5em; text-align: center;">
-											${login.id}
+											${login.name}
 										</td>
 										<td style="width:60em; padding-left:0.313em;" >
 											<textarea name="content" rows="2" cols="115" style="border: none" ></textarea>
@@ -262,20 +264,21 @@
 		<br>
 		<div class="boardBtn">
 			<div class="boardBtnleft">
-				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">
+
+				<c:if test="${login.id == freeBoardDTO.id || login.id == 'admin'}">  
 					<a href="javascript:update(detailForm);"> 
-						<img src="http://localhost:8090/momo/images\freeBoard/updateBtn.jpg">
+						<img src="images\freeBoard/updateBtn.jpg">
 					</a>&nbsp;<!-- 수정 -->
 									
-					<a href="http://localhost:8090/momo/FreeBoardDeleteServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}&author=${freeBoardDTO.author}"> 
-						<img src="http://localhost:8090/momo/images\freeBoard/deleteBtn.jpg">
+					<a href="FreeBoardDeleteServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}&author=${freeBoardDTO.author}"> 
+						<img src="images\freeBoard/deleteBtn.jpg">
 					</a>&nbsp;<!-- 삭제 -->
 				</c:if>
 			</div> <!-- .boardBtnleft -->
 									
 			<div class="boardBtnRight">
-				<a href="http://localhost:8090/momo/FreeBoardListServlet?curPage=${curPage}">
-					<img src="http://localhost:8090/momo/images\freeBoard/listBtn.jpg">
+				<a href="FreeBoardListServlet?curPage=${curPage}">
+					<img src="images\freeBoard/listBtn.jpg">
 				</a><!-- 목록보기 -->
 			</div> <!-- .boardWriteBtn -->
 		</div> <!-- .boardBtn -->
