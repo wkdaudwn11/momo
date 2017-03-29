@@ -67,7 +67,7 @@ public class FreeBoardService {
 		FreeBoardDTO freeBoardDTO = null;
 		try{
 			readCnt(fnum);
-			freeBoardDTO =session.selectOne(namespace+"freeBoardDetail",fnum);
+			freeBoardDTO = session.selectOne(namespace+"freeBoardDetail",fnum);
 		}finally{
 			session.close();
 		}

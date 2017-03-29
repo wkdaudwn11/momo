@@ -136,10 +136,10 @@
 		
 		<table style="width: 60%;">
 			<tr style="border-top:1px solid black; border-bottom:1px dotted #ddd;">
-				<c:if test="${sessionScope.login.facebook == 'no'}">
+				<c:if test="${sessionScope.login.sns == null}">
 					<td width="250"><img src="images/myPage/yyy.jpg">&nbsp;회원 가입일</td>
 				</c:if>
-				<c:if test="${sessionScope.login.facebook == 'yes'}">
+				<c:if test="${sessionScope.login.sns != null}">
 					<td width="250"><img src="images/myPage/yyy.jpg">&nbsp;최초 로그인</td>
 				</c:if>
 				<td>${sessionScope.login.joindate}</td>

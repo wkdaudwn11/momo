@@ -32,13 +32,13 @@
 		alert(${joinMessage});
 	</c:if>
 	
-	<!-- 로그인 성공했으면 띄어주는 alert -->
+	<%-- 로그인 성공했으면 띄어주는 alert
 	<c:if test="${loginMessage != null}">
 		<script type="text/javascript">
 	  		var x= '${loginMessage}';
 	    	alert(x);
 	 	</script>
-	</c:if>
+	</c:if> --%>
 	
 	<!-- 메세지 -->
 	<c:if test="${message != null}">
@@ -49,7 +49,6 @@
 	</c:if>
 
 	<div id="wrap">
-	
 		<jsp:include page="include/header.jsp"></jsp:include>
 		
 		<div id="visual">
