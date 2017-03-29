@@ -33,7 +33,7 @@
 			alert('${AccessWrong}');
 		}
 		if(${WriteSuccess != null}){
-			alert('${WriteSuccess}');
+			alert('${WriteSuccess}'); 
 		}
 		if(${DeleteSuccess != null}){
 			alert('${DeleteSuccess}');

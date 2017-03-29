@@ -12,9 +12,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <style>
-	#myPageVisual {width:70%; margin: 0 auto;}
+	#myPageVisual {width:80%; margin: 0 auto;}
+	#myPageVisual img {width:100%;}
 	
-	#myPageContent { width: 70%; margin: 0 auto;}
+	#myPageContent { width: 80%; margin: 0 auto;}
 	
 </style>
 

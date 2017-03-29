@@ -11,8 +11,7 @@
 <title>모모</title>
 
 <style>
-	#bedRoomDetailWrap{width: 70%; height: 350em; margin: 0 auto;}
-	
+	#bedRoomDetailWrap{width: 80%; height: 350em; margin: 0 auto;}
 	
 	#bedRoomDetailVisual{width: 100%; height: 20em;}
 	
