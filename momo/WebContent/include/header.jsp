@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+ 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
@@ -17,9 +18,25 @@
 <link href="css_momo/style.css" rel="stylesheet" type="text/css" />	<!-- css_momo -->
 <link href="css/style.css" rel="stylesheet" type="text/css" />	<!-- css -->
 
+<!-- 페북 -->
+<jsp:include page="sns/facebook.jsp" flush="true"></jsp:include>
+
+<script type="text/javascript" src="js/jquery-3.1.0.js"></script>
+
+<!-- notification -->
+<jsp:include page="notification.jsp" flush="true"></jsp:include>
+
 <script type="text/javascript">	
+
+	function logout(){
+		var sns = '${sessionScope.login.sns}';
+		if(sns == 'facebook'){
+			logoutFB();
+		}
+		location.replace('LogoutServlet');
+	}
 	
-	<!-- menu 롤오버 -->
+	<!-- menu 롤오버 --> 
 	/*마우스 오버 했을 때*/
 	function MM_swapImage() { //v3.0
 		var i, j = 0, x, a = MM_swapImage.arguments;
@@ -65,7 +82,7 @@
 	<br><br>
 	<div class="logo">
 		<a href="IndexServlet">
-			<font class="logoEng"><b>MOMO</b></font>
+			<font class="logoEng"><b>MOMO${snsLogout}</b></font>
 			<font class="logoKor"><b>가구</b></font>
 		</a>
 	</div>
@@ -78,8 +95,8 @@
 	           	<li><a class="login_color" href="JoinUIServlet">회원가입</a></font></li>
 		</c:if>	
 		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
-	           	<li><a class="login_color" href="LogoutServlet">로그아웃</a></font></li>
-	           	<li><a class="login_color" href="PwdCheckUIServlet">정보수정</a></font></li>
+           	<li><a class="login_color" href="javascript:logout()">로그아웃</a></font></li>
+           	<li><a class="login_color" href="PwdCheckUIServlet">정보수정</a></font></li>
 		</c:if>
 		
 			<li><a class="login_black" href="CartListServlet">장바구니</a></li>

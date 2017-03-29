@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<a id="kakao-login-btn"></a>
-
 <script type='text/javascript'>
 
 	//<![CDATA[
@@ -16,11 +14,16 @@
 				Kakao.API.request({
 						url: '/v1/user/me',
 						success: function(res) {
-							var id = res.id;	//카톡 아이디(코드값)
-							var name = res.properties.nickname;	//카톡 별명
+							Kakao.Auth.logout(
+								function(res){
+									if(res==true){
+										_getStatus();
+									}
+								}		
+							);
 							
 							var loginForm = document.getElementById('loginForm');
-				      		loginForm.action="SNSLoginServlet?id="+id+"&name="+name+"&sns=kakaotalk";
+				      		loginForm.action="SNSLoginServlet?id="+res.id+"&name="+res.properties.nickname+"&sns=kakaotalk";
 				      		loginForm.submit();
 						},
 						fail: function(error) {
