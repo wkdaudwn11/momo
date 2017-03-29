@@ -76,15 +76,14 @@
 		}
 		
 		if(inputCheck == true){
-			if(${sessionScope.login.sns != null}){
-				var confirmOK = confirm('입력하신 배송정보를 회원정보로 등록하시겠습니까?');
+			orderForm.action="OrderSheetServlet?confirmOK=false";
+			if('${sessionScope.login.sns}' != ""){   
+				var confirmOK = confirm('입력하신 배송정보를 회원정보로 등록하시겠습니까? \n (이름은 바꿀 수 없습니다.)');
 				if(confirmOK == true){
 					orderForm.action="OrderSheetServlet?confirmOK=true";
-				}else{
-					orderForm.action="OrderSheetServlet?confirmOK=false";
 				}
-				orderForm.submit();
 			}
+			orderForm.submit();
 		}
 	}//checkOrder(orderForm)
 	
@@ -99,7 +98,7 @@
 
 </head>
 <body>
-
+sns: ${sessionScope.login.sns}
 <c:set var="totalPrice" value="0" />	<!-- 전체가격 -->
 
 <div id="orderWrap">

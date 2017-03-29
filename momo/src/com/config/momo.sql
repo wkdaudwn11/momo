@@ -1,58 +1,59 @@
 --회원 테이블
 create table member(
-  mnum		    number(5)			constraint	member_mnum_pk	primary key,  --회원번호
-	name		    varchar2(10)	not null,         --회원이름
-	id			    varchar2(16)	constraint	member_mid_uk	unique	not null, --아이디
-	pwd			    varchar2(16)	not null,         --비밀번호
-	pwd2		    varchar2(16)	not null,         --비밀번호 확인
-	gender	    varchar2(10)	not null,         --성별
-	tel			    varchar2(12)	not null,         --연락처
-	question    varchar2(50)	not null,         --질문
-	answer		  varchar2(50)	not null,         --답변
-	post1		    varchar2(3)		not null,         --우편번호1
-	post2		    varchar2(3)		not null,         --우편번호2
-	addr1		    varchar2(500)	not null,         --신주소
-	addr2		    varchar2(500)	not null,         --구주소
-  joindate	  date			    default sysdate,  --가입 날짜(페북유저는 최초 로그인날짜)
-  logindate   date          default sysdate,  --로그인 날짜
-  orderprice  number(4)     default 0,        --총주문금액
-  sns         varchar2(10)  default null      --sns로그인 (null이면 momo유저)
+	mnum				number(5)		constraint	member_mnum_pk	primary key,		--회원번호
+	id					varchar2(16)	constraint	member_mid_uk	unique	not null,	--아이디
+	name				varchar2(10)	not null,         --회원이름
+	pwd					varchar2(16)	not null,         --비밀번호
+	pwd2				varchar2(16)	not null,         --비밀번호 확인
+	gender	    		varchar2(10)	not null,         --성별
+	tel					varchar2(12)	not null,         --연락처
+	question    		varchar2(50)	not null,         --질문
+	answer				varchar2(50)	not null,         --답변
+	post1				varchar2(3)		not null,         --우편번호1
+	post2				varchar2(3)		not null,         --우편번호2
+	addr1				varchar2(500)	not null,         --신주소
+	addr2				varchar2(500)	not null,         --구주소
+	joindate			date			default sysdate,  --가입 날짜 (SNS유저는 최초 로그인날짜)
+	logindate			date          	default sysdate,  --로그인 날짜
+	orderprice			number(4)     	default 0,        --총주문금액
+	progressingorder	number(4)		default 0,        --진행중인 주문 갯수
+	sns					varchar2(10)	default null      --sns로그인 (null이면 momo유저)
 );
 create sequence member_seq minvalue 0;
 
-insert into member values(member_seq.nextval, 'admin', 'admin', 'admin', 'admin',
+insert into member values(member_seq.nextval, 'admin', 'admin', 'admin!', 'admin',
                             'admin', 'admin', 'admin', 'admin', '123', '456', 
-                            'admin', 'admin', sysdate, sysdate, 0, 'no');
+                            'admin', 'admin', sysdate, sysdate, 0, 0, null);
 
 -- 문의 게시판
-create table question( 
- ref number(4) ,   -- 그룹 지을때 쓰는 컬럼
- qlevel number(1),  -- 댓글 이랑 본문 구별위해 쓰는 컬럼
- qnum number(4) constraint question_qunm_pk primary key,
- id		varchar2(15) not null,
- password varchar2(15),
- category varchar2(10) not null,
- title varchar2(50) not null,
- content varchar2(4000) not null,
- author varchar2(20) not null,
- writeday date default sysdate,
- readCnt number(5) default 0,
- constraint question_ref_fk foreign key(ref) references question(qnum) on delete cascade
+create table question(
+  ref         number(4) ,               --그룹 지을때 쓰는 컬럼
+  qlevel      number(1),                --답글인지 구분위해 사용
+  qnum        number(4) constraint question_qunm_pk primary key,
+  id		  varchar2(15) not null,    --작성자의 아이디
+  password    varchar2(15),             --비밀번호
+  category    varchar2(10) not null,    --분류
+  title       varchar2(50) not null,    --제목
+  content     varchar2(4000) not null,  --내용
+  author      varchar2(20) not null,    --작성자 이름
+  writeday    date default sysdate,     --작성날짜
+  readCnt     number(5) default 0,      --조회수
+  constraint  question_ref_fk foreign key(ref) references question(qnum) on delete cascade
 );
  
  create sequence question_seq minvalue 1;
 
 --자유게시판 테이블
 Create table freeBoard(
- fnum 	  number(4)		    constraint freeBoard_fnum_pk primary key,--게시판번호
- id       varchar2(16)    not null,       --작성자의 아이디
- author 	varchar2(15)	  not null,				--작성자 이름
- title	  varchar2(50)	  not null,				--제목
- content	varchar2(4000)	not null,				--내용
- writeday	date		        default sysdate,--작성일
- readcnt	number(4)		    default 0,			--조회
- goodcnt	number(4)		    default 0,			--추천수
- replecnt number(4)       default 0       --댓글수
+ fnum 	  	number(4)		constraint freeBoard_fnum_pk primary key,--게시판번호
+ id       	varchar2(16)    not null,       --작성자의 아이디
+ author		varchar2(15)	not null,		--작성자 이름
+ title	  	varchar2(50)	not null,		--제목
+ content	varchar2(4000)	not null,		--내용
+ writeday	date		    default sysdate,--작성일
+ readcnt	number(4)		default 0,		--조회
+ goodcnt	number(4)		default 0,		--추천수
+ replecnt 	number(4)       default 0       --댓글수
 );
 
 
@@ -62,24 +63,24 @@ create sequence freeBoard_seq minvalue 1;
 
 --자유게시판 댓글 테이블 (기존 꺼)
 Create table freeBoardReple(
- frnum 	  number(4)		    constraint freeBoard_frnum_pk primary key,--댓글번호
- fnum     number(4)       not null,       --게시판번호 (fk)
- id       varchar2(16)    not null,       --작성자의 아이디
- author 	varchar2(15)	  not null,		    --작성자
- content	varchar2(4000)	not null,	      --내용
+ frnum 	  	number(4)		constraint freeBoard_frnum_pk primary key,--댓글번호
+ fnum     	number(4)       not null,       --게시판번호 (fk)
+ id       	varchar2(16)    not null,       --작성자의 아이디
+ author 	varchar2(15)	not null,		--작성자
+ content	varchar2(4000)	not null,	    --내용
  writeday	date            default sysdate --작성일
 );
 
 --자유게시판 댓글 테이블 (댓글의 댓글 추가)
 Create table freeBoardReple(  
- relevel	number(4) 		  default 0,		  -- 댓글의 깊이  현재 달고있는 댓글의 레벨 +1 
- ref 		  number(4)		    not null, 		  -- 그룹  frnum 가져와서 세팅.
- step 		number(4) 		  default 0,      -- 공백 갯수
- pfrnum 	number(4)  		  not null , 		  -- 부모의 고유넘버
- frnum 	  number(4)		    constraint freeBoardReple_frnum_pk primary key,	--댓글번호, 댓글의 고유번호 ref
- fnum     number(4)       not null,       --게시판번호 (fk)
- author 	varchar2(15)	  not null,		    --작성자
- content	varchar2(4000)  not null,	      --내용
+ relevel	number(4) 		default 0,		-- 댓글의 깊이  현재 달고있는 댓글의 레벨 +1 
+ ref 		number(4)		not null, 		-- 그룹  frnum 가져와서 세팅.
+ step 		number(4) 		default 0,      -- 공백 갯수
+ pfrnum 	number(4)  		not null , 		-- 부모의 고유넘버
+ frnum 	  	number(4)		constraint freeBoardReple_frnum_pk primary key,	--댓글번호, 댓글의 고유번호 ref
+ fnum     	number(4)       not null,       --게시판번호 (fk)
+ author 	varchar2(15)	not null,		--작성자
+ content	varchar2(4000)  not null,	    --내용
  writeday	date            default sysdate --작성일
 );
 
@@ -232,27 +233,13 @@ create table orderInfo(
   orderdate     date          default sysdate,   --주문 날짜
   image1        varchar2(100) default null,      --상품사진1
   orderMessage  varchar2(200),                   --주문메세지
-  orderstate    varchar2(20)  default '입금대기중' --주문상태
+  orderstate    varchar2(20)  default '입금대기중'  --주문상태
 );
 create sequence orderInfo_seq minvalue 1;
 create sequence orderInfo_groupseq minvalue 1;
 
 alter table orderInfo add constraint orderInfo_id_fk foreign key(id)
 references member(id) on delete cascade;
-
-create table question(
-  --ref number(4) constraint question_ref_fk foreign key(ref) references question(qnum),
-  qnum      number(4)       constraint question_qunm_pk primary key,
-  reple     char(1) ,
-  id        varchar2(15)    not null,
-  password  varchar2(15),
-  category  varchar2(10)    not null,
-  title     varchar2(50)    not null,
-  content   varchar2(4000)  not null,
-  author    varchar2(20)    not null,
-  writeday  date            default sysdate,
-  readCnt   number(5)       default 0
-); 
 
 commit;
 

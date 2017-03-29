@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <style>
-	#cartContent {width:60%; margin:0 auto; overflow:hidden;}
+	#cartContent {width:80%; margin:0 auto; overflow:hidden;}
 	#cartContent h3 {margin-left:0px;}
 	
 	.cartList {font-size:12px;}

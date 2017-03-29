@@ -13,8 +13,14 @@
 <title>침실 가구</title>
 
 <style>
-	#bedRoomContent {width:70%; margin:0 auto; overflow:hidden;}
+	#bedRoomWrap {width:80%; margin:0 auto; overflow:hidden;}
+	#bedRoomContent {width:75%; float: left;}
 	#bedRoomContent h3 {margin-left:0px;}
+	
+	#bedRoomAside {width:25%; float: left; margin-top:4.5em; background-color: lightgray;}
+	#bedRoomAside table {};
+	#bedRoomAside table tr {};
+	#bedRoomAside table tr td {};
 	
 	#bedRoomVisual {width: 100%; height: 500px; margin:0 auto;}
 	
@@ -64,142 +70,144 @@
 	
 	<div id="wrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
-		
-		<div id="bedRoomContent">
+		<div id="bedRoomWrap">
 			<h3>침실 가구</h3>
 			<hr>
-			
-			<div id="bedRoomVisual">
-				<div class="topSeller">
-					TOP SELLER
-				</div>	<!-- topSeller -->
-				<br>
+			<div id="bedRoomContent">
+				<div id="bedRoomVisual">
+					<div class="topSeller">
+						TOP SELLER
+					</div>	<!-- topSeller -->
+					<br>
+					<div id="content_22">
+						<div class="contents_22_product">
+							<ul class="contents_33_product_images">
+								<c:forEach var="bestBedRoomDTO" items="${bestBedRoomList}" varStatus="status">
+									<li>
+										<center><p class="rankFont">BEST ${status.count}</p></center><br>
+						            	<div class="img">
+											<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
+							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+								  				<div class="desc"><b>
+								  					${bestBedRoomDTO.name}<br>
+								  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
+								  					<c:set var="bestDiscountPrice" value="${bestBedRoomDTO.price * (1.0 - (bestBedRoomDTO.discount/100))}" />
+								  					<span class="discountPrice"><fmt:formatNumber value="${bestDiscountPrice}" type="currency" /></span>
+								  				</b></div>
+							  				</a>
+										</div>
+					            	</li>  
+								</c:forEach>
+					
+							</ul> <!-- contents_2_product_images -->
+						</div> <!-- contents_2_product -->
+					</div>	<!-- contents_22 -->
+					
+				</div>	<!-- bedRoomVisual -->
+				<br><br><br>
+				<div class="categoryList">
+					<ul>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
+						<li><a href="BedRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
+					</ul>
+				</div>
+				
+				<h5 class="sortValueClass">
+					<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=bnum">[최신순]</a>  |  
+					<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceAsc">[가격 낮은 순]</a>  |  
+					<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceDesc">[가격 높은 순]</a>  |  
+					<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
+				</h5> 
+				
 				<div id="content_22">
 					<div class="contents_22_product">
-						<ul class="contents_33_product_images">
-							<c:forEach var="bestBedRoomDTO" items="${bestBedRoomList}" varStatus="status">
+						<ul class="contents_22_product_images">
+						
+							<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 								<li>
-									<center><p class="rankFont">BEST ${status.count}</p></center><br>
 					            	<div class="img">
-										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
-						    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+										<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
+						    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
 							  				<div class="desc"><b>
-							  					${bestBedRoomDTO.name}<br>
-							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
-							  					<c:set var="bestDiscountPrice" value="${bestBedRoomDTO.price * (1.0 - (bestBedRoomDTO.discount/100))}" />
-							  					<span class="discountPrice"><fmt:formatNumber value="${bestDiscountPrice}" type="currency" /></span>
+							  					${bedRoomDTO.name}<br>
+							  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
+							  					<c:set var="discountPrice" value="${bedRoomDTO.price * (1.0 - (bedRoomDTO.discount/100))}" />
+							  					<span class="discountPrice"><fmt:formatNumber value="${discountPrice}" type="currency" /></span>
 							  				</b></div>
 						  				</a>
 									</div>
 				            	</li>  
+								<c:if test="${status.count % 3 == 0}">
+									</ul>
+									</div>
+									</div>
+									<div id="content_22">
+									<div class="contents_22_product">
+									<ul class="contents_22_product_images">
+								</c:if>
 							</c:forEach>
 				
 						</ul> <!-- contents_2_product_images -->
 					</div> <!-- contents_2_product -->
 				</div>	<!-- contents_22 -->
-				
-			</div>	<!-- bedRoomVisual -->
-			<br><br><br>
-			<div class="categoryList">
-				<ul>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=0&sortValue=${sortValue}">전체</a></li>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=1&sortValue=${sortValue}">서랍</a></li>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=2&sortValue=${sortValue}">화장대</a></li>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=3&sortValue=${sortValue}">매트리스</a></li>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=4&sortValue=${sortValue}">침대</a></li>
-					<li><a href="BedRoomListServlet?curPage=${curPage}&category=5&sortValue=${sortValue}">옷장</a></li>
-				</ul>
-			</div>
 			
-			<h5 class="sortValueClass">
-				<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=bnum">[최신순]</a>  |  
-				<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceAsc">[가격 낮은 순]</a>  |  
-				<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=priceDesc">[가격 높은 순]</a>  |  
-				<a href="BedRoomListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
-			</h5> 
-			
-			<div id="content_22">
-				<div class="contents_22_product">
-					<ul class="contents_22_product_images">
-					
-						<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
-							<li>
-				            	<div class="img">
-									<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
-					    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
-						  				<div class="desc"><b>
-						  					${bedRoomDTO.name}<br>
-						  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
-						  					<c:set var="discountPrice" value="${bedRoomDTO.price * (1.0 - (bedRoomDTO.discount/100))}" />
-						  					<span class="discountPrice"><fmt:formatNumber value="${discountPrice}" type="currency" /></span>
-						  				</b></div>
-					  				</a>
-								</div>
-			            	</li>  
-							<c:if test="${status.count % 3 == 0}">
-								</ul>
-								</div>
-								</div>
-								<div id="content_22">
-								<div class="contents_22_product">
-								<ul class="contents_22_product_images">
-							</c:if>
-						</c:forEach>
-			
-					</ul> <!-- contents_2_product_images -->
-				</div> <!-- contents_2_product -->
-			</div>	<!-- contents_22 -->
-		
-			<!-- 페이징처리 -->
-			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${pageblock*page}" scope="request"/>
-			</c:if>
-			<c:if test="${pageblock*page > Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${Math.ceil(totalRecord/perPage)}" scope="request"/>
-			</c:if>
-					
-			<div class="paging">
-				<c:if test="${curPage != 1}">
-					<p><a href="BedRoomListServlet?curPage=1&category=${category}&sortValue=${sortValue}">[처음]</a>
+				<!-- 페이징처리 -->
+				<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
+					<c:set var="endPage" value="${pageblock*page}" scope="request"/>
 				</c:if>
-				
-				<c:if test="${pageblock > 1}">
-					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
-						[이전]
-					</a>
-				</c:if> &nbsp;
-				
-				<c:if test="${pageblock < 1}">
-					<c:set var="pageblock" value="1" scope="request"/> <!-- 표시할 페이지 블럭수 -->
+				<c:if test="${pageblock*page > Math.ceil(totalRecord/perPage)}">
+					<c:set var="endPage" value="${Math.ceil(totalRecord/perPage)}" scope="request"/>
 				</c:if>
-				
-				 <c:forEach var="i" begin="${(pageblock*page)-(page-1)}" end="${endPage}" >
-					<c:choose>
-						<c:when test="${curPage == i}">
-							${i}
-						</c:when>
-						<c:otherwise>
-							<a href="BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+						
+				<div class="paging">
+					<c:if test="${curPage != 1}">
+						<p><a href="BedRoomListServlet?curPage=1&category=${category}&sortValue=${sortValue}">[처음]</a>
+					</c:if>
+					
+					<c:if test="${pageblock > 1}">
+						<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)-19)}&category=${category}&sortValue=${sortValue}">
+							[이전]
+						</a>
+					</c:if> &nbsp;
+					
+					<c:if test="${pageblock < 1}">
+						<c:set var="pageblock" value="1" scope="request"/> <!-- 표시할 페이지 블럭수 -->
+					</c:if>
+					
+					 <c:forEach var="i" begin="${(pageblock*page)-(page-1)}" end="${endPage}" >
+						<c:choose>
+							<c:when test="${curPage == i}">
 								${i}
-							</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach> &nbsp;
-				
-				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
-						[다음]
-					</a>
-				</c:if>
-				
-				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
-						[끝]
-					</a></p>
-				</c:if>
-			</div>
-		
-		</div>
+							</c:when>
+							<c:otherwise>
+								<a href="BedRoomListServlet?curPage=${i}&category=${category}&sortValue=${sortValue}">
+									${i}
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach> &nbsp;
+					
+					<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
+						<a href="BedRoomListServlet?curPage=${Math.round((pageblock*page)+1)}">
+							[다음]
+						</a>
+					</c:if>
+					
+					<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
+						<a href="BedRoomListServlet?curPage=${Math.round((totalRecord/perPage ))}&category=${category}&sortValue=${sortValue}">
+							[끝]
+						</a></p>
+					</c:if>
+				</div>
+			</div> <!-- #bedRoomContent -->
+			<div id="bedRoomAside">
+				오늘 본 상품zz
+			</div> <!-- #bedRoomAside -->
+		</div> <!-- #bedRoomWrap -->
 		<br>
 		
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>

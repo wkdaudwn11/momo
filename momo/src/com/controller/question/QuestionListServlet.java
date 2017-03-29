@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.entity.question.QuestionPage;
 import com.service.QuestionService;
@@ -17,14 +18,16 @@ import com.service.QuestionService;
 public class QuestionListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		String curPage = request.getParameter("curPage");
 		String searchType = request.getParameter("searchType");
 		String searchValue = request.getParameter("searchValue");
 		if(curPage == null){
 			curPage = "1";
 		}
-		System.out.println("ListServlet :"+searchType);////////////////////////////////////////
-		System.out.println("ListServlet :"+searchValue);////////////////////////////////////////
+		
 		HashMap<String,String> search = new HashMap<>();
 		search.put("searchType", searchType);
 		search.put("searchValue", searchValue);
@@ -34,6 +37,10 @@ public class QuestionListServlet extends HttpServlet {
 		QuestionPage questionPage = service.questionList(search,Integer.parseInt(curPage));
 		
 		request.setAttribute("QuestionPage", questionPage);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("prevPage", "QuestionListServlet?cupage="+curPage
+									+"&searchType="+searchType+"&searchValue="+searchValue);
 		
 		RequestDispatcher dis = request.getRequestDispatcher("question/questionList.jsp");
 		dis.forward(request, response);
