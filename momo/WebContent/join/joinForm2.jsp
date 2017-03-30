@@ -56,6 +56,7 @@
 	    		document.getElementById("result").innerText=str.trim();
 	    	}//end 
 	    }//end xxx
+
 	</script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>	<!-- Angular -->
