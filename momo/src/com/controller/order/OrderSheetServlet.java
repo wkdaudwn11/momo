@@ -81,8 +81,7 @@ public class OrderSheetServlet extends HttpServlet {
 					service.orderInsertOne(map);
 				}
 				
-				MemberService memberService = new MemberService();
-				//MemberDTO memberDTO2 = memberService.
+				target = "OrderListUIServlet";
 				
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");

@@ -205,7 +205,7 @@
 				</div>
 			</div> <!-- #bedRoomContent -->
 			<div id="bedRoomAside">
-				오늘 본 상품zz
+				오늘 본 상품
 			</div> <!-- #bedRoomAside -->
 		</div> <!-- #bedRoomWrap -->
 		<br>
