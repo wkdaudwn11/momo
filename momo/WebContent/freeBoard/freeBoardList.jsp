@@ -36,8 +36,8 @@
 		}
 	}
 	
-	function searchForm(searchForm){
-		searchForm.submit();
+	function searchForm(myForm){
+		myForm.submit();
 	}
 </script>
 
@@ -156,7 +156,7 @@
 			
 			<!-- 글 검색 -->
 			<center>
-				<form name="searchForm" id="searchForm" action="FreeBoardListServlet" method="get">
+				<form name="myForm" id="myForm" action="FreeBoardListServlet" method="get">
 					<select	name="searchType">
 						<option value="title"
 							<c:if test="${search.searchType}=='title'">
@@ -169,7 +169,7 @@
 					</select>
 					<input type="text" name="searchValue" value="${search.searchValue}" style="width:10em; height:1.5em;">
 					
-					<a href="javascript:searchForm(searchForm)">
+					<a href="javascript:searchForm(myForm);">
 						<img src="images/freeBoard/searchBtn.jpg" width="80">
 					</a>
 				</form>

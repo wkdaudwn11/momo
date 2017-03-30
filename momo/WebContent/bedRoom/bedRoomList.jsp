@@ -49,6 +49,26 @@
 	
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type:"get",
+			url:"bedRoom/lately.jsp",
+			dataType:"html",
+			data:{
+				"curPage":${bedRoomPageDTO.curPage}
+			},
+			success:function(responseData,status,xhr){
+				console.log(responseData);///////////////////////////////////////
+				$("#side").html(responseData);
+			},
+			error:function(){}
+		});
+	}); // end &(document).ready();
+</script>
+
 </head>
 <body>
 	
@@ -81,7 +101,7 @@
 								<li>
 									<center><p class="rankFont">BEST ${status.count}</p></center><br>
 					            	<div class="img">
-										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
+										<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}&img=${bestBedRoomDTO.image1}&name=${bestBedRoomDTO.name}&price=${bestDiscountPrice}">
 						    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 							  				<div class="desc"><b>
 							  					${bestBedRoomDTO.name}<br>
@@ -201,7 +221,7 @@
 		
 		</div>
 		<br>
-		
+		<div id="side"></div>
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 	</div> <!-- wrap -->
 </body>

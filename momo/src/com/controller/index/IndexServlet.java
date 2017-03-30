@@ -19,8 +19,9 @@ public class IndexServlet extends HttpServlet {
 		HttpSession session  = request.getSession();
 		session.setAttribute("prevPage", "IndexServlet");
 		
-		RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
-		dis.forward(request, response);
+		response.sendRedirect("index.jsp");
+		/*RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
+		dis.forward(request, response);*/
 		
 	}
 
