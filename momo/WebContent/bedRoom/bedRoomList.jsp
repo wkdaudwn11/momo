@@ -55,6 +55,26 @@
 	
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			type:"get",
+			url:"bedRoom/lately.jsp",
+			dataType:"html",
+			data:{
+				"curPage":${bedRoomPageDTO.curPage}
+			},
+			success:function(responseData,status,xhr){
+				console.log(responseData);///////////////////////////////////////
+				$("#side").html(responseData);
+			},
+			error:function(){}
+		});
+	}); // end &(document).ready();
+</script>
+
 </head>
 <body>
 	
@@ -130,8 +150,10 @@
 							<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 								<li>
 					            	<div class="img">
+
 										<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
 						    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
+                      
 							  				<div class="desc"><b>
 							  					${bedRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>
@@ -209,7 +231,7 @@
 			</div> <!-- #bedRoomAside -->
 		</div> <!-- #bedRoomWrap -->
 		<br>
-		
+		<div id="side"></div>
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 	</div> <!-- wrap -->
 </body>

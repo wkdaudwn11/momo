@@ -27,7 +27,9 @@
 	#bedRoomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+
 	function rightOrder(detailForm){
 		var productCount = detailForm.productCnt.value;
 		

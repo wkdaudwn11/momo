@@ -80,4 +80,15 @@
 	<select id="bedRoomDetail" resultType="BedRoomDTO" parameterType="int">
    		select * from bedRoom where bnum=#{bnum}
 	</select>
+	
+	<!-- 최근본 상품 리스트 반환해주는 쿼리 -->
+	<select id="latelyList" resultType="BedRoomDTO" parameterType="ArrayList">
+		select * from bedroom
+		<where>
+			bnum in
+			<foreach item="cookieList" collection="list" open="(" close=")" separator=",">
+				 #{cookieList}
+			</foreach>
+		</where>
+	</select>
 </mapper>

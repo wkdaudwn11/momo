@@ -18,6 +18,7 @@ create table member(
 	orderprice			number(4)     	default 0,        --총주문금액
 	progressingorder	number(4)		default 0,        --진행중인 주문 갯수
 	sns					varchar2(10)	default null      --sns로그인 (null이면 momo유저)
+
 );
 create sequence member_seq minvalue 0;
 
@@ -39,12 +40,14 @@ create table question(
   writeday    date default sysdate,     --작성날짜
   readCnt     number(5) default 0,      --조회수
   constraint  question_ref_fk foreign key(ref) references question(qnum) on delete cascade
+
 );
- 
- create sequence question_seq minvalue 1;
+
+	create sequence question_seq minvalue 1;
 
 --자유게시판 테이블
 Create table freeBoard(
+
  fnum 	  	number(4)		constraint freeBoard_fnum_pk primary key,--게시판번호
  id       	varchar2(16)    not null,       --작성자의 아이디
  author		varchar2(15)	not null,		--작성자 이름
@@ -54,25 +57,28 @@ Create table freeBoard(
  readcnt	number(4)		default 0,		--조회
  goodcnt	number(4)		default 0,		--추천수
  replecnt 	number(4)       default 0       --댓글수
+
 );
 
-
-create sequence freeBoard_seq minvalue 1;
+	create sequence freeBoard_seq minvalue 1;
 
 
 
 --자유게시판 댓글 테이블 (기존 꺼)
 Create table freeBoardReple(
+
  frnum 	  	number(4)		constraint freeBoard_frnum_pk primary key,--댓글번호
  fnum     	number(4)       not null,       --게시판번호 (fk)
  id       	varchar2(16)    not null,       --작성자의 아이디
  author 	varchar2(15)	not null,		--작성자
  content	varchar2(4000)	not null,	    --내용
  writeday	date            default sysdate --작성일
+
 );
 
 --자유게시판 댓글 테이블 (댓글의 댓글 추가)
 Create table freeBoardReple(  
+
  relevel	number(4) 		default 0,		-- 댓글의 깊이  현재 달고있는 댓글의 레벨 +1 
  ref 		number(4)		not null, 		-- 그룹  frnum 가져와서 세팅.
  step 		number(4) 		default 0,      -- 공백 갯수
@@ -82,6 +88,7 @@ Create table freeBoardReple(
  author 	varchar2(15)	not null,		--작성자
  content	varchar2(4000)  not null,	    --내용
  writeday	date            default sysdate --작성일
+
 );
 
 alter table freeBoardReple add constraint freeBoardReple_fnum_fk foreign key(fnum)
@@ -242,5 +249,3 @@ alter table orderInfo add constraint orderInfo_id_fk foreign key(id)
 references member(id) on delete cascade;
 
 commit;
-
-select * from member;
