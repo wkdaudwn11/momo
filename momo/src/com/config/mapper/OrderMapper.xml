@@ -15,6 +15,7 @@
 		</where> 
 	</select>
 	
+	<!-- 장바구니에서 여러개를 구매할 때 사용되는 쿼리 -->
 	<insert id="orderInsertAll" parameterType="hashmap">
 		insert into orderInfo(onum, groupnum, id, pnum, category, pname, count, price, discount, orderdate,
 								image1, orderMessage, orderstate)
@@ -22,6 +23,7 @@
 				#{count}, #{price}, #{discount}, sysdate, #{image1}, '메세지', '입금대기중')
 	</insert>
 	
+	<!-- 즉시구매로 한개를 구매할 때 사용되는 쿼리 -->
 	<insert id="orderInsertOne" parameterType="hashmap">
 		insert into orderInfo(onum, groupnum, id, pnum, category, pname, count, price, discount, orderdate,
 								image1, orderMessage, orderstate)
@@ -29,8 +31,19 @@
 					#{count}, #{price}, #{discount}, sysdate, #{image1}, #{orderMessage}, '입금대기중')
 	</insert>
 	
+	<!-- 그룹번호를 증가시켜주는 쿼리 -->
 	<select id="seqNextVal" resultType="int">
 		select orderInfo_groupseq.nextval from dual
+	</select>
+	
+	<!-- 해당 아이디의 주문내역을 가져오는 쿼리 -->
+	<select id="orderList" parameterType="string" resultType="OrderDTO">
+		select * from orderInfo where id=#{value} order by onum desc
+	</select>
+	
+	<!-- 해당 아이디의 주문내역 갯수를 가져오는 쿼리 -->
+	<select id="totalRecord" parameterType="string" resultType="int">
+		select count(*) from orderInfo where id = #{value}
 	</select>
 
 </mapper>

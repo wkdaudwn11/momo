@@ -34,7 +34,8 @@ public class SNSLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("login", memberDTO);
 			
-			request.setAttribute("loginMessage", memberDTO.getName()+"님 환영합니다!");
+			request.setAttribute("notificationTitle", "로그인");
+			request.setAttribute("notificationMessage", memberDTO.getName()+"님 환영합니다!");
 			
 			if(session.getAttribute("prevPage") == null){
 				target = "IndexServlet";
