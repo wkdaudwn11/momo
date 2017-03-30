@@ -7,12 +7,8 @@
 <title>자유게시판</title>
 
 <style>
-	#boardContent {width:70%; margin:0 auto; overflow:hidden;}
+	#boardContent {width:80%; margin:0 auto; overflow:hidden;}
 	#boardContent h3 {margin-left:0px;}
-	
-	.boardList {font-size:12px;}
-	.boardList th, .boardList td {border-top:1px solid #ddd; border-bottom:1px solid #ddd; padding:14px 0 10px 0;}
-	.boardList th {background:#f8f8f8;text-align:center;}
 	
 	.paging {width:100%; text-align: center; font-size: 16px; color: #000000;}
 	.boardWriteBtn{width:100%; text-align: right;}
@@ -51,18 +47,18 @@
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;
-				    	<input type="text" name="author" id="author" style="width:45%; height:50px;" value="${login.name}" readonly>
+				    	<input type="text" name="author" id="author" style="width:20%; height:50px;" value="${login.name}" readonly>
 					</p>
 				</div>
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>제목</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				    	<input type="text" name="title"  id="title" style="width:90%; height:50px;">
+				    	<input type="text" name="title"  id="title" style="width:91.5%; height:50px;">
 					</p>
 				</div>
 				<div>
-				    	&nbsp;<span style="width:24%"><b>내용</b></span>
-				    	&nbsp;<textarea name="content" id="content" rows="10" cols="106" onfocus="contentEmpty()">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
+				    	&nbsp;<span style="width:24%"><b>내용</b></span>&nbsp;&nbsp;&nbsp;
+				    	&nbsp;<textarea name="content" id="content" rows="10" cols="111" onfocus="contentEmpty()">디자인을 사랑하는 고객님의 멋진 러브하우스 사진을 남겨주세요 !!
 
 * 포토후기를 작성해주신 모든 분들께 신세계 백화점 상품권(3만원권)을 드립니다.
 

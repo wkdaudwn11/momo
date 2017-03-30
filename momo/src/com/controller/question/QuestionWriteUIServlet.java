@@ -18,6 +18,8 @@ public class QuestionWriteUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		String curPage = request.getParameter("curPage");
 		String qnum = request.getParameter("qnum");
 		String password = request.getParameter("password");

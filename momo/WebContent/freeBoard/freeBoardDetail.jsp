@@ -13,12 +13,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <style>
-	#boardContent {width:60%; height:100%; margin:0 auto; overflow:hidden;}
+	#boardContent {width:80%; height:100%; margin:0 auto; overflow:hidden;}
 	#boardContent h3 {margin-left:0px;}
-	
-	.boardList {font-size:12px;}
-	.boardList th, .boardList td {border-top:1px solid #ddd; border-bottom:1px solid #ddd; padding:14px 0 10px 0;}
-	.boardList th {background:#f8f8f8;text-align:center;}
 	
 	.paging {width:100%; text-align: center; font-size: 16px; color: #000000;}
 	.boardBtn{width:100%;}
@@ -77,7 +73,7 @@
 			alert("로그인이 필요합니다.");
 		}else{
 			$(".rePlus").not($(".rePlus").eq(i)).hide(); // 선택된 댓글폼이 아닌것 숨김
- 			$(".rePlus").eq(i).toggle();	// 선택된 댓글 폼 show , hide 
+ 			$(".rePlus").eq(i).toggle();	// 선택된 댓글 폼 show , hide   
 		}
 	}// end replePlus
 	
@@ -126,20 +122,17 @@
 		<div id="boardContent">
 			<h3>자유게시판</h3>
 			<hr>
-			<font size="2px">
+			<font size="3px">
 				<div style="border-bottom: 1px solid;">
 					<p>
 				    	&nbsp;<span style="width:24%"><b>작성날짜</b></span>&nbsp;&nbsp;
-						|　　${freeBoardDTO.writeday}　　　　　　　　　　　　　　　　　　　　　　　　　　　　조회: ${freeBoardDTO.readCnt}　　　추천: <span id="goodCnt">${freeBoardDTO.goodCnt}</span>　
+						|　　${freeBoardDTO.writeday}　　　　　　　　　　　　　　　
+						<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
+						|　　${freeBoardDTO.author}　　　　　　　　　　　　　　　
+						조회: ${freeBoardDTO.readCnt}　추천: <span id="goodCnt">${freeBoardDTO.goodCnt}</span>　
 						<a href="javascript:goodPlus();"> 
 							<img src="images\freeBoard/recommend.png" width="30px" height="30px">				
 						</a> <!-- 추천 -->
-					</p>
-				</div>
-				<div style="border-bottom: 1px solid;">
-					<p>
-				    	&nbsp;<span style="width:24%"><b>작성자</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-						|　　${freeBoardDTO.author}
 					</p>
 				</div>
 				<div style="border-bottom: 1px solid;">
@@ -150,7 +143,7 @@
 				</div>
 			<div>
 				<p>
-					<textarea rows="15" cols="142" style="border-style: none" readonly>${freeBoardDTO.content}</textarea>
+					<textarea rows="15" cols="183" style="border-style: none" readonly>${freeBoardDTO.content}</textarea>
 			    </p>
 			</div>
 		</form> <!-- detailForm -->
@@ -164,14 +157,14 @@
 			<input type="hidden" name="curPage" value="${curPage}">
 			<table border="1">	
 				<tr>
-					<td rowspan="2" style="width:7.5em; text-align: center;">
+					<td rowspan="2" style="width:13em; text-align: center;">
 						<c:if test="${login.id == null}">로그인<br>해주세요.</c:if>	<!-- 로그인 안했을 경우 -->
 						<c:if test="${login.id != null}">${login.name}</c:if>	<!-- 로그인 했을 경우 -->
 					</td>
-					<td rowspan="2" style="width:56em; padding-left:0.313em;">
-						<textarea name="content" rows="2" cols="110" style="border: none" ></textarea>
+					<td rowspan="2" style=" padding-left:0.313em;">
+						<textarea name="content" rows="2" cols="115" style="border: none" ></textarea>
 					</td>
-					<td rowspan="2" style="width:7.250em; text-align: center;">
+					<td rowspan="2" style="width:10em; text-align: center;">
 						<a href="javascript:repleWrite(-1);" style="text-decoration: none">
 							댓글작성
 						</a>
@@ -200,14 +193,14 @@
 									<input type="image" src="images/freeBoard/arrow.png" width="20px" height="20px">
 								</td>
 							</c:if>
-								<td style="width: 6.250em; text-align: center; font-size: 1.063em;">
+								<td style="width: 15em; text-align: center; font-size: 1.063em;">
 									${freeBoardRepleDTO.author}<br>
 									${freeBoardRepleDTO.writeday}
 								</td>
-								<td style="width: 60em; padding-left: 0.313em;">
+								<td style="width: 68em; padding-left: 0.313em;">
 									${freeBoardRepleDTO.content}
 								</td>
-								<td style="width: 7.250em; text-align: center;">
+								<td style="width: 10em; text-align: center;">
 									<c:if test="${login.id != freeBoardRepleDTO.id && login.id != 'admin'}">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</c:if>
@@ -261,7 +254,8 @@
 		</c:if>
 		</font>
 		
-		<br>
+		<hr>
+		
 		<div class="boardBtn">
 			<div class="boardBtnleft">
 

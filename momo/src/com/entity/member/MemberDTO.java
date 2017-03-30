@@ -18,6 +18,7 @@ public class MemberDTO {
 	private String joindate;
 	private String logindate;
 	private int orderPrice;
+	private int progressingorder;
 	private String sns;
 	
 	public MemberDTO() {
@@ -26,7 +27,7 @@ public class MemberDTO {
 
 	public MemberDTO(int mnum, String name, String id, String pwd, String pwd2, String gender, String tel,
 			String question, String answer, String post1, String post2, String addr1, String addr2, String joindate,
-			String logindate, int orderPrice, String sns) {
+			String logindate, int orderPrice, int progressingorder, String sns) {
 		super();
 		this.mnum = mnum;
 		this.name = name;
@@ -44,6 +45,7 @@ public class MemberDTO {
 		this.joindate = joindate;
 		this.logindate = logindate;
 		this.orderPrice = orderPrice;
+		this.progressingorder = progressingorder;
 		this.sns = sns;
 	}
 
@@ -52,7 +54,8 @@ public class MemberDTO {
 		return "MemberDTO [mnum=" + mnum + ", name=" + name + ", id=" + id + ", pwd=" + pwd + ", pwd2=" + pwd2
 				+ ", gender=" + gender + ", tel=" + tel + ", question=" + question + ", answer=" + answer + ", post1="
 				+ post1 + ", post2=" + post2 + ", addr1=" + addr1 + ", addr2=" + addr2 + ", joindate=" + joindate
-				+ ", logindate=" + logindate + ", orderPrice=" + orderPrice + ", sns=" + sns + "]";
+				+ ", logindate=" + logindate + ", orderPrice=" + orderPrice + ", progressingorder=" + progressingorder
+				+ ", sns=" + sns + "]";
 	}
 
 	public int getMnum() {
@@ -183,6 +186,14 @@ public class MemberDTO {
 		this.orderPrice = orderPrice;
 	}
 
+	public int getProgressingorder() {
+		return progressingorder;
+	}
+
+	public void setProgressingorder(int progressingorder) {
+		this.progressingorder = progressingorder;
+	}
+
 	public String getSns() {
 		return sns;
 	}
@@ -190,5 +201,5 @@ public class MemberDTO {
 	public void setSns(String sns) {
 		this.sns = sns;
 	}
-	
+
 }

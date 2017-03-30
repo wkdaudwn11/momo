@@ -3,11 +3,13 @@ package com.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
-import com.entity.bedRoom.BedRoomDTO;
 import com.entity.cart.CartDTO;
+import com.entity.order.OrderDTO;
+import com.entity.order.OrderPageDTO;
 import com.exception.CommonException;
 
 public class OrderService {
@@ -80,5 +82,49 @@ public class OrderService {
 			session.close();
 		}
 	}//orderInsertOne(HashMap map)
+
+	/** 해당 아이디의 주문내역을 orderDTO로 반환해주는 메소드 */
+	public OrderPageDTO orderList(String id, int curPage) throws CommonException {
+		
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<OrderDTO> orderlist = null;
+		OrderPageDTO orderPageDTO = new OrderPageDTO();
+		
+		int skip = (curPage-1) * orderPageDTO.getPerPage();
+		
+		try{
+			orderlist = session.selectList(namespace+"orderList", id, new RowBounds(skip, orderPageDTO.getPerPage()));
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("주문내역 불러오기 실패!");
+		}finally{
+			session.close();
+		}
+		
+		orderPageDTO.setOrderList(orderlist);
+		orderPageDTO.setCurPage(curPage);
+		orderPageDTO.setTotalRecord(totalRecord(id));
+		
+		return orderPageDTO;
+		
+	}//orderList(String id)
+	
+	/** 해당 id의 주문내역 총 갯수를 반환해주는 메소드 */
+	private int totalRecord(String id) throws CommonException {
+		
+		SqlSession session = MySqlSessionFactory.openSession();
+		int count = -1;
+		
+		try{
+			count = session.selectOne(namespace+"totalRecord", id);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("주문내역 갯수 불러오기 실패!");
+		}finally{
+			session.close();
+		}
+		
+		return count;
+	}//totalRecord(HashMap<String, String> map)
 
 }

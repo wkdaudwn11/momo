@@ -13,7 +13,7 @@
 <title>자유게시판</title>
 
 <style>
-	#boardContent {width:70%; margin:0 auto; overflow:hidden;}
+	#boardContent {width:80%; margin:0 auto; overflow:hidden;}
 	#boardContent h3 {margin-left:0px;}
 	
 	.boardList {font-size:12px;}

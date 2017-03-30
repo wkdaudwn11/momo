@@ -21,9 +21,9 @@
    	
    	<!-- sns 정보를 member 테이블에 저장 -->
    	<insert id="addSNSMember" parameterType="hashmap">
-   		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, joindate, logindate, orderprice, sns)
+   		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, sns)
    		values(member_seq.nextval, #{name}, #{id}, 'sns', 'sns', 'sns', 01012341234, 'sns', 'sns',
-   				'123', '123', 'sns', 'sns', sysdate, sysdate, 0, #{sns})
+   				'123', '123', 'sns', 'sns', #{sns})
    	</insert>
    	
    	<!-- sns로 로그인 했을 때, 테이블에 저장되어 있던 정보를 반환하는 쿼리 -->
@@ -40,8 +40,9 @@
  	
  	<!-- 회원가입 쿼리 -->
  	<select id="addMember" parameterType="memberDTO"  >
-		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2, joindate)
-		values(member_seq.nextval, #{name}, #{id}, #{pwd}, #{pwd2}, #{gender}, #{tel}, #{question}, #{answer}, #{post1}, #{post2}, #{addr1}, #{addr2}, sysdate)
+		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2)
+		values(member_seq.nextval, #{name}, #{id}, #{pwd}, #{pwd2}, #{gender}, #{tel}, #{question}, #{answer}, #{post1},
+							 #{post2}, #{addr1}, #{addr2})
 	</select>
 	
 	<!-- 아이디 찾기  -->

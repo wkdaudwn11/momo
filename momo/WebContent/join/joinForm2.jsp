@@ -25,9 +25,9 @@
     	
     	.close_button{padding : 0px 0px;}
     	
-    	#insert_img{width:730px; height:779px; margin-top:10px; margin-left:30px;}
+    	#insert_img{width:730px; margin-top:10px; margin-left:30px;}
     	
-    	#joinWrap {width:70%; margin:0 auto;}
+    	#joinWrap {width:80%; margin:0 auto;}
     	
     	.content-section {width:40%; float: left; padding-right: 40px;}
     </style>
@@ -223,7 +223,7 @@
 	            </div>                  
 	        </div>
 	    </div>
-	    <br><br><br><br><br>
+	    <br><br><br><br>
 	    <img src="images/join/joinus.png" width="60%" height="60%">
 	    
     </div> <!-- #joinWrap -->	

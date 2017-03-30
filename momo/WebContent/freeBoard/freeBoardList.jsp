@@ -12,7 +12,8 @@
 <title>자유게시판</title>
 
 <style>
-	#boardContent {width:70%; margin:0 auto; overflow:hidden;}
+	#boardWrap{width:80%; margin: 0 auto; overflow:hidden;}
+	#boardContent {width:100%; margin: 0 auto; overflow:hidden;}
 	#boardContent h3 {margin-left:0px;}
 	
 	.boardList {font-size:12px;}
@@ -55,135 +56,136 @@
 	
 	<c:set var="search" value="${search}" scope="request"/> <!-- 검색  정보  -->
 
-	<div id="boardWrap">
+	<div id="wrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
-		
-		<div id="boardContent">
+		<div id="boardWrap">
 			<h3>자유게시판</h3>
 			<hr>
-			<p>글목록(전체 글: ${totalRecord})</p>
-			
-			<!-- 게시판 리스트 -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="boardList">
-				<tr height="30"> 
-					<th width="50">번 호</th> 
-					<th width="200">제   목</th> 
-				    <th width="100">작성자</th>
-				    <th width="150">작성일</th> 
-				    <th width="50">조 회</th>
-				    <th width="50">추 천</th>   
-				</tr>
-				<c:choose>
-					<c:when test="${totalRecord == 0}">
-						<table>
-							<tr>
-								<td align="center">
-									게시판에 저장된 글이 없습니다.
-							    </td>
-							</tr>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="freeBoardDTO" items="${freeBoardList}" >
-							<tr height="30">
-								<td  width="50" align="center" >${freeBoardDTO.fnum}</td>
-							    <td  width="200" align="left">				           
-								    <a href="FreeBoardDetailServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}">
-								    	${freeBoardDTO.title}&nbsp;&nbsp;
-								    	<c:if test="${freeBoardDTO.repleCnt > 0}"> <!-- 댓글 갯수가 0보다 크면 댓글 갯수를 보여줌 -->
-								    		(${freeBoardDTO.repleCnt})
-								    	</c:if>
-								    </a> 
-								<%-- <% if(article.getReadcount()>=20){%>
-								         <!-- 핫  <img src="../../images/hot.gif" border="0"  height="16">--><%}%> --%> 
-							    </td>
-			 					<td width="50" align="center">${freeBoardDTO.author}</td>			    
-							    <td width="150" align="center">${freeBoardDTO.writeday}</td>
-							    <td width="50" align="center">${freeBoardDTO.readCnt}</td>
-							    <td width="50" align="center">${freeBoardDTO.goodCnt}</td>
-							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</table> <!-- boardList -->
-			
-			<!-- 페이징처리 -->
-			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${pageblock*page}" scope="request"/>
-			</c:if>
-			<c:if test="${pageblock*page > Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${Math.ceil(totalRecord/perPage)}" scope="request"/>
-			</c:if>
-			
-			<div class="paging">
-				<c:if test="${curPage != 1}">
-					<p><a href="FreeBoardListServlet?curPage=1">[처음]</a>
-				</c:if>
+			<div id="boardContent">
+				<p>글목록(전체 글: ${totalRecord})</p>
 				
-				<c:if test="${pageblock > 1}">
-					<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
-						[이전]
-					</a>
-				</c:if> &nbsp;
-				
-				 <c:forEach var="i" begin="${(pageblock*page)-(page-1)}" end="${endPage}" >
+				<!-- 게시판 리스트 -->
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" class="boardList">
+					<tr height="30"> 
+						<th width="50">번 호</th> 
+						<th width="200">제   목</th> 
+					    <th width="100">작성자</th>
+					    <th width="150">작성일</th> 
+					    <th width="50">조 회</th>
+					    <th width="50">추 천</th>   
+					</tr>
 					<c:choose>
-						<c:when test="${curPage == i}">
-							${i}
+						<c:when test="${totalRecord == 0}">
+							<table>
+								<tr>
+									<td align="center">
+										게시판에 저장된 글이 없습니다.
+								    </td>
+								</tr>
+							</table>
 						</c:when>
 						<c:otherwise>
-							<a href="FreeBoardListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
-								${i}
-							</a>
+							<c:forEach var="freeBoardDTO" items="${freeBoardList}" >
+								<tr height="30">
+									<td  width="50" align="center" >${freeBoardDTO.fnum}</td>
+								    <td  width="200" align="left">				           
+									    <a href="FreeBoardDetailServlet?fnum=${freeBoardDTO.fnum}&curPage=${curPage}">
+									    	${freeBoardDTO.title}&nbsp;&nbsp;
+									    	<c:if test="${freeBoardDTO.repleCnt > 0}"> <!-- 댓글 갯수가 0보다 크면 댓글 갯수를 보여줌 -->
+									    		(${freeBoardDTO.repleCnt})
+									    	</c:if>
+									    </a> 
+									<%-- <% if(article.getReadcount()>=20){%>
+									         <!-- 핫  <img src="../../images/hot.gif" border="0"  height="16">--><%}%> --%> 
+								    </td>
+				 					<td width="50" align="center">${freeBoardDTO.author}</td>			    
+								    <td width="150" align="center">${freeBoardDTO.writeday}</td>
+								    <td width="50" align="center">${freeBoardDTO.readCnt}</td>
+								    <td width="50" align="center">${freeBoardDTO.goodCnt}</td>
+								</tr>
+							</c:forEach>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach> &nbsp;
+				</table> <!-- boardList -->
 				
-				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
-						[다음]
-					</a>
+				<!-- 페이징처리 -->
+				<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
+					<c:set var="endPage" value="${pageblock*page}" scope="request"/>
+				</c:if>
+				<c:if test="${pageblock*page > Math.ceil(totalRecord/perPage)}">
+					<c:set var="endPage" value="${Math.ceil(totalRecord/perPage)}" scope="request"/>
 				</c:if>
 				
-				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="FreeBoardListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
-						[끝]
-					</a></p>
-				</c:if>
-				
-				<br>
-			</div>	<!-- boardPaging -->
-			
-			<!-- 글 검색 -->
-			<center>
-				<form name="myForm" id="myForm" action="FreeBoardListServlet" method="get">
-					<select	name="searchType">
-						<option value="title"
-							<c:if test="${search.searchType}=='title'">
-								selected
-							</c:if> >제목 </option>
-						<option value="author"
-							<c:if test="${search.searchType}=='author'">
-								selected
-							</c:if> >작성자 </option>
-					</select>
-					<input type="text" name="searchValue" value="${search.searchValue}" style="width:10em; height:1.5em;">
+				<div class="paging">
+					<c:if test="${curPage != 1}">
+						<p><a href="FreeBoardListServlet?curPage=1">[처음]</a>
+					</c:if>
 					
-					<a href="javascript:searchForm(myForm);">
-						<img src="images/freeBoard/searchBtn.jpg" width="80">
+					<c:if test="${pageblock > 1}">
+						<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)-19)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							[이전]
+						</a>
+					</c:if> &nbsp;
+					
+					 <c:forEach var="i" begin="${(pageblock*page)-(page-1)}" end="${endPage}" >
+						<c:choose>
+							<c:when test="${curPage == i}">
+								${i}
+							</c:when>
+							<c:otherwise>
+								<a href="FreeBoardListServlet?curPage=${i}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+									${i}
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach> &nbsp;
+					
+					<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
+						<a href="FreeBoardListServlet?curPage=${Math.round((pageblock*page)+1)}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							[다음]
+						</a>
+					</c:if>
+					
+					<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
+						<a href="FreeBoardListServlet?curPage=${Math.round((totalRecord/perPage))}&searchType=${search.searchType}&searchValue=${search.searchValue}">
+							[끝]
+						</a></p>
+					</c:if>
+					
+					<br>
+				</div>	<!-- boardPaging -->
+				
+				<!-- 글 검색 -->
+				<center>
+					<form name="myForm" id="myForm" action="FreeBoardListServlet" method="get">
+						<select	name="searchType">
+							<option value="title"
+								<c:if test="${search.searchType}=='title'">
+									selected
+								</c:if> >제목 </option>
+							<option value="author"
+								<c:if test="${search.searchType}=='author'">
+									selected
+								</c:if> >작성자 </option>
+						</select>
+						<input type="text" name="searchValue" value="${search.searchValue}" style="width:10em; height:1.5em;">
+						
+						<a href="javascript:searchForm(myForm)">
+							<img src="images/freeBoard/searchBtn.jpg" width="80">
+						</a>
+					</form>
+				</center>
+				
+				<div class="boardWriteBtn">
+					<a href="FreeBoardWriteUIServlet">
+						<img src="images\freeBoard/writeBtn.jpg" height="30">
 					</a>
-				</form>
-			</center>
-			
-			<div class="boardWriteBtn">
-				<a href="FreeBoardWriteUIServlet">
-					<img src="images\freeBoard/writeBtn.jpg" height="30">
-				</a>
-			</div> <!-- boardWriteBtn -->
-			
-		</div> <!-- boardContent -->
-		<br>
+				</div> <!-- boardWriteBtn -->
+				
+			</div> <!-- boardContent -->
+			<br>
+		</div> <!-- boardWrap -->
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
-	</div> <!-- boardWrap -->
+	</div> <!-- #wrap -->
 </body>
 </html>
