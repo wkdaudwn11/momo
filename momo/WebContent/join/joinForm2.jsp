@@ -11,7 +11,7 @@
 	
 	<!-- DAUM 주소 라이브러리 시작 -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src="js/daum.js"></script>
+	<script src="../js/daum.js"></script>
 	<!-- DAUM 주소 라이브러리 끝 -->
 
     <style>
@@ -41,21 +41,42 @@
 		
 		function send(){
     		var userid = document.getElementById("id").value;
-    		//alert(userid);
     	 	getXMLHttpRequest();
     	 	
     	 	xmlHttp.onreadystatechange=xxx; //이벤트 등록(서버가 응답하는 이벤트)
     	 	
     	 	xmlHttp.open("get", "check.jsp?userid="+userid, true);//타겟
     	 	xmlHttp.send(null);
-		}//end send
+		}//send()
 	
 	    function xxx(){
 	    	if(xmlHttp.readyState==4 && xmlHttp.status==200){
 	    		var str = xmlHttp.responseText;
+	    			    			    			    		
 	    		document.getElementById("result").innerText=str.trim();
-	    	}//end 
-	    }//end xxx
+	    			
+	    			if(document.getElementById("result").innerText=str.trim()=="사용 가능"){
+	    			$(document).ready(function(){
+
+	    				$("#result").css("color","blue");
+	    				console.log("-----");
+	    				console.log(document.getElementById("result").innerText=str.trim());
+	    				console.log("-----");
+	    			
+	    			});		
+	    			}else{
+
+		    			$(document).ready(function(){
+
+		    				$("#result").css("color","red");
+		    				console.log("-----");	
+		    				console.log(document.getElementById("result").innerText=str.trim());
+		    				console.log("-----");
+		    			
+		    			});	    			
+		    		}
+	    	}//if
+	    }//xxx()
 	</script>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>	<!-- Angular -->
@@ -146,7 +167,7 @@
 </head>
 <body>
     
-    <jsp:include page="../include/header.jsp"  flush="true"></jsp:include>       
+    <jsp:include page="header.jsp"  flush="true"></jsp:include>       
     
 	<div id="joinWrap">
 		<div class="content-section">
@@ -224,7 +245,7 @@
 	        </div>
 	    </div>
 	    <br><br><br><br>
-	    <img src="images/join/joinus.png" width="60%" height="60%">
+	    <img src="../images/join/joinus.png" width="60%" height="60%">
 	    
     </div> <!-- #joinWrap -->	
    

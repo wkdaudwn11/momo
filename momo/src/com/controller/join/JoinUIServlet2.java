@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JoinUIServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher dis = request.getRequestDispatcher("join/joinForm2.jsp");
-		dis.forward(request, response);
-		
+		response.sendRedirect("join/joinForm2.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
