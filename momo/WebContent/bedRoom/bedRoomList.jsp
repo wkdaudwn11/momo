@@ -77,7 +77,7 @@
 	}); // end &(document).ready();
 	function bedRoomDetail(bnum,image1,name,price,discount){
 		var addList = true;
-		/* var showList = $.cookie("showList").split(','); */
+		
 		$.each(showList,function(idx,obj){
 			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount){
 				addList = false;
