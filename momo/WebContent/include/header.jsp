@@ -21,8 +21,8 @@
 <!-- 페북 -->
 <jsp:include page="sns/facebook.jsp" flush="true"></jsp:include>
 
-<script type="text/javascript" src="js/jquery-3.1.0.js"></script>
-
+<script type="text/javascript" src="js/jquery-3.1.0.js"></script> 
+<script src="js/jquery.cookie.js"></script>
 <!-- notification -->
 <jsp:include page="notification.jsp" flush="true"></jsp:include>
 
