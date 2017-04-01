@@ -287,10 +287,16 @@ sns: ${sessionScope.login.sns}
 						<input type="text" name="addr2" id="addr2" placeholder="지번주소" style="width: 350px; height:30px;" value="" readonly>
 					</td>
 				</tr>
-				<tr height="30" style="border-bottom:1px solid black;">
+				<tr height="30" style="border-bottom:1px dotted #ddd;">
 					<td width="100" align="center">주문메세지<br>(100자 내외)</td>
 					<td colspan="3">
 						<textarea rows="5" cols="100" name="orderMessage" id="orderMessage"></textarea>
+					</td>
+				</tr>
+				<tr height="30" style="border-bottom:1px solid black;">
+					<td width="100" align="center" style="border-right: 1px solid #ddd;">결제방법</td>
+					<td colspan="3">
+						&nbsp;무통장 입금&nbsp;<input type="radio" id="mutongjang" name="mutongjang" value="mutongjang">
 					</td>
 				</tr>
 				<tr>

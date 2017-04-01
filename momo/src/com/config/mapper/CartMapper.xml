@@ -24,11 +24,12 @@
 		select count(*) from cart where id=#{userid}
 	</select>
 	
-	<!-- 장바구니 한 개 삭제 -->
+	<!-- 장바구니에서 해당 상품을 삭제하는 쿼리 -->
 	<delete id="deleteOne" parameterType="int">
 		delete from cart where cnum=#{cnum}
 	</delete>
 	
+	<!-- 장바구니에서 체크 된 상품들을 삭제하는 쿼리 -->
 	<delete id="deleteCheck" parameterType="arraylist">
 		delete from cart
 		<where>

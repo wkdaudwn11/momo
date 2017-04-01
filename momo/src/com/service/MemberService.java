@@ -108,18 +108,19 @@ public class MemberService {
 	
 	/** 회원 등록 메소드 */
 	public void addMember(MemberDTO dto) throws CommonException{
+		
 		SqlSession session =MySqlSessionFactory.openSession();
 		
 		try {
-			int n =session.insert(namespace+"addMember", dto);
+			session.insert(namespace+"addMember", dto);
 			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new CommonException("회원가입에 실패하였습니다! 다시 시도해주세요. ");
+			throw new CommonException("회원가입에 실패!");
 		} finally {
 			session.close();
 		}
-	}// add member
+	}//addMember(MemberDTO dto)
 	
 	/** 아이디/패스워드 찾는 메소드 */
 	public MemberDTO findMember(HashMap<String, String> map) throws CommonException{

@@ -100,7 +100,7 @@
 		</c:if>
 		
 			<li><a class="login_black" href="CartListServlet">장바구니</a></li>
-			<li><a class="login_black" href="OrderListUIServlet">주문내역</a></li>
+			<li><a class="login_black" href="OrderListServlet">주문내역</a></li>
             <li><a class="login_black" href="MyPageUIServlet">마이페이지</a></li>
 			<li><a class="login_black" href="QuestionListServlet">고객문의</a></li>
 

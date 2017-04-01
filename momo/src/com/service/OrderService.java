@@ -37,6 +37,9 @@ public class OrderService {
 	public void orderInsertAll(List<CartDTO> list) throws CommonException {
 		SqlSession session = MySqlSessionFactory.openSession();
 		HashMap map = new HashMap();
+		double equalGroupTotalPrice = 0;
+		int equalGroupTotalCount = 0;
+		
 		try {
 			
 			/* seqNextVal는 groupnum의 시퀀스를 nextval해주는 쿼리다.
@@ -46,6 +49,17 @@ public class OrderService {
 			 * 		insert할 때 currval로 해서 그룹번호를 매겨주기 때문에, insert하기 전에
 			 * 		이 전에 구매했던 그루핑 번호보다 +1 증가시켜줘야 중복이 안되기 때문에 nextval을 한 번 해줘야한다. */
 			int n2 = session.selectOne(namespace + "seqNextVal"); 
+			
+			//그룹의 총 가격은 할인율이 적용된 가격을 집어 넣는다.
+			//그룹의 총 갯수도 적용.
+			for(int i=0; i<list.size(); i++){
+				int price = list.get(i).getPrice();
+				double discount = list.get(i).getDiscount();
+				equalGroupTotalPrice += price * (1.0 - (discount/100));
+				
+				int count = list.get(i).getCount();
+				equalGroupTotalCount += count;
+			}
 			
 			//리스트만큼 반복문을 돌려서, i번째 값을 맵에 저장 후, mapper에다가 map을 넘김.
 			for(int i=0; i<list.size(); i++){
@@ -57,6 +71,9 @@ public class OrderService {
 				map.put("price", list.get(i).getPrice());
 				map.put("discount", list.get(i).getDiscount());
 				map.put("image1", list.get(i).getImage1());
+				map.put("equalGroupCount", list.size());
+				map.put("equalGroupTotalPrice", equalGroupTotalPrice);
+				map.put("equalGroupTotalCount", equalGroupTotalCount);
 				int n = session.insert(namespace + "orderInsertAll", map);
 			}
 			session.commit();
@@ -89,6 +106,7 @@ public class OrderService {
 		SqlSession session = MySqlSessionFactory.openSession();
 		List<OrderDTO> orderlist = null;
 		OrderPageDTO orderPageDTO = new OrderPageDTO();
+		int equalGroupTotalPrice = 0;
 		
 		int skip = (curPage-1) * orderPageDTO.getPerPage();
 		
@@ -104,6 +122,7 @@ public class OrderService {
 		orderPageDTO.setOrderList(orderlist);
 		orderPageDTO.setCurPage(curPage);
 		orderPageDTO.setTotalRecord(totalRecord(id));
+		orderPageDTO.setTotalRecordDistinct(totalRecordDistinct(id));
 		
 		return orderPageDTO;
 		
@@ -126,5 +145,50 @@ public class OrderService {
 		
 		return count;
 	}//totalRecord(HashMap<String, String> map)
+	
+	/** 해당 id의 groupnum 중복값을 제거한 주문내역 총 갯수를 반환해주는 메소드 */
+	private int totalRecordDistinct(String id) throws CommonException {
+		
+		SqlSession session = MySqlSessionFactory.openSession();
+		int count = -1;
+		
+		try{
+			count = session.selectOne(namespace+"totalRecordDistinct", id);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("주문내역 갯수 불러오기 실패!");
+		}finally{
+			session.close();
+		}
+		
+		return count;
+	}//totalRecord(HashMap<String, String> map)
+	
+	/** 해당 주문 그룹번호의 상품을 삭제하는 메소드 */
+	public void deleteOne(int groupnum) throws CommonException {
+		SqlSession session = MySqlSessionFactory.openSession();
+		
+		try{
+			int n = session.delete(namespace + "deleteOne", groupnum);
+			session.commit();
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("주문내역 삭제 실패!");
+		}
+	}//deleteOne(int cnum)
+	
+	/** 체크 된 주문내역의 상품들을 삭제하는 메소드*/
+	public void deleteCheck(List<String> list) throws CommonException {
+		SqlSession session = MySqlSessionFactory.openSession();
+		try {
+			int n = session.delete(namespace + "deleteCheck", list);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CommonException("주문내역 전체 삭제 실패");
+		} finally {
+			session.close();
+		}
+	}//deleteCheck(List<String> list)
 
 }

@@ -93,7 +93,7 @@
 		<table style="width: 60%;">
 			<tr>
 				<td> <!-- 주문내역 -->
-					<a href="#">
+					<a href="OrderListServlet">
 						<img src="images/myPage/myPageList1.jpg" class="a1">
 					</a>
 				</td>

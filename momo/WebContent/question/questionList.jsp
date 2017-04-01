@@ -74,7 +74,7 @@
 				},
 				error:function(error){}
 			});
-		});// end $(".td").on("click","#input")
+		});// end $(".tr").on("click","#input")
 	
 		$("#searchType").on("change",function(){
 			var html;

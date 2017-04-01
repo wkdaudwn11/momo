@@ -30,7 +30,36 @@
 		$("#goShopping").on("click", function(){
 			location.replace('BedRoomListServlet');
 		});
+		
+		/*
+			<c:if test="${orderDTO.category == 'bedRoom'}">
+	    		<a class="productMovement" href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
+		    </c:if>
+		*/
+		/* $("#oneDiv").on("click", function(){
+			//if(${orderDTO.category == 'bedRoom'}){
+				alert('category: '+category);
+				$(".productMovement").attr("href", "#");
+				//$(".productMovement").attr("href", "BedRoomDetailServlet?bnum=${orderDTO.pnum}");
+			//}
+		}); */
+
 	});
+	
+	function oneDivFunc(category, pnum){
+		if(category == 'bedRoom'){
+			$(".productMovement").attr("href", "BedRoomDetailServlet?bnum="+pnum);
+		}else if(category == 'livingRoom'){
+			$(".productMovement").attr("href", "LivingRoomDetailServlet?lnum="+pnum);			
+		}else if(category == 'kitchen'){
+			$(".productMovement").attr("href", "KitchenDetailServlet?knum="+pnum);
+		}
+	}
+	
+	function groupDivFunc(y){
+		$(".productMovement").attr("href", "#");
+		$(".toggleTr"+y).toggle(400);
+	}
 	
 	//전체선택과 전체해제
 	function checkOrderAll(){
@@ -46,13 +75,13 @@
 				checkOrder[i].checked = false;
 			}
 		}
-	}//checkCartAll()
+	}//checkOrderAll()
 	
 	// 삭제버튼을 눌렀을 경우 실행되는 함수
-	function deleteOne(cnum, name){
+	function deleteOne(groupnum, name){
 		var result = confirm(name+'을(를) 주문내역에서 삭제하시겠습니까?');
 		if(result == true){
-			location.replace('OrderDeleteServlet?onum='+onum);
+			location.replace('OrderDeleteServlet?groupnum='+groupnum);
 		}
 	}//deleteOne(cnum, name)
 	
@@ -87,6 +116,7 @@
 	<c:set var="page" value="${orderPageDTO.page}" scope="request"/> <!-- 표시할 페이지 수 -->
 	<c:set var="pageblock" value="${Math.ceil(curPage/page)}" scope="request"/> <!-- 표시할 페이지 블럭수 -->
 	<c:set var="totalRecord" value="${orderPageDTO.totalRecord}" scope="request"/> <!-- 전체 게시물 수 -->
+	<c:set var="totalRecordDistinct" value="${orderPageDTO.totalRecordDistinct}" scope="request"/> <!-- groupnum 중복값을 제거한 전체 게시물 수 -->
 	<c:set var="x" value="${(curPage-1)*10}" /> <!-- 상품 번호를 나타내기 위한 변수 -->
 	
 	<div id="orderWrap">
@@ -95,19 +125,20 @@
 		<div id="orderContent">
 			<h3>주문내역</h3>
 			<hr>
-			<p>주문 목록(전체: ${totalRecord})</p>
+			<p>주문 목록(전체: ${totalRecordDistinct})</p>
 			
 			<!-- 주문내역 리스트 -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="cartList">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
 				<tr height="30"> 
 					<th width="60">
 						<input type="checkbox" name="checkOrderAll" id="checkOrderAll" onclick="checkOrderAll()">
 						전체선택
 					</th> 
 					<th width="50">사   진</th> 
-				    <th width="190">제품명</th>
-				    <th width="100">수   량</th> 
+				    <th width="150">제품명</th>
+				    <th width="50">수   량</th> 
 				    <th width="100">가   격</th>
+				    <th width="90">주문상태</th>
 				    <th width="100">취   소</th>   
 				</tr>
 				<c:choose>
@@ -122,53 +153,154 @@
 					</c:when>
 					<c:otherwise>
 						<form method="post" name="orderForm" id="orderForm">
-							<c:forEach var="cartDTO" items="${orderList}" varStatus="i">
-								<tr height="30" style="border-bottom:1px solid #ddd;">
-									<td  width="50" align="center" >
-										<input type="checkbox" name="checkOrder" id="checkOrder" class="check" value="${orderDTO.onum}">&nbsp;
-										<b>${(totalRecord - (i.count + x)) + 1}</b>
-									</td>
-								    <td  width="50" align="center">
-								    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
-								    </td>
-				 					<td width="200" align="center">
-				 						<c:if test="${orderDTO.category == 'bedRoom'}">
-									    	<a href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
-									    		<b>${orderDTO.name}</b>&nbsp;&nbsp;
-									    	</a> 
-									    </c:if>
-									    <c:if test="${orderDTO.category == 'livingRoom'}">
-									    	<a href="LivingRoomDetailServlet?lnum=${orderDTO.pnum}">
-									    		<b>${orderDTO.name}</b>&nbsp;&nbsp;
-									    	</a> 
-									    </c:if>
-									    <c:if test="${orderDTO.category == 'kitchen'}">
-									    	<a href="KitchenDetailServlet?knum=${orderDTO.pnum}">
-									    		<b>${orderDTO.name}</b>&nbsp;&nbsp;
-									    	</a> 
-									    </c:if>
-									    <c:if test="${orderDTO.category == 'childrenRoom'}">
-									    	<a href="ChildrenRoomDetailServlet?cnum=${orderDTO.pnum}">
-									    		<b>${orderDTO.name}</b>&nbsp;&nbsp;
-									    	</a> 
-									    </c:if>
-				 					</td>			    
-								    <td width="100" align="center">
-								    	${orderDTO.count}
-									</td>
-								    <td width="100" align="center">
-										<b><font color="red"><del><fmt:formatNumber value="${orderDTO.price * orderDTO.count}" type="currency" /></del></font><br />
-										<font color="#3f4993"><fmt:formatNumber value="${(orderDTO.price * (1.0 - (orderDTO.discount/100))) * orderDTO.count}" type="currency" /></font></b>
-									</td>
-								    <td width="100" align="center">
-								    	<a href="#"><img src="images\cart/deleteBtn.jpg" onclick="deleteOne('${orderDTO.onum}', '${orderDTO.name}')"></a>
-									</td>
-								</tr>
+						
+							<c:set var="prevGroupnum" value="-1" />	<!-- 이전 상품에 대한 그룹번호 -->
+							<c:set var="prevIndex" value="0" />	<!-- 한 그룹당 표시할 주문번호 -->
+							
+							<c:set var="minus" value="0" />	<!-- 동일한 그룹번호의 총 갯수를 담을 변수 (주문번호 표시에 사용)-->
+							
+							<c:forEach var="orderDTO" items="${orderList}" varStatus="i" >
+							
+								<c:if test="${prevGroupnum == orderDTO.groupnum}">
+									<c:set var="minus" value="${minus+1}" />
+								</c:if>
+								
+								<c:if test="${prevGroupnum != orderDTO.groupnum}">	<!-- 같은 그룹이 아니면 실행 -->
+									<c:set var="prevGroupnum" value="${orderDTO.groupnum}" />
+									<c:set var="prevIndex" value="${i.count-minus}" />	<!--  -->
+									
+									<c:set var="y" value="${(totalRecordDistinct - (prevIndex + x)) + 1}" />
+									
+									<c:if test="${orderDTO.equalGroupCount == 1}">
+										<tr height="30" style="border-bottom:1px solid #ddd;">
+											<td  width="50" align="center" >
+												<input type="checkbox" name="checkOrder" id="checkOrder" class="check" value="${orderDTO.groupnum}">&nbsp;
+												<b>${y}</b>
+											</td>
+										    <td  width="50" align="center">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    </td>
+						 					<td width="160" align="center"> <!-- equalGroupCount -->
+						 						
+						 						<c:if test="${orderDTO.category == 'bedRoom'}">
+											    	<a class="productMovement" href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
+											    </c:if>
+											    <c:if test="${orderDTO.category == 'livingRoom'}">
+											    	<a class="productMovement" href="LivingRoomDetailServlet?lnum=${orderDTO.pnum}">
+											    </c:if>
+											    <c:if test="${orderDTO.category == 'kitchen'}">
+											    	<a class="productMovement" href="KitchenDetailServlet?knum=${orderDTO.pnum}">
+											    </c:if>	
+											    <c:if test="${orderDTO.category == 'childrenRoom'}">
+											    	<a class="productMovement" href="ChildrenRoomDetailServlet?cnum=${orderDTO.pnum}">
+											    </c:if>
+												    	<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
+											    			<b>${orderDTO.pname}</b>&nbsp;&nbsp;
+											    		</div>
+													</a>
+						 					</td>			    
+										    <td width="50" align="center">
+										    	${orderDTO.count}개
+											</td>
+										    <td width="100" align="center">
+												<b><font color="#3f4993"><fmt:formatNumber value="${(orderDTO.price * (1.0 - (orderDTO.discount/100))) * orderDTO.count}" type="currency" /></font></b>
+											</td>
+											<td width="90" align="center">
+										    	${orderDTO.orderstate}
+											</td>
+										    <td width="100" align="center">
+									    		<a href="#"><img src="images\cart/deleteBtn.jpg" onclick="deleteOne('${orderDTO.groupnum}', '${orderDTO.pname}')"></a>
+											</td>
+										</tr>
+									</c:if> <!-- orderDTO.equalGroupCount == 1 -->
+									
+									<c:if test="${orderDTO.equalGroupCount > 1}">
+										<tr height="30" style="border-bottom:1px solid #ddd;">
+											<td width="50" align="center" >
+												<input type="checkbox" name="checkOrder" id="checkOrder" class="check" value="${orderDTO.groupnum}">&nbsp;
+												<b>${y}</b>
+											</td>
+										    <td width="50" align="center">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    </td>
+						 					<td width="150" align="center">
+						 						
+						 						<c:if test="${orderDTO.category == 'bedRoom'}">
+											    	<a class="productMovement" href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
+											    </c:if>
+											    <c:if test="${orderDTO.category == 'livingRoom'}">
+											    	<a class="productMovement" href="LivingRoomDetailServlet?lnum=${orderDTO.pnum}">
+											    </c:if>
+											    <c:if test="${orderDTO.category == 'kitchen'}">
+											    	<a class="productMovement" href="KitchenDetailServlet?knum=${orderDTO.pnum}">
+											    </c:if>	
+											    <c:if test="${orderDTO.category == 'childrenRoom'}">
+											    	<a class="productMovement" href="ChildrenRoomDetailServlet?cnum=${orderDTO.pnum}">
+											    </c:if>
+												    	<div id="groupDiv" onclick="groupDivFunc('${y}')">
+															<b>${orderDTO.pname}&nbsp;외&nbsp;${orderDTO.equalGroupCount-1}개</b>&nbsp;&nbsp;
+														</div>
+													</a>
+						 					</td>			    
+										    <td width="50" align="center">
+										    	${orderDTO.equalGroupTotalCount}개
+											</td>
+										    <td width="100" align="center">
+												<b><font color="#3f4993"><fmt:formatNumber value="${orderDTO.equalGroupTotalPrice}" type="currency" /></font></b>
+											</td>
+											<td width="90" align="center">
+										    	${orderDTO.orderstate}
+											</td>
+										    <td width="100" align="center">
+									    		<a href="#"><img src="images\cart/deleteBtn.jpg" onclick="deleteOne('${orderDTO.groupnum}', '${orderDTO.pname} 외 ${orderDTO.equalGroupCount-1}개')"></a>
+											</td>
+										</tr>
+									</c:if> <!-- orderDTO.equalGroupCount > 1 -->
+								</c:if> <!-- prevGroupnum != orderDTO.groupnum -->
+								
+								<c:if test="${prevGroupnum == orderDTO.groupnum && orderDTO.equalGroupCount > 1}">	<!-- 이전 상품과 현재 상품의 그룹번호가 같으면 -->
+									<tr class="toggleTr${y}" height="30" style="display: none; border-bottom: 1px solid #f6f6f6; background-color: #EEE;">
+										<td colspan="7">
+											<table><tr>
+												<td width="200" align="center">-</td>
+												<td width="150" align="left"> 
+													<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> 
+												</td>
+												<td width="190" align="center"> 
+													<c:if test="${orderDTO.category == 'bedRoom'}">
+												    	<a class="productMovement" href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
+												    </c:if>
+												    <c:if test="${orderDTO.category == 'livingRoom'}">
+												    	<a class="productMovement" href="LivingRoomDetailServlet?lnum=${orderDTO.pnum}">
+												    </c:if>
+												    <c:if test="${orderDTO.category == 'kitchen'}">
+												    	<a class="productMovement" href="KitchenDetailServlet?knum=${orderDTO.pnum}">
+												    </c:if>	
+												    <c:if test="${orderDTO.category == 'childrenRoom'}">
+												    	<a class="productMovement" href="ChildrenRoomDetailServlet?cnum=${orderDTO.pnum}">
+												    </c:if>
+												    		<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
+												    			<b>${orderDTO.pname}</b>&nbsp;&nbsp;
+												    		</div>
+												    	</a>
+												</td>
+												<td width="195" align="center">
+													${orderDTO.count}개
+												</td>
+												<td width="100" align="center">
+													<b><font color="red"><del><fmt:formatNumber value="${orderDTO.price * orderDTO.count}" type="currency" /></del></font><br />
+													<font color="#3f4993"><fmt:formatNumber value="${(orderDTO.price * (1.0 - (orderDTO.discount/100))) * orderDTO.count}" type="currency" /></font></b>
+												</td>
+											</tr></table>
+										</td>
+									</tr>
+								</c:if>
+									
 							</c:forEach>
 						</form>
 					</c:otherwise>
 				</c:choose>
-			</table> <!-- cartList -->
+			</table> <!-- orderList -->
 			
 			<!-- 페이징처리 -->
 			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
@@ -218,14 +350,13 @@
 			</div>	<!-- paging -->
 			<br>
 			
-			<input type="image" src="images\cart/orderBtn.jpg" onclick="checkOrder(cartForm)">
-			<input type="image" src="images\cart/checkDeleteBtn.jpg" id="checkDelete" onclick="deleteCheck(cartForm)">
+			<input type="image" src="images\order/checkDeleteBtn.jpg" id="checkDelete" onclick="deleteCheck(orderForm)">
 			<input type="image" src="images\cart/goShoppingBtn.jpg" id="goShopping">
 			
-		</div> <!-- cartContent -->
+		</div> <!-- orderContent -->
 		<br><br><br><br>
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
-	</div> <!-- cartWrap -->
+	</div> <!-- orderWrap -->
 	
 </body>
 </html>

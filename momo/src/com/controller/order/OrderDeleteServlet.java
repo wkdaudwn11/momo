@@ -1,7 +1,7 @@
 package com.controller.order;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,45 +11,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.entity.member.MemberDTO;
-import com.entity.order.OrderPageDTO;
+import com.exception.CommonException;
 import com.service.OrderService;
 
-@WebServlet("/OrderListUIServlet")
-public class OrderListUIServlet extends HttpServlet {
+@WebServlet("/OrderDeleteServlet")
+public class OrderDeleteServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		String target = "";
+		String groupnum = request.getParameter("groupnum");
 		
-		String curPage = request.getParameter("curpage");
-		if(curPage == null) curPage = "1"; 
+		System.out.println("groupnum");
+		
+		String[] checkOrder = request.getParameterValues("checkOrder");
 		
 		HttpSession session = request.getSession();
 		
 		try{
-			if(session.getAttribute("login") != null){	// 로그인 했을 경우
-				MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+			if(session.getAttribute("login") != null){
 				OrderService service = new OrderService();
-				OrderPageDTO orderPageDTO = service.orderList(memberDTO.getId(), Integer.parseInt(curPage));
-				
-				request.setAttribute("orderPageDTO", orderPageDTO);
-				
-				target = "order/orderList.jsp";
+				if(checkOrder != null){
+					service.deleteCheck(Arrays.asList(checkOrder));
+				}else{
+					service.deleteOne(Integer.parseInt(groupnum));
+				}
+			
 			}else{
-				request.setAttribute("message", "로그인 후에 이용해주세요!");
-				target = "LoginUIServlet";
+				request.setAttribute("AccessWrong", "로그인 후 이용해주세요!!");
 			}
-		}catch(Exception e){
-			e.printStackTrace();
+		}catch (CommonException e) {
+			request.setAttribute("AccessWrong", e.getMessage());
 		}
 		
-		RequestDispatcher dis = request.getRequestDispatcher(target);
+		RequestDispatcher dis = request.getRequestDispatcher("OrderListServlet");
 		dis.forward(request, response);
 		
 	}//doGet
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

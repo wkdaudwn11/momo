@@ -39,6 +39,7 @@ public class JoinAddMember extends HttpServlet {
 			service.addMember(dto);
 			target = "IndexServlet";
 			request.setAttribute("joinMessage", "회원가입에 성공하였습니다!");
+			
 		} catch (Exception e) {
 			target = "IndexServlet";
 			request.setAttribute("joinMessage", e.getMessage());

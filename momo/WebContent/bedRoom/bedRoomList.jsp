@@ -227,7 +227,15 @@
 				</div>
 			</div> <!-- #bedRoomContent -->
 			<div id="bedRoomAside">
-				오늘 본 상품
+				오늘 본 상품<br>
+				<table border="1">
+					<tr>
+						<table>
+							<tr><td>상품이름</td></tr>
+							<tr><td>상품가격</td></tr>
+						</table>
+					</tr>
+				</table>
 			</div> <!-- #bedRoomAside -->
 		</div> <!-- #bedRoomWrap -->
 		<br>

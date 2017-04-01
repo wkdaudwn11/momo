@@ -5,25 +5,28 @@ import java.util.List;
 public class OrderPageDTO {
 	private List<OrderDTO> orderList;
 	private int curPage;
-	private int perPage = 10; // 페이지당 보여줄 레코드 수
-	private int page = 10; // 표시할 페이지 수
-	private int totalRecord;
+	private int perPage = 10;	//페이지당 보여줄 레코드 수
+	private int page = 10;		//표시할 페이지 수
+	private int totalRecord;	//전체 레코드 수
+	private int totalRecordDistinct;	//groupnum의 중복값을 제거한 전체 레코드 수 
 	
 	public OrderPageDTO(){}
 
-	public OrderPageDTO(List<OrderDTO> orderList, int curPage, int perPage, int page, int totalRecord) {
+	public OrderPageDTO(List<OrderDTO> orderList, int curPage, int perPage, int page, int totalRecord,
+			int totalRecordDistinct) {
 		super();
 		this.orderList = orderList;
 		this.curPage = curPage;
 		this.perPage = perPage;
 		this.page = page;
 		this.totalRecord = totalRecord;
+		this.totalRecordDistinct = totalRecordDistinct;
 	}
 
 	@Override
 	public String toString() {
 		return "OrderPageDTO [orderList=" + orderList + ", curPage=" + curPage + ", perPage=" + perPage + ", page="
-				+ page + ", totalRecord=" + totalRecord + "]";
+				+ page + ", totalRecord=" + totalRecord + ", totalRecordDistinct=" + totalRecordDistinct + "]";
 	}
 
 	public List<OrderDTO> getOrderList() {
@@ -64,6 +67,14 @@ public class OrderPageDTO {
 
 	public void setTotalRecord(int totalRecord) {
 		this.totalRecord = totalRecord;
+	}
+
+	public int getTotalRecordDistinct() {
+		return totalRecordDistinct;
+	}
+
+	public void setTotalRecordDistinct(int totalRecordDistinct) {
+		this.totalRecordDistinct = totalRecordDistinct;
 	}
 
 }// end BedRoomPage
