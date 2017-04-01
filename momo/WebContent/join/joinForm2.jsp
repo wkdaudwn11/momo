@@ -25,11 +25,9 @@
     	
     	.close_button{padding : 0px 0px;}
     	
-    	#insert_img{width:730px; margin-top:10px; margin-left:30px;}
-    	
     	#joinWrap {width:80%; margin:0 auto;}
     	
-    	.content-section {width:40%; float: left; padding-right: 40px;}
+    	.content-section {width:45%; float: left; padding-right: 40px; }
     </style>
     
     <script type="text/javascript"> <!-- Ajax -->
@@ -52,29 +50,19 @@
 	    function xxx(){
 	    	if(xmlHttp.readyState==4 && xmlHttp.status==200){
 	    		var str = xmlHttp.responseText;
-	    			    			    			    		
 	    		document.getElementById("result").innerText=str.trim();
-	    			
-	    			if(document.getElementById("result").innerText=str.trim()=="사용 가능"){
-	    			$(document).ready(function(){
-
-	    				$("#result").css("color","blue");
-	    				console.log("-----");
-	    				console.log(document.getElementById("result").innerText=str.trim());
-	    				console.log("-----");
-	    			
-	    			});		
-	    			}else{
-
-		    			$(document).ready(function(){
-
-		    				$("#result").css("color","red");
-		    				console.log("-----");	
-		    				console.log(document.getElementById("result").innerText=str.trim());
-		    				console.log("-----");
-		    			
-		    			});	    			
+	    			if(document.getElementById("result").innerText=str.trim()=="은(는) 사용 가능한 아이디입니다."){
+	    				document.getElementById('idCheck').value = "o";
+	    				$("#result").css("color","green");
+	    			}else if(document.getElementById("result").innerText=str.trim()=="은(는) 중복되는 아이디입니다."){
+	    				document.getElementById('idCheck').value = "x";
+	    				$("#result").css("color","red");
 		    		}
+	    			else if(document.getElementById("result").innerText=str.trim()=="은(는) 사용 불가능한 아이디입니다."){
+	    				document.getElementById('idCheck').value = "x";
+	    				$("#result").css("color","red");
+		    		}
+	    			document.getElementById("result").innerText=str.trim();
 	    	}//if
 	    }//xxx()
 	</script>
@@ -88,6 +76,7 @@
 	    	
 	    	var name = document.getElementById('name');
 	    	var id = document.getElementById('id');
+	    	var idCheck = document.getElementById('idCheck');
 	    	var pwd = document.getElementById('pwd');
 	    	var pwd2 = document.getElementById('pwd2');
 	    	var tel = document.getElementById('tel');
@@ -104,18 +93,23 @@
 	    		name.value="";
 	    		name.focus();
 	    		result = false;
-	    	}else if(id.value.length < 10 || id.value.length > 17){
-				alert("아이디는 10~16자리로 입력해주세요.");
+	    	}else if(id.value.length < 6 || id.value.length > 12){
+				alert("아이디는 6~12자리로 입력해주세요.");
 				id.value="";
 				id.focus();
 				result = false;
-			}else if(!id.value.match(/[a-zA-Z0-9]/)){
+			}else if(!id.value.match(/[a-zA-Z].*[0-9]/)){
 				alert("아이디는 문자, 숫자의 조합으로 입력해주세요.");
 				id.value="";
 				id.focus();
 				result = false;
-			}else if(pwd.value.length < 8 || pwd.value.length > 12){
-				alert("비밀번호는 8~12자리로 입력해주세요.");
+			}else if(idCheck.value == 'x'){
+				alert("아이디가 중복됩니다. 다른 아이디를 입력해주세요.");
+				id.value="";
+				id.focus();
+				result = false;
+			}else if(pwd.value.length < 6 || pwd.value.length > 12){
+				alert("비밀번호는 6~12자리로 입력해주세요.");
 				pwd.value="";
 				pwd.focus();
 				result = false;
@@ -178,23 +172,24 @@
 	                </div>
 	                <div align="left">
 	                    <div>	<!-- class="contact-form" -->
-	                        <form name="contactform" id="contactform" action="JoinAddMember" method="get" onsubmit="return resultForm()">
+	                        <form name="contactform" id="contactform" action="../JoinAddMember" method="get" onsubmit="return resultForm()">
+	                        	<input type="hidden" id="idCheck" value="x">
 	                            <p>
-	                                <input type="text" id="name" name="name" placeholder="성명 (한글 2~6)" style="height:40px;">                                                    
+	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;">                                                    
 	                            </p>                          
 	                            <p>
-	                               	<input style="width:65%; height:40px; float:left;" name="id" type="text" id="id" placeholder="아이디(영문,숫자10~16)" 
-	                               			ng-model="id" onkeyup="send()">
-	                               	<div style="text-align: center; font-size: medium; line-height: 150%;">
-	                               		{{ id }}　<br>
-	                               		<span id="result">　</span>
-	                               	</div>
+	                               	<input name="id" type="text" id="id" maxlength="12" placeholder="아이디 (영문,숫자로 6~12)" 
+	                               			ng-model="id" onkeyup="send()" style="height:40px;">
+	                               	<font color="#13132f" size="3">
+	                               		<b>{{id}}</b>
+                               			<span id="result"></span>
+                               		</font>
 	                            </p>
 	                            <p>
-	                               	<input name="pwd" type="password" id="pwd" placeholder="비밀번호 (영문,숫자,특수문자로 8~12)" style="height:40px;">
+	                               	<input name="pwd" type="password" id="pwd" maxlength="12" placeholder="비밀번호 (영문,숫자,특수문자로 6~12)" style="height:40px;">
 	                            </p>
 	                            <p>
-	                               	<input name="pwd2" type="password" id="pwd2" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;">
+	                               	<input name="pwd2" type="password" id="pwd2" maxlength="12" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;">
 	                            </p>
 	                            <p>
 	                                <select name="gender" id="gender">
@@ -203,7 +198,7 @@
 	                                </select> 
 	                            </p>                                                                                        
 	                            <p>
-	                               	<input name="tel" type="text" id="tel" placeholder="연락처" style="height:40px;">
+	                               	<input name="tel" type="text" id="tel" maxlength="11" placeholder="연락처" style="height:40px;">
 	                            </p>                                                                                                                                                                         
 	                            <p>
 	                                <select name="question" id="question">                                	
@@ -245,7 +240,7 @@
 	        </div>
 	    </div>
 	    <br><br><br><br>
-	    <img src="../images/join/joinus.png" width="60%" height="60%">
+	    <img src="../images/join/joinus.png" width="55%">
 	    
     </div> <!-- #joinWrap -->	
    

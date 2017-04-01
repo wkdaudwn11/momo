@@ -10,19 +10,22 @@
 <%
 	String userid = request.getParameter("userid");
 	
-	String able = "사용 가능";
-	String disable ="사용 불가";
-	
 	SqlSession sess = MySqlSessionFactory.openSession();
 	int result = 0;
 	
 	try {
 		result = sess.selectOne("com.momo.MemberMapper.idCheck", userid);
 		
-		if(userid.length() < 10 || userid.length() > 17){
-			result = 1;
-		}else if(!Pattern.matches("^[a-zA-Z0-9]*$", userid)){
-			result = 1;
+		if(userid.length() == 0){
+			result = 3;
+		}else if(userid.length() < 6 || userid.length() > 12){
+			result = 2;
+		}else if(Pattern.matches("^[a-zA-Z]{6,12}$", userid)){
+			result = 2;
+		}else if(Pattern.matches("^[0-9]{6,12}$", userid)){
+			result = 2;
+		}else if(!Pattern.matches("^[a-zA-Z0-9]{6,12}$", userid)){
+			result = 2;
 		}
 	
 	} catch (Exception e) {
@@ -32,8 +35,10 @@
 	}
 	
 	if (result == 0) {
-		out.print(able);
-	} else {
-		out.print(disable);
+		out.print("은(는) 사용 가능한 아이디입니다.");
+	} else if(result == 1){
+		out.print("은(는) 중복되는 아이디입니다.");
+	} else if(result == 2){
+		out.println("은(는) 사용 불가능한 아이디입니다.");
 	}
 %>

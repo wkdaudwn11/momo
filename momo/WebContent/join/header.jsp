@@ -81,7 +81,7 @@
 <div id="header">
 	<br><br>
 	<div class="logo">
-		<a href="IndexServlet">
+		<a href="../IndexServlet">
 			<font class="logoEng"><b>MOMO${snsLogout}</b></font>
 			<font class="logoKor"><b>가구</b></font>
 		</a>
@@ -91,44 +91,44 @@
 		<ul>
 		
 		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
-	           	<li><a class="login_color" href="LoginUIServlet">로그인</a></font></li>
-	           	<li><a class="login_color" href="JoinUIServlet">회원가입</a></font></li>
+	           	<li><a class="login_color" href="../LoginUIServlet">로그인</a></font></li>
+	           	<li><a class="login_color" href="../JoinUIServlet">회원가입</a></font></li>
 		</c:if>	
 		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
            	<li><a class="login_color" href="javascript:logout()">로그아웃</a></font></li>
-           	<li><a class="login_color" href="PwdCheckUIServlet">정보수정</a></font></li>
+           	<li><a class="login_color" href="../PwdCheckUIServlet">정보수정</a></font></li>
 		</c:if>
 		
-			<li><a class="login_black" href="CartListServlet">장바구니</a></li>
-			<li><a class="login_black" href="OrderListUIServlet">주문내역</a></li>
-            <li><a class="login_black" href="MyPageUIServlet">마이페이지</a></li>
-			<li><a class="login_black" href="QuestionListServlet">고객문의</a></li>
+			<li><a class="login_black" href="../CartListServlet">장바구니</a></li>
+			<li><a class="login_black" href="../OrderListUIServlet">주문내역</a></li>
+            <li><a class="login_black" href="../MyPageUIServlet">마이페이지</a></li>
+			<li><a class="login_black" href="../QuestionListServlet">고객문의</a></li>
 
 		</ul>
 	</div>
 	
 	<ul class="menu">
 		<li><!-- BedRoom -->
-			<a href="BedRoomListServlet" onmouseout="MM_swapImgRestore()" 
+			<a href="../BedRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('BedRoom','','../images/menu/BedRoom_over.jpg',1)">
 				<img src="../images/menu/BedRoom.jpg" id="BedRoom" />
 			</a>
 		</li>
 		
 		<li><!-- LivingRoom -->
-			<a href="LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
+			<a href="../LivingRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('LivingRoom','','../images/menu/LivingRoom_over.jpg',1)">
 				<img src="../images/menu/LivingRoom.jpg" id="LivingRoom" />
 			</a>
 		</li>
 		<li><!-- Kitchen-->
-			<a href="KitchenListServlet" onmouseout="MM_swapImgRestore()" 
+			<a href="../KitchenListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('Kitchen','','../images/menu/Kitchen_over.jpg',1)">
 				<img src="../images/menu/Kitchen.jpg" id="Kitchen" />
 			</a>
 		</li>
 		<li><!-- ChildrenRoom -->
-			<a href="ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
+			<a href="../ChildrenRoomListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('ChildrenRoom','','../images/menu/ChildrenRoom_over.jpg',1)">
 				<img src="../images/menu/ChildrenRoom.jpg" id="ChildrenRoom" />
 			</a>
@@ -140,7 +140,7 @@
 			</a>
 		</li>
 		<li> <!-- FreeBoard -->
-			<a href="FreeBoardListServlet" onmouseout="MM_swapImgRestore()" 
+			<a href="../FreeBoardListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('FreeBoard','','../images/menu/FreeBoard_over.jpg',1)">
 				<img src="../images/menu/FreeBoard.jpg" id="FreeBoard" />
 			</a>
