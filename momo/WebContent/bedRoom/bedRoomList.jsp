@@ -18,9 +18,9 @@
 	#bedRoomContent h3 {margin-left:0px;}
 	
 	#bedRoomAside {width:25%; float: left; margin-top:4.5em; background-color: lightgray;}
-	#bedRoomAside table {};
-	#bedRoomAside table tr {};
-	#bedRoomAside table tr td {};
+	#bedRoomAside ul{list-style: none; padding: 3px;}
+	#bedRoomAside img {width:40%; height:6em;};
+	#bedRoomAside li{font-size: 0.6em;}
 	
 	#bedRoomVisual {width: 100%; height: 500px; margin:0 auto;}
 	
@@ -56,28 +56,45 @@
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
+
 <script>
+	var showList;
+	
 	$(document).ready(function(){
-		$.ajax({
-			type:"get",
-			url:"bedRoom/lately.jsp",
-			dataType:"html",
-			data:{
-				"curPage":${bedRoomPageDTO.curPage}
-			},
-			success:function(responseData,status,xhr){
-				console.log(responseData);///////////////////////////////////////
-				$("#side").html(responseData);
-			},
-			error:function(){}
-		});
+		if($.cookie("showList") != null){
+			showList = $.cookie("showList").split(',');
+			
+			$.each(showList,function(idx,obj){
+				var showDTO = obj.split('&');
+				var bnum = showDTO[0];
+				var image1 = showDTO[1];
+				var name = showDTO[2];
+				var price = showDTO[3];
+				var discount = showDTO[4];
+				$("#bedRoomAside").children("ul").append("<li><img src='images/bedRoom/"+image1+".JPG'>"+name+"<br>"+price*(1.0 - discount/100)+"</li>");
+			}); // end $.each(showList,function(idx,obj)
+		}// end if($.cookie("showList") != null)	
 	}); // end &(document).ready();
+	function bedRoomDetail(bnum,image1,name,price,discount){
+		var addList = true;
+		
+		$.each(showList,function(idx,obj){
+			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount){
+				addList = false;
+				return false;  // break
+			}
+		});
+		if($.cookie("showList") == null){
+			$.cookie("showList",bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 }); 
+		}else if(addList == true){
+				$.cookie("showList",$.cookie("showList")+","+bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 });
+		}
+		location.replace("BedRoomDetailServlet?bnum="+bnum);
+	}// end function
 </script>
 
 </head>
 <body>
-	
 	<c:set var="bedRoomPageDTO" value="${bedRoomPageDTO}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
 	<c:set var="bedRoomList" value="${bedRoomPageDTO.bedRoomList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
 	<c:set var="bestBedRoomList" value="${bestBedRoomPageDTO.bedRoomList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
@@ -106,7 +123,8 @@
 									<li>
 										<center><p class="rankFont">BEST ${status.count}</p></center><br>
 						            	<div class="img">
-											<a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}">
+						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount});">
+											<%-- <a href="BedRoomDetailServlet?bnum=${bestBedRoomDTO.bnum}"> --%>
 							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
 								  				<div class="desc"><b>
 								  					${bestBedRoomDTO.name}<br>
@@ -150,8 +168,8 @@
 							<c:forEach var="bedRoomDTO" items="${bedRoomList}" varStatus="status">
 								<li>
 					            	<div class="img">
-
-										<a href="BedRoomDetailServlet?bnum=${bedRoomDTO.bnum}">
+					            	
+										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount});">
 						    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
                       
 							  				<div class="desc"><b>
@@ -227,19 +245,11 @@
 				</div>
 			</div> <!-- #bedRoomContent -->
 			<div id="bedRoomAside">
-				오늘 본 상품<br>
-				<table border="1">
-					<tr>
-						<table>
-							<tr><td>상품이름</td></tr>
-							<tr><td>상품가격</td></tr>
-						</table>
-					</tr>
-				</table>
+				오늘 본 상품
+				<ul></ul>
 			</div> <!-- #bedRoomAside -->
 		</div> <!-- #bedRoomWrap -->
 		<br>
-		<div id="side"></div>
 		<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 	</div> <!-- wrap -->
 </body>
