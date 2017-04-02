@@ -9,5 +9,15 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/fluent-hc-4.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/httpclient-4.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/httpclient-cache-4.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/httpclient-win-4.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/httpcore-4.4.3.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/httpmime-4.5.1.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="E:/USB백업/공부자료/에이콘아카데미/수업자료/bluehouselab (문자, 청기와랩)/lib/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

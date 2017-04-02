@@ -17,10 +17,9 @@
 	#bedRoomContent {width:75%; float: left;}
 	#bedRoomContent h3 {margin-left:0px;}
 	
-	#bedRoomAside {width:25%; float: left; margin-top:4.5em; background-color: lightgray;}
-	#bedRoomAside ul{list-style: none; padding: 3px;}
-	#bedRoomAside img {width:40%; height:6em;};
-	#bedRoomAside li{font-size: 0.6em;}
+	#bedRoomAside {width:24%; float: left; margin-top:4.5em; margin-left: 1%;}
+	#bedRoomAside table {font-size: 0.7em;}
+	#bedRoomAside table img {width:100px; height:100px;};
 	
 	#bedRoomVisual {width: 100%; height: 500px; margin:0 auto;}
 	
@@ -71,9 +70,11 @@
 				var name = showDTO[2];
 				var price = showDTO[3];
 				var discount = showDTO[4];
-				$("#bedRoomAside").children("ul").append("<li><img src='images/bedRoom/"+image1+".JPG'>"+name+"<br>"+price*(1.0 - discount/100)+"</li>");
+				$("#bedRoomAside").children("table").append("<tr style='border-top: 1px solid #ddd; border-right: 1px solid #ddd;'><td rowspan='2'><img src='images/bedRoom/"+image1+".JPG' width='50' height='50'></td><td style='text-align: center;'>"+name+"</td></tr><tr style='border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;'><td style='text-align: center;'>가격: "+price*(1.0 - discount/100)+"</td></tr>");
 			}); // end $.each(showList,function(idx,obj)
-		}// end if($.cookie("showList") != null)	
+		}// end if($.cookie("showList") != null)
+			
+			
 	}); // end &(document).ready();
 	function bedRoomDetail(bnum,image1,name,price,discount){
 		var addList = true;
@@ -246,7 +247,7 @@
 			</div> <!-- #bedRoomContent -->
 			<div id="bedRoomAside">
 				오늘 본 상품
-				<ul></ul>
+				<table></table>
 			</div> <!-- #bedRoomAside -->
 		</div> <!-- #bedRoomWrap -->
 		<br>

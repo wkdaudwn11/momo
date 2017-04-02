@@ -28,6 +28,8 @@
     	#joinWrap {width:80%; margin:0 auto;}
     	
     	.content-section {width:45%; float: left; padding-right: 40px; }
+    	
+    	.displayNone {display: none;}
     </style>
     
     <script type="text/javascript"> <!-- Ajax -->
@@ -81,7 +83,8 @@
 	    	var pwd2 = document.getElementById('pwd2');
 	    	var tel = document.getElementById('tel');
 	    	var answer = document.getElementById('answer');
-	    	var addr = document.getElementById('addr');
+	    	var addr = document.getElementById('addr1');
+	    	var isTelComfirm = document.getElementById('isTelComfirm');
 	    	
 	    	if(name.value.length < 1 || name.value.length > 6){
 				alert("이름은 2~6자리만 입력해주세요.");
@@ -118,22 +121,12 @@
 				pwd.value="";
 				pwd.focus();
 				result = false;
-			}else if(pwd2.value.length<1){
-				alert("비밀번호 확인을 입력해 주세요.");
-				pwd2.value="";
-				pwd2.focus();
-				result = false;
 			}else if(pwd.value != pwd2.value){
 				alert("입력하신 비밀번호와 비밀번호 확인이 일치하지 않습니다");
 				pwd2.value="";
 				pwd2.focus();
 				result = false;
-	    	}else if(tel.value.length < 1){
-		        alert("연락처를 입력해주세요.");
-		        tel.value="";
-				tel.focus();
-		        result = false;
-		    }else if(tel.value.length < 9 || tel.value.length > 11){
+	    	}else if(tel.value.length < 9 || tel.value.length > 11){
 		    	alert("연락처는 9~11자리만 입력가능합니다.");
 		        tel.value="";
 				tel.focus();
@@ -143,19 +136,84 @@
 				tel.value="";
 				tel.focus();
 				result = false;
-			}else if(answer.value.length<1){
-		        alert("답변을 입력해 주세요.");
-		        result = false;
-		    }else if(answer.value.length>20){
+			}else if(answer.value.length>20){
 		        alert("입력하신 답변이 너무 깁니다.");
 		        result = false;
-		    }else if(addr.value.length<1){
+		    }else if(addr.value.length < 1){
 		        alert("주소을 입력해 주세요.");
 		        result = false;
+			}else if(isTelComfirm.value == 'x'){
+				alert('인증번호가 틀렸습니다. 다시 입력해주세요.');
+				telConfirm.focus();
+				telConfirm.value="";
+				result = false;
+			}else if(isTelComfirm.value == 'no'){
+				alert('핸드폰 인증을 하셔야 회원가입을 할 수 있습니다.');
+				telConfirm.focus();
+				telConfirm.value="";
+				result = false;
 			}
 	    	
 	    	return result;
 	    }//resultForm(joinform)
+	    
+	    function confirmNumber(tel){
+	    	var telComfirmNumber = 0;
+	    	
+	    	if(tel.value == null || tel.value == ""){
+	    		alert('연락처를 입력해주세요.');
+	    		tel.focus();
+	    	}else if(tel.value.length < 9 || tel.value.length > 11){
+	    		alert('연락처는 9자리 이상 입력하셔야 합니다.');
+	    		tel.focus();
+	    	}else if(!tel.value.match(/[0-9].*[0-9]/)){
+				alert("연락처는 숫자만 입력가능합니다.");
+				tel.focus();
+			}else{
+				if(confirm(tel.value+'(으)로 인증번호를 받으시겠습니까?')){
+					$.ajax({
+						type:"post",
+						url:"randomNumberAjax.jsp",
+						dataType:"text",
+						data:{
+							usertel : tel.value
+						},
+						success:function(responseData,status,xhr){
+							$("#telConfirm").removeClass("displayNone");
+							$("#telConfirm").focus();
+						},//success
+						error:function(error){
+							alert('인증번호 불러오기 실패!');
+						}//error
+					});//ajax
+				}//confirm(tel.value+'(으)로 인증번호를 받으시겠습니까?')
+			}//tel.value == null || tel.value == ""
+	    }//confirmNumber(tel)
+	    
+	    function telConfirmCheck(telConfirm){
+	    	$.ajax({
+				type:"post",
+				url:"telConfirmAjax.jsp",
+				dataType:"text",
+				data:{
+					inputNum : telConfirm.value
+				},
+				success:function(responseData,status,xhr){
+					if(document.getElementById("telConfrimResult").innerText=responseData.trim()=="인증번호가 일치합니다."){
+	    				document.getElementById('isTelComfirm').value = "o";
+	    				$("#telConfrimResult").css("color","green");
+	    			}else if(document.getElementById("telConfrimResult").innerText=responseData.trim()=="인증번호가 불일치합니다."){
+	    				document.getElementById('isTelComfirm').value = "x";
+	    				$("#telConfrimResult").css("color","red");
+	    			}
+					$("#telConfrimResult").text(responseData.trim());
+				},//success
+				error:function(error){
+					alert('인증번호 불러오기 실패!');
+				}//error
+			});//ajax
+	    }//telConfirmCheck(telConfirm)
+	    
 	</script>
 
 </head>
@@ -174,22 +232,24 @@
 	                    <div>	<!-- class="contact-form" -->
 	                        <form name="contactform" id="contactform" action="../JoinAddMember" method="get" onsubmit="return resultForm()">
 	                        	<input type="hidden" id="idCheck" value="x">
+	                        	<input type="hidden" name="isTelComfirm" id="isTelComfirm" value="no">
 	                            <p>
-	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;">                                                    
+	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;" required
+	                                >                                                    
 	                            </p>                          
 	                            <p>
 	                               	<input name="id" type="text" id="id" maxlength="12" placeholder="아이디 (영문,숫자로 6~12)" 
-	                               			ng-model="id" onkeyup="send()" style="height:40px;">
+	                               			ng-model="id" onkeyup="send()" style="height:40px;" required>
 	                               	<font color="#13132f" size="3">
 	                               		<b>{{id}}</b>
                                			<span id="result"></span>
                                		</font>
 	                            </p>
 	                            <p>
-	                               	<input name="pwd" type="password" id="pwd" maxlength="12" placeholder="비밀번호 (영문,숫자,특수문자로 6~12)" style="height:40px;">
+	                               	<input name="pwd" type="password" id="pwd" maxlength="12" placeholder="비밀번호 (영문,숫자,특수문자로 6~12)" style="height:40px;" required>
 	                            </p>
 	                            <p>
-	                               	<input name="pwd2" type="password" id="pwd2" maxlength="12" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;">
+	                               	<input name="pwd2" type="password" id="pwd2" maxlength="12" placeholder="비밀번호확인 (비밀번호와 같게)" style="height:40px;" required>
 	                            </p>
 	                            <p>
 	                                <select name="gender" id="gender">
@@ -198,8 +258,21 @@
 	                                </select> 
 	                            </p>                                                                                        
 	                            <p>
-	                               	<input name="tel" type="text" id="tel" maxlength="11" placeholder="연락처" style="height:40px;">
-	                            </p>                                                                                                                                                                         
+	                               	<input type="text" name="tel" id="tel" maxlength="11" placeholder="연락처" style="height:40px; width: 65%;" required>
+	                               	<input type="button" class="mainBtn" value="인증번호 받기" style="width: 33%;" onclick="confirmNumber(tel)">
+	                            </p>
+	                            <p	id="telConfirmP">
+	                               	<input type="text" name="telConfirm" id="telConfirm" class="displayNone" maxlength="6" placeholder="연락처 인증번호 6자리" style="height:40px;"
+	                               		onkeyup="telConfirmCheck(telConfirm)" required>
+	                               	<font color="#13132f" size="3">
+                               			<span id="telConfrimResult"></span>
+                               		</font>
+	                            </p>
+	                            <p>
+	                            	<font color=blue size="3">이메일은 필수 입력이 아니므로, 없으시다면 패스하셔도 됩니다.</font> <br />
+	                               	<input type="text" name="email1" id="email1" maxlength="15" placeholder="이메일" style="height:40px; width: 48%;">@
+	                               	<input type="text" name="email2" id="email2" maxlength="15" style="height:40px; width: 48%;">
+	                            </p>                                                                                                                                                                           
 	                            <p>
 	                                <select name="question" id="question">                                	
 	                                	<option value="내가 다녔던 초등학교는?">내가 다녔던 초등학교는?</option>
@@ -208,12 +281,12 @@
 	                                </select> 
 	                            </p>
 	                            <p>
-	                                <input name="answer" type="text" id="answer" placeholder="비밀번호 찾기 답" style="height:40px;"> 
+	                                <input name="answer" type="text" id="answer" placeholder="비밀번호 찾기 답" style="height:40px;" required> 
 	                            </p>                            
 	                            <p>
-	                                <input type="text" readonly name="post1" id="post1" class="postcodify_postcode5" style="width:35%; height:40px;" > - 
+	                                <input type="text" readonly name="post1" id="post1" class="postcodify_postcode5" style="width:35%; height:40px;"> - 
 	                                <input type="text" readonly name="post2" id="post2" class="postcodify_postcode5" style="width:35%; height:40px;">
-	                                <input type="button" class="mainBtn" value="검색" style="width:19%; height:40px;" onclick="openDaumPostcode()">
+	                                <input type="button" class="mainBtn" value="검색" style="width:22%" onclick="openDaumPostcode()">
 									<span id="callbacknestsgroomtistorycom739114"
 										style="width: 1px; height: 1px; float: right;"><embed width="1"
 											height="1" id="bootstrappersgroomtistorycom739114"
@@ -225,13 +298,13 @@
 									<span style="line-height: 10%;"><br></span>
 	                            </p>
 	                            <p>
-	                                <input readonly name="addr1" type="text" id="addr1" placeholder="도로명주소" style="height:40px;"> 
+	                                <input name="addr1" type="text" id="addr1" placeholder="도로명주소" style="height:40px;" readonly> 
 	                            </p>
 	                            <p>
-	                                <input name="addr2" type="text" id="addr2" placeholder="지번주소" style="height:40px;"> 
+	                                <input name="addr2" type="text" id="addr2" placeholder="지번주소" style="height:40px;" readonly> 
 	                            </p>                                                        
 	                    
-	                            <input type="submit" class="mainBtn" id="submit" value="회원가입" style="height:40px;">
+	                            <input type="submit" class="mainBtn" id="submit" value="회원가입">
 	                                                    
 	                        </form>
 	                    </div>

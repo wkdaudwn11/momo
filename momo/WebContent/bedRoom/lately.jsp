@@ -19,17 +19,17 @@
 	Cookie[] cookies = request.getCookies();
 	//List<Cookie> cookieList = cookies.subList(1, cookies.size()-1);
 	
-	System.out.println("lately.jsp 가져온 쿠키 ="+cookies);/////////////////////////
+	//System.out.println("lately.jsp 가져온 쿠키 ="+cookies);
 	for(int i =1; i<cookies.length-1;i++){
-		System.out.println("lately.jsp 가져온 쿠키 getName ="+i+"번째"+cookies[i].getName());/////////////////////////////////////////
-		System.out.println("lately.jsp 가져온 쿠키 getValue ="+i+"번째"+cookies[i].getValue());/////////////////////////////////////////
+		//System.out.println("lately.jsp 가져온 쿠키 getName ="+i+"번째"+cookies[i].getName());
+		//System.out.println("lately.jsp 가져온 쿠키 getValue ="+i+"번째"+cookies[i].getValue());
 		cookieList.add(cookies[i].getName());
 	}
-	System.out.println("lately.jsp 쿠키 리스트 = "+cookieList);///////////////////////////////////////
-	System.out.println("lately.jsp 쿠키리스트 사이즈 ="+cookieList.size());//////////////////////////////
+	//System.out.println("lately.jsp 쿠키 리스트 = "+cookieList);
+	//System.out.println("lately.jsp 쿠키리스트 사이즈 ="+cookieList.size());
 	if(cookieList != null && cookieList.size() != 0){
 		List<BedRoomDTO> latelyList = sess.selectList("com.momo.BedRoomMapper.latelyList",cookieList);
-		System.out.println("lately.jsp 가져온 lately리스트 ="+latelyList);///////////////////////////////////////////////
+		//System.out.println("lately.jsp 가져온 lately리스트 ="+latelyList);
 %>
 <ul>
 	<c:forEach var="bedRoomDTO" items="<%=latelyList%>">
