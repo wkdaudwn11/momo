@@ -9,6 +9,7 @@ public class MemberDTO {
 	private String pwd2;
 	private String gender;
 	private String tel;
+	private String email;
 	private String question;
 	private String answer;
 	private String post1;
@@ -20,12 +21,12 @@ public class MemberDTO {
 	private int orderPrice;
 	private int progressingorder;
 	private String sns;
-	
+
 	public MemberDTO() {
 		super();
 	}
 
-	public MemberDTO(int mnum, String name, String id, String pwd, String pwd2, String gender, String tel,
+	public MemberDTO(int mnum, String name, String id, String pwd, String pwd2, String gender, String tel, String email,
 			String question, String answer, String post1, String post2, String addr1, String addr2, String joindate,
 			String logindate, int orderPrice, int progressingorder, String sns) {
 		super();
@@ -36,6 +37,7 @@ public class MemberDTO {
 		this.pwd2 = pwd2;
 		this.gender = gender;
 		this.tel = tel;
+		this.email = email;
 		this.question = question;
 		this.answer = answer;
 		this.post1 = post1;
@@ -52,10 +54,10 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [mnum=" + mnum + ", name=" + name + ", id=" + id + ", pwd=" + pwd + ", pwd2=" + pwd2
-				+ ", gender=" + gender + ", tel=" + tel + ", question=" + question + ", answer=" + answer + ", post1="
-				+ post1 + ", post2=" + post2 + ", addr1=" + addr1 + ", addr2=" + addr2 + ", joindate=" + joindate
-				+ ", logindate=" + logindate + ", orderPrice=" + orderPrice + ", progressingorder=" + progressingorder
-				+ ", sns=" + sns + "]";
+				+ ", gender=" + gender + ", tel=" + tel + ", email=" + email + ", question=" + question + ", answer="
+				+ answer + ", post1=" + post1 + ", post2=" + post2 + ", addr1=" + addr1 + ", addr2=" + addr2
+				+ ", joindate=" + joindate + ", logindate=" + logindate + ", orderPrice=" + orderPrice
+				+ ", progressingorder=" + progressingorder + ", sns=" + sns + "]";
 	}
 
 	public int getMnum() {
@@ -112,6 +114,14 @@ public class MemberDTO {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getQuestion() {
@@ -201,5 +211,5 @@ public class MemberDTO {
 	public void setSns(String sns) {
 		this.sns = sns;
 	}
-
+	
 }

@@ -40,8 +40,8 @@
  	
  	<!-- 회원가입 쿼리 -->
  	<select id="addMember" parameterType="memberDTO"  >
-		insert into member(mnum, name, id, pwd, pwd2, gender, tel, question, answer, post1, post2, addr1, addr2)
-		values(member_seq.nextval, #{name}, #{id}, #{pwd}, #{pwd2}, #{gender}, #{tel}, #{question}, #{answer}, #{post1},
+		insert into member(mnum, name, id, pwd, pwd2, gender, tel, email, question, answer, post1, post2, addr1, addr2)
+		values(member_seq.nextval, #{name}, #{id}, #{pwd}, #{pwd2}, #{gender}, #{tel}, #{email}, #{question}, #{answer}, #{post1},
 							 #{post2}, #{addr1}, #{addr2})
 	</select>
 	

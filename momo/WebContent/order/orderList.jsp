@@ -30,22 +30,9 @@
 		$("#goShopping").on("click", function(){
 			location.replace('BedRoomListServlet');
 		});
-		
-		/*
-			<c:if test="${orderDTO.category == 'bedRoom'}">
-	    		<a class="productMovement" href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
-		    </c:if>
-		*/
-		/* $("#oneDiv").on("click", function(){
-			//if(${orderDTO.category == 'bedRoom'}){
-				alert('category: '+category);
-				$(".productMovement").attr("href", "#");
-				//$(".productMovement").attr("href", "BedRoomDetailServlet?bnum=${orderDTO.pnum}");
-			//}
-		}); */
-
 	});
 	
+	//일반적인 제목을 클릭했을 때
 	function oneDivFunc(category, pnum){
 		if(category == 'bedRoom'){
 			$(".productMovement").attr("href", "BedRoomDetailServlet?bnum="+pnum);
@@ -56,6 +43,7 @@
 		}
 	}
 	
+	// 'ㅁㅁ외 ㅁ건'인 제목을 클릭했을 때
 	function groupDivFunc(y){
 		$(".productMovement").attr("href", "#");
 		$(".toggleTr"+y).toggle(400);
@@ -259,7 +247,7 @@
 								</c:if> <!-- prevGroupnum != orderDTO.groupnum -->
 								
 								<c:if test="${prevGroupnum == orderDTO.groupnum && orderDTO.equalGroupCount > 1}">	<!-- 이전 상품과 현재 상품의 그룹번호가 같으면 -->
-									<tr class="toggleTr${y}" height="30" style="display: none; border-bottom: 1px solid #f6f6f6; background-color: #EEE;">
+									<tr class="toggleTr${y}" height="30" style="display: none; border-bottom: 1px solid #ddd; background-color: #f6f6f6;">
 										<td colspan="7">
 											<table><tr>
 												<td width="200" align="center">-</td>
@@ -301,6 +289,8 @@
 					</c:otherwise>
 				</c:choose>
 			</table> <!-- orderList -->
+			
+			<br>
 			
 			<!-- 페이징처리 -->
 			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
@@ -348,7 +338,6 @@
 				
 				<br>
 			</div>	<!-- paging -->
-			<br>
 			
 			<input type="image" src="images\order/checkDeleteBtn.jpg" id="checkDelete" onclick="deleteCheck(orderForm)">
 			<input type="image" src="images\cart/goShoppingBtn.jpg" id="goShopping">

@@ -7,6 +7,7 @@ create table member(
 	pwd2				varchar2(16)	not null,         --비밀번호 확인
 	gender	    		varchar2(10)	not null,         --성별
 	tel					varchar2(12)	not null,         --연락처
+	email             	varchar2(50)  	null,         --이메일
 	question    		varchar2(50)	not null,         --질문
 	answer				varchar2(50)	not null,         --답변
 	post1				varchar2(3)		not null,         --우편번호1
@@ -18,7 +19,6 @@ create table member(
 	orderprice			number(4)     	default 0,        --총주문금액
 	progressingorder	number(4)		default 0,        --진행중인 주문 갯수
 	sns					varchar2(10)	default null      --sns로그인 (null이면 momo유저)
-
 );
 create sequence member_seq minvalue 0;
 
@@ -229,18 +229,21 @@ references member(id) on delete cascade;
 --주문조회 테이블
 create table orderInfo(
   onum          number(4)     constraint	order_onum_pk	primary key,  --주문번호
-  groupnum      number(4)     not null,          --그룹번호
-  id            varchar2(16)  not null,          --회원아이디
-  pnum          number(4)     not null,          --상품번호
-  category      varchar2(20)  not null,          --해당 상품의 테이블명
-  pname         varchar2(50)  not null,          --상품명
-  count         number(4)     not null,          --주문갯수
-  price         number(9)     not null,          --주문가격
-  discount      number(3)     not null,          --할인율
-  orderdate     date          default sysdate,   --주문 날짜
-  image1        varchar2(100) default null,      --상품사진1
-  orderMessage  varchar2(200),                   --주문메세지
-  orderstate    varchar2(20)  default '입금대기중'  --주문상태
+  groupnum      number(4)     not null,         	--그룹번호
+  id            varchar2(16)  not null,          	--회원아이디
+  pnum          number(4)     not null,          	--상품번호
+  category      varchar2(20)  not null,          	--해당 상품의 테이블명
+  pname         varchar2(50)  not null,          	--상품명
+  count         number(4)     not null,          	--주문갯수
+  price         number(9)     not null,          	--주문가격
+  discount      number(3)     not null,          	--할인율
+  orderdate     date          default sysdate,   	--주문 날짜
+  image1        varchar2(100) default null,      	--상품사진1
+  orderMessage  varchar2(200),                   	--주문메세지
+  orderstate    varchar2(20)  default '입금대기중',		--주문상태
+  equalGroupCount       number(4)     default 1,	--같은 그룹번호 갯수
+  equalGroupTotalPrice  number(9)     default 0,    --같은 그룹번호 상품의 총 구매가격
+  equalGroupTotalCount  number(4)     default 0     --같은 그룹번호 상품의 총 구매갯수
 );
 create sequence orderInfo_seq minvalue 1;
 create sequence orderInfo_groupseq minvalue 1;
