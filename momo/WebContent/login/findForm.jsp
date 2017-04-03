@@ -11,23 +11,67 @@
 	
 	<style type="text/css">
 	
-		#login_wrap {width: 80%; margin: 0 auto;}
+		#login_wrap {width: 50%; margin: 0 auto; border-style: solid; border-color: #CCC;
+			margin-top: 10px; margin-bottom: 10px;}
 		
-		#find_id {width: 50%; float: left; text-align:center; margin-top:50px; margin-bottom:50px;
-			border-top: 3px solid #CCC; border-left: 3px solid #CCC; border-bottom: 3px solid #CCC;}
-			
-		#find_pwd {width: 50%; float: left;  text-align:center; margin-top:50px; margin-bottom:50px; 
-			border: 3px solid #CCC;}
-			
 		.displayNone {display: none;}
-		.displayBlock {display: block;}
 
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
+	<script>
+		$(document).ready(function(){
+			if(document.getElementById('id').checked == true){
+				$("#findPwdDiv").addClass("displayNone");
+			}
+			if(document.getElementById('questionConfirm').selected == true){
+				$(".telConfirmDiv").addClass("displayNone");
+				$(".emailConfirmDiv").addClass("displayNone");
+			}
+		});
+		
+		function checkFind(checkValue){
+			var id = document.getElementById('id');
+			var pwd = document.getElementById('pwd');
+			
+			$("#findIdDiv").removeClass("displayNone");
+			$("#findPwdDiv").removeClass("displayNone");
+			
+			if(checkValue == 'id'){
+				$("#findPwdDiv").addClass("displayNone");
+				pwd.checked = false;
+				id.checked = true;
+			}else{
+				$("#findIdDiv").addClass("displayNone");
+				$("#telConfirmDiv").addClass("displayNone");
+				$("#emailConfirmDiv").addClass("displayNone");
+				id.checked = false;
+				pwd.checked = true;
+			}
+		}//checkFind(checkValue)
+		
+		function selectConfirmFunc(selectConfirm){
+			$(".questionConfirmDiv").removeClass("displayNone");
+			$(".telConfirmDiv").removeClass("displayNone");
+			$(".emailConfirmDiv").removeClass("displayNone");
+			
+			if(selectConfirm.value == 'question'){
+				$(".telConfirmDiv").addClass("displayNone");
+				$(".emailConfirmDiv").addClass("displayNone");
+			}else if(selectConfirm.value == 'tel'){
+				$(".questionConfirmDiv").addClass("displayNone");
+				$(".emailConfirmDiv").addClass("displayNone");
+			}else{
+				$(".questionConfirmDiv").addClass("displayNone");
+				$(".telConfirmDiv").addClass("displayNone");
+			}
+		}//selectConfirmFunc(selectConfirm)
+	</script>
+	
 	<script type="text/javascript">
 		
-		function findIdUI(){
+		/* function findIdUI(){
 			var id = document.getElementById('id');
 			var pwd = document.getElementById('pwd');
 			
@@ -45,11 +89,7 @@
 			
 			var findValue = pwd.value;
 			location.replace("FindUIServlet?findValue="+findValue);
-		}
-		
-		function ajaxUI(findValue){
-			
-		}
+		} */
 		
 	</script>
 
@@ -71,94 +111,224 @@
 	</c:if>
 
 	<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
-	
+	<br />
+	<center>
 	<div id="login_wrap">
-		<div id="find_id">
-        	<h2>아이디 찾기</h2>
-        	<select>
-        		<option>질문과 답변</option>
-        		<option>핸드폰 인증</option>
-        		<option>이메일 인증</option>
+        <div id="findIdDiv"><br />
+        	아이디 찾기<input type="radio" name="id"  id="id" value="id" onClick="checkFind('id')" checked>&nbsp;
+			비밀번호 찾기<input type="radio" name="pwd" id="pwd" value="pwd" onClick="checkFind('pwd')">
+			
+        	<br> <h2>아이디 찾기</h2>
+        	
+        	<select id="selectConfirmId" name="selectConfirmId" onchange="selectConfirmFunc(selectConfirmId)">
+        		<option name="questionConfirm" id="questionConfirm" value="question" selected="selected">질문과 답변으로 찾기</option>
+        		<option name="telConfirm" id="telConfirm" value="tel">핸드폰 인증으로 찾기</option>
+        		<option name="emailConfirm" id="emailConfirm" value="eamil">이메일 인증으로 찾기</option>
         	</select>
         	<br>
-        	<form get="post" action="FindServlet" id="findForm" name="findForm">
-        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
-				<input type="hidden" name="userid"  id="userid" >
-        		<div>
-					<p>
-		    			<span style="width:24%">&nbsp;&nbsp;<b>이　름</b></span>
-		    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
-					</p>
-				</div>
-				<div>
-					<p>
-		    			&nbsp;&nbsp;<span style="width:24%"><b>질　문</b></span>
-		    			<select name="question" style="width:45%; height:30px;">
-	                        	<option>질문을 선택해주세요.</option>
-	                        	<option>내가 다녔던 초등학교는?</option>
-	                        	<option>어머니 성함은?</option>
-	                        	<option>아버지 성함은?</option>
-	                    </select>
-					</p>
-				</div>
-				<div>
-					<p>
-		    			&nbsp;&nbsp;<span style="width:24%"><b>답　변</b></span>
-		    			<!-- <input type="text" name="answer" id="answer" style="width:45%; height:20px;"> -->
-		    			<input type="text" name="answer" id="answer" style="width:45%; height:30px;">
-					</p>
-				</div>
-	            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
-            </form>
-		</div> <!-- find_id -->
-		
-	    <div id="find_pwd">
-        	<h2>비밀번호 찾기</h2>
-        	<select>
-        		<option>질문과 답변</option>
-        		<option>핸드폰 인증</option>
-        		<option>이메일 인증</option>
+        	
+        	<div class="questionConfirmDiv">
+	        	<font size="2" color="#999999">질문을 선택하여 답변을 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>질문</b></span>
+			    			<select name="question" style="width:45%; height:30px;">
+		                        	<option>질문을 선택해주세요.</option>
+		                        	<option>내가 다녔던 초등학교는?</option>
+		                        	<option>어머니 성함은?</option>
+		                        	<option>아버지 성함은?</option>
+		                    </select>
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>답변</b></span>
+			    			<input type="text" name="answer" id="answer" style="width:45%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            
+            <div class="telConfirmDiv">
+	        	<font size="2" color="#999999">이름과 연락처를 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이　　름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>연 락 처</b></span>
+			    			<input type="text" name="tel" id="tel" style="width:25%; height:30px;">
+			    			<input type="button" name="confirmNumberBtn" id="confirmNumberBtn" value="인증번호 받기" style="width: 19%; height: 30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:15%"><b>인증번호</b></span>
+			    			<input type="text" name="confirmNumber" id="confirmNumber" style="width:45%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            
+            <div class="emailConfirmDiv">
+	        	<font size="2" color="#999999">이름과 이메일를 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이　름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>이메일</b></span>
+			    			<input type="text" name="email1" id="email1" style="width:22%; height:30px;">@
+			    			<input type="text" name="email2" id="email2" style="width:22%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            <br />
+        </div><!-- login1 -->
+        
+        <div id="findPwdDiv"><br />
+        	아이디 찾기<input type="radio" name="id"  id="id" value="id" onClick="checkFind('id')">&nbsp;
+			비밀번호 찾기<input type="radio" name="pwd" id="pwd" value="pwd" onClick="checkFind('pwd')" checked>
+			
+        	<br><h2>비밀번호 찾기</h2>
+        	
+        	<select id="selectConfirmPwd" name="selectConfirmPwd" onchange="selectConfirmFunc(selectConfirmPwd)">
+        		<option name="questionConfirm" id="questionConfirm" value="question" selected="selected">질문과 답변으로 찾기</option>
+        		<option name="telConfirm" id="telConfirm" value="tel">핸드폰 인증으로 찾기</option>
+        		<option name="emailConfirm" id="emailConfirm" value="eamil">이메일 인증으로 찾기</option>
         	</select>
         	<br>
-        	<form get="post" action="FindServlet" id="findForm" name="findForm">
-        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
-				<input type="hidden" name="userid"  id="userid" >
-				<div>
-					<p>
-		    			<span style="width:24%">&nbsp;&nbsp;<b>아이디</b></span>
-		    			<input type="text" name="id"  id="id" style="width:45%; height:30px;">
-					</p>
-				</div>
-        		<div>
-					<p>
-		    			<span style="width:24%">&nbsp;&nbsp;<b>이　름</b></span>
-		    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
-					</p>
-				</div>
-				<div>
-					<p>
-		    			&nbsp;&nbsp;<span style="width:24%"><b>질　문</b></span>
-		    			<select name="question" style="width:45%; height:30px;">
-	                        	<option>질문을 선택해주세요.</option>
-	                        	<option>내가 다녔던 초등학교는?</option>
-	                        	<option>어머니 성함은?</option>
-	                        	<option>아버지 성함은?</option>
-	                    </select>
-					</p>
-				</div>
-				<div>
-					<p>
-		    			&nbsp;&nbsp;<span style="width:24%"><b>답　변</b></span>
-		    			<!-- <input type="text" name="answer" id="answer" style="width:45%; height:20px;"> -->
-		    			<input type="text" name="answer" id="answer" style="width:45%; height:30px;">
-					</p>
-				</div>
-	            <input type="image" src="images/login/findPwdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
-            </form>
-		</div> <!-- find_pwd -->
+        	
+        	<div class="questionConfirmDiv">
+	        	<font size="2" color="#999999">질문을 선택하여 답변을 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+					<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>아이디</b></span>
+			    			<input type="text" name="id"  id="id" style="width:45%; height:30px;">
+						</p>
+					</div>
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이　름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>질　문</b></span>
+			    			<select name="question" style="width:45%; height:30px;">
+		                        	<option>질문을 선택해주세요.</option>
+		                        	<option>내가 다녔던 초등학교는?</option>
+		                        	<option>어머니 성함은?</option>
+		                        	<option>아버지 성함은?</option>
+		                    </select>
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>답　변</b></span>
+			    			<input type="text" name="answer" id="answer" style="width:45%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            
+            <div class="telConfirmDiv">
+	        	<font size="2" color="#999999">아이디, 이름, 연락처를 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+					<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>아 이 디</b></span>
+			    			<input type="text" name="id"  id="id" style="width:45%; height:30px;">
+						</p>
+					</div>
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이　　름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>연 락 처</b></span>
+			    			<input type="text" name="tel" id="tel" style="width:25%; height:30px;">
+			    			<input type="button" name="confirmNumberBtn" id="confirmNumberBtn" value="인증번호 받기" style="width: 19%; height: 30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:15%"><b>인증번호</b></span>
+			    			<input type="text" name="confirmNumber" id="confirmNumber" style="width:45%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            
+            <div class="emailConfirmDiv">
+	        	<font size="2" color="#999999">아이디, 이름, 이메일를 작성해주세요.</font>
+	        	<form get="post" action="FindServlet" id="findForm" name="findForm">
+	        		<input type="hidden" name="findValue" value="${requestScope.findValue}">
+					<input type="hidden" name="userid"  id="userid" >
+					<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>아이디</b></span>
+			    			<input type="text" name="id"  id="id" style="width:45%; height:30px;">
+						</p>
+					</div>
+	        		<div>
+						<p>
+			    			<span style="width:24%">&nbsp;&nbsp;<b>이　름</b></span>
+			    			<input type="text" name="name"  id="name" style="width:45%; height:30px;">
+						</p>
+					</div>
+					<div>
+						<p>
+			    			&nbsp;&nbsp;<span style="width:24%"><b>이메일</b></span>
+			    			<input type="text" name="email1" id="email1" style="width:22%; height:30px;">@
+			    			<input type="text" name="email2" id="email2" style="width:22%; height:30px;">
+						</p>
+					</div>
+		            <input type="image" src="images/login/findIdBtn.jpg" style="width:100px; height:40px;"> <!-- 서브밋 버튼 -->
+	            </form>
+            </div>
+            
+            <br />
+        </div><!-- login1 -->
     </div> <!-- login_wrap -->
-    
-    　<br />
+    </center>
+    <br />
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>
