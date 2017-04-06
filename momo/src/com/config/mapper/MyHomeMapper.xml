@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.momo.MyHomeMapper">
+
+	<!-- 레코드 지우는 쿼리 -->
+	<delete id="myHomeDelete" parameterType="int">
+		delete from myhome 
+		where hnum = #{hnum}
+	</delete>
+
+	<!-- 조회수 readCnt 증가시키는 쿼리 -->
+	<update id="readCntPlus" parameterType="int">
+		update myhome
+		set readCnt = readCnt+1
+		where hnum = #{hnum}
+	</update>
+
+	<!-- 테이블 레코드 하나 가져오는 쿼리 -->
+	<select id="detailMyHome" resultType="MyHomeDTO" parameterType="int">
+		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd'),readCnt,goodCnt
+		from myhome
+		where hnum=#{hnum}
+	</select>
+
+	<!-- 테이블에 레코드 추가 하는 쿼리 -->
+	<insert id="insertMyHome" parameterType="MyHomeDTO">
+		insert into myhome(hnum,id,img,title,content,author)
+		values(myhome_seq.nextval,#{id},#{img},#{title},#{content},#{author})
+	</insert>
+
+	<!-- 리스트 개수 가져오는 쿼리 -->
+	<select id="totalRecord" resultType="int">
+		select count(*) from myhome
+	</select>
+	
+	<!-- 리스트 가져오는 쿼리 -->
+	<select id="myHomeList" resultType="MyHomeDTO">
+		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd'),readCnt,goodCnt
+		from myhome
+		order by writeday desc 
+	</select>
+	
+</mapper>
