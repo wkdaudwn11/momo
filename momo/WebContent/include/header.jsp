@@ -21,7 +21,7 @@
 <!-- 페북 -->
 <jsp:include page="sns/facebook.jsp" flush="true"></jsp:include>
 
-<script type="text/javascript" src="js/jquery-3.1.0.js"></script> 
+ 
 <script src="js/jquery.cookie.js"></script>
 <!-- notification -->
 <jsp:include page="notification.jsp" flush="true"></jsp:include>
@@ -134,7 +134,7 @@
 			</a>
 		</li>
 		<li><!-- MyHome -->
-			<a href="" onmouseout="MM_swapImgRestore()" 
+			<a href="MyHomeListServlet" onmouseout="MM_swapImgRestore()" 
 				onmouseover="MM_swapImage('MyHome','','images/menu/MyHome_over.jpg',1)">
 				<img src="images/menu/MyHome.jpg" id="MyHome" />
 			</a>

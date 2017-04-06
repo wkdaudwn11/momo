@@ -23,6 +23,7 @@
 		<typeAlias type="com.entity.livingRoom.LivingRoomDTO" alias="LivingRoomDTO"/>
 		<typeAlias type="com.entity.kitchen.KitchenDTO" alias="KitchenDTO"/>
 		<typeAlias type="com.entity.childrenRoom.ChildrenRoomDTO" alias="ChildrenRoomDTO"/>
+		<typeAlias type="com.entity.myhome.MyHomeDTO" alias="MyHomeDTO"/>
 		
 		<typeAlias type="com.entity.cart.CartDTO" alias="CartDTO"/>
 		
@@ -49,6 +50,7 @@
 		<mapper resource="com/config/mapper/LivingRoomMapper.xml" />
 		<mapper resource="com/config/mapper/KitchenMapper.xml" />
 		<mapper resource="com/config/mapper/ChildrenRoomMapper.xml" />
+		<mapper resource="com/config/mapper/MyHomeMapper.xml" />
 		<mapper resource="com/config/mapper/CartMapper.xml" />
 		<mapper resource="com/config/mapper/OrderMapper.xml" />
 		<mapper resource="com/config/mapper/MyPageMapper.xml" />

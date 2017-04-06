@@ -31,50 +31,58 @@ create table question(
   ref         number(4) ,               --그룹 지을때 쓰는 컬럼
   qlevel      number(1),                --답글인지 구분위해 사용
   qnum        number(4) constraint question_qunm_pk primary key,
-  id		  varchar2(15) not null,    --작성자의 아이디
-  password    varchar2(15),             --비밀번호
+  id		  varchar2(16),				--작성자의 아이디
+  password    varchar2(16),             --비밀번호
   category    varchar2(10) not null,    --분류
   title       varchar2(50) not null,    --제목
   content     varchar2(4000) not null,  --내용
   author      varchar2(20) not null,    --작성자 이름
   writeday    date default sysdate,     --작성날짜
   readCnt     number(5) default 0,      --조회수
-  constraint  question_ref_fk foreign key(ref) references question(qnum) on delete cascade
-
+  constraint  question_ref_fk foreign key(ref) references question(qnum) on delete cascade,
+  constraint question_id_fk foreign key(id) references member(id) on delete cascade 
 );
 
 	create sequence question_seq minvalue 1;
 
+-- 마이홈 테이블
+Create table myhome(
+
+ hnum 	  	number(6)		constraint myhome_hnum_pk primary key,--게시판번호
+ id       	varchar2(16),					--작성자의 아이디
+ author		varchar2(16)	not null,		--작성자 이름
+ title	  	varchar2(50)	not null,		--제목
+ img		varchar2(100),					-- 등록한 이미지
+ orderList	varchar2(100)	not	null,		-- 등록한 주문내역 (미구현)
+ content	varchar2(4000)	not null,		--내용
+ writeday	date		    default sysdate,--작성일
+ readcnt	number(4)		default 0,		--조회
+ goodcnt	number(4)		default 0,		--추천수
+ replecnt 	number(4)       default 0,      --댓글수
+ constraint myhome_id_fk foreign key(id) references member(id) on delete cascade
+);
+
+	create sequence myhome_seq minvalue 0;	
+	
+	
 --자유게시판 테이블
 Create table freeBoard(
 
  fnum 	  	number(4)		constraint freeBoard_fnum_pk primary key,--게시판번호
- id       	varchar2(16)    not null,       --작성자의 아이디
- author		varchar2(15)	not null,		--작성자 이름
+ id       	varchar2(16),					--작성자의 아이디
+ author		varchar2(16)	not null,		--작성자 이름
  title	  	varchar2(50)	not null,		--제목
  content	varchar2(4000)	not null,		--내용
  writeday	date		    default sysdate,--작성일
  readcnt	number(4)		default 0,		--조회
  goodcnt	number(4)		default 0,		--추천수
- replecnt 	number(4)       default 0       --댓글수
+ replecnt 	number(4)       default 0,      --댓글수
+ constraint freeboard_id_fk foreign key(id) references member(id) on delete cascade
 
 );
 
 	create sequence freeBoard_seq minvalue 1;
 
-
-
---자유게시판 댓글 테이블 (기존 꺼)
-Create table freeBoardReple(
-
- frnum 	  	number(4)		constraint freeBoard_frnum_pk primary key,--댓글번호
- fnum     	number(4)       not null,       --게시판번호 (fk)
- id       	varchar2(16)    not null,       --작성자의 아이디
- author 	varchar2(15)	not null,		--작성자
- content	varchar2(4000)	not null,	    --내용
- writeday	date            default sysdate --작성일
-
-);
 
 --자유게시판 댓글 테이블 (댓글의 댓글 추가)
 Create table freeBoardReple(  
@@ -85,10 +93,12 @@ Create table freeBoardReple(
  pfrnum 	number(4)  		not null , 		-- 부모의 고유넘버
  frnum 	  	number(4)		constraint freeBoardReple_frnum_pk primary key,	--댓글번호, 댓글의 고유번호 ref
  fnum     	number(4)       not null,       --게시판번호 (fk)
- author 	varchar2(15)	not null,		--작성자
+ id			varchar2(16),					-- 아이디 (fk)
+ author 	varchar2(16)	not null,		--작성자
  content	varchar2(4000)  not null,	    --내용
- writeday	date            default sysdate --작성일
-
+ writeday	date            default sysdate,--작성일
+constraint freeBoardReple_id_fk foreign key(id) references member(id) on delete cascade,
+constraint freeBoardReple_fnum_fk foreign key(fnum) references freeboard(fnum) on delete cascade
 );
 
 alter table freeBoardReple add constraint freeBoardReple_fnum_fk foreign key(fnum)
@@ -104,7 +114,7 @@ create sequence freeBoardReple_seq minvalue 0;
 
 -- 자유게시판 추천 기록 테이블  --
 create table recommendRecord(
-  id varchar2(15) not null,	--회원 아이디
+  id varchar2(16),			--회원 아이디
   fnum number(4) not null,	--게시판 번호
   constraint recommendRecord_fnum_fk foreign key(fnum) references freeBoard(fnum) on delete cascade,
   constraint recommendRecord_id_fk foreign key(id) references Member(id) on delete cascade
@@ -162,6 +172,8 @@ values(bedroom_seq.nextval, '4', '바움S) 원목침대Q', '내용', 2760000, 30
 
 insert into bedroom(bnum, category, name, content, price, discount, buycount, image1, image2)
 values(bedroom_seq.nextval, '5', '스텔라S) 장롱3000/WA', '내용', 1524000, 40, 15, '5-1', '5-1_detail');
+
+
 
 -- LivingRoom  테이블 
 create table livingroom(
@@ -230,7 +242,7 @@ references member(id) on delete cascade;
 create table orderInfo(
   onum          number(4)     constraint	order_onum_pk	primary key,  --주문번호
   groupnum      number(4)     not null,         	--그룹번호
-  id            varchar2(16)  not null,          	--회원아이디
+  id            varchar2(16),          	--회원아이디
   pnum          number(4)     not null,          	--상품번호
   category      varchar2(20)  not null,          	--해당 상품의 테이블명
   pname         varchar2(50)  not null,          	--상품명
@@ -243,7 +255,8 @@ create table orderInfo(
   orderstate    varchar2(20)  default '입금대기중',		--주문상태
   equalGroupCount       number(4)     default 1,	--같은 그룹번호 갯수
   equalGroupTotalPrice  number(9)     default 0,    --같은 그룹번호 상품의 총 구매가격
-  equalGroupTotalCount  number(4)     default 0     --같은 그룹번호 상품의 총 구매갯수
+  equalGroupTotalCount  number(4)     default 0,    --같은 그룹번호 상품의 총 구매갯수
+  constraint orderInfo_id_fk foreign key(id) references member(id) on delete cascade
 );
 create sequence orderInfo_seq minvalue 1;
 create sequence orderInfo_groupseq minvalue 1;

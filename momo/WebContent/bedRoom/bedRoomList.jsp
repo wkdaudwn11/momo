@@ -73,7 +73,7 @@
 				var name = showDTO[2];
 				var price = showDTO[3];
 				var discount = showDTO[4];
-				$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='images/bedRoom/"+image1+".JPG'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:DeleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+				$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='images/bedRoom/"+image1+".JPG'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
 			}); // end $.each(showList,function(idx,obj)
 		}// end if($.cookie("showList") != null)
 			
@@ -97,7 +97,7 @@
 		location.replace("BedRoomDetailServlet?bnum="+bnum);
 	}// end function bedRoomDetail(bnum,image1,name,price,discount)
 	
-	function DeleteShowList(bnum){
+	function deleteShowList(bnum){
 		var filter = $.grep(showList,function(obj,idx){
 			var ampersand = obj.indexOf('&');
 			return obj.slice(0,ampersand) == bnum;
@@ -107,7 +107,7 @@
 		else{ $.cookie("showList",filter); }
 		
 		location.reload();
-	}// function DeleteShowList(bnum)
+	}// function deleteShowList(bnum)
 </script>
 
 </head>
