@@ -93,13 +93,13 @@
 		<c:if test="${sessionScope.login == null }"> <!-- 로그인 안했을 경우 -->
 	           	<li><a class="login_color" href="../LoginUIServlet">로그인</a></font></li>
 	           	<li><a class="login_color" href="../JoinUIServlet">회원가입</a></font></li>
+	           	<li><a class="login_black" href="../FindUIServlet">ID/PW찾기</a></li>
 		</c:if>	
 		<c:if test="${sessionScope.login != null}"> <!-- 로그인 했을 경우 -->
            	<li><a class="login_color" href="javascript:logout()">로그아웃</a></font></li>
            	<li><a class="login_color" href="../PwdCheckUIServlet">정보수정</a></font></li>
+           	<li><a class="login_black" href="../CartListServlet">장바구니</a></li>
 		</c:if>
-		
-			<li><a class="login_black" href="../CartListServlet">장바구니</a></li>
 			<li><a class="login_black" href="../OrderListUIServlet">주문내역</a></li>
             <li><a class="login_black" href="../MyPageUIServlet">마이페이지</a></li>
 			<li><a class="login_black" href="../QuestionListServlet">고객문의</a></li>

@@ -234,8 +234,7 @@
 	                        	<input type="hidden" id="idCheck" value="x">
 	                        	<input type="hidden" name="isTelComfirm" id="isTelComfirm" value="no">
 	                            <p>
-	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;" required
-	                                >                                                    
+	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;" required>                                                    
 	                            </p>                          
 	                            <p>
 	                               	<input name="id" type="text" id="id" maxlength="12" placeholder="아이디 (영문,숫자로 6~12)" 

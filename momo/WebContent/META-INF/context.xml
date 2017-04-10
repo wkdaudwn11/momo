@@ -19,7 +19,7 @@
 	<Resources>
 		<PreResources 
 		className="org.apache.catalina.webresources.DirResourceSet" 
-		base="C:\Users\user\Desktop\MyHomeImg" webAppMount="/images" />
+		base="C:\MyHomeImg" webAppMount="/images" />
 	</Resources>
 
 </Context>

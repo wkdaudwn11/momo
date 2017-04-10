@@ -15,11 +15,11 @@ public class FindUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String findValue = request.getParameter("findValue");
+		/*String findValue = request.getParameter("findValue");
 		
 		if(findValue == null) findValue = "id";
 	
-		request.setAttribute("findValue", findValue);
+		request.setAttribute("findValue", findValue);*/
 		RequestDispatcher dis = request.getRequestDispatcher("login/findForm.jsp");
 		dis.forward(request, response);
 		
