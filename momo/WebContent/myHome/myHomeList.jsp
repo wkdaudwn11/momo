@@ -37,11 +37,11 @@
 	
 	.img {float: left;}
 	.img:hover {border: 1px solid #13132f;}
-	.img img {width: 100%; height: auto;}
+	.img img {width: 100%; height: 12.500em;}
 	.img a{color:#13132f; text-decoration: none;}
 	.img a:hover{color:#EDA900; text-decoration: none;}
 	
-	.desc {padding: 15px; text-align: center;}
+	.desc {padding: 0.938em; text-align: center;}
 	
 </style>
 
@@ -74,7 +74,7 @@
 		<div id="myHomeContent">
 			<h3>마이홈자랑</h3>
 			<%-- <c:if test="${sessionScope.login != null}"> --%>
-				<a id="writebtn" href="myHomeWriteUIServlet">자랑하기</a>
+				<a id="writebtn" href="MyHomeWriteUIServlet">자랑하기</a>
 			<%-- </c:if> --%>
 			<hr style="margin-top:0;">
 			
@@ -127,6 +127,9 @@
 					<ul class="contents_22_product_images">
 					
 						<c:forEach var="myHomeDTO" items="${myHomeList}" varStatus="status">
+							<c:if test="${myHomeDTO.img == null}">
+								<c:set var="mainImg" value=""/>
+							</c:if>
 							<c:forTokens var="img" items="${myHomeDTO.img}" delims="," varStatus="imgSts">
 								<c:if test="${imgSts.index == 0}">
 									<c:set var="mainImg" value="${img}"/>
@@ -136,7 +139,12 @@
 							<li>
 				            	<div class="img">
 									<a href="MyHomeDetailServlet?hnum=${myHomeDTO.hnum}&curPage=${curPage}">
-					    				<img src="images/${mainImg}">
+					    				<c:if test="${myHomeDTO.img != null}">	
+					    					<img src="images/${mainImg}" />
+					    				</c:if>
+					    				<c:if test="${myHomeDTO.img == null }">
+					    					<img src="images/ImgNotFound.png"/>
+					    				</c:if>
 						  				<div class="desc"><b>
 						  					${myHomeDTO.title}<br>
 						  				</b></div>

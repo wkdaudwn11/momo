@@ -36,10 +36,10 @@
 		}
 	}); // end $(document).ready(function()
 			
-	function myHomeDelete(hnum,curPage){
+	function myHomeDelete(hnum,curPage,img){
 		var conf = confirm('정말 삭제 하시겠습니까?');
 		if(conf){
-			location.replace("MyHomeDeleteServlet?hnum="+hnum+"&curPage="+curPage);
+			location.replace("MyHomeDeleteServlet?hnum="+hnum+"&curPage="+curPage+"&img="+img);
 		}
 	} // end function myHomeDelete(hnum,curPage)
 </script>
@@ -51,6 +51,9 @@
 
 <div id="myHomeDetailWrap">
 	<c:set var="imgList" value="${fn:split(MyHomeDTO.img,',')}" scope="page"></c:set>
+	<c:if test="${MyHomeDTO.img == null}">
+		<c:set var="mainImg" value="ImgNotFound.png"/>
+	</c:if>
 	<c:forTokens var="img" items="${MyHomeDTO.img}" delims="," varStatus="status">
 		<c:if test="${status.index == 0}">
 			<c:set var="mainImg" value="${img}"/>
@@ -59,7 +62,7 @@
 	<h3>마이홈자랑</h3>
 		<c:if test="${sessionScope.login.id == MyHomeDTO.id || sessionScope.login.id == 'admin' }">
 			<a href="MyHomeWriteUIServlet?curPage=${curPage}&hnum=${MyHomeDTO.hnum}&title=${MyHomeDTO.title}&content=${MyHomeDTO.content}"><img src="images\freeBoard/updateBtn.jpg"></a>
-			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage});"><img src="images\freeBoard/deleteBtn.jpg"></a>
+			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage}<c:if test='${MyHomeDTO.img != null}'>,'${MyHomeDTO.img}'</c:if>);"><img src="images\freeBoard/deleteBtn.jpg"></a>
 		</c:if>
 	<a href="MyHomeListServlet?curPage=${curPage}"><img src="images\freeBoard/listBtn.jpg"></a>
 	
@@ -77,9 +80,12 @@
 	<hr>
 	
 	<div id="myHomeDetailContent">
-		<c:forEach var="img" items="${imgList}" varStatus="status">
-			<img src="images/${img}">
-		</c:forEach>
+		<c:if test="${MyHomeDTO.img != null}">
+			<c:forEach var="img" items="${imgList}" varStatus="status">
+				<img src="images/${img}">
+			</c:forEach>
+		</c:if>
+		<br>
 		${MyHomeDTO.content}
 	</div>
 		

@@ -26,7 +26,7 @@ public class FreeBoardWriteServlet extends HttpServlet {
 		String target ="";
 		try{
 			if(member == null){
-				target="http://localhost:8090/momo/LoginUIServlet";
+				target="LoginUIServlet";
 				throw new LoginFailException();
 			}else{
 				String title =request.getParameter("title");
@@ -38,7 +38,7 @@ public class FreeBoardWriteServlet extends HttpServlet {
 				dto.setId(member.getId());
 				
 				service.boardWrite(dto);
-				target ="http://localhost:8090/momo/FreeBoardListServlet";
+				target ="FreeBoardListServlet";
 			}
 		}catch(Exception e){
 			request.setAttribute("loginFail", e.getMessage());
