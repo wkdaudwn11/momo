@@ -45,21 +45,41 @@
 							 #{post2}, #{addr1}, #{addr2})
 	</select>
 	
-	<!-- 아이디 찾기  -->
-	<select id="FindMemberId" parameterType="hashmap" resultType="MemberDTO">
-		select * from member where name=#{name} and question=#{question} and answer=#{answer}
-   	</select>
-   	
-	<!-- 비밀번호 찾기 -->
-	<select id="FindMemberPwd" parameterType="hashmap" resultType="MemberDTO">
-		select * from member where id=#{userid} and question=#{question} and answer=#{answer} 
-   	</select>
-   	
    	<!-- sns 유저가 주문을 할 때, 입력한 배송지 정보를 회원 정보에 등록할 때 update해주는 쿼리 -->
    	<update id="updateSNSMemberAddr" parameterType="hashmap">
    		update member 
    		   set tel=#{tel}, post1=#{post1}, post2=#{post2}, addr1=#{addr1}, addr2=#{addr2}
    		 where id=#{id}
    	</update>
+   	
+	<!-- 질문과 답변으로 아이디 찾는 쿼리 findIdTelMember -->
+	<select id="findIdQuestionMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where name=#{name} and question=#{question} and answer=#{answer}
+   	</select>
+   	
+   	<!-- 핸드폰 인증으로 아이디 찾는 쿼리 -->
+	<select id="findIdTelMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where name=#{name} and tel=#{tel}
+   	</select>
+   	
+   	<!-- 넘겨받은 이름, 이메일에 대한 아이디가 있는지 없는지 판단하는 쿼리   -->
+	<select id="findIdEmailMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where name=#{name} and email=#{email}
+   	</select>
+   	
+   	<!-- 질문과 답변으로 비밀번호 찾는 쿼리   -->
+   	<select id="findPwdQuestionMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where id=#{id} and name=#{name} and question=#{question} and answer=#{answer}
+   	</select>
+   	
+   	<!-- 핸드폰 인증으로 비밀번호 찾는 쿼리  -->
+	<select id="findPwdTelMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where id=#{id} and name=#{name} and tel=#{tel}
+   	</select>
+   	
+   	<!-- 넘겨받은 아이디, 이름, 이메일에 대한 아이디가 있는지 없는지 판단하는 쿼리   -->
+	<select id="findPwdEmailMember" parameterType="hashmap" resultType="MemberDTO">
+		select * from member where id=#{id} and name=#{name} and email=#{email}
+   	</select>
    	
 </mapper>

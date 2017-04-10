@@ -122,28 +122,6 @@ public class MemberService {
 		}
 	}//addMember(MemberDTO dto)
 	
-	/** 아이디/패스워드 찾는 메소드 */
-	public MemberDTO findMember(HashMap<String, String> map) throws CommonException{
-		
-		MemberDTO dto = null;
-		SqlSession session = MySqlSessionFactory.openSession();
-		
-		try {
-			if(map.get("findValue").equals("id")){
-				dto = (MemberDTO) session.selectOne(namespace+"FindMemberId",map);
-			}else if(map.get("findValue").equals("pwd")){
-				dto = (MemberDTO)session.selectOne(namespace+"FindMemberPwd",map);					
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new CommonException("잘못된 정보입니다.");
-		}finally{
-			session.close();
-		}
-		return dto;
-	}//findMember(HashMap<String, String> map)
-
 	/** 페이스북 유저가 주문을 할 때, 입력한 배송지 정보를 회원 정보에 등록할 때 update해주는 메소드 */
 	public void updateSNSMemberAddr(String id, String tel, String post1, String post2, String addr1, String addr2) {
 		
@@ -165,6 +143,39 @@ public class MemberService {
 			session.close();
 		}
 		
+	}
+
+	/** 아이디/비밀번호 찾기 메소드 */
+	public MemberDTO findMember(HashMap map) throws CommonException{
+		MemberDTO dto = null;
+		SqlSession session = MySqlSessionFactory.openSession();
+		
+		try {
+			if(map.get("findRadio").equals("id")){	// 아이디 찾기냐
+				if(map.get("findSelect").equals("question")){	//질문과 답변이냐
+					dto = (MemberDTO) session.selectOne(namespace+"findIdQuestionMember",map);
+				}else if(map.get("findSelect").equals("tel")){	//핸드폰 인증이냐
+					dto = (MemberDTO) session.selectOne(namespace+"findIdTelMember",map);
+				}else{
+					dto = (MemberDTO) session.selectOne(namespace+"findIdEmailMember",map);
+				}
+			}else{	// 비밀번호 찾기냐
+				if(map.get("findSelect").equals("question")){	//질문과 답변이냐
+					dto = (MemberDTO) session.selectOne(namespace+"findPwdQuestionMember",map);
+				}else if(map.get("findSelect").equals("tel")){	//핸드폰 인증이냐
+					dto = (MemberDTO) session.selectOne(namespace+"findPwdTelMember",map);
+				}else{
+					dto = (MemberDTO) session.selectOne(namespace+"findPwdEmailMember",map);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CommonException("잘못된 정보입니다.");
+		}finally{
+			session.close();
+		}
+		return dto;
 	}
 
 }
