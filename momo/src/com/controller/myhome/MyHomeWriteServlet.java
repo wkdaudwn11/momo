@@ -35,7 +35,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 		MyHomeService service = new MyHomeService();
 		
 		MemberDTO member = (MemberDTO)session.getAttribute("login"); 
-		String curPage = request.getParameter("curPage");
+		String curPage = null;
 		String target = null;
 		
 		try{
@@ -59,7 +59,8 @@ public class MyHomeWriteServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				ArrayList<String> sampleList = new ArrayList<>();
+				ArrayList<String> sampleList = new ArrayList<String>();
+				boolean fileExist = true;
 				
 				for(FileItem item : items){
 					if(item.isFormField()){
@@ -68,31 +69,42 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("title")){ myHomeDTO.setTitle(value);}else
 						if(name.equals("content")){ myHomeDTO.setContent(value);}else
 						if(name.equals("author")){ myHomeDTO.setAuthor(value);}else
+						if(name.equals("hnum")){ myHomeDTO.setHnum(Integer.parseInt(value)); }else
+						if(name.equals("curPage")){ curPage = value; }else
 						if(name.equals("orderList")){ /*DTO 에 아직 안만들었다. Write에도 미구현*/ }
 						
 					}else{
-						File file = new File("C:\\Users\\user\\Desktop\\MyHomeImg",item.getName());
-						// 테스터 PC 에 폴더 만들어야한다.
-						try {
-							item.write(file);
-						} catch (Exception e) {
-							e.printStackTrace();
+						if(item.getName().equals("")){ 
+							fileExist = false;
 						}
-						sampleList.add(item.getName());
+						if(fileExist == true){
+							File file = new File("C:\\Users\\user\\Desktop\\MyHomeImg",item.getName());
+							// 테스터 PC 에 폴더 만들어야한다.
+							file.canExecute();
+							try {
+								item.write(file);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							sampleList.add(item.getName());
+						 }// end if  
 					}
 				} // end for
 				
 				myHomeDTO.setId( member.getId() );
+				
 				myHomeDTO.setImg( StringUtils.join(sampleList,",") );
-				
-				service.InsertMyHome(myHomeDTO);
-				
+		
+				if(curPage == null){ 
+					service.myHomeInsert(myHomeDTO); 
+				}else{	service.myHomeUpdate(myHomeDTO); }
 				
 				target = "MyHomeListServlet";
 			}else{
 				throw new LoginFailException();
 			}
 		}catch(Exception e){
+			e.getStackTrace();
 			/*request.setAttribute("loginFail",e.getMessage());*/
 			target = "LoginUIServlet";
 		}

@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.momo.MyHomeMapper">
 
+	<!-- 레코드 업데이트 -->
+	<update id="myHomeUpdate" parameterType="MyHomeDTO">
+		update myhome
+		set title = #{title},content = #{content}
+		<if test="img != '' ">
+			,img=#{img}
+		</if>
+		where hnum = #{hnum}
+	</update>
+
 	<!-- 레코드 지우는 쿼리 -->
 	<delete id="myHomeDelete" parameterType="int">
 		delete from myhome 
@@ -25,7 +35,7 @@
 	</select>
 
 	<!-- 테이블에 레코드 추가 하는 쿼리 -->
-	<insert id="insertMyHome" parameterType="MyHomeDTO">
+	<insert id="myHomeInsert" parameterType="MyHomeDTO">
 		insert into myhome(hnum,id,img,title,content,author)
 		values(myhome_seq.nextval,#{id},#{img},#{title},#{content},#{author})
 	</insert>

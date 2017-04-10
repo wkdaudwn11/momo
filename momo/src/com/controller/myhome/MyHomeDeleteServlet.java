@@ -1,5 +1,6 @@
 package com.controller.myhome;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +18,15 @@ public class MyHomeDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String hnum = request.getParameter("hnum");
 		String curPage = request.getParameter("curPage");
+		String img = request.getParameter("img");
 		
+		if(img.equals("undefined") == false){
+			String[] imgList = img.split(",");
+			for(String image : imgList){
+				File file = new File("C:\\Users\\user\\Desktop\\MyHomeImg",image);
+				file.delete();
+			}// end for
+		}// end if
 		MyHomeService service = new MyHomeService();
 		
 		service.myHomeDelete(Integer.parseInt(hnum));

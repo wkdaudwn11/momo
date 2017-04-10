@@ -13,6 +13,16 @@ public class MyHomeService{
 
 	private final String name = "com.momo.MyHomeMapper.";
 	
+	/** 수정  메서드 */
+	public void myHomeUpdate(MyHomeDTO myHomeDTO){
+		SqlSession session = MySqlSessionFactory.openSession();
+		try{
+			session.update(name+"myHomeUpdate",myHomeDTO);
+			session.commit();
+		}finally{
+			session.close();
+		}
+	}// end myHomeUpdate(MyHomeDTO myHomeDTO)
 	
 	/** 삭제 하는 메서드 */
 	public void myHomeDelete(int hnum){
@@ -50,10 +60,10 @@ public class MyHomeService{
 	} // end MyHomeDTO detailMyHome(int hnum)
 	
 	/** myHome 테이블에 레코드 추가하는 메서드 */
-	public void InsertMyHome(MyHomeDTO myHomeDTO){
+	public void myHomeInsert(MyHomeDTO myHomeDTO){
 		SqlSession session  = MySqlSessionFactory.openSession();
 		try{
-			session.insert(name+"insertMyHome",myHomeDTO);
+			session.insert(name+"myHomeInsert",myHomeDTO);
 			session.commit();
 		}finally{
 			session.close();

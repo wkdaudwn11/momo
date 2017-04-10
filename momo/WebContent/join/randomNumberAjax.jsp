@@ -25,7 +25,7 @@
 
 <%!
 	public static final String appid = "momoApp";
-	public static final String apikey = "123"; //d7fd1fc6141a11e7ad4f0cc47a1fcfae
+	public static final String apikey = "d7fd1fc6141a11e7ad4f0cc47a1fcfae"; //d7fd1fc6141a11e7ad4f0cc47a1fcfae
 	public static final String content = "ㅋ";
 	public static final String sender = "01080107913";
 	public static final String receiver = "ㅋ"; 

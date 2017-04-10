@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.entity.member.MemberDTO;
 import com.entity.myhome.MyHomeDTO;
 
-@WebServlet("/myHomeWriteUIServlet")
-public class myHomeWriteUIServlet extends HttpServlet {
+@WebServlet("/MyHomeWriteUIServlet")
+public class MyHomeWriteUIServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*response.sendRedirect("myHome/myHomeWrite.jsp");*/

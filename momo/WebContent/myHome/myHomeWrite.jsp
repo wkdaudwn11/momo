@@ -36,6 +36,14 @@
 			location.replace("LoginUIServlet");
 	   	}
 		
+		$("#content").on("focus",function(){
+			if($("#title").val() == ""){
+				alert("제목을 입력해주세요");
+				$("#content").trigger("blur");
+				$("#title").trigger("focus");
+			}
+		});
+		
 		$("#button").on("click",function(){
 			window.open("OrderListServlet","주문내역 상세보기",'width=750,height=300,location=no,resizeable=no');
 		});
@@ -74,6 +82,10 @@
 	}); // end $(document).ready(function()
 			
 	function myHomeWrite(writeForm){
+		if($("#content").val() == ""){
+			alert("내용을 입력해 주세요");
+			$("#content").trigger("focus");
+		}
 		writeForm.submit();	
 	}
 	
@@ -101,6 +113,7 @@
 		<form id="writeForm" name="writeForm" action="MyHomeWriteServlet" method="post" enctype="multipart/form-data">
 			<c:if test="${MyHomeDTO != null}">
 				<input type="hidden" name="curPage" value="${curPage}">
+				<input type="hidden" name="hnum" value="${myHomeDTO.hnum}"/>
 			</c:if>
 			<div id="myHomeContent">
 				<h3>마이홈자랑</h3>
@@ -114,10 +127,10 @@
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>제목</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				    	<input type="text" name="title"  id="title" value="${myHomeDTO.title}" style="width:88%; height:50px;" required>
+				    	<input type="text" name="title"  id="title" value="${myHomeDTO.title}" style="width:88%; height:50px;" >
 					</p>
 				</div>
-					<input type="button" id="button" value="주문내역보기"><input type="text" name="orderList" readonly required>
+					<input type="button" id="button" value="주문내역보기"><input type="text" name="orderList" readonly="readonly" required>
 				<div>
 					<input type="file" id="upfile" name="upfile" accept="image/*" multiple>
 					<table>
@@ -126,7 +139,7 @@
 				</div>
 				<div>
 				    	&nbsp;<span style="width:24%"><b>내용</b></span>&nbsp;&nbsp;&nbsp;
-				    	&nbsp;<textarea name="content" id="content" value="${myHomeDTO.content}" rows="10" cols="111" required></textarea>
+				    	&nbsp;<textarea name="content" id="content" rows="10" cols="111" >${myHomeDTO.content}</textarea>
 				</div>
 				<br>
 				<div class="myHomeWriteBtn">
