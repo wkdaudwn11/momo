@@ -52,20 +52,45 @@
 			alert('${DeleteSuccess}');
 		}
 	}); // end $(document).ready(function()
+	
+	var curPage = ${curPage};		
+			
+	$(document).scroll(function(){
+		var wholeArea = $(document).height();
+		var viewArea = $(window).height();
+		var invisibleArea = wholeArea - viewArea;
+		if($(document).scrollTop() >= invisibleArea -100){
+			$.ajax({
+				type:"get",
+				url:"myHome/appendList.jsp",
+				dataType:"html",
+				async: false,
+				data:{
+					"curPage":curPage+1
+				},
+				success:function(responseData,status,xhr){
+					curPage = curPage+1;
+					$("#myHomeContent").append(responseData);
+				},
+				error:function(error){}
+				
+			}); // end $.ajax();
+		}
+	});
 </script>
 
 
 </head>
 <body>
-	<c:set var="myHomePage" value="${MyHomePage}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class -->
-	<c:set var="myHomeList" value="${MyHomePage.myHomeList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestMyHomeList" value="${bestMyHomePageDTO.myHomeList}" scope="request"/> <!-- 인기상품 세 개의 리스트 -->
+	<%-- <c:set var="myHomePage" value="${MyHomePage}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class --> --%>
+	<%-- <c:set var="myHomeList" value="${MyHomePage.myHomeList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
+	<c:set var="bestMyHomeList" value="${bestMyHomePageDTO.myHomeList}" scope="request"/> <!-- 인기상품 세 개의 리스트 --> --%>
 	
-	<c:set var="curPage" value="${MyHomePage.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
+	<%-- <c:set var="curPage" value="${MyHomePage.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
 	<c:set var="perPage" value="${MyHomePage.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
 	<c:set var="page" value="${MyHomePage.page}" scope="request"/> <!-- 표시할 페이지 수 -->
 	<c:set var="pageblock" value="${Math.ceil(curPage/page)}" scope="request"/> <!-- 표시할 페이지 블럭수 -->
-	<c:set var="totalRecord" value="${MyHomePage.totalRecord}" scope="request"/> <!-- 전체 게시물 수 -->
+	<c:set var="totalRecord" value="${MyHomePage.totalRecord}" scope="request"/> <!-- 전체 게시물 수 --> --%>
 	
 	
 	<div id="wrap">
@@ -90,7 +115,7 @@
 					</ul>
 				</div>
 				<div id="content_22">
-					<div class="contents_22_product">
+					<div class="contents_product">
 						<ul class="contents_33_product_images">
 						
 							<c:forEach var="bestMyHomeDTO" items="${bestMyHomeList}" varStatus="status">
@@ -122,11 +147,11 @@
 				<a href="MyHomeListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
 			</h5> 
 			
-			<div id="content_22">
+			<div class="content_22">
 				<div class="contents_22_product">
 					<ul class="contents_22_product_images">
 					
-						<c:forEach var="myHomeDTO" items="${myHomeList}" varStatus="status">
+						<c:forEach var="myHomeDTO" items="${MyHomeList}" varStatus="status">
 							<c:if test="${myHomeDTO.img == null}">
 								<c:set var="mainImg" value=""/>
 							</c:if>
@@ -165,7 +190,7 @@
 				</div> <!-- contents_2_product -->
 			</div>	<!-- contents_22 -->
 		
-			<!-- 페이징처리 -->
+			<%-- <!-- 페이징처리 --> 
 			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
 				<c:set var="endPage" value="${pageblock*page}" scope="request"/>
 			</c:if>
@@ -212,7 +237,7 @@
 						[끝]
 					</a></p>
 				</c:if>
-			</div>
+			</div> --%>
 		
 		</div>
 		<br>
