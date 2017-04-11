@@ -42,6 +42,10 @@
 			location.replace("MyHomeDeleteServlet?hnum="+hnum+"&curPage="+curPage+"&img="+img);
 		}
 	} // end function myHomeDelete(hnum,curPage)
+	
+	function prevPage(){
+		history.back();
+	}
 </script>
 
 </head>
@@ -65,6 +69,7 @@
 			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage}<c:if test='${MyHomeDTO.img != null}'>,'${MyHomeDTO.img}'</c:if>);"><img src="images\freeBoard/deleteBtn.jpg"></a>
 		</c:if>
 	<a href="MyHomeListServlet?curPage=${curPage}"><img src="images\freeBoard/listBtn.jpg"></a>
+	<!-- <a href="javascript:prevPage();"><img src="images\freeBoard/listBtn.jpg"></a> -->
 	
 	<hr id="headline">
 	

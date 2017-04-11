@@ -23,7 +23,7 @@ public class MyHomeDeleteServlet extends HttpServlet {
 		if(img.equals("undefined") == false){
 			String[] imgList = img.split(",");
 			for(String image : imgList){
-				File file = new File("C:\\Users\\user\\Desktop\\MyHomeImg",image);
+				File file = new File("C:\\MyHomeImg",image);
 				file.delete();
 			}// end for
 		}// end if

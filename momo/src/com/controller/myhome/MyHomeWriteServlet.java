@@ -78,7 +78,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 							fileExist = false;
 						}
 						if(fileExist == true){
-							File file = new File("C:\\Users\\user\\Desktop\\MyHomeImg",item.getName());
+							File file = new File("C:\\MyHomeImg",item.getName());
 							// 테스터 PC 에 폴더 만들어야한다.
 							file.canExecute();
 							try {

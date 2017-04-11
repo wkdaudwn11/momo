@@ -12,7 +12,7 @@ import com.entity.myhome.MyHomePage;
 public class MyHomeService{
 
 	private final String name = "com.momo.MyHomeMapper.";
-	
+	private final int perPage = 9;
 	/** 수정  메서드 */
 	public void myHomeUpdate(MyHomeDTO myHomeDTO){
 		SqlSession session = MySqlSessionFactory.openSession();
@@ -83,7 +83,7 @@ public class MyHomeService{
 	} // end  totalRecord()
 	
 	/** 페이지 리스트 가져오는 메서드 */
-	public MyHomePage myHomeList(int curPage){
+	/*public MyHomePage myHomeList(int curPage){
 		SqlSession session = MySqlSessionFactory.openSession();
 		MyHomePage pageDTO = new MyHomePage();
 		int skip = (curPage -1)*pageDTO.getPerPage();
@@ -98,5 +98,30 @@ public class MyHomeService{
 		pageDTO.setTotalRecord(totalRecord());
 		
 		return pageDTO;
+	}// end myHomeList(int curPage) */
+	
+	/** 페이지 리스트 가져오는 메서드 */
+	public List<MyHomeDTO> myHomeList(int curPage){
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<MyHomeDTO> myHomeList = null;
+		try{
+			myHomeList = session.selectList(name+"myHomeList",null,new RowBounds(0,curPage*perPage));
+		}finally{
+			session.close();
+		}
+		return myHomeList;
+	}// end myHomeList(int curPage)
+	
+	/** 추가할  리스트 가져오는 메서드 */
+	public List<MyHomeDTO> addList(int curPage){
+		int skip = (curPage -1)*perPage;
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<MyHomeDTO> myHomeList = null;
+		try{
+			myHomeList = session.selectList(name+"myHomeList",null,new RowBounds(skip,perPage));
+		}finally{
+			session.close();
+		}
+		return myHomeList;
 	}// end myHomeList(int curPage)
 }// end MyHomeService
