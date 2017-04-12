@@ -84,7 +84,7 @@
 	    	var tel = document.getElementById('tel');
 	    	var answer = document.getElementById('answer');
 	    	var addr = document.getElementById('addr1');
-	    	var isTelComfirm = document.getElementById('isTelComfirm');
+	    	var isTelConfirm = document.getElementById('isTelConfirm');
 	    	
 	    	if(name.value.length < 1 || name.value.length > 6){
 				alert("이름은 2~6자리만 입력해주세요.");
@@ -142,12 +142,12 @@
 		    }else if(addr.value.length < 1){
 		        alert("주소을 입력해 주세요.");
 		        result = false;
-			}else if(isTelComfirm.value == 'x'){
+			}else if(isTelConfirm.value == 'x'){
 				alert('인증번호가 틀렸습니다. 다시 입력해주세요.');
 				telConfirm.focus();
 				telConfirm.value="";
 				result = false;
-			}else if(isTelComfirm.value == 'no'){
+			}else if(isTelConfirm.value == 'no'){
 				alert('핸드폰 인증을 하셔야 회원가입을 할 수 있습니다.');
 				telConfirm.focus();
 				telConfirm.value="";
@@ -200,10 +200,10 @@
 				},
 				success:function(responseData,status,xhr){
 					if(document.getElementById("telConfrimResult").innerText=responseData.trim()=="인증번호가 일치합니다."){
-	    				document.getElementById('isTelComfirm').value = "o";
+	    				document.getElementById('isTelConfirm').value = "o";
 	    				$("#telConfrimResult").css("color","green");
 	    			}else if(document.getElementById("telConfrimResult").innerText=responseData.trim()=="인증번호가 불일치합니다."){
-	    				document.getElementById('isTelComfirm').value = "x";
+	    				document.getElementById('isTelConfirm').value = null;
 	    				$("#telConfrimResult").css("color","red");
 	    			}
 					$("#telConfrimResult").text(responseData.trim());
@@ -232,7 +232,8 @@
 	                    <div>	<!-- class="contact-form" -->
 	                        <form name="contactform" id="contactform" action="../JoinAddMember" method="get" onsubmit="return resultForm()">
 	                        	<input type="hidden" id="idCheck" value="x">
-	                        	<input type="hidden" name="isTelComfirm" id="isTelComfirm" value="no">
+	                        	<input type="hidden" name="isTelConfirm" id="isTelConfirm" value="no">
+	                        	<input type="hidden" name="isEmailConfirm" id="isEmailConfirm">
 	                            <p>
 	                                <input type="text" id="name" name="name" maxlength="6" placeholder="성명 (한글)" style="height:40px;" required>                                                    
 	                            </p>                          
@@ -268,8 +269,9 @@
                                		</font>
 	                            </p>
 	                            <p>
-	                            	<font color=blue size="3">이메일은 필수 입력이 아니므로, 없으시다면 패스하셔도 됩니다.</font> <br />
-	                               	<input type="text" name="email1" id="email1" maxlength="15" placeholder="이메일" style="height:40px; width: 48%;">@
+	                            	<font color=blue size="3"><span id="emailSpan">이메일은 필수 입력이 아니므로, 없으시다면 패스하셔도 됩니다.</span></font>
+	                               	<input type="text" name="email1" id="email1" maxlength="15" placeholder="이메일" style="height:40px; width: 48%;"
+	                               			onkeyup="writeEmail()">@
 	                               	<input type="text" name="email2" id="email2" maxlength="15" style="height:40px; width: 48%;">
 	                            </p>                                                                                                                                                                           
 	                            <p>
