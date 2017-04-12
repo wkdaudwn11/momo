@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,6 +76,12 @@
 		
 		function confirmNumber(tel, findValue){
 	    	var telComfirmNumber = 0;
+	    	
+	    	if(findValue == 'id'){
+	    		document.getElementById('findIdTelIsTelComfirm').value = "yes";
+	    	}else{
+	    		document.getElementById('findPwdTelIsTelComfirm').value = "yes";
+	    	}
 	    	
 	    	if(tel.value == null || tel.value == ""){
 	    		alert('연락처를 입력해주세요.');
@@ -157,12 +164,18 @@
 					result = false;
 				}
 			}else if(selectValue == 'tel'){
+				
 				var isTelComfirm = form.findIdTelIsTelComfirm.value;
+				var findIdTelTelConfirm = form.findIdTelTelConfirm.value;
+				
 				if(isTelComfirm == 'no'){
 					alert('인증번호 받기 버튼을 눌러주세요.');
 					result = false;
+				}else if(findIdTelTelConfirm.length == 0){
+					alert('인증번호를 입력해주세요.');
+					result = false;
 				}else if(isTelComfirm == 'x'){
-					alert('인증번호를 제대로 입력해주세요.');
+					alert('인증번호가 틀렸습니다.');
 					result = false;
 				}
 			}
@@ -179,12 +192,18 @@
 					result = false;
 				}
 			}else if(selectValue == 'tel'){
+				
 				var isTelComfirm = form.findPwdTelIsTelComfirm.value;
+				var findPwdTelTelConfirm = form.findPwdTelTelConfirm.value;
+				
 				if(isTelComfirm == 'no'){
 					alert('인증번호 받기 버튼을 눌러주세요.');
 					result = false;
+				}else if(findPwdTelTelConfirm.length == 0){
+					alert('인증번호를 입력해주세요.');
+					result = false;
 				}else if(isTelComfirm == 'x'){
-					alert('인증번호를 제대로 입력해주세요.');
+					alert('인증번호가 틀렸습니다.');
 					result = false;
 				}
 			}

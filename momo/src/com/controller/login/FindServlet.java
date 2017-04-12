@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,8 @@ public class FindServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		
+		String target = "LoginUIServlet";
 		
 		String findRadio = "";
 		String findSelect = "";
@@ -121,12 +124,29 @@ public class FindServlet extends HttpServlet {
 			}
 			
 			if(memberDTO != null){
-				 if(findRadio.equals("pwd")){
-					 request.setAttribute("message", "회원님의 비밀번호는 "+memberDTO.getPwd()+" 입니다.");
-				 }else{
-					 request.setAttribute("message", "회원님의 아이디는 "+memberDTO.getId()+" 입니다.");
-				 }
+				if(!(findSelect.equals("email"))){
+					if(findRadio.equals("pwd")){
+						request.setAttribute("message", "회원님의 비밀번호는 "+memberDTO.getPwd()+" 입니다.");
+					}else{
+						request.setAttribute("message", "회원님의 아이디는 "+memberDTO.getId()+" 입니다.");
+					}
+				}else{
+					target = "login/emailConfirm.jsp";
+					
+					String confirmNumber = "";
+					
+					for(int i=0; i<6; i++){
+						int randomNum = (int)(Math.random() * 10);
+						confirmNumber += randomNum;
+					}
+					
+					ServletContext ctx = getServletContext();
+					ctx.setAttribute("memberDTO", memberDTO);
+					ctx.setAttribute("confirmNumber", confirmNumber);
+					ctx.setAttribute("findRadio", findRadio);
+				}
 			 }else{
+				 target = "FindUIServlet";
 				 request.setAttribute("message", "일치하는 정보가 없습니다.");
 			 }
 		}catch(CommonException e) {
@@ -134,7 +154,7 @@ public class FindServlet extends HttpServlet {
 			request.setAttribute("message", e.getMessage());
 		}
 		
-		RequestDispatcher dis = request.getRequestDispatcher("LoginUIServlet");
+		RequestDispatcher dis = request.getRequestDispatcher(target);
 		dis.forward(request, response);
 		
 	}
