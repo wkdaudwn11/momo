@@ -11,12 +11,12 @@
 <title>모모</title>
 
 <style>
-	#myHomeDetailWrap{width: 80%; height: 350em; margin: 0 auto;}
+	#myHomeDetailWrap{width: 80%; margin: 0 auto;}
 	#myHomeDetailWrap h3{margin-bottom:0;}
-	#myHomeDetailWrap h3 + a{margin-left:69%;}
-	#myHomeDetailWrap h3 ~ a img{ width:5em; margin:0.56% auto;}
+	#menuBtn{margin-bottom:0.3em;}
+	#menuBtn img{width:5em;}
 	
-	#headline{margin-top: 0;} 
+	#headline{margin-top: 0;}
 	
 	#myHomeDetailVisual{width: 100%; height: 20em;}
 	
@@ -26,6 +26,18 @@
 	#myHomeDetailContent img{width:100%; height:400px;}
 	
 	#myHomeDetailContent{width: 80%; height: 90%; margin: 0 auto;}
+	
+	table{width:100%;}
+	table th{width: 10%;}
+	#title{height: 3em;}
+	#writeday{width:30%;}
+	#author{width:20%;}
+	.ramain{width:5%;}
+	
+	#titleArea_top{margin-bottom: 0;}
+	#titleArea_bottom{margin-top: 0;}
+	
+	
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -43,8 +55,28 @@
 		}
 	} // end function myHomeDelete(hnum,curPage)
 	
-	function prevPage(){
-		history.back();
+	function goodCntPlus(){
+		if(${empty sessionScope.login.id}){
+			alert("추천은 로그인 후 가능합니다.");
+		}else{
+			$.ajax({
+				type:"get",
+				url:"myHome/goodCnt.jsp",
+				dataType:"text",
+				data:{
+					"hnum":${MyHomeDTO.hnum},
+				},
+				success:function(responseData,status,xhr){
+					if(responseData.trim() == "false"){
+						alert("게시물 당 한번만 추천 할 수 있습니다.");
+					}else{
+						alert("추천~~!");
+						$("#goodCnt").text(responseData.trim());
+					}
+				},
+				error:function(error){}
+			}); // end $.ajax()
+		}
 	}
 </script>
 
@@ -64,12 +96,13 @@
 		</c:if>
 	</c:forTokens>
 	<h3>마이홈자랑</h3>
+	<div id="menuBtn" align="right">	
 		<c:if test="${sessionScope.login.id == MyHomeDTO.id || sessionScope.login.id == 'admin' }">
-			<a href="MyHomeWriteUIServlet?curPage=${curPage}&hnum=${MyHomeDTO.hnum}&title=${MyHomeDTO.title}&content=${MyHomeDTO.content}"><img src="images\freeBoard/updateBtn.jpg"></a>
-			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage}<c:if test='${MyHomeDTO.img != null}'>,'${MyHomeDTO.img}'</c:if>);"><img src="images\freeBoard/deleteBtn.jpg"></a>
+			<a href="MyHomeWriteUIServlet?curPage=${curPage}&hnum=${MyHomeDTO.hnum}&title=${MyHomeDTO.title}&content=${MyHomeDTO.content}"><img src="images\freeBoard/updateBtn.jpg" ></a>
+			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage}<c:if test='${MyHomeDTO.img != null}'>,'${MyHomeDTO.img}'</c:if>);"><img src="images\freeBoard/deleteBtn.jpg" ></a>
 		</c:if>
 	<a href="MyHomeListServlet?curPage=${curPage}"><img src="images\freeBoard/listBtn.jpg"></a>
-	<!-- <a href="javascript:prevPage();"><img src="images\freeBoard/listBtn.jpg"></a> -->
+	</div>
 	
 	<hr id="headline">
 	
@@ -82,15 +115,28 @@
 		
 	</div> <!-- myHomeDetailVisual -->
 	
-	<hr>
-	
+	<hr id="titleArea_top"/>
+		<table>
+			<tr>
+				<th>작성일</th><td id="writeday">${MyHomeDTO.writeday}</td>
+				<th>작성자</th><td id="author">${MyHomeDTO.author}</td>
+				<th>조회</th><td class="remain">${MyHomeDTO.readCnt}</td>
+				<th>추천</th>
+				<td class="remain"><span id="goodCnt">${MyHomeDTO.goodCnt}</span>&nbsp;
+					<a href="javascript:goodCntPlus();"><img src="images\freeBoard/recommend.png" width="30px" height="30px"></a>
+				</td>
+			</tr>
+			<tr id="title">
+				<th>제목</th><td colspan="7">${MyHomeDTO.title}</td>
+			</tr>
+		</table>
+	<hr id="titleArea_bottom"/>
 	<div id="myHomeDetailContent">
 		<c:if test="${MyHomeDTO.img != null}">
 			<c:forEach var="img" items="${imgList}" varStatus="status">
-				<img src="images/${img}">
+				<img src="images/${img}"><p/>
 			</c:forEach>
 		</c:if>
-		<br>
 		${MyHomeDTO.content}
 	</div>
 		

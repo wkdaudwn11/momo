@@ -62,7 +62,7 @@ Create table myhome(
  constraint myhome_id_fk foreign key(id) references member(id) on delete cascade
 );
 
-	create sequence myhome_seq minvalue 0;	
+	create sequence myhome_seq minvalue 1;	
 	
 	
 --자유게시판 테이블
@@ -112,10 +112,11 @@ references freeBoardReple(frnum) on delete cascade;
 
 create sequence freeBoardReple_seq minvalue 0;
 
--- 자유게시판 추천 기록 테이블  --
+-- 자유게시판 추천 기록 테이블  -- 
 create table recommendRecord(
-  id varchar2(16),			--회원 아이디
-  fnum number(4) not null,	--게시판 번호
+  id varchar2(16) not null,	--회원 아이디
+  num number(4) not null,	--게시판 번호
+  category varchar2(10) not null, -- 어느게시판 추천정보인지 분류
   constraint recommendRecord_fnum_fk foreign key(fnum) references freeBoard(fnum) on delete cascade,
   constraint recommendRecord_id_fk foreign key(id) references Member(id) on delete cascade
 );

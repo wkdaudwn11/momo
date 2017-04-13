@@ -1,6 +1,7 @@
 package com.controller.index;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.entity.myhome.MyHomeDTO;
+import com.service.MyHomeService;
 
 
 @WebServlet("/IndexServlet")
@@ -19,9 +23,15 @@ public class IndexServlet extends HttpServlet {
 		HttpSession session  = request.getSession();
 		session.setAttribute("prevPage", "IndexServlet");
 		
-		response.sendRedirect("index.jsp");
-		/*RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
-		dis.forward(request, response);*/
+		MyHomeService myHomeService = new MyHomeService();
+		
+		List<MyHomeDTO> bestMyHomeList = myHomeService.bestMyHomeList("IndexServlet");
+		
+		request.setAttribute("bestMyHomeList", bestMyHomeList);
+		
+		/*response.sendRedirect("index.jsp");*/
+		RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
+		dis.forward(request, response);
 		
 	}
 

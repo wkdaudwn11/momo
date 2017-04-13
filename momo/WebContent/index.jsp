@@ -135,6 +135,26 @@
 		<div id="content_3">
 			<h2>마이홈자랑</h2>
 				<ul class="contents_3_myhome_images">
+					<c:forEach var="bestMyHomeDTO" items="${bestMyHomeList}" varStatus="status">
+						<c:if test="${bestMyHomeDTO.img == null}">
+							<c:set var="bestMainImg" value="ImgNotFound.png"/>
+						</c:if>
+						<c:forTokens var="img" items="${bestMyHomeDTO.img}" delims="," varStatus="imgSts">
+							<c:if test="${imgSts.index == 0}">
+								<c:set var="bestMainImg" value="${img}"/>
+							</c:if>
+						</c:forTokens>
+						<li>
+			            	<div class="img">
+								<a href="MyHomeDetailServlet?hnum=${bestMyHomeDTO.hnum}">
+				    				<img src="images/${bestMainImg}" width="95%" height="275">
+				  				</a>
+							</div>
+		            	</li>  
+					</c:forEach>
+		
+				</ul> <!-- contents_3_myhome_images -->
+				<!-- <ul class="contents_3_myhome_images">
 		        	<li>
 		            	<a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('myHome1','','images/myHome/myHome1.PNG',1)">
 		            		<img src="images/myHome/myHome1.PNG" width="95%" height="275" id="myHome1" />
@@ -155,7 +175,7 @@
 		       	    		<img src="images/myHome/myHome4.PNG" width="95%" height="275" id="myHome4" />
 		       	    	</a>
 		       	    </li>
-	        	</ul> <!-- contents_3_myhome_images -->
+	        	</ul> contents_3_myhome_images -->
 		</div> <!-- content_3 -->
 		
 		<jsp:include page="include/footer.jsp"></jsp:include>

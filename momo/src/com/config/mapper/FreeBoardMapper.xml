@@ -83,13 +83,13 @@
 	
 	<!-- 해당 아이디가 게시글을 추천한 기록이 있는지 확인하는 쿼리 -->
 	<select id="selectRecommendRecord" resultType="int" parameterType="HashMap">
-		select count(*) from recommendRecord where fnum=#{fnum} and id=#{id}
+		select count(*) from recommendRecord where num=#{num} and id=#{id} and category=#{category}
 	</select>
 	
 	<!-- 추천기록 에 해당 아이디와 게시글을 추가하는 쿼리 -->
 	<insert id="insertRecommendRecord" parameterType="HashMap">
-		insert into recommendRecord(fnum,id)
-		values(#{fnum},#{id})
+		insert into recommendRecord(num,id,category)
+		values(#{num},#{id},#{category})
 	</insert>
 	
 	<!-- 해당 게시물의 댓글 갯수를 반환해주는 쿼리 -->

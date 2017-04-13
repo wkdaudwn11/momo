@@ -45,7 +45,7 @@
 		});
 		
 		$("#button").on("click",function(){
-			window.open("OrderListServlet","주문내역 상세보기",'width=750,height=300,location=no,resizeable=no');
+			window.open("OrderListServlet?myHome=myHome","주문내역 상세보기",'width=750,height=300,location=no,resizeable=no');
 		});
 		
 		$("#upfile").on("change", function(e) {  
@@ -112,8 +112,8 @@
 		
 		<form id="writeForm" name="writeForm" action="MyHomeWriteServlet" method="post" enctype="multipart/form-data">
 			<c:if test="${MyHomeDTO != null}">
-				<input type="hidden" name="curPage" value="${curPage}">
 				<input type="hidden" name="hnum" value="${myHomeDTO.hnum}"/>
+				<input type="hidden" name="curPage" value="${curPage}">
 			</c:if>
 			<div id="myHomeContent">
 				<h3>마이홈자랑</h3>

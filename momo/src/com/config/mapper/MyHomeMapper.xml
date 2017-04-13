@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.momo.MyHomeMapper">
 
+	<!-- 추천 수 업데이트 -->
+	<update id="updateGoodCount" parameterType="int">
+		update myhome
+		set goodCnt = goodCnt +1
+		where hnum=#{hnum}
+	</update>
+
 	<!-- 레코드 업데이트 -->
 	<update id="myHomeUpdate" parameterType="MyHomeDTO">
 		update myhome
@@ -29,7 +36,7 @@
 
 	<!-- 테이블 레코드 하나 가져오는 쿼리 -->
 	<select id="detailMyHome" resultType="MyHomeDTO" parameterType="int">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd'),readCnt,goodCnt
+		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		where hnum=#{hnum}
 	</select>
@@ -45,9 +52,17 @@
 		select count(*) from myhome
 	</select>
 	
+	<!-- best 리스트 가져오는 쿼리 -->
+	<select id="bestList" resultType="MyHomeDTO">
+		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
+		from myhome
+		where readCnt >= 100 and goodCnt >0
+		order by readCnt/goodCnt desc,writeday desc
+	</select>
+	
 	<!-- 리스트 가져오는 쿼리 -->
 	<select id="myHomeList" resultType="MyHomeDTO">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd'),readCnt,goodCnt
+		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		order by writeday desc 
 	</select>

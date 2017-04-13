@@ -105,6 +105,6 @@ public class MyHomeDTO {
 				+ ", author=" + author + ", writeday=" + writeday + ", readCnt=" + readCnt + ", goodCnt=" + goodCnt
 				+ "]";
 	}
-	
+
 	
 }// end MyHomeDTO

@@ -1,10 +1,14 @@
 package com.controller.myhome;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.imageio.stream.FileImageInputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +42,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 		String curPage = null;
 		String target = null;
 		
+		String filePath = "C:\\MyHomeImg";
 		try{
 			if(member != null){
 				// Create a factory for disk-based file items
@@ -50,7 +55,6 @@ public class MyHomeWriteServlet extends HttpServlet {
 		
 				// Create a new file upload handler
 				ServletFileUpload upload = new ServletFileUpload(factory);
-		
 				// Parse the request
 				List<FileItem> items =null;
 				try {
@@ -59,7 +63,8 @@ public class MyHomeWriteServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				ArrayList<String> sampleList = new ArrayList<String>();
+				List<FileItem> fileList = new ArrayList<FileItem>();
+				ArrayList<String> fileNameList = new ArrayList<String>();
 				boolean fileExist = true;
 				
 				for(FileItem item : items){
@@ -74,37 +79,41 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("orderList")){ /*DTO 에 아직 안만들었다. Write에도 미구현*/ }
 						
 					}else{
-						if(item.getName().equals("")){ 
-							fileExist = false;
+						if(!item.getName().equals("")){
+							fileList.add(item); // 파일 만들때 쓰기위한 fileItem 리스트
+							fileNameList.add(member.getId()+"_"+item.getName()); // DB 에 저장할 이미지 파일 이름.
 						}
-						if(fileExist == true){
-							File file = new File("C:\\MyHomeImg",item.getName());
-							// 테스터 PC 에 폴더 만들어야한다.
-							file.canExecute();
-							try {
-								item.write(file);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							sampleList.add(item.getName());
-						 }// end if  
 					}
 				} // end for
 				
 				myHomeDTO.setId( member.getId() );
+				myHomeDTO.setImg( StringUtils.join(fileNameList,",") );
 				
-				myHomeDTO.setImg( StringUtils.join(sampleList,",") );
-		
 				if(curPage == null){ 
-					service.myHomeInsert(myHomeDTO); 
-				}else{	service.myHomeUpdate(myHomeDTO); }
+					service.myHomeInsert(myHomeDTO);
+					target = "MyHomeListServlet";
+				}else{
+					String deleteList = service.detailMyHome(myHomeDTO.getHnum()).getImg();
+					List<String> deleteImgList = Arrays.asList(deleteList.split(","));
+					for(String img : deleteImgList){
+						File imgFile = new File(filePath,img);
+						imgFile.delete();
+					}
+					service.myHomeUpdate(myHomeDTO);
+					target = "MyHomeListServlet?curPage="+curPage;
+				}
+				if(!fileList.isEmpty()){
+					for(FileItem img : fileList){
+						File file = new File(filePath,member.getId()+"_"+img.getName());
+						img.write(file);
+					}
+				} // end if
 				
-				target = "MyHomeListServlet";
 			}else{
 				throw new LoginFailException();
 			}
 		}catch(Exception e){
-			e.getStackTrace();
+			e.printStackTrace();
 			/*request.setAttribute("loginFail",e.getMessage());*/
 			target = "LoginUIServlet";
 		}
