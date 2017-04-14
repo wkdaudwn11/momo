@@ -22,6 +22,7 @@ public class OrderListServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		String target = "";
+		String myHome = request.getParameter("myHome");
 		
 		String curPage = request.getParameter("curpage");
 		if(curPage == null) curPage = "1"; 
@@ -35,8 +36,11 @@ public class OrderListServlet extends HttpServlet {
 				OrderPageDTO orderPageDTO = service.orderList(memberDTO.getId(), Integer.parseInt(curPage));
 				
 				request.setAttribute("orderPageDTO", orderPageDTO); 
-				
-				target = "order/orderList.jsp";
+				if(myHome == null){
+					target = "order/orderList.jsp";
+				}else{
+					target = "myHome/selectOrderList.jsp";
+				}
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");
 				target = "LoginUIServlet";

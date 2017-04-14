@@ -13,6 +13,7 @@ public class MyHomeService{
 
 	private final String name = "com.momo.MyHomeMapper.";
 	private final int perPage = 9;
+	
 	/** 수정  메서드 */
 	public void myHomeUpdate(MyHomeDTO myHomeDTO){
 		SqlSession session = MySqlSessionFactory.openSession();
@@ -70,8 +71,27 @@ public class MyHomeService{
 		}
 	}// end   InsertMyHome(MyHomeDTO myHomeDTO)
 	
+	/** 베스트 리스트 가져오는 메서드 (추천스/조회수) 조회수 10 이상*/
+	public List<MyHomeDTO> bestMyHomeList(String servlet){
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<MyHomeDTO> bestMyHomeList = null;
+		int limit = 0;
+		try{
+			if(servlet.equals("MyHomeListServlet")){
+				limit = 3;
+			}else if(servlet.equals("IndexServlet")){
+				limit = 4;
+			}
+			bestMyHomeList = session.selectList(name+"bestList",null,new RowBounds(0,limit));
+		}finally{
+			session.close();
+		}
+		
+		return bestMyHomeList;
+	}
+	
 	/** 리스트 개수 가져오는 메서드 */
-	private int totalRecord(){
+	/*private int totalRecord(){
 		SqlSession session = MySqlSessionFactory.openSession();
 		int totalRecord;
 		try{
@@ -81,7 +101,7 @@ public class MyHomeService{
 		}
 		return totalRecord;
 	} // end  totalRecord()
-	
+*/	
 	/** 페이지 리스트 가져오는 메서드 */
 	/*public MyHomePage myHomeList(int curPage){
 		SqlSession session = MySqlSessionFactory.openSession();

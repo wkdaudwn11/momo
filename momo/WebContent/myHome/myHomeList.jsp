@@ -14,7 +14,7 @@
 <style>
 	#myHomeContent {width:80%; margin:0 auto; overflow:hidden;}
 	#myHomeContent h3{margin-bottom:0;}
-	#myHomeContent h3+a{display: block; margin:0.3% auto; text-align: right; padding-right: 2%;}
+	#headline{margin-top:0;}
 	
 	#myHomeVisual {width: 100%; height: 500px; margin:0 auto;}
 	
@@ -82,26 +82,16 @@
 
 </head>
 <body>
-	<%-- <c:set var="myHomePage" value="${MyHomePage}" scope="request"/> <!-- 페이징 처리에 필요한 data가진 class --> --%>
-	<%-- <c:set var="myHomeList" value="${MyHomePage.myHomeList}" scope="request"/> <!-- 페이지에 보여줄 리스트 -->
-	<c:set var="bestMyHomeList" value="${bestMyHomePageDTO.myHomeList}" scope="request"/> <!-- 인기상품 세 개의 리스트 --> --%>
-	
-	<%-- <c:set var="curPage" value="${MyHomePage.curPage}" scope="request"/> <!-- 요청된 현재 페이지 -->
-	<c:set var="perPage" value="${MyHomePage.perPage}" scope="request"/> <!-- 페이지 당 보여줄 리스트 수(9) -->
-	<c:set var="page" value="${MyHomePage.page}" scope="request"/> <!-- 표시할 페이지 수 -->
-	<c:set var="pageblock" value="${Math.ceil(curPage/page)}" scope="request"/> <!-- 표시할 페이지 블럭수 -->
-	<c:set var="totalRecord" value="${MyHomePage.totalRecord}" scope="request"/> <!-- 전체 게시물 수 --> --%>
-	
 	
 	<div id="wrap">
 		<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 		
 		<div id="myHomeContent">
 			<h3>마이홈자랑</h3>
-			<%-- <c:if test="${sessionScope.login != null}"> --%>
-				<a id="writebtn" href="MyHomeWriteUIServlet">자랑하기</a>
-			<%-- </c:if> --%>
-			<hr style="margin-top:0;">
+				<div align="right">
+					<a id="writebtn" href="MyHomeWriteUIServlet">자랑하기</a>
+				</div>
+			<hr id="headline"/>
 			
 			<div id="myHomeVisual">
 				<div class="topSeller">
@@ -119,15 +109,20 @@
 						<ul class="contents_33_product_images">
 						
 							<c:forEach var="bestMyHomeDTO" items="${bestMyHomeList}" varStatus="status">
+								<c:if test="${bestMyHomeDTO.img == null}">
+									<c:set var="bestMainImg" value="ImgNotFound.png"/>
+								</c:if>
+								<c:forTokens var="img" items="${bestMyHomeDTO.img}" delims="," varStatus="imgSts">
+									<c:if test="${imgSts.index == 0}">
+										<c:set var="bestMainImg" value="${img}"/>
+									</c:if>
+								</c:forTokens>
 								<li>
 					            	<div class="img">
 										<a href="MyHomeDetailServlet?hnum=${bestMyHomeDTO.hnum}">
-						    				<img src="images/myHome/${bestMyHomeDTO.image1}.JPG" width="95%" height="275">
+						    				<img src="images/${bestMainImg}" width="95%" height="275">
 							  				<div class="desc"><b>
-							  					${bestMyHomeDTO.name}<br>
-							  					<font color="#7777ca"><del><fmt:formatNumber value="${bestMyHomeDTO.price}" type="currency" /></del></font><br>
-							  					<c:set var="bestDiscountPrice" value="${bestMyHomeDTO.price * (1.0 - (bestMyHomeDTO.discount/100))}" />
-							  					<span class="discountPrice"><fmt:formatNumber value="${bestDiscountPrice}" type="currency" /></span>
+							  					${bestMyHomeDTO.title}<br>
 							  				</b></div>
 						  				</a>
 									</div>
@@ -140,12 +135,7 @@
 				
 			</div>	<!-- myHomeVisual -->
 			
-			<h5 class="sortValueClass">
-				<a href="MyHomeListServlet?curPage=${curPage}&category=${category}&sortValue=hnum">[최신순]</a>  |  
-				<a href="MyHomeListServlet?curPage=${curPage}&category=${category}&sortValue=priceAsc">[가격 낮은 순]</a>  |  
-				<a href="MyHomeListServlet?curPage=${curPage}&category=${category}&sortValue=priceDesc">[가격 높은 순]</a>  |  
-				<a href="MyHomeListServlet?curPage=${curPage}&category=${category}&sortValue=buyCountDesc">[판매 인기 순]</a>
-			</h5> 
+			<hr/>
 			
 			<div class="content_22">
 				<div class="contents_22_product">
@@ -153,7 +143,7 @@
 					
 						<c:forEach var="myHomeDTO" items="${MyHomeList}" varStatus="status">
 							<c:if test="${myHomeDTO.img == null}">
-								<c:set var="mainImg" value=""/>
+								<c:set var="mainImg" value="ImgNotFound.png"/>
 							</c:if>
 							<c:forTokens var="img" items="${myHomeDTO.img}" delims="," varStatus="imgSts">
 								<c:if test="${imgSts.index == 0}">
