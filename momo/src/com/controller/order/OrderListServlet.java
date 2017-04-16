@@ -39,6 +39,10 @@ public class OrderListServlet extends HttpServlet {
 				if(myHome == null){
 					target = "order/orderList.jsp";
 				}else{
+					String title = request.getParameter("title");
+					String content = request.getParameter("content");
+					request.setAttribute("title", title);
+					request.setAttribute("content", content);
 					target = "myHome/selectOrderList.jsp";
 				}
 			}else{

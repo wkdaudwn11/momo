@@ -45,7 +45,11 @@
 		});
 		
 		$("#button").on("click",function(){
-			window.open("OrderListServlet?myHome=myHome","주문내역 상세보기",'width=750,height=300,location=no,resizeable=no');
+			var form = document.getElementById('writeForm');
+			var title = form.title.value;
+			var content = form.content.value;
+ 			window.open("OrderListServlet?myHome=myHome&title="+title+"&content="+content,
+							"주문내역 상세보기",'width=750, height=500, location=no, resizeable=no');
 		});
 		
 		$("#upfile").on("change", function(e) {  
@@ -127,10 +131,22 @@
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%"><b>제목</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				    	<input type="text" name="title"  id="title" value="${myHomeDTO.title}" style="width:88%; height:50px;" >
+				    	<!-- 수정일 때 -->
+				    	<c:if test="${MyHomeDTO != null}">
+				    		<input type="text" name="title"  id="title" value="${myHomeDTO.title}" style="width:88%; height:50px;" >
+				    	</c:if>
+				    	
+				    	<!-- 수정이 아닐 때 -->
+				    	<c:if test="${MyHomeDTO == null}">
+				    		<input type="text" name="title"  id="title" value="${title}" style="width:88%; height:50px;" >
+				    	</c:if>
 					</p>
 				</div>
-					<input type="button" id="button" value="주문내역보기"><input type="text" name="orderList" readonly="readonly" required>
+					<input type="button" id="button" value="주문내역보기">
+					<input type="text" name="orderList" readonly="readonly" required>
+					<c:forEach var="product" items="${realCheckedProduct}">
+						${product}
+					</c:forEach>
 				<div>
 					<input type="file" id="upfile" name="upfile" accept="image/*" multiple>
 					<table>
@@ -139,7 +155,15 @@
 				</div>
 				<div>
 				    	&nbsp;<span style="width:24%"><b>내용</b></span>&nbsp;&nbsp;&nbsp;
-				    	&nbsp;<textarea name="content" id="content" rows="10" cols="111" >${myHomeDTO.content}</textarea>
+				    	<!-- 수정일 때 -->
+				    	<c:if test="${MyHomeDTO != null}">
+				    		&nbsp;<textarea name="content" id="content" rows="10" cols="111" >${myHomeDTO.content}</textarea>
+				    	</c:if>
+				    	
+				    	<!-- 수정이 아닐 때 -->
+				    	<c:if test="${MyHomeDTO == null}">
+				    		&nbsp;<textarea name="content" id="content" rows="10" cols="111" >${content}</textarea>
+				    	</c:if>
 				</div>
 				<br>
 				<div class="myHomeWriteBtn">
