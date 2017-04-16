@@ -29,7 +29,6 @@ public class IndexServlet extends HttpServlet {
 		
 		request.setAttribute("bestMyHomeList", bestMyHomeList);
 		
-		/*response.sendRedirect("index.jsp");*/
 		RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
 		dis.forward(request, response);
 		
