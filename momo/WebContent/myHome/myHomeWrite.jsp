@@ -53,7 +53,8 @@
 		});
 		
 		$("#upfile").on("change", function(e) {  
-		 	var files = e.target.files; //FileList object		
+		 	var files = e.target.files; //FileList object	
+		 	alert(files[0]);
 		    var img = $("#img");
 			var priviewImg = $("table tr");
 			var checkFile = true;
@@ -71,7 +72,6 @@
 			        pReader.addEventListener("load", function(e){ 
 			            var pic = e.target;  
 			            img.append("<td><img src='"+pic.result+"' disabled></td>")
-			            show(); 
 			        });
 			        pReader.readAsDataURL(file);		
 			    });	 // end $.each(files, function(i, file)

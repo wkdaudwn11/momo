@@ -55,15 +55,11 @@
 	
 	// 'ㅁㅁ외 ㅁ건'인 제목을 클릭 했을 때
 	function groupDivFunc(orderListNumber){
-		$(".productMovement").attr("href", "#");
 		$(".toggleTr"+orderListNumber).toggle(400);
 	}
 	
 	// 'ㅁㅁ외 ㅁ건'인 항목의 체크박스를 클릭 했을 때
 	function checkOrderGroupDivFunc(orderListNumber, realProductCount, equalGroupCount){
-		
-		$(".productMovement").attr("href", "#");
-		$(".toggleTr"+orderListNumber).toggle(400);
 		
 		var checkOrder = document.getElementsByName("checkOrder");
 		var checkOrderGroup = document.getElementById("checkOrderGroup"+orderListNumber);
@@ -75,21 +71,24 @@
 				var k = (parseInt(realProductCount)) + i;
 				checkOrder[k].checked = true;
 			}
+			$(".toggleTr"+orderListNumber).show(400);
 		}else if(checkOrderGroup.checked == false){
 			for(var i=0; i<equalGroupCount; i++){
 				var k = (parseInt(realProductCount)) + i;
 				checkOrder[k].checked = false;
 			}
+			$(".toggleTr"+orderListNumber).hide(400);
 		}
 	}//checkGroupDivFunc(orderListNumber, realProductCount, equalGroupCount)
 	
 	//그룹 내의 체크박스를 클릭 할 경우 실행되는 함수
-	function checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount){
+	function checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount, nowProductTotalCount){
 		
 		var checkOrder = document.getElementsByName("checkOrder");
 		var checkOrderGroup = document.getElementById("checkOrderGroup"+orderListNumber);
 		
 		var count = parseInt(equalGroupCount);
+		var totalCount = parseInt(nowProductTotalCount);
 		var checkedAll = true; // 그룹 체크박스를 체크할지 안할지 판별하는 변수
 		
 		// checkIsAllFalse라는 배열변수의 값들이 전부 다 false일 경우엔, 켜져있는 토글을 hide()해준다.
@@ -116,18 +115,16 @@
 		
 		// 위에서 선언했던 checkIsAllFalse 배열 값들 중에 하나라도 true가 있으면 hideCheck변수를 true로 바꿔준다.
 		// 하나라도 체크가 되어 있으면 hide()를 하면 안되기 때문.
-		for(var k=0; k<checkIsAllFalse.length; k++){
+		/* for(var k=0; k<checkIsAllFalse.length; k++){
 			if(checkIsAllFalse[k] == true){
 				hideCheck = true;
 				break;
 			}
 		}
 		
-		console.log(toggleCheck);
-		
 		if(hideCheck == false){
 			$(".toggleTr"+orderListNumber).hide(400);
-		}
+		} */
 	}//checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount)
 	
 	//전체선택과 전체해제
@@ -216,7 +213,11 @@
 								수량과는 관계가 없기 때문. '진짜상품갯수' 라는 의미로 realProductCount라고 이름을 지었다. -->
 							<c:set var="realProductCount" value="0"/>
 							
+							<c:set var="nowProductTotalCount" value="0" />
+							
 							<c:forEach var="orderDTO" items="${orderList}" varStatus="i" >
+								
+								<c:set var="nowProductTotalCount" value="${nowProductTotalCount + orderDTO.count}" />
 								
 								<input type="hidden" name="productTotalNum" value="${i.count}">
 								<input type="hidden" name="equalGroupCount" value="${orderDTO.equalGroupCount}">
@@ -298,7 +299,7 @@
 										<td colspan="7">
 											<table><tr>
 												<td width="200" align="center">
-													<div id="checkOrderDiv" onclick="checkOrderDivFunc('${orderListNumber}', '${realProductCount}', '${orderDTO.equalGroupCount}')">
+													<div id="checkOrderDiv" onclick="checkOrderDivFunc('${orderListNumber}', '${realProductCount}', '${orderDTO.equalGroupCount}', '${nowProductTotalCount}')">
 														<input type="checkbox" name="checkOrder" class="check" value="${orderDTO.onum}">&nbsp;
 													</div>
 												</td>
