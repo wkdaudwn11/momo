@@ -56,6 +56,8 @@
 	
 	.desc {padding: 15px; text-align: center;}
 	
+	#productRegister {text-align: right; padding-right: 55px;}
+	
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -64,6 +66,7 @@
 	var showList;
 	
 	$(document).ready(function(){
+		
 		if($.cookie("showList") != null){
 			showList = $.cookie("showList").split(',');
 			$.each(showList,function(idx,obj){
@@ -77,6 +80,9 @@
 			}); // end $.each(showList,function(idx,obj)
 		}// end if($.cookie("showList") != null)
 			
+		$("#productRegisterBtn").on("click",function(){
+			location.replace("ProductRegisterServlet");
+		});
 			
 	}); // end &(document).ready();
 	
@@ -142,7 +148,7 @@
 						            	<div class="img">
 						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount});">
 											
-							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="100%" height="275">
 								  				<div class="desc"><b>
 								  					${bestBedRoomDTO.name}<br>
 								  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -211,6 +217,12 @@
 						</ul> <!-- contents_2_product_images -->
 					</div> <!-- contents_2_product -->
 				</div>	<!-- contents_22 -->
+				
+				<c:if test="${sessionScope.login.id == 'admin'}">
+					<div id="productRegister">
+						<button id="productRegisterBtn">상품 등록</button>
+					</div>
+				</c:if>
 			
 				<!-- 페이징처리 -->
 				<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
@@ -261,6 +273,7 @@
 					</c:if>
 				</div>
 			</div> <!-- #bedRoomContent -->
+			
 			<div id="bedRoomAside">
 				오늘 본 상품
 				<table></table>
