@@ -76,7 +76,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("author")){ myHomeDTO.setAuthor(value);}else
 						if(name.equals("hnum")){ myHomeDTO.setHnum(Integer.parseInt(value)); }else
 						if(name.equals("curPage")){ curPage = value; }else
-						if(name.equals("orderList")){ /*DTO 에 아직 안만들었다. Write에도 미구현*/ }
+						if(name.equals("orderList")){ myHomeDTO.setOrderList(value); } /////////////////////
 						
 					}else{
 						if(!item.getName().equals("")){
