@@ -90,6 +90,7 @@
 	<c:if test="${MyHomeDTO.img == null}">
 		<c:set var="mainImg" value="ImgNotFound.png"/>
 	</c:if>
+	<!-- forTokens items 가 null 이면 돌지 않는다. -->
 	<c:forTokens var="img" items="${MyHomeDTO.img}" delims="," varStatus="status">
 		<c:if test="${status.index == 0}">
 			<c:set var="mainImg" value="${img}"/>
@@ -108,9 +109,13 @@
 	
 	<div id="myHomeDetailVisual">
 		<div id="myHomeDetailVisualleft">
-			<center>
-				<img src="images/${mainImg}" >
-			</center>
+			<table>
+				<c:forTokens var="product" items="${MyHomeDTO.orderList}" delims=",">
+					<tr>
+						
+					</tr>
+				</c:forTokens>
+			</table>
 		</div>
 		
 	</div> <!-- myHomeDetailVisual -->
@@ -132,6 +137,9 @@
 		</table>
 	<hr id="titleArea_bottom"/>
 	<div id="myHomeDetailContent">
+		<c:if test="${MyHomeDTO.img == null}">
+			<img src="images/ImgNotFound.png"><p/>
+		</c:if>
 		<c:if test="${MyHomeDTO.img != null}">
 			<c:forEach var="img" items="${imgList}" varStatus="status">
 				<img src="images/${img}"><p/>
