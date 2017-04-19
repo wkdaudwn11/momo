@@ -44,7 +44,7 @@
 	<!-- 테이블에 레코드 추가 하는 쿼리 -->
 	<insert id="myHomeInsert" parameterType="MyHomeDTO">
 		insert into myhome(hnum,id,orderList,img,title,content,author)
-		values(myhome_seq.nextval,#{id},#{img},#{title},#{content},#{author})
+		values(myhome_seq.nextval,#{id},#{orderList},#{img},#{title},#{content},#{author})
 	</insert>
 
 	<!-- 리스트 개수 가져오는 쿼리 -->
