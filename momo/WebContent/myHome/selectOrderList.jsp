@@ -56,6 +56,7 @@
 	// 'ㅁㅁ외 ㅁ건'인 항목의 체크박스를 클릭 했을 때
 	function productPack(orderListNumber){
 		
+
 		var pack = document.getElementById("pack"+orderListNumber);
 		var $included = $(".includedProduct"+orderListNumber);
 		$.each($included,function(idx,obj){
@@ -85,6 +86,7 @@
 			pack.checked = false;
 			checkAll.checked = false;
 		}
+
 	}//checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount)
 	
 	//전체선택과 전체해제
@@ -159,7 +161,11 @@
 								수량과는 관계가 없기 때문. '진짜상품갯수' 라는 의미로 realProductCount라고 이름을 지었다. -->
 							<c:set var="realProductCount" value="0"/>
 							
+							<c:set var="nowProductTotalCount" value="0" />
+							
 							<c:forEach var="orderDTO" items="${orderList}" varStatus="i" >
+								
+								<c:set var="nowProductTotalCount" value="${nowProductTotalCount + orderDTO.count}" />
 								
 								<input type="hidden" name="productTotalNum" value="${i.count}">
 								<input type="hidden" name="equalGroupCount" value="${orderDTO.equalGroupCount}">
@@ -244,6 +250,7 @@
 										<td colspan="7">
 											<table><tr>
 												<td width="200" align="center">
+
 													<div>
 														<input type="checkbox" name="singleProduct" class="includedProduct${orderListNumber}" value="${orderDTO.onum}" onchange="includeProduct('${orderListNumber}')">&nbsp;
 													</div>
