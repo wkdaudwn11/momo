@@ -50,7 +50,7 @@
 	
 	.img {float: left;}
 	.img:hover {border: 1px solid #13132f;}
-	.img img {width: 100%; height: auto;}
+	.img img {width: 100%; height: 200px;}
 	.img a{color:#13132f; text-decoration: none;}
 	.img a:hover{color:#EDA900; text-decoration: none;}
 	
@@ -80,8 +80,8 @@
 			}); // end $.each(showList,function(idx,obj)
 		}// end if($.cookie("showList") != null)
 			
-		$("#productRegisterBtn").on("click",function(){
-			location.replace("ProductRegisterServlet");
+		$("#productRegisterUIBtn").on("click",function(){
+			location.replace("ProductRegisterUIServlet");
 		});
 			
 	}); // end &(document).ready();
@@ -148,7 +148,16 @@
 						            	<div class="img">
 						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount});">
 											
-							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="100%" height="275">
+												<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+												<c:if test="${bestBedRoomDTO.register == 'o'}">
+							    					<img src="ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}" width="100%" height="275">
+							    				</c:if>
+							    				
+							    				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+							    				<c:if test="${bestBedRoomDTO.register == 'x'}">
+							    					<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="100%" height="275">
+							    				</c:if>
+							    				
 								  				<div class="desc"><b>
 								  					${bestBedRoomDTO.name}<br>
 								  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -193,7 +202,16 @@
 					            	<div class="img">
 					            	
 										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount});">
-						    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
+											
+											<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+											<c:if test="${bedRoomDTO.register == 'o'}">
+						    					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="100%" height="275">
+						    				</c:if>
+						    				
+						    				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+						    				<c:if test="${bedRoomDTO.register == 'x'}">
+						    					<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="100%" height="275">
+						    				</c:if>
                       
 							  				<div class="desc"><b>
 							  					${bedRoomDTO.name}<br>
@@ -220,7 +238,7 @@
 				
 				<c:if test="${sessionScope.login.id == 'admin'}">
 					<div id="productRegister">
-						<button id="productRegisterBtn">상품 등록</button>
+						<button id="productRegisterUIBtn">상품 등록</button>
 					</div>
 				</c:if>
 			

@@ -43,6 +43,7 @@
 	</environments>
 	
 	<mappers>
+		<mapper resource="com/config/mapper/AdminMapper.xml" />
 		<mapper resource="com/config/mapper/MemberMapper.xml" />
 		<mapper resource="com/config/mapper/FreeBoardMapper.xml" />
 		<mapper resource="com/config/mapper/QuestionMapper.xml" />

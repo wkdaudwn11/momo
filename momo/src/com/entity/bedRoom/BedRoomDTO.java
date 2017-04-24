@@ -1,6 +1,7 @@
 package com.entity.bedRoom;
 
 public class BedRoomDTO {
+	
 	private int bnum;
 	private String category;
 	private String name;
@@ -10,13 +11,14 @@ public class BedRoomDTO {
 	private int buycount;
 	private String image1;
 	private String image2;
+	private String register;
 	
 	public BedRoomDTO() {
 		super();
 	}
 
 	public BedRoomDTO(int bnum, String category, String name, String content, int price, int discount, int buycount,
-			String image1, String image2) {
+			String image1, String image2, String register) {
 		super();
 		this.bnum = bnum;
 		this.category = category;
@@ -27,13 +29,14 @@ public class BedRoomDTO {
 		this.buycount = buycount;
 		this.image1 = image1;
 		this.image2 = image2;
+		this.register = register;
 	}
 
 	@Override
 	public String toString() {
 		return "BedRoomDTO [bnum=" + bnum + ", category=" + category + ", name=" + name + ", content=" + content
 				+ ", price=" + price + ", discount=" + discount + ", buycount=" + buycount + ", image1=" + image1
-				+ ", image2=" + image2 + "]";
+				+ ", image2=" + image2 + ", register=" + register + "]";
 	}
 
 	public int getBnum() {
@@ -106,6 +109,14 @@ public class BedRoomDTO {
 
 	public void setImage2(String image2) {
 		this.image2 = image2;
+	}
+
+	public String getRegister() {
+		return register;
+	}
+
+	public void setRegister(String register) {
+		this.register = register;
 	}
 
 }

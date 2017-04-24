@@ -12,8 +12,6 @@
 <title>마이홈자랑</title>
 
 <style>
-	
-	
 	#myHomeContent {width: 80%; margin: 0 auto; overflow: hidden;}
 	#myHomeContent h3 { margin-left: 0px;}
 	
@@ -54,7 +52,6 @@
 		
 		$("#upfile").on("change", function(e) {  
 		 	var files = e.target.files; //FileList object	
-		 	alert(files[0]);
 		    var img = $("#img");
 			var priviewImg = $("table tr");
 			var checkFile = true;
