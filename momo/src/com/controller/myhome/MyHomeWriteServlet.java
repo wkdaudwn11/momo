@@ -1,6 +1,6 @@
 package com.controller.myhome;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,6 +43,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 		String target = null;
 		
 		String filePath = "C:\\MyHomeImg";
+		
 		try{
 			if(member != null){
 				// Create a factory for disk-based file items
@@ -77,7 +78,6 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("hnum")){ myHomeDTO.setHnum(Integer.parseInt(value)); }else
 						if(name.equals("curPage")){ curPage = value; }else
 						if(name.equals("orderList")){ /*DTO 에 아직 안만들었다. Write에도 미구현*/ }
-						
 					}else{
 						if(!item.getName().equals("")){
 							fileList.add(item); // 파일 만들때 쓰기위한 fileItem 리스트
@@ -86,8 +86,8 @@ public class MyHomeWriteServlet extends HttpServlet {
 					}
 				} // end for
 				
-				myHomeDTO.setId( member.getId() );
-				myHomeDTO.setImg( StringUtils.join(fileNameList,",") );
+				myHomeDTO.setId(member.getId());
+				myHomeDTO.setImg(StringUtils.join(fileNameList, ","));
 				
 				if(curPage == null){ 
 					service.myHomeInsert(myHomeDTO);
@@ -95,16 +95,19 @@ public class MyHomeWriteServlet extends HttpServlet {
 				}else{
 					String deleteList = service.detailMyHome(myHomeDTO.getHnum()).getImg();
 					List<String> deleteImgList = Arrays.asList(deleteList.split(","));
+					
 					for(String img : deleteImgList){
 						File imgFile = new File(filePath,img);
 						imgFile.delete();
 					}
+					
 					service.myHomeUpdate(myHomeDTO);
 					target = "MyHomeListServlet?curPage="+curPage;
 				}
+				
 				if(!fileList.isEmpty()){
 					for(FileItem img : fileList){
-						File file = new File(filePath,member.getId()+"_"+img.getName());
+						File file = new File(filePath, member.getId()+"_"+img.getName());
 						img.write(file);
 					}
 				} // end if

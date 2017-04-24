@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.momo.AdminMapper">
+
+	<!-- 현재 bedroom 테이블의 시퀀스 번호를 반환하는 쿼리 -->
+	<select id="getPolderNum" resultType="int">
+		select bnum 
+		  from bedroom
+		 where rownum=1
+		 order by bnum desc
+	</select>
+	
+	<insert id="productInsert" parameterType="BedRoomDTO">
+		insert into bedroom(bnum, category, name, content, price, discount, buycount, image1, image2, register)
+		values(#{bnum}, #{category}, #{name}, #{content}, 
+				#{price}, #{discount}, 0, #{image1}, #{image2}, #{register})
+	</insert>
+	
+</mapper>

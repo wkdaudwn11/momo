@@ -11,7 +11,7 @@
 <title>모모</title>
 
 <style>
-	#bedRoomDetailWrap{width: 80%; height: 350em; margin: 0 auto;}
+	#bedRoomDetailWrap{width: 80%; height: auto; margin: 0 auto;}
 	
 	#bedRoomDetailVisual{width: 100%; height: 20em;}
 	
@@ -24,7 +24,7 @@
 	.visualRightTable .productPrice2{color: red; font-size: 15px; font: bold;}
 	.visualRightTable .productPrice3{color: #3f4993; font-size: 15px; font: bold;}
 	
-	#bedRoomDetailContent{width: 70%; height: 90%; margin: 0 auto;}
+	#bedRoomDetailContent{width: 70%; height: auto; margin: 0 auto;}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -81,7 +81,15 @@
 	<div id="bedRoomDetailVisual">
 		<div id="bedRoomDetailVisualleft">
 			<center>
-				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
+				<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+				<c:if test="${bedRoomDTO.register == 'o'}">
+   					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="80%" height="400px">
+   				</c:if>
+   				
+   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+   				<c:if test="${bedRoomDTO.register == 'x'}">
+   					<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
+   				</c:if>
 			</center>
 		</div>
 		<div id="bedRoomDetailVisualRight">
@@ -149,7 +157,27 @@
 	<hr>
 	
 	<div id="bedRoomDetailContent">
-		<img src="images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
+		<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+		<c:if test="${bedRoomDTO.register == 'o'}">
+			<center>
+			<%-- <img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="80%" height="400px"> --%>
+			<c:forEach var="a" items="${list}" varStatus="i">
+				<c:if test="${i.count % 2 != 0}">
+					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${a}" width="80%" height="400px">
+					<br />
+				</c:if>
+				<c:if test="${i.count % 2 == 0}">
+					<pre>${a}</pre>
+					<br />
+				</c:if>
+			</c:forEach>
+			</center>
+		</c:if>
+					
+		<!-- DB에서 insert로 상품을 등록했을 경우 -->
+		<c:if test="${bedRoomDTO.register == 'x'}">
+			<img src="images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
+		</c:if>
 	</div>
 	
 	<hr>

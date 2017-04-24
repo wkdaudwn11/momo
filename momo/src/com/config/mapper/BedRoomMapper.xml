@@ -6,7 +6,7 @@
 
 	<!-- 상품별로 상품을 가져오는 쿼리 (최신순)-->
 	<select id="bedRoomListBnumDesc" resultType="BedRoomDTO" parameterType="hashmap">
-   		select bnum, category, name, content, price, discount, buycount, image1
+   		select *
    		  from bedRoom
    		<if test="category != 0">
    		 where category=#{category}
@@ -16,7 +16,7 @@
 	
 	<!-- 상품별로 상품을 가져오는 쿼리 (가격 낮은순)-->
 	<select id="bedRoomListPriceAsc" resultType="BedRoomDTO" parameterType="hashmap">
-   		select bnum, category, name, content, price, discount, buycount, image1
+   		select *
    		  from bedRoom
    		<if test="category != 0">
    		 where category=#{category}
@@ -26,7 +26,7 @@
 	
 	<!-- 상품별로 상품을 가져오는 쿼리 (가격 높은순)-->
 	<select id="bedRoomListPriceDesc" resultType="BedRoomDTO" parameterType="hashmap">
-   		select bnum, category, name, content, price, discount, buycount, image1
+   		select *
    		  from bedRoom
    		<if test="category != 0">
    		 where category=#{category}
@@ -36,7 +36,7 @@
 	
 	<!-- 상품별로 상품을 가져오는 쿼리 (판매 인기순)-->
 	<select id="bedRoomListBuyCountDesc" resultType="BedRoomDTO" parameterType="hashmap">
-   		select bnum, category, name, content, price, discount, buycount, image1
+   		select *
    		  from bedRoom
    		<if test="category != 0">
    		 where category=#{category}
@@ -57,14 +57,14 @@
 	
 	<!-- 인기상품 세 개를 반환해주는 쿼리 (전체) -->
 	<select id="bestBedRoomList" resultType="BedRoomDTO">
-		select rownum, bnum, category, name, content, price, discount, buycount, image1
+		select *
   		  from (select * from bedRoom order by buycount desc)
  		 where rownum between 1 and 3
 	</select>
 	
 	<!-- 인기상품 세 개를 반환해주는 쿼리 (카테고리별로 구분) -->
 	<select id="bestBedRoomListCategory" parameterType="hashmap" resultType="BedRoomDTO">
-		select rownum, bnum, category, name, content, price, discount, buycount, image1
+		select *
   		  from (select * from bedRoom order by buycount desc)
  		 where rownum between 1 and 3
  		   and category = #{category}
@@ -91,4 +91,5 @@
 			</foreach>
 		</where>
 	</select>
+	
 </mapper>

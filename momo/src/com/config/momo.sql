@@ -131,7 +131,8 @@ create table bedroom(
   discount  number(3)       not null,       --할인율
   buycount  number(3)       default 0,      --판매횟수
   image1    varchar2(100)   default null,   --상품사진1
-  image2    varchar2(100)   default null    --상품사진2
+  image2    varchar2(100)   default null    --상품사진2,
+  register  varchar2(2)     default 'x'     --관리자가 상품을 등록했는지 여부
 );
 create sequence bedroom_seq minvalue 0;
 

@@ -52,7 +52,7 @@ public class MyHomeService{
 		SqlSession session = MySqlSessionFactory.openSession();
 		MyHomeDTO myHomeDTO = null;
 		try{
-			myHomeDTO = session.selectOne(name+"detailMyHome",hnum);
+			myHomeDTO = session.selectOne(name+"detailMyHome", hnum);
 			readCntPlus(hnum);
 		}finally{
 			session.close();

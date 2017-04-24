@@ -58,7 +58,11 @@
 						},
 						success:function(responseData,status,xhr){
 							if(responseData.trim()=="성공"){
-								captchar(300,185);
+								if(id == 'admin'){
+									loginSuccess();
+								}else{
+									captchar(300,185);
+								}
 							}else if(responseData.trim()=="실패"){
 								alert('아이디 혹은 비밀번호가 틀립니다.\n다시 입력해주세요.');
 							}else{
@@ -77,7 +81,6 @@
 		}//loginFormSubmit()
 		
 		function captchar(popWidth, popHeight){
-			var result;
 			var captcharKey = '${sessionScope.captchaKey}';
 					
 			var url = "login/captcha.jsp?captcharKey="+captcharKey;
@@ -89,8 +92,6 @@
 			var popY = winY + (winHeight - popHeight)/2;
 			
 			window.open(url,"캡차","width="+(popWidth+15)+"px,height="+(popHeight-15)+"px,top="+popY+",left="+popX);
-			
-			return result;
 		}//captchar()
 		
 		function loginSuccess(){

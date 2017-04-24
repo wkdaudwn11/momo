@@ -72,10 +72,6 @@ public class BedRoomService {
 		
 		bedRoomPageDTO.setBedRoomList(bedRoomList);
 		
-		/*for(int i=0; i<bedRoomPageDTO.getBedRoomList().size(); i++){
-			System.out.println(bedRoomPageDTO.getBedRoomList().get(i).getName());
-		}*/
-		
 		return bedRoomPageDTO;
 	}//bestBedRoomList()
 	
