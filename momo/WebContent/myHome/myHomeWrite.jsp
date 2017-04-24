@@ -17,7 +17,7 @@
 	
 	#upfile{width:5.5em; font-size: 0.75em; margin-bottom: 0.5em; vertical-align:top;}
 	#button{font-size:0.645em; margin-bottom: 0.5em;}
-	#button+input{width:30%; height:0.75em; font-size:0.65em; margin-left: 1em; border-style: none;}
+	#button+input{width:50%; height:0.75em; font-size:0.65em; margin-left: 1em; border-style: none;}
 	table{display:inline-block; margin-left: 1em;}
 	table td{width:3em; height:3em;}
 	table img{width:100%; height:100%;}
@@ -83,11 +83,15 @@
 	}); // end $(document).ready(function()
 			
 	function myHomeWrite(writeForm){
-		if($("#content").val() == ""){
-			alert("내용을 입력해 주세요");
-			$("#content").trigger("focus");
+		if($("#title").val() ==""){
+			alert("제목은 반드시 입력해야 합니다.");
+			$("#title").trigger("focus");
+		}else if($("#orderList").val() == ""){
+			alert("주문내역이 선택되지 않았습니다.");
+			$("#button").trigger("click");
+		}else{
+			writeForm.submit();	
 		}
-		writeForm.submit();	
 	}
 	
 	function show() {			 		 
@@ -100,6 +104,10 @@
 		});
 	}// end function show()
 	
+	function orderList(checkedProductNum,checkProductName){
+		$("#orderListName").val(checkProductName);
+		$("#orderListNum").val(checkedProductNum);
+	}
 </script>
 
 </head>
@@ -116,6 +124,7 @@
 				<input type="hidden" name="hnum" value="${myHomeDTO.hnum}"/>
 				<input type="hidden" name="curPage" value="${curPage}">
 			</c:if>
+			<input type="hidden" id="orderListNum" name="orderList">
 			<div id="myHomeContent">
 				<h3>마이홈자랑</h3>
 				<hr>
@@ -140,10 +149,7 @@
 					</p>
 				</div>
 					<input type="button" id="button" value="주문내역보기">
-					<input type="text" name="orderList" readonly="readonly" required>
-					<c:forEach var="product" items="${realCheckedProduct}">
-						${product}
-					</c:forEach>
+					<input type="text" id="orderListName" readonly="readonly">
 				<div>
 					<input type="file" id="upfile" name="upfile" accept="image/*" multiple>
 					<table>

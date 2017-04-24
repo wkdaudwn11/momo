@@ -29,21 +29,16 @@
 		
 		$("#choiceBtn").on("click",function(){
 			
-			var checkedProduct = new Array(); // 체크된 상품 담을 배열
-			var checkOrder = document.getElementsByName("checkOrder");
+			//var checkOrder = document.getElementsByName("singleProduct"); // 상품 리스트 들
+			var productList = $("[name='singleProduct']");
+			var checkedProductNum = $.map(productList,function(obj,idx){	// 체크된 상품의 상품번호(onum) 
+					if(obj.checked){	return obj.value;	}
+			}); // end $.map(return obj.val(););
+			var checkProductName = $.map(productList,function(obj,idx){	// 체크된 상품의 상품이름(name)
+				if(obj.checked){	return $(".productName").eq(idx).text();	}
+			}); // end $.map(return  $(".productName"));
 			
-			for(var i = 0; i<checkOrder.length; i++){
-				if(checkOrder[i].checked == true){
-					checkedProduct[i] = checkOrder[i].value;
-				}
-			}
-			
-			/* 마미홈자랑 글쓰기 화면에서 [주문내역보기] 버튼을 눌렀을 때, 제목과 내용을 서블릿으로 넘겨주는데, 그 넘겨받은 값을 서블릿으로부터 다시 받음.
-			팝업창에서 [선택] 버튼을 누르면 팝업창이 닫히고 부모창이 reload 되면서, 사용자가 입력했던 제목과 내용을 다시 뿌려주기 위함 */
-			var title = '${title}';
-			var content = '${content}';
-			
-			opener.parent.location='MyHomeWriteUIServlet?title='+title+"&content="+content+"&checkedProduct="+checkedProduct;
+			opener.parent.orderList(checkedProductNum,checkProductName);
 			window.close();
 		});//$("#choiceBtn").on("click",function()
 				
@@ -59,95 +54,48 @@
 	}
 	
 	// 'ㅁㅁ외 ㅁ건'인 항목의 체크박스를 클릭 했을 때
-	function checkOrderGroupDivFunc(orderListNumber, realProductCount, equalGroupCount){
+	function productPack(orderListNumber){
 		
-		var checkOrder = document.getElementsByName("checkOrder");
-		var checkOrderGroup = document.getElementById("checkOrderGroup"+orderListNumber);
+
+		var pack = document.getElementById("pack"+orderListNumber);
+		var $included = $(".includedProduct"+orderListNumber);
+		$.each($included,function(idx,obj){
+			obj.checked = pack.checked;
+		});
 		
-		if(checkOrderGroup.checked == true){
-			// equalGroupCount: 같은 그룹의 갯수를 뜻하므로, 반복문을 돌릴 횟수로 사용. (3이면 3바퀴)
-			// realProductCount: 선택된 그룹 내에서 시작되는 checkOrder의 index값
-			for(var i=0; i<equalGroupCount; i++){
-				var k = (parseInt(realProductCount)) + i;
-				checkOrder[k].checked = true;
-			}
-			$(".toggleTr"+orderListNumber).show(400);
-		}else if(checkOrderGroup.checked == false){
-			for(var i=0; i<equalGroupCount; i++){
-				var k = (parseInt(realProductCount)) + i;
-				checkOrder[k].checked = false;
-			}
-			$(".toggleTr"+orderListNumber).hide(400);
-		}
+		includeProduct(orderListNumber);
+		
 	}//checkGroupDivFunc(orderListNumber, realProductCount, equalGroupCount)
 	
 	//그룹 내의 체크박스를 클릭 할 경우 실행되는 함수
-	function checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount, nowProductTotalCount){
+	function includeProduct(orderListNumber){
+		var checkAll = document.getElementById("checkAll");
+		var pack = document.getElementById("pack"+orderListNumber);
+		var $included = $(".includedProduct"+orderListNumber); // 묶음 상품에 포함된 상품 리스트
+		var checkList = $included.map(function( idx , element ){
+			 if(element.checked){ return idx;}
+		}); // 체크된 리스트
 		
-		var checkOrder = document.getElementsByName("checkOrder");
-		var checkOrderGroup = document.getElementById("checkOrderGroup"+orderListNumber);
-		
-		var count = parseInt(equalGroupCount);
-		var totalCount = parseInt(nowProductTotalCount);
-		var checkedAll = true; // 그룹 체크박스를 체크할지 안할지 판별하는 변수
-		
-		// checkIsAllFalse라는 배열변수의 값들이 전부 다 false일 경우엔, 켜져있는 토글을 hide()해준다.
-		var checkIsAllFalse = new Array();
-		
-		// 한 개라도 체크가 풀리면 그룹 체크박스를 해제해준다.
-		// 반대로 모두 다 체크가 된 상태라면 그룹 체크박스를 체크해준다.
-		for(var i=0; i < count; i++){		
-			if(checkOrder[(realProductCount-1)+i].checked == false){	
-				checkedAll = false;
-				checkIsAllFalse[i] = false;
-			}else{
-				checkIsAllFalse[i] = true;
+		if(checkList.length == $included.length){
+			pack.checked = true;
+			$(".toggleTr"+orderListNumber).show(400);
+		}else{
+			if(checkList.length == 0){
+				$(".toggleTr"+orderListNumber).hide();
 			}
+			pack.checked = false;
+			checkAll.checked = false;
 		}
-		
-		if(checkedAll == true){
-			checkOrderGroup.checked = true;
-		}else if(checkedAll == false){
-			checkOrderGroup.checked = false;
-		}
-		 
-		var hideCheck = false; // 이 변수가 false면 현재 toggle로 인해 내려왔던 tr들이 hide된다.
-		
-		// 위에서 선언했던 checkIsAllFalse 배열 값들 중에 하나라도 true가 있으면 hideCheck변수를 true로 바꿔준다.
-		// 하나라도 체크가 되어 있으면 hide()를 하면 안되기 때문.
-		/* for(var k=0; k<checkIsAllFalse.length; k++){
-			if(checkIsAllFalse[k] == true){
-				hideCheck = true;
-				break;
-			}
-		}
-		
-		if(hideCheck == false){
-			$(".toggleTr"+orderListNumber).hide(400);
-		} */
+
 	}//checkOrderDivFunc(orderListNumber, realProductCount, equalGroupCount)
 	
 	//전체선택과 전체해제
 	function checkOrderAll(){
-		var checkOrderAll = document.getElementById("checkOrderAll");
-		var checkOrder = document.getElementsByName("checkOrder");
-		var checkOrderGroup = document.getElementsByName("checkOrderGroup");
+		var checkAll = document.getElementById("checkAll");
+		$(":checkbox").each(function(idx,element){
+			element.checked = checkAll.checked;
+		});
 		
-		if(checkOrderAll.checked == true){
-			for(var i = 0; i<checkOrder.length; i++){
-				checkOrder[i].checked = true;
-			}
-			for(var k = 0; k<checkOrderGroup.length; k++){
-				checkOrderGroup[k].checked = true;
-			}
-		}else{
-			for(var i = 0; i<checkOrder.length; i++){
-				checkOrder[i].checked = false;
-			}
-			for(var k = 0; k<checkOrderGroup.length; k++){
-				checkOrderGroup[k].checked = false;
-			}
-		}
 	}//checkOrderAll()
 	
 </script>
@@ -175,7 +123,7 @@
 			<table width="100%" cellpadding="0" cellspacing="0" border="0" class="orderList">
 				<tr height="30"> 
 					<th width="60">
-						<input type="checkbox" name="checkOrderAll" id="checkOrderAll" onclick="checkOrderAll()">
+						<input type="checkbox" name="checkOrderAll" id="checkAll" onchange="checkOrderAll()">
 						전체
 					</th> 
 					<th width="50">사   진</th> 
@@ -226,18 +174,19 @@
 									<c:set var="minus" value="${minus+1}" />
 								</c:if>
 								
-								<!-- 같은 그룹이 아니면 실행 (단일제품) -->
+								<!-- 이전에 뿌려진 리스트와 묶인 상품이 아니면  -->
 								<c:if test="${prevGroupnum != orderDTO.groupnum}">
 									<c:set var="prevGroupnum" value="${orderDTO.groupnum}" />
 									<c:set var="prevIndex" value="${i.count-minus}" />
 									
 									<c:set var="orderListNumber" value="${(totalRecordDistinct - (prevIndex + x)) + 1}" />
 									
+									<!-- 단일 상품 리스트 뿌려주는 곳 -->
 									<c:if test="${orderDTO.equalGroupCount == 1}">
 										<c:set var="realProductCount" value="${realProductCount+1}"/>
 										<tr height="30" style="border-bottom:1px solid #ddd;">
 											<td  width="50" align="center" >
-												<input type="checkbox" name="checkOrder" class="check" value="${orderDTO.onum}">&nbsp;
+												<input type="checkbox" name="singleProduct" value="${orderDTO.onum}">&nbsp;
 												<b>${orderListNumber}</b>
 											</td>
 										    <td  width="50" align="center">
@@ -245,7 +194,7 @@
 										    </td>
 						 					<td width="160" align="center"> <!-- equalGroupCount -->
 										    	<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
-									    			<b>${orderDTO.pname}</b>&nbsp;&nbsp;
+									    			<b class="productName">${orderDTO.pname}</b>&nbsp;&nbsp;
 									    		</div>
 						 					</td>			    
 										    <td width="50" align="center">
@@ -261,11 +210,12 @@
 									</c:if> <!-- orderDTO.equalGroupCount == 1 -->
 									
 									<!-- ㅁㅁ외 ㅁ건의 제목을 뿌려주는 if문 -->
+									<!-- 묶음상품의 제목을 뿌려주는 곳 -->
 									<c:if test="${orderDTO.equalGroupCount > 1}">
 										<tr height="30" style="border-bottom:1px solid #ddd;">
 											<td width="50" align="center" >
-												<div id="checkOrderGroupDiv" onclick="checkOrderGroupDivFunc('${orderListNumber}', '${realProductCount}', ${orderDTO.equalGroupCount})">
-													<input type="checkbox" name="checkOrderGroup" id="checkOrderGroup${orderListNumber}" class="checkOrderGroup" value="${orderDTO.groupnum}">&nbsp;
+												<div>
+													<input type="checkbox"  id="pack${orderListNumber}" value="${orderDTO.groupnum}" onchange="productPack('${orderListNumber}')">&nbsp;
 													<b>${orderListNumber}</b>
 												</div>
 											</td>
@@ -293,14 +243,16 @@
 								</c:if> <!-- prevGroupnum != orderDTO.groupnum -->
 								
 								<!-- 이전 상품과 현재 상품의 그룹번호가 같으면 (ㅁㅁ외 ㅁ건의 제목을 눌렀을 때 밑에 나타나는 품목들) -->
+								<!-- 묶음 상품 의 단일 리스트 뿌려주는 곳 -->
 								<c:if test="${prevGroupnum == orderDTO.groupnum && orderDTO.equalGroupCount > 1}">
 									<c:set var="realProductCount" value="${realProductCount+1}"/>
 									<tr class="toggleTr${orderListNumber}" height="30" style="display: none; border-bottom: 1px solid #ddd; background-color: #f6f6f6;">
 										<td colspan="7">
 											<table><tr>
 												<td width="200" align="center">
-													<div id="checkOrderDiv" onclick="checkOrderDivFunc('${orderListNumber}', '${realProductCount}', '${orderDTO.equalGroupCount}', '${nowProductTotalCount}')">
-														<input type="checkbox" name="checkOrder" class="check" value="${orderDTO.onum}">&nbsp;
+
+													<div>
+														<input type="checkbox" name="singleProduct" class="includedProduct${orderListNumber}" value="${orderDTO.onum}" onchange="includeProduct('${orderListNumber}')">&nbsp;
 													</div>
 												</td>
 												<td width="150" align="left"> 
@@ -308,7 +260,7 @@
 												</td>
 												<td width="190" align="center"> 
 										    		<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
-										    			<b>${orderDTO.pname}</b>&nbsp;&nbsp;
+										    			<b class="productName">${orderDTO.pname}</b>&nbsp;&nbsp;
 										    		</div>
 												</td>
 												<td width="195" align="center">

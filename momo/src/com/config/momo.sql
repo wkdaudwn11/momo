@@ -53,8 +53,8 @@ Create table myhome(
  author		varchar2(16)	not null,		--작성자 이름
  title	  	varchar2(50)	not null,		--제목
  img		varchar2(100),					-- 등록한 이미지
- orderList	varchar2(100)	not	null,		-- 등록한 주문내역 (미구현)
- content	varchar2(4000)	not null,		--내용
+ orderList	varchar2(100),		-- 등록한 주문내역 (미구현)
+ content	varchar2(4000),					--내용
  writeday	date		    default sysdate,--작성일
  readcnt	number(4)		default 0,		--조회
  goodcnt	number(4)		default 0,		--추천수

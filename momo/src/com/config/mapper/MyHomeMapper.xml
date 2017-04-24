@@ -14,7 +14,7 @@
 	<!-- 레코드 업데이트 -->
 	<update id="myHomeUpdate" parameterType="MyHomeDTO">
 		update myhome
-		set title = #{title},content = #{content}
+		set title = #{title},content = #{content},orderList = #{orderList}
 		<if test="img != '' ">
 			,img=#{img}
 		</if>
@@ -43,8 +43,8 @@
 
 	<!-- 테이블에 레코드 추가 하는 쿼리 -->
 	<insert id="myHomeInsert" parameterType="MyHomeDTO">
-		insert into myhome(hnum,id,img,title,content,author)
-		values(myhome_seq.nextval,#{id},#{img},#{title},#{content},#{author})
+		insert into myhome(hnum,id,orderList,img,title,content,author)
+		values(myhome_seq.nextval,#{id},#{orderList},#{img},#{title},#{content},#{author})
 	</insert>
 
 	<!-- 리스트 개수 가져오는 쿼리 -->
@@ -54,7 +54,7 @@
 	
 	<!-- best 리스트 가져오는 쿼리 -->
 	<select id="bestList" resultType="MyHomeDTO">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
+		select hnum,id,orderList,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		where readCnt >= 100 and goodCnt >0
 		order by readCnt/goodCnt desc,writeday desc
@@ -62,7 +62,7 @@
 	
 	<!-- 리스트 가져오는 쿼리 -->
 	<select id="myHomeList" resultType="MyHomeDTO">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
+		select hnum,id,orderList,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		order by writeday desc 
 	</select>
