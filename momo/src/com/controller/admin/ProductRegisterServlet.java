@@ -103,7 +103,6 @@ public class ProductRegisterServlet extends HttpServlet {
 				//db에 insert하기
 				service.productInsert(dto);
 				
-				
 				//사진 저장하기 시작
 				if(!fileList.isEmpty()){
 					

@@ -266,4 +266,10 @@ create sequence orderInfo_groupseq minvalue 1;
 alter table orderInfo add constraint orderInfo_id_fk foreign key(id)
 references member(id) on delete cascade;
 
+create table banWord(
+  bwnum number(4)       constraint	banWord_bwnum_pk	primary key, -- 금지어 번호
+  word  varchar2(4000)  not null -- 금지어 내용
+);
+create sequence banWord_seq minvalue 1;
+
 commit;
