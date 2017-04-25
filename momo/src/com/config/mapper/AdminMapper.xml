@@ -18,4 +18,21 @@
 				#{price}, #{discount}, 0, #{image1}, #{image2}, #{register})
 	</insert>
 	
+	<delete id="productDelete" parameterType="string">
+		delete from bedroom where bnum=#{value}
+	</delete>
+	
+	<insert id="banWordInsert" parameterType="string">
+		insert into banWord(bwnum, word)
+		values(banWord_seq.nextval, #{value})
+	</insert>
+	
+	<select id="banWordList" resultType="BanWordDTO">
+		select * from banWord order by bwnum desc
+	</select>
+	
+	<delete id="banWordDelete" parameterType="int">
+		delete from banWord where bwnum=${value}
+	</delete>
+	
 </mapper>

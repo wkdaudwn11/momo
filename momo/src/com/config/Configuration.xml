@@ -13,6 +13,8 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="com.entity.banWord.BanWordDTO" alias="BanWordDTO"/>
+	
 		<typeAlias type="com.entity.member.MemberDTO" alias="MemberDTO"/>
 		
 		<typeAlias type="com.entity.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>

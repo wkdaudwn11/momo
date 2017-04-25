@@ -1,4 +1,4 @@
-package com.controller.freeBoard;
+package com.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,36 +13,42 @@ import javax.servlet.http.HttpSession;
 
 import com.entity.banWord.BanWordDTO;
 import com.entity.member.MemberDTO;
-import com.exception.LoginFailException;
 import com.service.AdminService;
 
-@WebServlet("/FreeBoardWriteUIServlet")
-public class FreeBoardWriteUIServlet extends HttpServlet {
-
+@WebServlet("/banWordUIServlet")
+public class banWordUIServlet extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		MemberDTO member = (MemberDTO)session.getAttribute("login");
-		String target ="";
-		try{
-			if(member == null){
-				target = "LoginUIServlet";
-				throw new LoginFailException();
-			}else{
+		
+		MemberDTO login = (MemberDTO)session.getAttribute("login");
+		String target = "";
+		
+		if(login != null){
+			if(login.getId().equals("admin")){
 				
 				AdminService service = new AdminService();
 				List<BanWordDTO> list = service.banWordList();
 				
-				request.setAttribute("banWordListSize", list.size());
-				request.setAttribute("banWordList", list);
+				request.setAttribute("list", list);
 				
-				target ="freeBoard/freeBoardWrite.jsp";
+				target = "admin/banWord.jsp";
+				
+			}else{
+				target = "IndexServlet";
+				request.setAttribute("message", "잘못된 접근입니다!");
 			}
-		}catch(Exception e){
-			request.setAttribute("loginFail",e.getMessage());	
+		}else{
+			target = "IndexServlet";
+			request.setAttribute("message", "잘못된 접근입니다!");
 		}
+		
 		RequestDispatcher dis = request.getRequestDispatcher(target);
-		dis.forward(request,response);
-	}// end Get
+		dis.forward(request, response);
+		
+	}//doGet()
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

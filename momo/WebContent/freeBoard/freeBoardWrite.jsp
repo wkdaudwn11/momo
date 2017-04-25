@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,13 +27,38 @@
 	});
 	
 	function boardWrite(writeForm){
-		if($("#content").val() == ''){
-			alert("내용을 입력 해주세요");
+		
+		var wordCheck;
+		var content = $("#content").val();
+		var title = $("#title").val();
+		
+		if(title == ''){
+			alert("제목을 입력 해주세요.");
+		}else if(content == ''){
+			alert('내용을 입력 해주세요.')
 		}else{
-			writeForm.submit();
+			$.ajax({
+				type:"get",
+				url:"admin/wordCheck.jsp",
+				dataType:"text", // 받을 타입
+				async: true, // 비동기
+				data:{
+					title:title,
+					content:content
+				},
+				success:function(responseData,status,xhr){
+					if(responseData.trim() == '성공'){
+						writeForm.submit();
+					}else{
+						alert(responseData.trim());
+					}
+				},
+				error:function(error){
+					alert("error: "+error);
+				}
+			}); // $.ajax();
 		}	
 	}
-	
 	
 </script>
 
@@ -46,6 +74,21 @@
 			<div id="boardContent">
 				<h3>자유게시판</h3>
 				<hr>
+				<div>
+					<p>
+						&nbsp;<span style="width:24%;"><b>금지어</b></span>&nbsp;&nbsp;
+						<c:forEach var="banWordDTO" items="${banWordList}" varStatus="i">
+							<c:choose>
+								<c:when test="${i.count != banWordListSize}">
+									${banWordDTO.word},
+								</c:when>
+								<c:otherwise>
+									${banWordDTO.word}
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</p>
+				</div>
 				<div>
 					<p>
 				    	&nbsp;<span style="width:24%;"><b>작성자</b></span>&nbsp;&nbsp;
