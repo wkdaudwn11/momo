@@ -82,16 +82,10 @@ public class MyHomeService{
 	}// end   InsertMyHome(MyHomeDTO myHomeDTO)
 	
 	/** 베스트 리스트 가져오는 메서드 (추천스/조회수) 조회수 10 이상*/
-	public List<MyHomeDTO> bestMyHomeList(String servlet){
+	public List<MyHomeDTO> bestMyHomeList(int limit){
 		SqlSession session = MySqlSessionFactory.openSession();
 		List<MyHomeDTO> bestMyHomeList = null;
-		int limit = 0;
 		try{
-			if(servlet.equals("MyHomeListServlet")){
-				limit = 3;
-			}else if(servlet.equals("IndexServlet")){
-				limit = 4;
-			}
 			bestMyHomeList = session.selectList(name+"bestList",null,new RowBounds(0,limit));
 		}finally{
 			session.close();

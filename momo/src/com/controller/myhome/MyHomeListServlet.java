@@ -28,7 +28,7 @@ public class MyHomeListServlet extends HttpServlet {
 		/*MyHomePage myHomePage= service.myHomeList(Integer.parseInt(curPage));*/
 		
 		List<MyHomeDTO> myHomeList = service.myHomeList(Integer.parseInt(curPage));
-		List<MyHomeDTO> bestMyHomeList = service.bestMyHomeList("MyHomeListServlet");
+		List<MyHomeDTO> bestMyHomeList = service.bestMyHomeList(3);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("prevPage", "MyHomeListServlet?curPage="+curPage);
