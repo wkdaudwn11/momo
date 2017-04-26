@@ -145,6 +145,7 @@
 							<c:if test="${myHomeDTO.img == null}">
 								<c:set var="mainImg" value="ImgNotFound.png"/>
 							</c:if>
+							
 							<c:forTokens var="img" items="${myHomeDTO.img}" delims="," varStatus="imgSts">
 								<c:if test="${imgSts.index == 0}">
 									<c:set var="mainImg" value="${img}"/>
@@ -154,12 +155,15 @@
 							<li>
 				            	<div class="img">
 									<a href="MyHomeDetailServlet?hnum=${myHomeDTO.hnum}&curPage=${curPage}">
+									
 					    				<c:if test="${myHomeDTO.img != null}">	
 					    					<img src="images/${mainImg}" />
 					    				</c:if>
+					    				
 					    				<c:if test="${myHomeDTO.img == null }">
 					    					<img src="images/ImgNotFound.png"/>
 					    				</c:if>
+					    				
 						  				<div class="desc"><b>
 						  					${myHomeDTO.title}<br>
 						  				</b></div>

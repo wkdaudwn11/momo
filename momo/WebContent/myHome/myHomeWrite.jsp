@@ -12,8 +12,6 @@
 <title>마이홈자랑</title>
 
 <style>
-	
-	
 	#myHomeContent {width: 80%; margin: 0 auto; overflow: hidden;}
 	#myHomeContent h3 { margin-left: 0px;}
 	
@@ -53,7 +51,7 @@
 		});
 		
 		$("#upfile").on("change", function(e) {  
-		 	var files = e.target.files; //FileList object		
+		 	var files = e.target.files; //FileList object	
 		    var img = $("#img");
 			var priviewImg = $("table tr");
 			var checkFile = true;
@@ -71,7 +69,6 @@
 			        pReader.addEventListener("load", function(e){ 
 			            var pic = e.target;  
 			            img.append("<td><img src='"+pic.result+"' disabled></td>")
-			            show(); 
 			        });
 			        pReader.readAsDataURL(file);		
 			    });	 // end $.each(files, function(i, file)

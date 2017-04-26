@@ -1,6 +1,10 @@
 package com.controller.myhome;
 
-import java.io.File;
+
+import java.io.File; 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +44,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 		String target = null;
 		
 		String filePath = "C:\\MyHomeImg";
+		
 		try{
 			if(member != null){
 				// Create a factory for disk-based file items
@@ -73,8 +78,9 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("author")){ myHomeDTO.setAuthor(value);}else
 						if(name.equals("hnum")){ myHomeDTO.setHnum(Integer.parseInt(value)); }else
 						if(name.equals("curPage")){ curPage = value; }else
+
 						if(name.equals("orderList")){ myHomeDTO.setOrderList( value); }
-						
+
 					}else{
 						if(!item.getName().equals("")){
 							fileList.add(item); // 파일 만들때 쓰기위한 fileItem 리스트
@@ -83,8 +89,8 @@ public class MyHomeWriteServlet extends HttpServlet {
 					}
 				} // end for
 				
-				myHomeDTO.setId( member.getId() );
-				myHomeDTO.setImg( StringUtils.join(fileNameList,",") );
+				myHomeDTO.setId(member.getId());
+				myHomeDTO.setImg(StringUtils.join(fileNameList, ","));
 				
 				if(curPage == null){ 
 					service.myHomeInsert(myHomeDTO);
@@ -93,16 +99,19 @@ public class MyHomeWriteServlet extends HttpServlet {
 					 MyHomeDTO myHome = (MyHomeDTO)service.detailMyHome(myHomeDTO.getHnum()).get("MyHomeDTO");
 					 String deleteList = myHome.getImg();
 					List<String> deleteImgList = Arrays.asList(deleteList.split(","));
+					
 					for(String img : deleteImgList){
 						File imgFile = new File(filePath,img);
 						imgFile.delete();
 					}
+					
 					service.myHomeUpdate(myHomeDTO);
 					target = "MyHomeListServlet?curPage="+curPage;
 				}
+				
 				if(!fileList.isEmpty()){
 					for(FileItem img : fileList){
-						File file = new File(filePath,member.getId()+"_"+img.getName());
+						File file = new File(filePath, member.getId()+"_"+img.getName());
 						img.write(file);
 					}
 				} // end if

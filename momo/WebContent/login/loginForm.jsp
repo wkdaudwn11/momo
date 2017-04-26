@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +39,6 @@
 		});// end $(document).ready()
 	
 		function loginFormSubmit(){
-			var result = false;
 			var id = document.loginForm.id.value;
 			var pwd = document.loginForm.pwd.value;
 			
@@ -48,12 +48,56 @@
 				if(pwd == null || pwd == ''){
 					alert('비밀번호를 입력해주세요.');
 				}else{
-					result = true;
+					$.ajax({
+						type:"post",
+						url:"login/loginCheck.jsp",
+						dataType:"text",
+						data:{
+							id : id,
+							pwd : pwd
+						},
+						success:function(responseData,status,xhr){
+							if(responseData.trim()=="성공"){
+								if(id == 'admin'){
+									loginSuccess();
+								}else{
+									captchar(300,185);
+								}
+							}else if(responseData.trim()=="실패"){
+								alert('아이디 혹은 비밀번호가 틀립니다.\n다시 입력해주세요.');
+							}else{
+								alert('로그인 에러!!');
+								console.log(responseData.trim());
+							}
+						},//success
+						error:function(error){
+							alert('로그인 실패!');
+						}//error
+					});//ajax
 				}
 			}
 			
-			return result;
+			return false;
 		}//loginFormSubmit()
+		
+		function captchar(popWidth, popHeight){
+			var captcharKey = '${sessionScope.captchaKey}';
+					
+			var url = "login/captcha.jsp?captcharKey="+captcharKey;
+			var winHeight = document.body.clientHeight;	// 현재창의 높이
+			var winWidth = document.body.clientWidth;	// 현재창의 너비
+			var winX = window.screenLeft;	// 현재창의 x좌표
+			var winY = window.screenTop;	// 현재창의 y좌표
+			var popX = winX + (winWidth - popWidth)/2;
+			var popY = winY + (winHeight - popHeight)/2;
+			
+			window.open(url,"캡차","width="+(popWidth+15)+"px,height="+(popHeight-15)+"px,top="+popY+",left="+popX);
+		}//captchar()
+		
+		function loginSuccess(){
+			document.getElementById("loginForm").submit();
+		}//loginSuccess()
+		
 	</script>
 </head>
 <body>
@@ -120,8 +164,6 @@
 						</td>
 						<td>
 							<form method="get" action="FindUIServlet">
-           						<!-- <img src="images/login/findBtn.jpg" width="100" height="20" 
-           							onClick="findUIServlet()"><br /> -->
            						<input type="image" src="images/login/findBtn.jpg">
            					</form>
 						</td>

@@ -61,6 +61,9 @@ public class MyHomeService{
 			
 			map.put("MyHomeDTO", myHomeDTO);
 			map.put("orderList", orderList);
+			
+			readCntPlus(hnum);
+
 		}finally{
 			session.close();
 		}

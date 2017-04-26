@@ -132,7 +132,8 @@ create table bedroom(
   discount  number(3)       not null,       --할인율
   buycount  number(3)       default 0,      --판매횟수
   image1    varchar2(100)   default null,   --상품사진1
-  image2    varchar2(100)   default null    --상품사진2
+  image2    varchar2(100)   default null    --상품사진2,
+  register  varchar2(2)     default 'x'     --관리자가 상품을 등록했는지 여부
 );
 create sequence bedroom_seq minvalue 0;
 
@@ -266,5 +267,11 @@ create sequence orderInfo_groupseq minvalue 1;
 
 alter table orderInfo add constraint orderInfo_id_fk foreign key(id)
 references member(id) on delete cascade;
+
+create table banWord(
+  bwnum number(4)       constraint	banWord_bwnum_pk	primary key, -- 금지어 번호
+  word  varchar2(4000)  not null -- 금지어 내용
+);
+create sequence banWord_seq minvalue 1;
 
 commit;

@@ -18,8 +18,11 @@
 
 	<Resources>
 		<PreResources 
-		className="org.apache.catalina.webresources.DirResourceSet" 
-		base="C:\MyHomeImg" webAppMount="/images" />
+			className="org.apache.catalina.webresources.DirResourceSet" 
+			base="C:\ProductRegisterImg" webAppMount="/ProductRegisterImg" />
+		<PreResources 
+			className="org.apache.catalina.webresources.DirResourceSet" 
+			base="C:\MyHomeImg" webAppMount="/images" />
 	</Resources>
 
 </Context>

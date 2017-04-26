@@ -154,7 +154,7 @@
 				result = false;
 			}
 	    	
-	    	return result;
+			return result;
 	    }//resultForm(joinform)
 	    
 	    function confirmNumber(tel){
@@ -218,6 +218,8 @@
 
 </head>
 <body>
+
+	
     
     <jsp:include page="header.jsp"  flush="true"></jsp:include>       
     

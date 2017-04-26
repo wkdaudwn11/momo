@@ -50,11 +50,13 @@
 	
 	.img {float: left;}
 	.img:hover {border: 1px solid #13132f;}
-	.img img {width: 100%; height: auto;}
+	.img img {width: 100%; height: 200px;}
 	.img a{color:#13132f; text-decoration: none;}
 	.img a:hover{color:#EDA900; text-decoration: none;}
 	
 	.desc {padding: 15px; text-align: center;}
+	
+	#productRegister {text-align: right; padding-right: 55px;}
 	
 </style>
 
@@ -64,6 +66,7 @@
 	var showList;
 	
 	$(document).ready(function(){
+		
 		if($.cookie("showList") != null){
 			showList = $.cookie("showList").split(',');
 			$.each(showList,function(idx,obj){
@@ -73,29 +76,43 @@
 				var name = showDTO[2];
 				var price = showDTO[3];
 				var discount = showDTO[4];
-				$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='images/bedRoom/"+image1+".JPG'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+				var register = showDTO[5];
+				if(register == 'x'){
+					$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='images/bedRoom/"+image1+".JPG'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+				}else{
+					var imagePath = "ProductRegisterImg/"+bnum+"_"+name+"/"+image1;
+					$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src="+imagePath+"></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+
+																																//ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}
+				}
 			}); // end $.each(showList,function(idx,obj)
+					
 		}// end if($.cookie("showList") != null)
 			
+		$("#productRegisterUIBtn").on("click",function(){
+			location.replace("ProductRegisterUIServlet");
+		});
 			
 	}); // end &(document).ready();
 	
-	function bedRoomDetail(bnum,image1,name,price,discount){
+	function bedRoomDetail(bnum,image1,name,price,discount,register){
 		var addList = true;
 		
 		$.each(showList,function(idx,obj){
-			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount){
+			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register){
 				addList = false;
 				return false;  // break
 			}
 		});
+		
 		if($.cookie("showList") == null){
-			$.cookie("showList",bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 }); 
+			$.cookie("showList",bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register,{ expires : (1/24/60)*5 }); 
 		}else if(addList == true){
-				$.cookie("showList",$.cookie("showList")+","+bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 });
+			$.cookie("showList",$.cookie("showList")+","+bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register,{ expires : (1/24/60)*5 });
 		}
 		location.replace("BedRoomDetailServlet?bnum="+bnum);
-	}// end function bedRoomDetail(bnum,image1,name,price,discount)
+		
+	}// bedRoomDetail(bnum,image1,name,price,discount,register)
 	
 	function deleteShowList(bnum){
 		var filter = $.grep(showList,function(obj,idx){
@@ -108,6 +125,26 @@
 		
 		location.reload();
 	}// function deleteShowList(bnum)
+	
+	//상품을 삭제하는 함수
+	function productDelete(bnum){
+		$.ajax({
+			type:"get",
+			url:"admin/productDelete.jsp",
+			dataType:"text", // 받을 타입
+			async: true, // 비동기
+			data:{
+				bnum:bnum
+			},
+			success:function(responseData,status,xhr){
+				alert(responseData.trim());
+				location.reload();
+			},
+			error:function(error){
+				alert(error);
+			}
+		}); // $.ajax();
+	}//productDelete(bnum)
 </script>
 
 </head>
@@ -140,9 +177,18 @@
 									<li>
 										<center><p class="rankFont">BEST ${status.count}</p></center><br>
 						            	<div class="img">
-						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount});">
-											
-							    				<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="95%" height="275">
+						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount},'${bestBedRoomDTO.register}');">
+						            		
+						            			<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+												<c:if test="${bestBedRoomDTO.register == 'o'}">
+						    						<img src="ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}" width="100%" height="275">
+						    					</c:if>
+							    				
+						    					<!-- DB에서 insert로 상품을 등록했을 경우 -->
+						    					<c:if test="${bestBedRoomDTO.register == 'x'}">
+							    					<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="100%" height="275">
+						    					</c:if>
+							    				
 								  				<div class="desc"><b>
 								  					${bestBedRoomDTO.name}<br>
 								  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -186,8 +232,17 @@
 								<li>
 					            	<div class="img">
 					            	
-										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount});">
-						    				<img src="images/bedRoom/${bedRoomDTO.image1}.JPG">
+										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount},'${bedRoomDTO.register}');">
+											
+											<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+											<c:if test="${bedRoomDTO.register == 'o'}">
+						    					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="100%" height="275">
+						    				</c:if>
+						    				
+						    				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+						    				<c:if test="${bedRoomDTO.register == 'x'}">
+						    					<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="100%" height="275">
+						    				</c:if>
                       
 							  				<div class="desc"><b>
 							  					${bedRoomDTO.name}<br>
@@ -196,6 +251,9 @@
 							  					<span class="discountPrice"><fmt:formatNumber value="${discountPrice}" type="currency" /></span>
 							  				</b></div>
 						  				</a>
+						  				<c:if test="${sessionScope.login.id == 'admin'}">
+											<center><button onclick="productDelete('${bedRoomDTO.bnum}')">상품 삭제</button></center>
+										</c:if>
 									</div>
 				            	</li>  
 								<c:if test="${status.count % 3 == 0}">
@@ -211,6 +269,12 @@
 						</ul> <!-- contents_2_product_images -->
 					</div> <!-- contents_2_product -->
 				</div>	<!-- contents_22 -->
+				
+				<c:if test="${sessionScope.login.id == 'admin'}">
+					<div id="productRegister">
+						<button id="productRegisterUIBtn">상품 등록</button>
+					</div>
+				</c:if>
 			
 				<!-- 페이징처리 -->
 				<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
@@ -261,6 +325,7 @@
 					</c:if>
 				</div>
 			</div> <!-- #bedRoomContent -->
+			
 			<div id="bedRoomAside">
 				오늘 본 상품
 				<table></table>

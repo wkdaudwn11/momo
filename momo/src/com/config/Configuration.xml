@@ -13,6 +13,8 @@
 	</settings>
 	
 	<typeAliases>
+		<typeAlias type="com.entity.banWord.BanWordDTO" alias="BanWordDTO"/>
+	
 		<typeAlias type="com.entity.member.MemberDTO" alias="MemberDTO"/>
 		
 		<typeAlias type="com.entity.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>
@@ -43,6 +45,7 @@
 	</environments>
 	
 	<mappers>
+		<mapper resource="com/config/mapper/AdminMapper.xml" />
 		<mapper resource="com/config/mapper/MemberMapper.xml" />
 		<mapper resource="com/config/mapper/FreeBoardMapper.xml" />
 		<mapper resource="com/config/mapper/QuestionMapper.xml" />
