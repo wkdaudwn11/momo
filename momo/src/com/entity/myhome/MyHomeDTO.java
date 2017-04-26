@@ -1,6 +1,8 @@
 package com.entity.myhome;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MyHomeDTO {
 
@@ -29,7 +31,6 @@ public class MyHomeDTO {
 		this.readCnt = readCnt;
 		this.goodCnt = goodCnt;
 	}
-	
 	public int getHnum() {
 		return hnum;
 	}
@@ -90,13 +91,11 @@ public class MyHomeDTO {
 	public void setGoodCnt(int goodCnt) {
 		this.goodCnt = goodCnt;
 	}
-	
 	@Override
 	public String toString() {
 		return "MyHomeDTO [hnum=" + hnum + ", id=" + id + ", orderList=" + orderList + ", title=" + title + ", img="
 				+ img + ", content=" + content + ", author=" + author + ", writeday=" + writeday + ", readCnt="
 				+ readCnt + ", goodCnt=" + goodCnt + "]";
 	}
-	
-	
+
 }// end MyHomeDTO

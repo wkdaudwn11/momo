@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -99,7 +100,41 @@ public class OrderService {
 			session.close();
 		}
 	}//orderInsertOne(HashMap map)
-
+	
+	/** 가져온 주문리스트의 Group개수 새서 반환해주는 메서드*/
+	private int totalGroupRecord(List<OrderDTO> orderList){
+		HashSet<Integer> groupList = new HashSet<>();
+		for(OrderDTO dto : orderList){
+			groupList.add(dto.getGroupnum());
+		}
+		return groupList.size();
+	}//int totalGroupRecord(List<OrderDTO> orderList)
+	
+	/** 해당아이디의 주문내역상태가 '배송완료' 인 list 를 가져오는 메서드 */
+	public OrderPageDTO myHomeOrderList(String id,int curPage) throws CommonException{
+		SqlSession session = MySqlSessionFactory.openSession();
+		List<OrderDTO> orderList = null;
+		OrderPageDTO orderPageDTO = new OrderPageDTO();
+		int skip = (curPage-1) * orderPageDTO.getPerPage();
+		
+		try{
+			orderList = session.selectList(namespace+"myHomeOrderList", id, new RowBounds(skip, orderPageDTO.getPerPage()));
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new CommonException("주문내역 불러오기 실패!");
+		}finally{
+			session.close();
+		}
+		
+		orderPageDTO.setOrderList(orderList);
+		orderPageDTO.setCurPage(curPage);
+		//orderPageDTO.setTotalRecord(totalGroupRecord(orderList));
+		orderPageDTO.setTotalRecord(totalRecord(id));
+		orderPageDTO.setTotalRecordDistinct(totalRecordDistinct(id));
+		
+		return orderPageDTO;
+	}
+	
 	/** 해당 아이디의 주문내역을 orderDTO로 반환해주는 메소드 */
 	public OrderPageDTO orderList(String id, int curPage) throws CommonException {
 		

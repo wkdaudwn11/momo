@@ -1,7 +1,7 @@
 package com.controller.order;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,19 +32,23 @@ public class OrderListServlet extends HttpServlet {
 		try{
 			if(session.getAttribute("login") != null){	// 로그인 했을 경우
 				MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
-				OrderService service = new OrderService();
-				OrderPageDTO orderPageDTO = service.orderList(memberDTO.getId(), Integer.parseInt(curPage));
 				
-				request.setAttribute("orderPageDTO", orderPageDTO); 
+				OrderService service = new OrderService();
+				OrderPageDTO orderPageDTO = null;
+				
 				if(myHome == null){
+					orderPageDTO = service.orderList(memberDTO.getId(), Integer.parseInt(curPage));
 					target = "order/orderList.jsp";
 				}else{
+					orderPageDTO = service.myHomeOrderList(memberDTO.getId(), Integer.parseInt(curPage));
+					
 					String title = request.getParameter("title");
 					String content = request.getParameter("content");
 					request.setAttribute("title", title);
 					request.setAttribute("content", content);
 					target = "myHome/selectOrderList.jsp";
 				}
+				request.setAttribute("orderPageDTO", orderPageDTO);
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");
 				target = "LoginUIServlet";

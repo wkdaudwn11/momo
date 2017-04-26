@@ -18,17 +18,18 @@
 	
 	#headline{margin-top: 0;}
 	
-	#myHomeDetailVisual{width: 100%; height: 20em;}
+	#myHomeDetailVisual{width: 70%; margin: 2em auto;}
 	
-	#myHomeDetailVisualleft{width: 100%; height: 100%; float: left;}
+	#orderListTable{width:100%; text-align: left;}
+	#orderListTable tr{border-top: 1px solid black; border-bottom: 1px solid black;}
 	
 	#myHomeDetailVisual img{width:80%; height:400px;}
 	#myHomeDetailContent img{width:100%; height:400px;}
 	
 	#myHomeDetailContent{width: 80%; height: 90%; margin: 0 auto;}
 	
-	table{width:100%;}
-	table th{width: 10%;}
+	#contentTable{width:100%;}
+	#contentTable th{width: 10%;}
 	#title{height: 3em;}
 	#writeday{width:30%;}
 	#author{width:20%;}
@@ -86,6 +87,9 @@
 <jsp:include page="../include/header.jsp" flush="true"></jsp:include>
 
 <div id="myHomeDetailWrap">
+
+	<c:set var="MyHomeDTO" value="${MyHomeDTO}" scope="page"/>
+	<c:set var="orderList" value="${orderList}" scope="page" />
 	<c:set var="imgList" value="${fn:split(MyHomeDTO.img,',')}" scope="page"></c:set>
 	<c:if test="${MyHomeDTO.img == null}">
 		<c:set var="mainImg" value="ImgNotFound.png"/>
@@ -108,20 +112,44 @@
 	<hr id="headline">
 	
 	<div id="myHomeDetailVisual">
-		<div id="myHomeDetailVisualleft">
-			<table>
-				<c:forTokens var="product" items="${MyHomeDTO.orderList}" delims=",">
+			<table id="orderListTable">
+				<c:forEach var="orderDTO" items="${orderList}">
 					<tr>
-						
+						 <td>
+						 	<c:if test="${orderDTO.register == 'x'.charAt(0)}">
+						 		<img style="width : 3em; height:3em;" src="http://localhost:8090/momo/images/bedRoom/${orderDTO.image1}.JPG">
+						 	</c:if>
+						 	<c:if test="${orderDTO.register eq 'o'.charAt(0)}">
+						 		<img style="width : 3em; height:3em;" src="/ProductRegisterImg/${orderDTO.image1}">
+						 	</c:if>
+						 </td>
+						<td style="width:70%;" align="center">
+							<c:if test="${orderDTO.category == 'bedRoom'}">
+								<a href="BedRoomDetailServlet?bnum=${orderDTO.pnum}">
+							</c:if>
+							<c:if test="${orderDTO.category == 'kitchen'}">
+								<a href="KitchenDetailServlet?bnum=${orderDTO.pnum}">
+							</c:if>
+							<c:if test="${orderDTO.category == 'livingRoom'}">
+								<a href="LivingRoomDetailServlet?bnum=${orderDTO.pnum}">
+							</c:if>
+							<c:if test="${orderDTO.category == 'childrenRoom'}">
+								<a href="ChildrenRoomDetailServlet?bnum=${orderDTO.pnum}">
+							</c:if>
+								${orderDTO.pname}
+								</a>
+						</td>
+						<td align="center">
+							<fmt:formatNumber value="${Math.round(orderDTO.price *(1.0 -(orderDTO.discount/100)))}" type="currency"></fmt:formatNumber>
+						</td>
 					</tr>
-				</c:forTokens>
+				</c:forEach>
 			</table>
-		</div>
 		
 	</div> <!-- myHomeDetailVisual -->
 	
 	<hr id="titleArea_top"/>
-		<table>
+		<table id="contentTable">
 			<tr>
 				<th>작성일</th><td id="writeday">${MyHomeDTO.writeday}</td>
 				<th>작성자</th><td id="author">${MyHomeDTO.author}</td>

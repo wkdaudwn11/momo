@@ -1,7 +1,7 @@
 package com.controller.myhome;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +26,7 @@ public class MyHomeWriteUIServlet extends HttpServlet {
 		String hnum = request.getParameter("hnum");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String orderList = request.getParameter("orderList");
 		
 		if(curPage != null){   // 업데이트 일경우
 			MyHomeDTO myHomeDTO = new MyHomeDTO();
@@ -34,6 +35,7 @@ public class MyHomeWriteUIServlet extends HttpServlet {
 			myHomeDTO.setHnum(Integer.parseInt(hnum));
 			myHomeDTO.setTitle(title);
 			myHomeDTO.setContent(content);
+			myHomeDTO.setOrderList(orderList);
 			
 			request.setAttribute("MyHomeDTO", myHomeDTO);
 			request.setAttribute("curPage", curPage);

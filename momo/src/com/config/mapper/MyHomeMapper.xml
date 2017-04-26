@@ -36,7 +36,7 @@
 
 	<!-- 테이블 레코드 하나 가져오는 쿼리 -->
 	<select id="detailMyHome" resultType="MyHomeDTO" parameterType="int">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
+		select hnum,id,orderList,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		where hnum=#{hnum}
 	</select>
