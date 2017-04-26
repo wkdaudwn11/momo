@@ -45,6 +45,7 @@ create table question(
 
 	create sequence question_seq minvalue 1;
 
+
 -- 마이홈 테이블
 Create table myhome(
 
@@ -53,7 +54,7 @@ Create table myhome(
  author		varchar2(16)	not null,		--작성자 이름
  title	  	varchar2(50)	not null,		--제목
  img		varchar2(100),					-- 등록한 이미지
- orderList	varchar2(100),		-- 등록한 주문내역 (미구현)
+ orderList	varchar2(25)	not	null,		-- 등록한 주문내역 (미구현)
  content	varchar2(4000),					--내용
  writeday	date		    default sysdate,--작성일
  readcnt	number(4)		default 0,		--조회
@@ -244,6 +245,7 @@ create table orderInfo(
   onum          number(4)     constraint	order_onum_pk	primary key,  --주문번호
   groupnum      number(4)     not null,         	--그룹번호
   id            varchar2(16),          	--회원아이디
+  registor		char(2)		  						-- ?
   pnum          number(4)     not null,          	--상품번호
   category      varchar2(20)  not null,          	--해당 상품의 테이블명
   pname         varchar2(50)  not null,          	--상품명

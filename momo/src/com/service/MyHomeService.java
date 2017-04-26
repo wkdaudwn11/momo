@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -7,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.dao.MySqlSessionFactory;
 import com.entity.myhome.MyHomeDTO;
-import com.entity.myhome.MyHomePage;
+import com.entity.order.OrderDTO;
 
 public class MyHomeService{
 
@@ -48,16 +50,21 @@ public class MyHomeService{
 	}// end void readCntPlus(int hnum)
 	
 	/** 상세보기 */
-	public MyHomeDTO detailMyHome(int hnum){
+	public HashMap<String,Object> detailMyHome(int hnum){
 		SqlSession session = MySqlSessionFactory.openSession();
 		MyHomeDTO myHomeDTO = null;
+		HashMap<String,Object> map = new HashMap<>();
+		List<OrderDTO> orderList = null;
 		try{
 			myHomeDTO = session.selectOne(name+"detailMyHome",hnum);
-			readCntPlus(hnum);
+			orderList = session.selectList("com.momo.OrderMapper.detailOrderList",myHomeDTO.getOrderList().split(","));
+			
+			map.put("MyHomeDTO", myHomeDTO);
+			map.put("orderList", orderList);
 		}finally{
 			session.close();
 		}
-		return myHomeDTO;
+		return map;
 	} // end MyHomeDTO detailMyHome(int hnum)
 	
 	/** myHome 테이블에 레코드 추가하는 메서드 */
@@ -90,35 +97,6 @@ public class MyHomeService{
 		return bestMyHomeList;
 	}
 	
-	/** 리스트 개수 가져오는 메서드 */
-	/*private int totalRecord(){
-		SqlSession session = MySqlSessionFactory.openSession();
-		int totalRecord;
-		try{
-			totalRecord = session.selectOne(name+"totalRecord",null);
-		}finally{
-			session.close();
-		}
-		return totalRecord;
-	} // end  totalRecord()
-*/	
-	/** 페이지 리스트 가져오는 메서드 */
-	/*public MyHomePage myHomeList(int curPage){
-		SqlSession session = MySqlSessionFactory.openSession();
-		MyHomePage pageDTO = new MyHomePage();
-		int skip = (curPage -1)*pageDTO.getPerPage();
-		List<MyHomeDTO> myHomeList = null;
-		try{
-			myHomeList = session.selectList(name+"myHomeList",null,new RowBounds(skip,pageDTO.getPerPage()));
-		}finally{
-			session.close();
-		}
-		pageDTO.setMyHomeList(myHomeList);
-		pageDTO.setCurPage(curPage);
-		pageDTO.setTotalRecord(totalRecord());
-		
-		return pageDTO;
-	}// end myHomeList(int curPage) */
 	
 	/** 페이지 리스트 가져오는 메서드 */
 	public List<MyHomeDTO> myHomeList(int curPage){
@@ -126,6 +104,7 @@ public class MyHomeService{
 		List<MyHomeDTO> myHomeList = null;
 		try{
 			myHomeList = session.selectList(name+"myHomeList",null,new RowBounds(0,curPage*perPage));
+			
 		}finally{
 			session.close();
 		}

@@ -1,14 +1,11 @@
 package com.controller.myhome;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.imageio.stream.FileImageInputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -76,7 +73,7 @@ public class MyHomeWriteServlet extends HttpServlet {
 						if(name.equals("author")){ myHomeDTO.setAuthor(value);}else
 						if(name.equals("hnum")){ myHomeDTO.setHnum(Integer.parseInt(value)); }else
 						if(name.equals("curPage")){ curPage = value; }else
-						if(name.equals("orderList")){ myHomeDTO.setOrderList(value); } /////////////////////
+						if(name.equals("orderList")){ myHomeDTO.setOrderList( value); }
 						
 					}else{
 						if(!item.getName().equals("")){
@@ -93,7 +90,8 @@ public class MyHomeWriteServlet extends HttpServlet {
 					service.myHomeInsert(myHomeDTO);
 					target = "MyHomeListServlet";
 				}else{
-					String deleteList = service.detailMyHome(myHomeDTO.getHnum()).getImg();
+					 MyHomeDTO myHome = (MyHomeDTO)service.detailMyHome(myHomeDTO.getHnum()).get("MyHomeDTO");
+					 String deleteList = myHome.getImg();
 					List<String> deleteImgList = Arrays.asList(deleteList.split(","));
 					for(String img : deleteImgList){
 						File imgFile = new File(filePath,img);

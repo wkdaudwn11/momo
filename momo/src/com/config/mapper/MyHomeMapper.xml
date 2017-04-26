@@ -36,7 +36,7 @@
 
 	<!-- 테이블 레코드 하나 가져오는 쿼리 -->
 	<select id="detailMyHome" resultType="MyHomeDTO" parameterType="int">
-		select hnum,id,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
+		select hnum,id,orderList,title,img,content,author,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt
 		from myhome
 		where hnum=#{hnum}
 	</select>
@@ -44,7 +44,7 @@
 	<!-- 테이블에 레코드 추가 하는 쿼리 -->
 	<insert id="myHomeInsert" parameterType="MyHomeDTO">
 		insert into myhome(hnum,id,orderList,img,title,content,author)
-		values(myhome_seq.nextval,#{id},#{img},#{title},#{content},#{author})
+		values(myhome_seq.nextval,#{id},#{orderList},#{img},#{title},#{content},#{author})
 	</insert>
 
 	<!-- 리스트 개수 가져오는 쿼리 -->

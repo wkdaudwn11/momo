@@ -1,6 +1,8 @@
 package com.controller.myhome;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.entity.myhome.MyHomeDTO;
+import com.entity.order.OrderDTO;
 import com.service.MyHomeService;
 
 @WebServlet("/MyHomeDetailServlet")
@@ -21,12 +24,13 @@ public class MyHomeDetailServlet extends HttpServlet {
 		String curPage = request.getParameter("curPage");
 		
 		MyHomeService service = new MyHomeService();
-		MyHomeDTO myHomeDTO = service.detailMyHome(Integer.parseInt(hnum));
+		HashMap<String,Object> map = service.detailMyHome(Integer.parseInt(hnum));
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("prevPage", "MyHomeDetailServlet?hnum="+hnum+"&curPage="+curPage);
 		
-		request.setAttribute("MyHomeDTO", myHomeDTO);
+		request.setAttribute("orderList", (List<OrderDTO>)map.get("orderList"));
+		request.setAttribute("MyHomeDTO", (MyHomeDTO)map.get("MyHomeDTO"));
 		request.setAttribute("curPage",curPage);
 		
 		RequestDispatcher dis = request.getRequestDispatcher("myHome/myHomeDetail.jsp");

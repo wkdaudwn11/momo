@@ -23,6 +23,7 @@ public class MyHomeListServlet extends HttpServlet {
 		if(curPage == null){
 			curPage = "1";
 		}
+		
 		MyHomeService service = new MyHomeService();
 		/*MyHomePage myHomePage= service.myHomeList(Integer.parseInt(curPage));*/
 		List<MyHomeDTO> myHomeList = service.myHomeList(Integer.parseInt(curPage));
@@ -34,7 +35,6 @@ public class MyHomeListServlet extends HttpServlet {
 		request.setAttribute("bestMyHomeList", bestMyHomeList);
 		request.setAttribute("MyHomeList", myHomeList);
 		request.setAttribute("curPage", curPage);
-		
 		RequestDispatcher dis = request.getRequestDispatcher("myHome/myHomeList.jsp");
 		dis.forward(request, response);
 	}

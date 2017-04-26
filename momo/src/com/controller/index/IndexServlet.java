@@ -20,14 +20,14 @@ public class IndexServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session  = request.getSession();
+		/*HttpSession session  = request.getSession();
 		session.setAttribute("prevPage", "IndexServlet");
 		
 		MyHomeService myHomeService = new MyHomeService();
 		
 		List<MyHomeDTO> bestMyHomeList = myHomeService.bestMyHomeList("IndexServlet");
 		
-		request.setAttribute("bestMyHomeList", bestMyHomeList);
+		request.setAttribute("bestMyHomeList", bestMyHomeList);*/
 		
 		RequestDispatcher dis = request.getRequestDispatcher("index.jsp");
 		dis.forward(request, response);
