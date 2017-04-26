@@ -127,7 +127,7 @@
 				<input type="hidden" name="hnum" value="${myHomeDTO.hnum}"/>
 				<input type="hidden" name="curPage" value="${curPage}">
 			</c:if>
-			<input type="hidden" id="orderList" name="orderList" value="${myHomeDTO.orderList}">
+			<input type="hidden" id="orderList" value="${myHomeDTO.orderList}" name="orderList">
 			<div id="myHomeContent">
 				<h3>마이홈자랑</h3>
 				<hr>

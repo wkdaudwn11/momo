@@ -103,7 +103,7 @@
 	<h3>마이홈자랑</h3>
 	<div id="menuBtn" align="right">	
 		<c:if test="${sessionScope.login.id == MyHomeDTO.id || sessionScope.login.id == 'admin' }">
-			<a href="MyHomeWriteUIServlet?curPage=${curPage}&hnum=${MyHomeDTO.hnum}&title=${MyHomeDTO.title}&content=${MyHomeDTO.content}"><img src="images\freeBoard/updateBtn.jpg" ></a>
+			<a href="MyHomeWriteUIServlet?curPage=${curPage}&hnum=${MyHomeDTO.hnum}&title=${MyHomeDTO.title}&content=${MyHomeDTO.content}&orderList=${MyHomeDTO.orderList}"><img src="images\freeBoard/updateBtn.jpg" ></a>
 			<a href="javascript:myHomeDelete(${MyHomeDTO.hnum},${curPage}<c:if test='${MyHomeDTO.img != null}'>,'${MyHomeDTO.img}'</c:if>);"><img src="images\freeBoard/deleteBtn.jpg" ></a>
 		</c:if>
 	<a href="MyHomeListServlet?curPage=${curPage}"><img src="images\freeBoard/listBtn.jpg"></a>
