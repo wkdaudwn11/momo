@@ -30,8 +30,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		if('${sessionScope.login}'==''){
-			alert("로그인 후 이용 할 수 있습니다.");
-			location.replace("LoginUIServlet");
+			loginfail();
 	   	}
 		
 		$("#content").on("focus",function(){
@@ -81,6 +80,11 @@
 	    });// $("#img").on("change", function(e) 
 		    		
 	}); // end $(document).ready(function()
+	
+	function loginfail(){
+		alert("로그인 후 이용 할 수 있습니다.");
+		location.replace("LoginUIServlet");
+	}
 			
 	function myHomeWrite(writeForm){
 		if($("#title").val() ==""){

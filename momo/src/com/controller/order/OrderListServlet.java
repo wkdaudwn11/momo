@@ -51,7 +51,7 @@ public class OrderListServlet extends HttpServlet {
 				request.setAttribute("orderPageDTO", orderPageDTO);
 			}else{
 				request.setAttribute("message", "로그인 후에 이용해주세요!");
-				target = "LoginUIServlet";
+				target = "LoginUIServlet";	
 			}
 		}catch(Exception e){
 			e.printStackTrace();
