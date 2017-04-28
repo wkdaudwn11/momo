@@ -125,13 +125,10 @@ public class OrderService {
 		}finally{
 			session.close();
 		}
-		
 		orderPageDTO.setOrderList(orderList);
 		orderPageDTO.setCurPage(curPage);
-		//orderPageDTO.setTotalRecord(totalGroupRecord(orderList));
-		orderPageDTO.setTotalRecord(totalRecord(id));
-		orderPageDTO.setTotalRecordDistinct(totalRecordDistinct(id));
-		
+		orderPageDTO.setTotalRecord(orderList.size());
+		orderPageDTO.setTotalRecordDistinct(totalGroupRecord(orderList));
 		return orderPageDTO;
 	}
 	

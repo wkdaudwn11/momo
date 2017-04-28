@@ -26,20 +26,33 @@
 
 <script>
 	$(document).ready(function (){
+		if(typeof EventSource != 'undefined'){   // 지원해주는 브라우저일 경우
+			var evt = new EventSource("myHome/login.jsp"); // 3초 텀으로 push 한다고 한다.
+			evt.onmessage = function(event){ 
+				evt.close();
+				window.close();
+				opener.parent.loginfail();
+			};		
+		}else{  // 지원 안해주는 브라우저일 경우
+			console.log("지원 안함"); //////////////////////////////////////////
+			loginCheck();
+		}
 		
 		$("#choiceBtn").on("click",function(){
-			
-			//var checkOrder = document.getElementsByName("singleProduct"); // 상품 리스트 들
-			var productList = $("[name='singleProduct']");
-			var checkedProductNum = $.map(productList,function(obj,idx){	// 체크된 상품의 상품번호(onum) 
-					if(obj.checked){	return obj.value;	}
-			}); // end $.map(return obj.val(););
-			var checkProductName = $.map(productList,function(obj,idx){	// 체크된 상품의 상품이름(name)
-				if(obj.checked){	return $(".productName").eq(idx).text();	}
-			}); // end $.map(return  $(".productName"));
-			
-			opener.parent.orderList(checkedProductNum,checkProductName);
-			window.close();
+			if(${login == null}){ loginCheck();
+			}else{ 
+				//var checkOrder = document.getElementsByName("singleProduct"); // 상품 리스트 들
+				var productList = $("[name='singleProduct']");
+				var checkedProductNum = $.map(productList,function(obj,idx){	// 체크된 상품의 상품번호(onum) 
+						if(obj.checked){	return obj.value;	}
+				}); // end $.map(return obj.val(););
+				var checkProductName = $.map(productList,function(obj,idx){	// 체크된 상품의 상품이름(name)
+					if(obj.checked){	return $(".productName").eq(idx).text();	}
+				}); // end $.map(return  $(".productName"));
+				
+				opener.parent.orderList(checkedProductNum,checkProductName);
+				window.close();
+			}
 		});//$("#choiceBtn").on("click",function()
 				
 		$("#cancelBtn").on("click",function(){
@@ -47,6 +60,11 @@
 		});//$("#choiceBtn").on("click",function()
 		
 	}); // end $(document).ready({});
+	
+	function loginCheck(){
+		window.close();
+		opener.parent.loginfail();
+	};
 	
 	// 'ㅁㅁ외 ㅁ건'인 제목을 클릭 했을 때
 	function groupDivFunc(orderListNumber){
@@ -181,8 +199,6 @@
 										<tr height="30" style="border-bottom:1px solid #ddd;">
 											<td  width="50" align="center" >
 												<input type="checkbox" name="singleProduct" value="${orderDTO.onum}">&nbsp;
-	//////////////////											<b>${totalRecord}//${totalRecordDistinct}//${orderList.size()}///${orderDTO.equalGroupCount}//${i.count}//${i.index}</b>
-		/////////////////											<b>${totalRecord - i.index}</b>
 											</td>
 										    <td  width="50" align="center">
 										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
@@ -211,8 +227,6 @@
 											<td width="50" align="center" >
 												<div>
 													<input type="checkbox"  id="pack${orderListNumber}" value="${orderDTO.groupnum}" onchange="productPack('${orderListNumber}')">&nbsp;
-	//////////////												<b>${totalRecord}//${totalRecordDistinct}//${orderList.size()}///${orderDTO.equalGroupCount}//${i.count}//${i.index}</b>
-	/////////////////											<b>${totalRecord - i.index}</b>
 												</div>
 											</td>
 										    <td width="50" align="center">
