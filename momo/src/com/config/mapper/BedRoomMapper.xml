@@ -70,12 +70,6 @@
  		   and category = #{category}
 	</select>
    
-   <!-- 모든 상품의 갯수를 가져오는 쿼리 (안쓰임)-->
-	<select id="listAllCount" resultType="int">
-   		select count(*)
-   		  from bedRoom
-	</select>
-   
 	<!-- 해당 상품(bnum)의 정보를 반환해주는 쿼리 -->
 	<select id="bedRoomDetail" resultType="BedRoomDTO" parameterType="int">
    		select * from bedRoom where bnum=#{bnum}

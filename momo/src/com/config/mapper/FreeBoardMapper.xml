@@ -23,7 +23,7 @@
 		where fnum=#{fnum}
 	</update>
 	
-	<!-- 게시글 추천수 repleCnt 저장 -->
+	<!-- 게시글 repleCnt 저장 -->
 	<update id="repleCountUpdate" parameterType="HashMap">
 		update freeBoard
 		set repleCnt = #{repleCount}
@@ -41,7 +41,7 @@
 	<select id="freeBoardDetail" resultType="FreeBoardDTO" parameterType="int">
 		select fnum,id,author,title,content,to_char(writeday,'yyyy-MM-dd') as "writeday",readCnt,goodCnt,repleCnt
 		from freeBoard
-		where fnum=#{fnum}
+		where fnum=#{fnum}	
 	</select>
 	
 	<!-- 게시글 작성 -->
@@ -126,7 +126,7 @@
 		where step > #{step}
 	</update>
 	
-	<!-- 해당 게시물에 댓글을 삽입하는 쿼리 -->
+	<!-- 해당 게시물에 댓글을 삽입하는 쿼리 -->	
 	<insert id="repleWrite" parameterType="FreeBoardRepleDTO">
 		insert into freeBoardReple(frnum,ref,pfrnum,fnum,step,reLevel,id,author,content)
 		<if test="frnum == null">
