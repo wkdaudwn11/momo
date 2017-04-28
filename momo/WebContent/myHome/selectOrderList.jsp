@@ -187,8 +187,6 @@
 										<tr height="30" style="border-bottom:1px solid #ddd;">
 											<td  width="50" align="center" >
 												<input type="checkbox" name="singleProduct" value="${orderDTO.onum}">&nbsp;
-	//////////////////											<b>${totalRecord}//${totalRecordDistinct}//${orderList.size()}///${orderDTO.equalGroupCount}//${i.count}//${i.index}</b>
-		/////////////////											<b>${totalRecord - i.index}</b>
 											</td>
 										    <td  width="50" align="center">
 										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
@@ -217,8 +215,6 @@
 											<td width="50" align="center" >
 												<div>
 													<input type="checkbox"  id="pack${orderListNumber}" value="${orderDTO.groupnum}" onchange="productPack('${orderListNumber}')">&nbsp;
-	//////////////												<b>${totalRecord}//${totalRecordDistinct}//${orderList.size()}///${orderDTO.equalGroupCount}//${i.count}//${i.index}</b>
-	/////////////////											<b>${totalRecord - i.index}</b>
 												</div>
 											</td>
 										    <td width="50" align="center">
