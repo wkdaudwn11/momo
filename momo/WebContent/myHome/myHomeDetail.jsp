@@ -116,12 +116,7 @@
 				<c:forEach var="orderDTO" items="${orderList}">
 					<tr>
 						 <td>
-						 	<c:if test="${orderDTO.register == 'x'.charAt(0)}">
-						 		<img style="width : 3em; height:3em;" src="http://localhost:8090/momo/images/bedRoom/${orderDTO.image1}.JPG">
-						 	</c:if>
-						 	<c:if test="${orderDTO.register eq 'o'.charAt(0)}">
-						 		<img style="width : 3em; height:3em;" src="/ProductRegisterImg/${orderDTO.image1}">
-						 	</c:if>
+						 	<img style="width : 3em; height:3em;" src="ProductRegisterImg/${orderDTO.pnum}_${orderDTO.pname}/${orderDTO.image1}">
 						 </td>
 						<td style="width:70%;" align="center">
 							<c:if test="${orderDTO.category == 'bedRoom'}">

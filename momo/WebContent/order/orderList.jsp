@@ -166,7 +166,7 @@
 												<b>${y}</b>
 											</td>
 										    <td  width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
 										    </td>
 						 					<td width="160" align="center"> <!-- equalGroupCount -->
 						 						
@@ -209,7 +209,7 @@
 												<b>${y}</b>
 											</td>
 										    <td width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
 										    </td>
 						 					<td width="150" align="center">
 						 						
@@ -252,7 +252,7 @@
 											<table><tr>
 												<td width="200" align="center">-</td>
 												<td width="150" align="left"> 
-													<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> 
+													<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50"> 
 												</td>
 												<td width="190" align="center"> 
 													<c:if test="${orderDTO.category == 'bedRoom'}">

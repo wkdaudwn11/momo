@@ -207,7 +207,7 @@
 												<input type="checkbox" name="singleProduct" value="${orderDTO.onum}">&nbsp;
 											</td>
 										    <td  width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
 										    </td>
 						 					<td width="160" align="center"> <!-- equalGroupCount -->
 										    	<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
@@ -236,7 +236,7 @@
 												</div>
 											</td>
 										    <td width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50">
+										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
 										    </td>
 						 					<td width="150" align="center">
 					 							<a href="#">
@@ -272,7 +272,7 @@
 													</div>
 												</td>
 												<td width="150" align="left"> 
-													<img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> 
+													<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50"> 
 												</td>
 												<td width="190" align="center"> 
 										    		<div id="oneDiv" onclick="oneDivFunc('${orderDTO.category}', '${orderDTO.pnum}')">
