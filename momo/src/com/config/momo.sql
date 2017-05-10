@@ -133,7 +133,6 @@ create table bedroom(
   buycount  number(3)       default 0,      --판매횟수
   image1    varchar2(100)   default null,   --상품사진1
   image2    varchar2(100)   default null    --상품사진2,
-  register  varchar2(2)     default 'x'     --관리자가 상품을 등록했는지 여부
 );
 create sequence bedroom_seq minvalue 0;
 
@@ -246,7 +245,6 @@ create table orderInfo(
   onum          number(4)     constraint	order_onum_pk	primary key,  --주문번호
   groupnum      number(4)     not null,         	--그룹번호
   id            varchar2(16),          	--회원아이디
-  registor		char(2)		  						-- ?
   pnum          number(4)     not null,          	--상품번호
   category      varchar2(20)  not null,          	--해당 상품의 테이블명
   pname         varchar2(50)  not null,          	--상품명

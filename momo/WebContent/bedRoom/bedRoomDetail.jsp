@@ -81,15 +81,7 @@
 	<div id="bedRoomDetailVisual">
 		<div id="bedRoomDetailVisualleft">
 			<center>
-				<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
-				<c:if test="${bedRoomDTO.register == 'o'}">
-   					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="80%" height="400px">
-   				</c:if>
-   				
-   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
-   				<c:if test="${bedRoomDTO.register == 'x'}">
-   					<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="80%" height="400px">
-   				</c:if>
+   				<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="80%" height="400px">
 			</center>
 		</div>
 		<div id="bedRoomDetailVisualRight">
@@ -157,8 +149,6 @@
 	<hr>
 	
 	<div id="bedRoomDetailContent">
-		<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
-		<c:if test="${bedRoomDTO.register == 'o'}">
 			<center>
 			<%-- <img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="80%" height="400px"> --%>
 			<c:forEach var="a" items="${list}" varStatus="i">
@@ -172,12 +162,6 @@
 				</c:if>
 			</c:forEach>
 			</center>
-		</c:if>
-					
-		<!-- DB에서 insert로 상품을 등록했을 경우 -->
-		<c:if test="${bedRoomDTO.register == 'x'}">
-			<img src="images\bedRoom/${bedRoomDTO.image2}.jpg" width="100%" height="100%">
-		</c:if>
 	</div>
 	
 	<hr>

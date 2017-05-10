@@ -155,7 +155,7 @@
 										<b>${(totalRecord - (i.count + x)) + 1}</b>
 									</td>
 								    <td  width="50" align="center">
-								    	<img src="images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
+								    	<img src="images/${cartDTO.category}/${cartDTO.image1}" width="50" height="50">
 								    </td>
 				 					<td width="200" align="center">
 				 						<c:if test="${cartDTO.category == 'bedRoom'}">

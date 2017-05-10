@@ -17,13 +17,12 @@ public class OrderDTO {
 	private int equalGroupCount;		//같은 그룹번호 상품의 갯수 
 	private int equalGroupTotalPrice;	//같은 그룹번호 상품의 총 가격
 	private int equalGroupTotalCount;	//같은 그룹번호 상품의 총 갯수
-	private char register;
 	
 	public OrderDTO() {}
 
 	public OrderDTO(int onum, int groupnum, String id, int pnum, String category, String pname, int count, int price,
 			int discount, String orderdate, String image1, String orderMessage, String orderstate, int equalGroupCount,
-			int equalGroupTotalPrice, int equalGroupTotalCount, char register) {
+			int equalGroupTotalPrice, int equalGroupTotalCount) {
 		this.onum = onum;
 		this.groupnum = groupnum;
 		this.id = id;
@@ -40,7 +39,6 @@ public class OrderDTO {
 		this.equalGroupCount = equalGroupCount;
 		this.equalGroupTotalPrice = equalGroupTotalPrice;
 		this.equalGroupTotalCount = equalGroupTotalCount;
-		this.register = register;
 	}
 
 	public int getOnum() {
@@ -171,21 +169,13 @@ public class OrderDTO {
 		this.equalGroupTotalCount = equalGroupTotalCount;
 	}
 
-	public char getRegister() {
-		return register;
-	}
-
-	public void setRegister(char register) {
-		this.register = register;
-	}
-
 	@Override
 	public String toString() {
 		return "OrderDTO [onum=" + onum + ", groupnum=" + groupnum + ", id=" + id + ", pnum=" + pnum + ", category="
 				+ category + ", pname=" + pname + ", count=" + count + ", price=" + price + ", discount=" + discount
 				+ ", orderdate=" + orderdate + ", image1=" + image1 + ", orderMessage=" + orderMessage + ", orderstate="
 				+ orderstate + ", equalGroupCount=" + equalGroupCount + ", equalGroupTotalPrice=" + equalGroupTotalPrice
-				+ ", equalGroupTotalCount=" + equalGroupTotalCount + ", register=" + register + "]";
+				+ ", equalGroupTotalCount=" + equalGroupTotalCount + "]";
 	}
 
 	
