@@ -26,8 +26,10 @@
 
 <script>
 	$(document).ready(function (){
+		var evt;
+
 		if(typeof EventSource != 'undefined'){   // 지원해주는 브라우저일 경우
-			var evt = new EventSource("myHome/login.jsp"); // 3초 텀으로 push 한다고 한다.
+			evt = new EventSource("myHome/login.jsp"); // 3초 텀으로 push 한다고 한다.
 			evt.onmessage = function(event){ 
 				evt.close();
 				window.close();
@@ -50,12 +52,14 @@
 					if(obj.checked){	return $(".productName").eq(idx).text();	}
 				}); // end $.map(return  $(".productName"));
 				
+				evt.close();
 				opener.parent.orderList(checkedProductNum,checkProductName);
 				window.close();
 			}
 		});//$("#choiceBtn").on("click",function()
 				
 		$("#cancelBtn").on("click",function(){
+			evt.close();
 			window.close();
 		});//$("#choiceBtn").on("click",function()
 		

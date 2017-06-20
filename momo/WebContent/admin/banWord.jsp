@@ -41,17 +41,15 @@
 }
 </style>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				if ('${sessionScope.login}' == ''
-						|| '${sessionScope.login.id}' != 'admin') {
-					alert("잘못된 접근입니다!");
-					location.replace("../IndexServlet");
-				}
-			});
+	$(document).ready(function(){
+		if ('${sessionScope.login}' == ''
+				|| '${sessionScope.login.id}' != 'admin') {
+			alert("잘못된 접근입니다!");
+			location.replace("../IndexServlet");
+		}
+	});
 
 	function banWordDelete(bwnum) {
 		location.replace("banWordDeleteServlet?bwnum=" + bwnum);
