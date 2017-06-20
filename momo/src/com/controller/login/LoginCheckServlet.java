@@ -41,6 +41,8 @@ public class LoginCheckServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("login", memberDTO);
 				
+				session.setMaxInactiveInterval(30);
+				
 				request.setAttribute("notificationTitle", "로그인");
 				request.setAttribute("notificationMessage", memberDTO.getName()+"님 환영합니다!");
 				
