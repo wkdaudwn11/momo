@@ -94,7 +94,6 @@ public class ProductRegisterServlet extends HttpServlet {
 				}//for(FileItem item : items)
 				
 				dto.setBnum(service.getPolderNum()+1);
-				dto.setRegister("o");
 				
 				// list에 들어 있는 값들 사이에 ','를 넣어서 dto에 저장
 				dto.setContent(StringUtils.join(contentList, ","));

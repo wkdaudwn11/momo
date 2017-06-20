@@ -32,28 +32,26 @@ public class BedRoomDetailServlet extends HttpServlet {
 		try {
 			BedRoomDTO bedRoomDTO = service.bedRoomDetail(Integer.parseInt(bnum));
 			
-			if(bedRoomDTO.getRegister().equals("o")){
-				String image2 = bedRoomDTO.getImage2();
-				String content = bedRoomDTO.getContent();
-				
-				list = new ArrayList<>();
-				
-				//image2, content는 ','로 쪼갠다.
-				StringTokenizer image2Token = new StringTokenizer(image2, ",");
-				StringTokenizer contentToken = new StringTokenizer(content, ",");
-				
-				//토큰에 있는 값들을 list에 add해준다.
-				for(int i=0; i<100; i++){
-					if(image2Token.hasMoreTokens()){
-						String a = image2Token.nextToken();
-						list.add(a);
-					}
-					if(contentToken.hasMoreTokens()){
-						String a = contentToken.nextToken();
-						list.add(a);
-					}else{
-						break;
-					}
+			String image2 = bedRoomDTO.getImage2();
+			String content = bedRoomDTO.getContent();
+			
+			list = new ArrayList<>();
+			
+			//image2, content는 ','로 쪼갠다.
+			StringTokenizer image2Token = new StringTokenizer(image2, ",");
+			StringTokenizer contentToken = new StringTokenizer(content, ",");
+			
+			//토큰에 있는 값들을 list에 add해준다.
+			for(int i=0; i<100; i++){
+				if(image2Token.hasMoreTokens()){
+					String a = image2Token.nextToken();
+					list.add(a);
+				}
+				if(contentToken.hasMoreTokens()){
+					String a = contentToken.nextToken();
+					list.add(a);
+				}else{
+					break;
 				}
 			}
 			

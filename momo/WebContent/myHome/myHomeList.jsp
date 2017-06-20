@@ -184,55 +184,6 @@
 				</div> <!-- contents_2_product -->
 			</div>	<!-- contents_22 -->
 		
-			<%-- <!-- 페이징처리 --> 
-			<c:if test="${pageblock*page <= Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${pageblock*page}" scope="request"/>
-			</c:if>
-			<c:if test="${pageblock*page > Math.ceil(totalRecord/perPage)}">
-				<c:set var="endPage" value="${Math.ceil(totalRecord/perPage)}" scope="request"/>
-			</c:if>
-					
-			<div class="paging">
-				<c:if test="${curPage != 1}">
-					<p><a href="MyHomeListServlet?curPage=1">[처음]</a>
-				</c:if>
-				
-				<c:if test="${pageblock > 1}">
-					<a href="MyHomeListServlet?curPage=${Math.round((pageblock*page)-19)}">
-						[이전]
-					</a>
-				</c:if> &nbsp;
-				
-				<c:if test="${pageblock < 1}">
-					<c:set var="pageblock" value="1" scope="request"/> <!-- 표시할 페이지 블럭수 -->
-				</c:if>
-				
-				 <c:forEach var="i" begin="${(pageblock*page)-(page-1)}" end="${endPage}" >
-					<c:choose>
-						<c:when test="${curPage == i}">
-							${i}
-						</c:when>
-						<c:otherwise>
-							<a href="MyHomeListServlet?curPage=${i}">
-								${i}
-							</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach> &nbsp;
-				
-				<c:if test="${pageblock != Math.ceil((totalRecord/perPage+1)/page)}">
-					<a href="MyHomeListServlet?curPage=${Math.round((pageblock*page)+1)}">
-						[다음]
-					</a>
-				</c:if>
-				
-				<c:if test="${curPage != Math.ceil(totalRecord/perPage)}">
-					<a href="MyHomeListServlet?curPage=${Math.round((totalRecord/perPage ))}">
-						[끝]
-					</a></p>
-				</c:if>
-			</div> --%>
-		
 		</div>
 		<br>
 		
