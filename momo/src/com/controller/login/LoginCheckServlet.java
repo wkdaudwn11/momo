@@ -27,7 +27,7 @@ public class LoginCheckServlet extends HttpServlet {
 		String pwd = request.getParameter("pwd");
 		
 		HashMap<String, String> map = new HashMap<>();
-		map.put("id", id);
+		map.put("id", id);	
 		map.put("pwd", pwd);
 		
 		MemberService memberService = new MemberService();

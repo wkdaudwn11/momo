@@ -13,9 +13,9 @@
 	</select>
 	
 	<insert id="productInsert" parameterType="BedRoomDTO">
-		insert into bedroom(bnum, category, name, content, price, discount, buycount, image1, image2)
+		insert into bedroom(bnum, category, name, content, price, discount, buycount, image1, image2, register)
 		values(#{bnum}, #{category}, #{name}, #{content}, 
-				#{price}, #{discount}, 0, #{image1}, #{image2})
+				#{price}, #{discount}, 0, #{image1}, #{image2}, 'o')
 	</insert>
 	
 	<delete id="productDelete" parameterType="string">

@@ -166,7 +166,16 @@
 												<b>${y}</b>
 											</td>
 										    <td  width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
+										    	<%-- <img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> --%>
+										    	<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+												<c:if test="${orderDTO.register == 'o'}">
+								   					<img src="ProductRegisterImg/${orderDTO.pnum}_${orderDTO.pname}/${orderDTO.image1}" width="50" height="50">
+								   				</c:if>
+								   				
+								   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+								   				<c:if test="${orderDTO.register == 'x'}">
+								   					<img src="images/bedRoom/${orderDTO.image1}.JPG" width="50" height="50">
+								   				</c:if>
 										    </td>
 						 					<td width="160" align="center"> <!-- equalGroupCount -->
 						 						
@@ -209,7 +218,15 @@
 												<b>${y}</b>
 											</td>
 										    <td width="50" align="center">
-										    	<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50">
+										    	<%-- <img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> --%>
+										    	<c:if test="${orderDTO.register == 'o'}">
+								   					<img src="ProductRegisterImg/${orderDTO.pnum}_${orderDTO.pname}/${orderDTO.image1}" width="50" height="50">
+								   				</c:if>
+								   				
+								   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+								   				<c:if test="${orderDTO.register == 'x'}">
+								   					<img src="images/bedRoom/${orderDTO.image1}.JPG" width="50" height="50">
+								   				</c:if>
 										    </td>
 						 					<td width="150" align="center">
 						 						
@@ -252,7 +269,15 @@
 											<table><tr>
 												<td width="200" align="center">-</td>
 												<td width="150" align="left"> 
-													<img src="images/${orderDTO.category}/${orderDTO.image1}" width="50" height="50"> 
+													<%-- <img src="images/${orderDTO.category}/${orderDTO.image1}.JPG" width="50" height="50"> --%>
+													<c:if test="${orderDTO.register == 'o'}">
+								   						<img src="ProductRegisterImg/${orderDTO.pnum}_${orderDTO.pname}/${orderDTO.image1}" width="50" height="50">
+									   				</c:if>
+									   				
+									   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+									   				<c:if test="${orderDTO.register == 'x'}">
+									   					<img src="images/bedRoom/${orderDTO.image1}.JPG" width="50" height="50">
+									   				</c:if> 
 												</td>
 												<td width="190" align="center"> 
 													<c:if test="${orderDTO.category == 'bedRoom'}">
