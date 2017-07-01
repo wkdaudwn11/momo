@@ -15,7 +15,7 @@
 <style>
 	#bedRoomWrap {width:80%; margin:0 auto; overflow:hidden;}
 	#bedRoomContent {width:75%; float: left;}
-	#bedRoomContent h3 {margin-left:0px;}
+	#bedRoomContent h3 {margin-left:0px;}	
 	
 	#bedRoomAside {width:23%; float: left; margin-top:4.5em; margin-left: 2%;}
 	#bedRoomAside table {font-size: 0.7em;}
@@ -76,9 +76,17 @@
 				var name = showDTO[2];
 				var price = showDTO[3];
 				var discount = showDTO[4];
-				var imagePath = "ProductRegisterImg/"+bnum+"_"+name+"/"+image1;
-					$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='"+imagePath+"'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+				var register = showDTO[5];
+				if(register == 'x'){
+					$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src='images/bedRoom/"+image1+".JPG'></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+				}else{
+					var imagePath = "ProductRegisterImg/"+bnum+"_"+name+"/"+image1;
+					$("#bedRoomAside").children("table").append("<tr><td rowspan='2'><a href='BedRoomDetailServlet?bnum="+bnum+"'><img src="+imagePath+"></a></td><td><a href='BedRoomDetailServlet?bnum="+bnum+"'>"+name+"</a></td></tr><tr><td><img style='width:1em; height:1em;' src='images/bedRoom/won_16.png'>"+price*(1.0 - discount/100)+" <a href='javascript:deleteShowList("+bnum+");'><img style='width:1em; height:1em;' src='images/bedRoom/cancel.png'></a></td></tr>");
+
+																																//ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}
+				}
 			}); // end $.each(showList,function(idx,obj)
+					
 		}// end if($.cookie("showList") != null)
 			
 		$("#productRegisterUIBtn").on("click",function(){
@@ -87,24 +95,24 @@
 			
 	}); // end &(document).ready();
 	
-	function bedRoomDetail(bnum,image1,name,price,discount){
+	function bedRoomDetail(bnum,image1,name,price,discount,register){
 		var addList = true;
 		
 		$.each(showList,function(idx,obj){
-			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount){
+			if(obj == bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register){
 				addList = false;
 				return false;  // break
 			}
 		});
 		
 		if($.cookie("showList") == null){
-			$.cookie("showList",bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 }); 
+			$.cookie("showList",bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register,{ expires : (1/24/60)*5 }); 
 		}else if(addList == true){
-			$.cookie("showList",$.cookie("showList")+","+bnum+"&"+image1+"&"+name+"&"+price+"&"+discount,{ expires : (1/24/60)*5 });
+			$.cookie("showList",$.cookie("showList")+","+bnum+"&"+image1+"&"+name+"&"+price+"&"+discount+"&"+register,{ expires : (1/24/60)*5 });
 		}
 		location.replace("BedRoomDetailServlet?bnum="+bnum);
 		
-	}// bedRoomDetail(bnum,image1,name,price,discount)
+	}// bedRoomDetail(bnum,image1,name,price,discount,register)
 	
 	function deleteShowList(bnum){
 		var filter = $.grep(showList,function(obj,idx){
@@ -169,10 +177,18 @@
 									<li>
 										<center><p class="rankFont">BEST ${status.count}</p></center><br>
 						            	<div class="img">
-						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount});">
+						            		<a href="javascript:bedRoomDetail(${bestBedRoomDTO.bnum},'${bestBedRoomDTO.image1}','${bestBedRoomDTO.name }',${bestBedRoomDTO.price},${bestBedRoomDTO.discount},'${bestBedRoomDTO.register}');">
 						            		
-						    					<img src="ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}" width="100%" height="275">
-								  				
+						            			<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+												<c:if test="${bestBedRoomDTO.register == 'o'}">
+						    						<img src="ProductRegisterImg/${bestBedRoomDTO.bnum}_${bestBedRoomDTO.name}/${bestBedRoomDTO.image1}" width="100%" height="275">
+						    					</c:if>
+							    				
+						    					<!-- DB에서 insert로 상품을 등록했을 경우 -->
+						    					<c:if test="${bestBedRoomDTO.register == 'x'}">
+							    					<img src="images/bedRoom/${bestBedRoomDTO.image1}.JPG" width="100%" height="275">
+						    					</c:if>
+							    				
 								  				<div class="desc"><b>
 								  					${bestBedRoomDTO.name}<br>
 								  					<font color="#7777ca"><del><fmt:formatNumber value="${bestBedRoomDTO.price}" type="currency" /></del></font><br>
@@ -216,10 +232,18 @@
 								<li>
 					            	<div class="img">
 					            	
-										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount});">
+										<a href="javascript:bedRoomDetail(${bedRoomDTO.bnum},'${bedRoomDTO.image1}','${bedRoomDTO.name }',${bedRoomDTO.price},${bedRoomDTO.discount},'${bedRoomDTO.register}');">
+											
+											<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+											<c:if test="${bedRoomDTO.register == 'o'}">
+						    					<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="100%" height="275">
+						    				</c:if>
 						    				
-						    				<img src="ProductRegisterImg/${bedRoomDTO.bnum}_${bedRoomDTO.name}/${bedRoomDTO.image1}" width="100%" height="275">
-						    				
+						    				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+						    				<c:if test="${bedRoomDTO.register == 'x'}">
+						    					<img src="images/bedRoom/${bedRoomDTO.image1}.JPG" width="100%" height="275">
+						    				</c:if>
+                      
 							  				<div class="desc"><b>
 							  					${bedRoomDTO.name}<br>
 							  					<font color="#7777ca"><del><fmt:formatNumber value="${bedRoomDTO.price}" type="currency" /></del></font><br>

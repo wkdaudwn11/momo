@@ -15,7 +15,7 @@
 	
 	<!-- 장바구니에서 체크된 물품들의 정보를 가져오는 쿼리 -->
 	<select id="cartList" parameterType="arraylist" resultType="CartDTO"> 
-		select cnum, pnum, category, id, name, count, price, discount, to_char(cartdate, 'YYYY-MM-dd') cartdate, image1
+		select *
 		  from cart 
 		<where> cnum IN 
 			<foreach item="xxx" index="i" collection="list" open="(" separator="," close=")"> 

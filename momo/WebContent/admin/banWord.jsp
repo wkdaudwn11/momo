@@ -62,7 +62,7 @@
 	<c:set var="login" value="${sessionScope.login}" scope="request" />
 
 	<jsp:include page="../include/header.jsp" flush="true"></jsp:include>
-
+	<br /><br /><br />
 	<div id="banWordWrap">
 		<br />
 
@@ -105,7 +105,7 @@
 
 	</div>
 	<!-- banWordWrap -->
-
+	<br /><br /><br />
 	<jsp:include page="../include/footer.jsp" flush="true"></jsp:include>
 
 </body>

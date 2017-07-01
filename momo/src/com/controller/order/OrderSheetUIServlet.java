@@ -2,7 +2,6 @@ package com.controller.order;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.entity.cart.CartDTO;
+import com.entity.cart.CartPageDTO;
 import com.entity.member.MemberDTO;
-import com.service.CartService;
 import com.service.OrderService;
 
 @WebServlet("/OrderSheetUIServlet")

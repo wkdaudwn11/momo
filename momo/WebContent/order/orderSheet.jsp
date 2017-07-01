@@ -127,7 +127,15 @@ sns: ${sessionScope.login.sns}
 								<b>${i.count + x}</b>
 							</td>
 						    <td  width="50" align="center">
-						    	<img src="images/${cartDTO.category}/${cartDTO.image1}.JPG" width="50" height="50">
+						    	<!-- 상품 등록 버튼을 눌러서 상품을 등록을 했을 경우 -->
+								<c:if test="${cartDTO.register == 'o'}">
+				   					<img src="ProductRegisterImg/${cartDTO.pnum}_${cartDTO.name}/${cartDTO.image1}" width="50" height="50">
+				   				</c:if>
+				   				
+				   				<!-- DB에서 insert로 상품을 등록했을 경우 -->
+				   				<c:if test="${cartDTO.register == 'x'}">
+				   					<img src="images/bedRoom/${cartDTO.image1}.JPG" width="50" height="50">
+				   				</c:if>
 						    </td>
 		 					<td width="200" align="center">
 		 						<c:if test="${cartDTO.category == 'bedRoom'}">

@@ -12,13 +12,14 @@ public class CartDTO {
 	private int discount;		//할인율
 	private String cartdate;	//카트에 집어넣은 날짜
 	private String image1;		//상품사진
+	private String register;
 	
 	public CartDTO() {
 		super();
 	}
 
 	public CartDTO(int cnum, int pnum, String category, String id, String name, int count, int price, int discount,
-			String cartdate, String image1) {
+			String cartdate, String image1, String register) {
 		super();
 		this.cnum = cnum;
 		this.pnum = pnum;
@@ -30,12 +31,14 @@ public class CartDTO {
 		this.discount = discount;
 		this.cartdate = cartdate;
 		this.image1 = image1;
+		this.register = register;
 	}
 
 	@Override
 	public String toString() {
 		return "CartDTO [cnum=" + cnum + ", pnum=" + pnum + ", category=" + category + ", id=" + id + ", name=" + name
-				+ ", count=" + count + ", price=" + price + ", discount=" + discount + ", cartdate= "+ cartdate +", image1=" + image1 + "]";
+				+ ", count=" + count + ", price=" + price + ", discount=" + discount + ", cartdate=" + cartdate
+				+ ", image1=" + image1 + ", register=" + register + "]";
 	}
 
 	public int getCnum() {
@@ -101,7 +104,7 @@ public class CartDTO {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
+
 	public String getCartdate() {
 		return cartdate;
 	}
@@ -117,5 +120,13 @@ public class CartDTO {
 	public void setImage1(String image1) {
 		this.image1 = image1;
 	}
-	
+
+	public String getRegister() {
+		return register;
+	}
+
+	public void setRegister(String register) {
+		this.register = register;
+	}
+
 }
